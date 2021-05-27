@@ -53,21 +53,9 @@ gauge.customScreenshotWriter = async function () {
     return path.basename(screenshotFilePath);
 };
 
-step("Login to Bahmni as a receptionist", async function() {
-        await goto(process.env.bahmniHome);
-        await write("superman",into(textBox(toRightOf("Username *"))));
-        await write("Admin1234",into(textBox(toRightOf("Password *"))));
-        await dropDown("Location").select("General Ward");
-        await click(button("Login"));
-});
-
 step("Open registration module", async function() {
         await highlight("Clinical")
         await click("Registration",toLeftOf("Programs"));
-    });
-    
-    step("Create a new patient", async function() {
-        await click("Create New");
     });
     
     step("To Associate a healthID, vefiy it", async function() {
@@ -114,4 +102,89 @@ step("Open registration module", async function() {
 step("Select Mobile OTP", async function() {
     await dropDown("Preferred mode of Authentication").select("MOBILE_OTP");
     await click(button("Authenticate"))
+});
+
+step("Authenticate with Mobile", async function() {
+    const token = process.env.receptionist         
+      
+        await intercept("https://ndhm-dev.bahmni-covid19.in/hiprovider/v0.5/hip/auth/init", (request) => {
+        request.respond({
+        })
+    })
+
+});
+
+step("Enter OTP for health care validation <arg0>", async function(arg0) {
+    await write("0000",into(textBox(toRightOf("Enter OTP"))));
+    await click(button("Confirm"))
+
+    await intercept("https://ndhm-dev.bahmni-covid19.in/hiprovider/v0.5/hip/auth/confirm",(request)=>{
+            request.respond({"error":{"code":1405,"message":"Invalid OTP"}})
+
+    //https://ndhm-dev.bahmni-covid19.in/hiprovider/v0.5/hip/auth/confirm
+    })
+});
+
+step("Login as a receptionist with username <userName> password <password> location <location>", async function(userName, password, location) {
+        await write(userName,into(textBox(toRightOf("Username *"))));
+        await write(password,into(textBox(toRightOf("Password *"))));
+        await dropDown("Location").select(location);
+        await click(button("Login"));
+});
+
+step("Goto Bahmni home", async function() {
+        await goto(process.env.bahmniHome);
+});
+
+step("Create a new patient with verfication id", async function() {
+    await click("Create New");
+});
+
+step("Enter patient first name <firstName>", async function(firstName) {
+    await write(firstName,into(textBox(toRightOf("Patient Name*"))));
+});
+
+step("Enter patient middle name <middleName>", async function(middleName) {
+    await write(middleName,into(textBox({"placeholder" : "Middle Name"})));
+});
+
+step("Enter patient last name <lastName>", async function(lastName) {
+    await write(lastName,into(textBox({"placeholder" : "Last Name"})));
+});
+
+step("Enter patient gender <gender>", async function(gender) {
+	await dropDown("Gender *").select(gender);
+});
+
+step("Enter age of the patient <age>", async function(age) {
+    await write(age, into(textBox(toRightOf("Years"))));
+    await click(checkBox(toLeftOf("Estimated")));
+});
+
+step("Enter patient mobile number <mobile>", async function(mobile) {
+    await write(mobile, into(textBox(toRightOf("Primary Contact"))));
+});
+
+step("Save the patient data", async function() {
+    await click("Save");
+});
+
+step("Click Start OPD Visit", async function() {
+    await click(button("Start OPD visit"));
+});
+
+step("Enter registration fees <arg0>", async function(arg0) {
+    await write("100", into(textBox(toRightOf("Registration Fees"))));
+});
+
+step("Click Save", async function() {
+    await click("Save");
+});
+
+step("Go back to home page", async function() {
+    await click($('.back-btn'));
+});
+
+step("Click create new patient", async function() {
+	await click("Create New")
 });

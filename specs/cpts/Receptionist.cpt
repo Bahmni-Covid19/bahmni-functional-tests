@@ -1,0 +1,34 @@
+# Login to Bahmni as a receptionist
+* Goto Bahmni home
+* Login as a receptionist with username "superman" password "Admin1234" location "General Ward"
+
+# Create a new patient with health id <healthID>
+* Open registration module
+* Create a new patient with verfication id
+* To Associate a healthID, vefiy it
+* Enter healthID <healthID> details
+* Fetch authentication modes
+* Select Mobile OTP
+* Authenticate with Mobile
+* Enter OTP for health care validation "0000"
+
+# Create a new patient with gender <gender> with first name <firstName> middle name <middleName> last name <lastName>, aged <age> with mobile number <mobileNumber>
+* Click create new patient
+* Enter patient first name <firstName>
+* Enter patient middle name <middleName>
+* Enter patient last name <lastName>
+* Enter patient gender <gender>
+* Enter age of the patient <age>
+* Enter patient mobile number <mobileNumber>
+* Save the patient data
+
+# Doctor must be able to enter the consultation notes <consultationNotes> for patient <patientFirstName> <patientLastName>
+* Doctor opens the consultation tab for patient <patientFirstName> <patientLastName>
+* Doctor captures consultation notes "Consultation notes"
+
+# Start an OPD
+* Click Start OPD Visit
+* Enter registration fees "100"
+* Click Save
+* Go back to home page
+
