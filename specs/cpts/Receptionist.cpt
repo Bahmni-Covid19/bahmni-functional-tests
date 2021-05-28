@@ -22,7 +22,7 @@
 * Enter patient mobile number <mobileNumber>
 * Save the patient data
 
-# Doctor must be able to enter the consultation notes <consultationNotes> for patient <patientFirstName> <patientLastName>
+# Doctor opens the consultation notes <consultationNotes> for newly created patient <patientFirstName> <patientLastName>
 * Doctor opens the consultation tab for patient <patientFirstName> <patientLastName>
 * Doctor captures consultation notes "Consultation notes"
 

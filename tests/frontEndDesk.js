@@ -26,6 +26,7 @@ const {
     into,
     textBox,
     evaluate,
+    scrollDown,
     waitFor
 } = require('taiko');
 
@@ -167,10 +168,12 @@ step("Enter patient mobile number <mobile>", async function(mobile) {
 
 step("Save the patient data", async function() {
     await click("Save");
+    var patientIdentifierValue = await $('#patientIdentifierValue').text();
+    gauge.dataStore.scenarioStore.put("patientIdentifier",patientIdentifierValue);
 });
 
 step("Click Start OPD Visit", async function() {
-    await click(button("Start OPD visit"));
+    await click("Start OPD Visit");
 });
 
 step("Enter registration fees <arg0>", async function(arg0) {
@@ -182,9 +185,18 @@ step("Click Save", async function() {
 });
 
 step("Go back to home page", async function() {
-    await click($('.back-btn'));
+    goto("https://ndhm-dev.bahmni-covid19.in/bahmni/home/index.html#/dashboard")
+    //    await click($('.back-btn'));
 });
 
 step("Click create new patient", async function() {
 	await click("Create New")
+});
+
+step("Open newly created patient details by search", async function () {
+	var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
+
+    await goto("https://ndhm-dev.bahmni-covid19.in/bahmni/registration/index.html#/search")
+    await write(patientIdentifierValue,into(textBox({"placeholder" : "Enter ID"})))
+    await click("Search",toRightOf(patientIdentifierValue));
 });
