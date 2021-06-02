@@ -21,8 +21,8 @@ jobs:
           # fallback to using the latest cache if no exact match is found
           - v1-dependencies-
 
-      - run: npm install -g @getgauge/cli
-      - run: npm install -g taiko
+      - run: npm install @getgauge/cli
+      - run: npm install taiko
       - run: npm install
 
       - save_cache:
