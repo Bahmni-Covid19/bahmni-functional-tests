@@ -23,5 +23,19 @@
 
 ## Should be able to get patient prescription
 * Login to Bahmni as a receptionist
-* Start an OPD
 * Open registration module
+* Create a new patient with gender "Female" with first name "First" middle name "Middle" last name "Last", aged "29" with mobile number "+91-9876543210"
+* Open newly created patient details by search
+* Start an OPD
+* Doctor opens the consultation notes "Consultation Notes" for newly created patient "First" "Last"
+* Doctor must be able to prescribe tests
+|TestName|
+|Haemogram|
+|Serum|
+|Liver Function - General|
+|LDH|
+* Goto Bahmni home
+* Open Patient Documents
+* Choose patient "First" "Last"
+* Add a lab report
+* Create a consent request for the healthID "firstMiddleLast@sbx"
