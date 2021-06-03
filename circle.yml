@@ -46,8 +46,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run:
-        Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
+      - run: Xvfb -ac :99 -screen 0 1280x1024x16 & export DISPLAY=:99
 
       # run tests!
       - run: npm test
