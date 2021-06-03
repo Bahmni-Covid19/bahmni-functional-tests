@@ -2,7 +2,7 @@
 * Goto Bahmni home
 * Login as a receptionist with username "superman" password "Admin1234" location "General Ward"
 
-# Create a new patient with health id <healthID>
+# Create a new patient with health id <healthID> with mobile number <mobileNumber>
 * Open registration module
 * Create a new patient with verfication id
 * To Associate a healthID, vefiy it
@@ -12,7 +12,8 @@
 * Select Mobile OTP
 * Authenticate with Mobile
 * Enter OTP for health care validation "0000" for healthID <healthID>
-* waitFor "25000"
+* Enter patient mobile number <mobileNumber>
+* Save the patient data
 
 # Create a new patient with gender <gender> with first name <firstName> middle name <middleName> last name <lastName>, aged <age> with mobile number <mobileNumber>
 * Click create new patient
