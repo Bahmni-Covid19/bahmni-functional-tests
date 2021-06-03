@@ -11,7 +11,7 @@
 * Fetch authentication modes
 * Select Mobile OTP
 * Authenticate with Mobile
-* Enter OTP for health care validation "0000"
+* Enter OTP for health care validation "0000" for healthID <healthID>
 * waitFor "25000"
 
 # Create a new patient with gender <gender> with first name <firstName> middle name <middleName> last name <lastName>, aged <age> with mobile number <mobileNumber>

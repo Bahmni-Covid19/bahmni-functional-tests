@@ -119,45 +119,6 @@ step("Authenticate with Mobile", async function() {
     await click(button("Authenticate"))
 });
 
-step("Enter OTP for health care validation <otp>", async function(otp) {
-    await write(otp,into(textBox(above("Confirm"))));
-    var healthID = "meghna@sbx";
-    var fullName = "Meghna Rawat"
-    var gender = "F"
-    var yearOfBirth = "2000"
-    var district = "NORTH AND MIDDLE ANDAMAN"
-    var state = "ANDAMAN AND NICOBAR ISLANDS"
-    var mobileNumber="9876543210"
-    var healthNumber="22-7135-4613-2574"
-    const token = process.env.receptionist         
-
-    var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
-		.replace('<healthID>',healthID)
-		.replace('<fullName>',fullName)
-		.replace('<gender>',gender)
-		.replace('<yearOfBirth>',yearOfBirth)
-		.replace('<district>',district)
-		.replace('<state>',state)
-		.replace('<mobileNumber>',mobileNumber)
-        .replace('<healthNumber>',healthNumber);
-    await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/v0.5/hip/auth/confirm",(request)=>{
-        request.respond({
-            method: 'POST',
-            port: '9052',
-            hostname: 'https://ndhm-dev.bahmni-covid19.in/',
-            path: '/v0.5/users/auth/on-init',
-            body: confirm,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-                'content-length': confirm.length,
-                'X-HIP-ID': '10000005'
-            }
-        })
-    });
-    await click(button("Confirm"))
-});
-
 step("Login as a receptionist with username <userName> password <password> location <location>", async function(userName, password, location) {
         await write(userName,into(textBox(toRightOf("Username *"))));
         await write(password,into(textBox(toRightOf("Password *"))));
@@ -257,4 +218,37 @@ step("Verify if healthId <healthID> already exists", async function (healthID) {
 
 step("waitFor <time>", async function(time) {
     await waitFor(time)
+});
+
+step("Enter OTP for health care validation <otp> for healthID <healthID>", 
+async function (otp, healthID) {
+    await write(otp,into(textBox(above("Confirm"))));
+    var patientDetails = JSON.parse(_fileExtension.parseContent("./data/confirm/"+healthID+".json"));
+    const token = process.env.receptionist         
+
+    var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
+		.replace('<healthID>',patientDetails.healthID)
+		.replace('<fullName>',patientDetails.firstName+" "+patientDetails.lastName)
+		.replace('<gender>',patientDetails.gender)
+		.replace('<yearOfBirth>',patientDetails.yearOfBirth)
+		.replace('<district>',patientDetails.district)
+		.replace('<state>',patientDetails.state)
+		.replace('<mobileNumber>',patientDetails.mobileNumber)
+        .replace('<healthNumber>',patientDetails.healthNumber);
+    await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/v0.5/hip/auth/confirm",(request)=>{
+        request.respond({
+            method: 'POST',
+            port: '9052',
+            hostname: 'https://ndhm-dev.bahmni-covid19.in/',
+            path: '/v0.5/users/auth/on-init',
+            body: confirm,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+                'content-length': confirm.length,
+                'X-HIP-ID': '10000005'
+            }
+        })
+    });
+    await click(button("Confirm"))
 });
