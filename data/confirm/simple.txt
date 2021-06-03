@@ -1,0 +1,22 @@
+{
+    "patient": {
+        "id": <healthID>,
+        "name": <fullName>,
+        "gender": <gender>,
+        "yearOfBirth": <yearOfBirth>,
+        "address": {
+            "district": <district>,
+            "state": <state>
+        },
+        "identifiers": [
+            {
+                "type": "MOBILE",
+                "value": <mobileNumber>
+            },
+            {
+                "type": "HEALTH_NUMBER",
+                "value": <healthNumber>
+            }
+        ]
+    }
+}

@@ -96,8 +96,6 @@ step("Open registration module", async function() {
     })
                 
         await click(text("Verify",within($(".verify-health-id"))));
-
-        await waitFor(10000)
 });
 
 step("Select Mobile OTP", async function() {
@@ -107,23 +105,51 @@ step("Select Mobile OTP", async function() {
 
 step("Authenticate with Mobile", async function() {
     const token = process.env.receptionist         
-      
-        await intercept("https://ndhm-dev.bahmni-covid19.in/hiprovider/v0.5/hip/auth/init", (request) => {
+        await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/v0.5/hip/auth/init", (request) => {
         request.respond({
+            method: 'POST',
+            port: '9052',
+            hostname: 'https://ndhm-dev.bahmni-covid19.in/',
+            path: '/v0.5/users/auth/on-fetch-modes',
+            body: {},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+                'content-length': reqBodyOnFetchModes.length,
+                'X-HIP-ID': '10000005'
+            }
         })
     })
 
 });
 
 step("Enter OTP for health care validation <arg0>", async function(arg0) {
+    await waitFor(2000)
     await write("0000",into(textBox(toRightOf("Enter OTP"))));
     await click(button("Confirm"))
 
-    await intercept("https://ndhm-dev.bahmni-covid19.in/hiprovider/v0.5/hip/auth/confirm",(request)=>{
-            request.respond({"error":{"code":1405,"message":"Invalid OTP"}})
-
-    //https://ndhm-dev.bahmni-covid19.in/hiprovider/v0.5/hip/auth/confirm
-    })
+    healthID = "meghna@sbx";
+    fullName = "Meghna Rawat"
+    gender = "F"
+    yearOfBirth = "2000"
+    district = "NORTH AND MIDDLE ANDAMAN"
+    state = "ANDAMAN AND NICOBAR ISLANDS"
+    mobileNumber="9876543210"
+    healthNumber="22-7135-4613-2574"
+    
+   
+    var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
+		.replace('<healthID>',healthID)
+		.replace('<fullName>',fullName)
+		.replace('<gender>',gender)
+		.replace('<yearOfBirth>',yearOfBirth)
+		.replace('<district>',district)
+		.replace('<state>',state)
+		.replace('<mobileNumber>',mobileNumber)
+        .replace('<healthNumber>',healthNumber)
+        await intercept("https://ndhm-dev.bahmni-covid19.in/hiprovider/v0.5/hip/auth/confirm",(request)=>{
+            request.respond(confirm)});
+        await waitFor(10000)
 });
 
 step("Login as a receptionist with username <userName> password <password> location <location>", async function(userName, password, location) {
@@ -199,4 +225,26 @@ step("Open newly created patient details by search", async function () {
     await goto("https://ndhm-dev.bahmni-covid19.in/bahmni/registration/index.html#/search")
     await write(patientIdentifierValue,into(textBox({"placeholder" : "Enter ID"})))
     await click("Search",toRightOf(patientIdentifierValue));
+});
+
+step("Verify if healthId <healthID> already exists", async function (healthID) {
+    const token = process.env.receptionist         
+      
+        await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/existingPatients/"+healthID, (request) => {
+        var body1 ={
+            "error":{"code":"PATIENT_ID_NOT_FOUND","message":"No patient found"}
+        };
+        var reqBodyOnFetchModes = JSON.stringify(body1);
+        request.respond({
+            method: 'POST',
+            port: '9052',
+            body: body1,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+                'content-length': reqBodyOnFetchModes.length
+            }
+        })
+    })
+	
 });
