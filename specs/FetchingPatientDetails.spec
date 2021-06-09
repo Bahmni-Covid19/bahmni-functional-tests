@@ -41,5 +41,5 @@
 * Create a consent request for the healthID "firstMiddleLast@sbx"
 |Health Info Types|
 |Prescription|
---------
+___
 * Log out from "General Ward"

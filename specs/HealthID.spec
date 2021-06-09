@@ -1,6 +1,6 @@
 # HealthID
 |patientFirstName|patientLastName|patientHealthID|mobileNumber|
-|Something|D|somethingD@sbx|+91-9876543210|
+|Something|E|somethingE@sbx|+91-9876543210|
 ## Verify health ID
 * Login to Bahmni as a receptionist
 * Create a new patient with health id <patientHealthID> with firstName <patientFirstName> lastName <patientLastName> mobileNumber <mobileNumber>
@@ -21,5 +21,5 @@
 
 ## Login
 * Login to Bahmni as a receptionist
-----
+___
 * Log out from "General Ward"
