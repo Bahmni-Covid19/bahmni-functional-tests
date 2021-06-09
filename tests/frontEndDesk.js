@@ -286,7 +286,6 @@ step("Enter OTP for health care validation <otp> for healthID <healthID> firstNa
         await click(button("Create New Record"))
 
         await click(button("Update"),{force: true})
-        await screenshot();
     });
 
 step("Enter visit details", async function() {

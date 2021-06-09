@@ -6,6 +6,11 @@ const {
     into,
     textBox,
     above,
+    within,
+    accept,
+    confirm,
+    $,
+    waitFor,
 } = require('taiko');
 
 step("Doctor opens the consultation tab for newly created patient", async function () {
@@ -16,18 +21,13 @@ step("Doctor opens the consultation tab for newly created patient", async functi
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
     await click(firstName+" "+lastName,above(patientIdentifierValue));
-    try{
-        await click("OK");
-    }
-    catch(e){}
-    await click("Consultation");
-    try{
-        await click("OK");
-    }
-    catch(e){}
+    await waitFor(3000)
+    await click("Consultation",within($(".opd-header-bottom")));
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
+    await confirm("TypeError: Cannot read property 'length' of undefined", async () => await accept())
+
 	await click("Consultation");
 	await write(notes,into(textBox({"placeholder" : "Enter Notes here"})));
 });

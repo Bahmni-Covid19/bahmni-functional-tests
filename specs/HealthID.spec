@@ -1,6 +1,6 @@
 # HealthID
 |patientFirstName|patientLastName|patientHealthID|mobileNumber|
-|Something|E|somethingE@sbx|+91-9876543210|
+|Something|M|somethingM@sbx|+91-9876543210|
 ## Verify health ID
 * Login to Bahmni as a receptionist
 * Create a new patient with health id <patientHealthID> with firstName <patientFirstName> lastName <patientLastName> mobileNumber <mobileNumber>
@@ -17,7 +17,6 @@
 * Open Patient Documents
 * Choose newly created patient
 * Add a lab report "labReport1"
-* Verify openmrs prescriptions for OPD from "yesterday" to "today"
-
+* Close the visit
 ## Login
 * Login to Bahmni as a receptionist
