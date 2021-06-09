@@ -17,10 +17,14 @@
 * Open Patient Documents
 * Choose patient "First" "Last"
 * Add a lab report "labReport1"
+* Verify openmrs prescriptions for OPD from "yesterday" to "today"
 * Create a consent request for the healthID "somethingSSS@sbx"
 |Health Info Types|
 |Prescription|
 
+## Get UUID
+* Login to Bahmni as a receptionist
+* Verify openmrs prescriptions
 ## Consent Request
 * Create a consent request for the healthID "somethingSSS@sbx"
 |Health Info Types|
