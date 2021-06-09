@@ -21,7 +21,9 @@ const {
     text,
     into,
     textBox,
-    waitFor
+    waitFor,
+    confirm,
+    accept,
 } = require('taiko');
 var _fileExtension = require("./util/fileExtension");
 
@@ -29,7 +31,7 @@ const assert = require("assert");
 const headless = process.env.headless_chrome.toLowerCase() === 'true';
 
 beforeSuite(async () => {
-    await openBrowser({headless:headless,
+    await openBrowser({headless:true,
         args: ["--start-fullscreen"]
     })
 });
@@ -50,6 +52,7 @@ gauge.customScreenshotWriter = async function () {
 };
 
 step("Open registration module", async function () {
+    await goto(process.env.bahmniHome)
     await highlight("Clinical")
     await click("Registration", toLeftOf("Programs"));
 });
@@ -161,8 +164,7 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 
 step("Save the patient data", async function () {
     await click("Save");
-    var patientIdentifierValue = await $('#patientIdentifierValue').text();
-    gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifierValue);
+    gauge.dataStore.scenarioStore.put("patientIdentifier", await $('#patientIdentifierValue').text());
 });
 
 step("Click Start OPD Visit", async function () {
@@ -220,22 +222,27 @@ step("waitFor <time>", async function (time) {
     await waitFor(time)
 });
 
-step("Enter OTP for health care validation <otp> for healthID <healthID>",
-    async function (otp, healthID) {
+step("Enter OTP for health care validation <otp> for healthID <healthID> firstName <firstName> lastName <lastName> mobileNumber <patientMobileNumber>",
+    async function (otp, healthID,firstName,lastName,patientMobileNumber) {
         await write(otp, into(textBox(above("Confirm"))));
-        var patientDetails = JSON.parse(_fileExtension.parseContent("./data/confirm/" + healthID + ".json"));
         const token = process.env.receptionist
+        var yearOfBirth = "2000";
+        var gender = "F"
 
-        var patientFullName = patientDetails.firstName + " " + patientDetails.lastName
+        gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+        gauge.dataStore.scenarioStore.put("patientMiddleName","")
+        gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+        gauge.dataStore.scenarioStore.put("patientMobileNumber",patientMobileNumber)
+    
         var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
-            .replace('<healthID>', patientDetails.healthID)
-            .replace('<fullName>', patientFullName)
-            .replace('<gender>', patientDetails.gender)
-            .replace('<yearOfBirth>', patientDetails.yearOfBirth)
-            .replace('<district>', patientDetails.district)
-            .replace('<state>', patientDetails.state)
-            .replace('<mobileNumber>', patientDetails.mobileNumber)
-            .replace('<healthNumber>', patientDetails.healthNumber);
+            .replace('<healthID>', healthID)
+            .replace('<fullName>', firstName + " " + lastName)
+            .replace('<gender>', gender)
+            .replace('<yearOfBirth>', yearOfBirth)
+            .replace('<district>', "NORTH AND MIDDLE ANDAMAN")
+            .replace('<state>', "ANDAMAN AND NICOBAR ISLANDS")
+            .replace('<mobileNumber>', patientMobileNumber)
+            .replace('<healthNumber>', "00-0000-0000-0000");
         await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/v0.5/hip/auth/confirm", (request) => {
             request.respond({
                 method: 'POST',
@@ -251,8 +258,9 @@ step("Enter OTP for health care validation <otp> for healthID <healthID>",
                 }
             })
         });
-        var existingPatientUrl = "https://ndhm-dev.bahmni-covid19.in/ndhm/null/existingPatients?patientName=" + patientDetails.firstName + "+" + patientDetails.lastName
-            + "&patientYearOfBirth=" + patientDetails.yearOfBirth + "&patientGender=" + patientDetails.gender;
+        var existingPatientUrl = "https://ndhm-dev.bahmni-covid19.in/ndhm/null/existingPatients?patientName=" + 
+            firstName + "+" + lastName
+            + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender;
         await intercept(existingPatientUrl, (request) => {
             var body1 = {
                 "error": { "code": "PATIENT_ID_NOT_FOUND", "message": "No patient found" }
@@ -270,7 +278,10 @@ step("Enter OTP for health care validation <otp> for healthID <healthID>",
             })
         })
         await click(button("Confirm"))
-        await click(button("Update"))
+        await click(button("Create New Record"))
+
+        await click(button("Update"),{force: true})
+        await screenshot();
     });
 
 step("Enter visit details", async function() {
@@ -278,5 +289,6 @@ step("Enter visit details", async function() {
 });
 
 step("Close visit", async function() {
+    await confirm('Are you sure you want to close this visit?', async () => await accept())
 	await click(button("Close Visit"))
 });

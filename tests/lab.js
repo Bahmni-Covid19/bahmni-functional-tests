@@ -14,10 +14,12 @@ step("Open Patient Documents", async function() {
 
 step("Add a lab report <labReport>", async function (labReport) {
 	await attach(path.join("./data", labReport+'.jpg'), await fileField({'name':'image-document-upload'}));
-	await waitFor(10000)
 });
 
-step("Choose patient <patientFirstName> <patientLastName>", async function(patientFirstName, patientLastName) {
+step("Choose newly created patient", async function() {
 	var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
-	await click(patientFirstName+" "+patientLastName,above(patientIdentifierValue))
+	var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
+
+	await click(firstName+" "+lastName,above(patientIdentifierValue))
 });

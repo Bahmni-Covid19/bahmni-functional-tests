@@ -6,7 +6,7 @@
 * Create a new patient with gender "Female" with first name "First" middle name "Middle" last name "Last", aged "29" with mobile number "+91-9876543210"
 * Open newly created patient details by search
 * Start an OPD
-* Doctor opens the consultation notes "Consultation Notes" for newly created patient "First" "Last"
+* Doctor opens the consultation notes "Consultation Notes" for newly created patient
 * Doctor must be able to prescribe tests
 |TestName|
 |Haemogram|
@@ -27,7 +27,7 @@
 * Create a new patient with gender "Female" with first name "First" middle name "Middle" last name "Last", aged "29" with mobile number "+91-9876543210"
 * Open newly created patient details by search
 * Start an OPD
-* Doctor opens the consultation notes "Consultation Notes" for newly created patient "First" "Last"
+* Doctor opens the consultation notes "Consultation Notes" for newly created patient
 * Doctor must be able to prescribe tests
 |TestName|
 |Haemogram|
@@ -36,7 +36,7 @@
 |LDH|
 * Goto Bahmni home
 * Open Patient Documents
-* Choose patient "First" "Last"
+* Choose newly created patient
 * Add a lab report "labReport1"
 * Create a consent request for the healthID "firstMiddleLast@sbx"
 |Health Info Types|

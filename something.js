@@ -1,7 +1,7 @@
 const { openBrowser, goto, toRightOf, textBox, into, write, dropDown, button, click, highlight, toLeftOf, checkBox, $, waitFor, closeBrowser } = require('taiko');
 (async () => {
     try {
-        await openBrowser({headless:false})
+        await openBrowser({headless:true})
         await goto("https://ndhm-dev.bahmni-covid19.in/bahmni/home/#/dashboard");
         await write("superman",into(textBox(toRightOf("Username *"))));
         await write("Admin1234",into(textBox(toRightOf("Password *"))));
