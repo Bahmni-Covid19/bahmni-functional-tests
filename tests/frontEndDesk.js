@@ -29,7 +29,7 @@ const assert = require("assert");
 const headless = process.env.headless_chrome.toLowerCase() === 'true';
 
 beforeSuite(async () => {
-    await openBrowser({
+    await openBrowser({headless:headless,
         args: ["--start-fullscreen"]
     })
 });
@@ -272,3 +272,11 @@ step("Enter OTP for health care validation <otp> for healthID <healthID>",
         await click(button("Confirm"))
         await click(button("Update"))
     });
+
+step("Enter visit details", async function() {
+	await click(button("Enter Visit Details"))
+});
+
+step("Close visit", async function() {
+	await click(button("Close Visit"))
+});

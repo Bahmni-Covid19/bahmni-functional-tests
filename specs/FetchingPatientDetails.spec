@@ -37,5 +37,7 @@
 * Goto Bahmni home
 * Open Patient Documents
 * Choose patient "First" "Last"
-* Add a lab report
+* Add a lab report "labReport1"
 * Create a consent request for the healthID "firstMiddleLast@sbx"
+|Health Info Types|
+|Prescription|

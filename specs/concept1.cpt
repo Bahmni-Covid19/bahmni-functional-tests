@@ -1,0 +1,4 @@
+# Create a consent request for the healthID <healthID> <healthInfoTypes>
+* Login to the consent request management system
+* Create new consent request for healthID <healthID> <healthInfoTypes>
+* waitFor "25000"

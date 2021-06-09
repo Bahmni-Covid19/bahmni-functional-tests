@@ -15,7 +15,8 @@ step("Doctor must be able to prescribe tests <tests>", async function(tests) {
         await click("Orders");
         for (test of tests.rows) {
                 await click(test.cells[0])
-        }        
+        }     
+        await click("Save")   
 });
 
 step("Doctor starts prescribing medications", async function () {
