@@ -46,7 +46,5 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       
-      - store_artifacts:
-          path: /reports/html-report
-          destination: htmlReports
       - run: xvfb-run npm test
+      - run: cp -r ./reports/html-report/result.xml $CIRCLE_TEST_REPORTS/htmlReports
