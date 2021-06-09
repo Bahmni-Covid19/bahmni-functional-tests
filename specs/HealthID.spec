@@ -19,10 +19,7 @@
 * Add a lab report "labReport1"
 * Verify openmrs prescriptions for OPD from "yesterday" to "today"
 
-## Get UUID
+## Login
 * Login to Bahmni as a receptionist
-* Verify openmrs prescriptions
-## Consent Request
-* Create a consent request for the healthID "somethingSSS@sbx"
-|Health Info Types|
-|Prescription|
+----
+* Log out from "General Ward"

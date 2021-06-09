@@ -292,3 +292,9 @@ step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
 	await click(button("Close Visit"))
 });
+
+step("Log out from <location>", async function (location) {
+    await click(button(toRightOf($('[ng-model="selectedLocationUuid"]'))))
+    await click('Logout')
+	///home/circleci/repo/reports/html-report/index.html
+});

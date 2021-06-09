@@ -47,3 +47,5 @@ jobs:
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run: xvfb-run npm test
+      - store_artifacts:
+          path: ./reports
