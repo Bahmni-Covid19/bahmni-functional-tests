@@ -21,5 +21,3 @@
 
 ## Login
 * Login to Bahmni as a receptionist
-___
-* Log out from "General Ward"

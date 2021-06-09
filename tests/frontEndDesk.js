@@ -139,14 +139,17 @@ step("Create a new patient with verfication id", async function () {
 
 step("Enter patient first name <firstName>", async function (firstName) {
     await write(firstName, into(textBox(toRightOf("Patient Name*"))));
+    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
 });
 
 step("Enter patient middle name <middleName>", async function (middleName) {
     await write(middleName, into(textBox({ "placeholder": "Middle Name" })));
+    gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
 });
 
 step("Enter patient last name <lastName>", async function (lastName) {
     await write(lastName, into(textBox({ "placeholder": "Last Name" })));
+    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
 });
 
 step("Enter patient gender <gender>", async function (gender) {
@@ -160,11 +163,13 @@ step("Enter age of the patient <age>", async function (age) {
 
 step("Enter patient mobile number <mobile>", async function (mobile) {
     await write(mobile, into(textBox(toRightOf("Primary Contact"))));
+    gauge.dataStore.scenarioStore.put("patientMobileNumber",mobile)
 });
 
 step("Save the patient data", async function () {
     await click("Save");
-    gauge.dataStore.scenarioStore.put("patientIdentifier", await $('#patientIdentifierValue').text());
+    var patientIdentifier = await $('#patientIdentifierValue').text();
+    gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
 });
 
 step("Click Start OPD Visit", async function () {
@@ -293,8 +298,10 @@ step("Close visit", async function() {
 	await click(button("Close Visit"))
 });
 
-step("Log out from <location>", async function (location) {
-    await click(button(toRightOf($('[ng-model="selectedLocationUuid"]'))))
-    await click('Logout')
-	///home/circleci/repo/reports/html-report/index.html
+step("Log out", async function () {
+    try
+    {
+        await click(button({"class":"btn-user-info fr"}))
+        await click('Logout')    
+    }catch(e){}
 });

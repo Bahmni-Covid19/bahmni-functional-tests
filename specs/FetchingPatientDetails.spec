@@ -13,13 +13,11 @@
 |Serum|
 |Liver Function - General|
 |LDH|
-* Doctor starts prescribing medications
-* Doctor prescribes drug "Paracetamol 500mg (Tablet)" at a frequency "Thrice a day"
-* Doctor prescribes drug dosage "3" for a duration "7".
-
-## Should be able to get patient radiology reports
-* Login to Bahmni as a receptionist
-* Open registration module
+* Goto Bahmni home
+* Open Patient Documents
+* Choose newly created patient
+* Add a lab report "labReport1"
+* Close the visit
 
 ## Should be able to get patient prescription
 * Login to Bahmni as a receptionist
@@ -34,12 +32,7 @@
 |Serum|
 |Liver Function - General|
 |LDH|
-* Goto Bahmni home
-* Open Patient Documents
-* Choose newly created patient
-* Add a lab report "labReport1"
-* Create a consent request for the healthID "firstMiddleLast@sbx"
-|Health Info Types|
-|Prescription|
-___
-* Log out from "General Ward"
+* Doctor starts prescribing medications
+* Doctor prescribes drug "Paracetamol 500mg (Tablet)" at a frequency "Thrice a day"
+* Doctor prescribes drug dosage "3" for a duration "7".
+* Close the visit

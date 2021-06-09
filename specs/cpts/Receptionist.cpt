@@ -1,5 +1,6 @@
 # Login to Bahmni as a receptionist
 * Goto Bahmni home
+* Log out
 * Login as a receptionist with username "superman" password "Admin1234" location "General Ward"
 
 # Create a new patient with health id <healthID> with firstName <firstName> lastName <lastName> mobileNumber <mobileNumber>
