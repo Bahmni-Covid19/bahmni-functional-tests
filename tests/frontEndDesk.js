@@ -131,7 +131,9 @@ step("Authenticate with Mobile", async function () {
     await click(button("Authenticate"))
 });
 
-step("Login as a receptionist with username <userName> password <password> location <location>", async function (userName, password, location) {
+step("Login as a receptionist with admin credentials location <location>", async function (location) {
+    var userName = process.env.receptionistUserName;
+    var password = process.env.receptionistPassword;
     await write(userName, into(textBox(toRightOf("Username *"))));
     await write(password, into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);

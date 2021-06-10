@@ -1,7 +1,7 @@
 # Login to Bahmni as a receptionist
 * Goto Bahmni home
 * Log out
-* Login as a receptionist with username "superman" password "Admin1234" location "General Ward"
+* Login as a receptionist with admin credentials location "General Ward"
 
 # Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Open registration module
