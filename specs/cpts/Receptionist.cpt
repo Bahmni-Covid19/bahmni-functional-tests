@@ -3,24 +3,24 @@
 * Log out
 * Login as a receptionist with username "superman" password "Admin1234" location "General Ward"
 
-# Create a new patient with health id <healthID> with firstName <firstName> lastName <lastName> mobileNumber <mobileNumber>
+# Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Open registration module
 * Create a new patient with verfication id
 * To Associate a healthID, vefiy it
-* Enter healthID <healthID> details
-* Verify if healthId <healthID> already exists
+* Enter random healthID details
+* Verify if healthId entered already exists
 * Fetch authentication modes
 * Select Mobile OTP
 * Authenticate with Mobile
-* Enter OTP for health care validation "0000" for healthID <healthID> firstName <firstName> lastName <lastName> mobileNumber <mobileNumber>
+* Enter OTP for health care validation "0000" for with new healthID, patient details and mobileNumber <mobileNumber>
 * Enter patient mobile number <mobileNumber>
 * Save the patient data
 
-# Create a new patient with gender <gender> with first name <firstName> middle name <middleName> last name <lastName>, aged <age> with mobile number <mobileNumber>
+# Create a new patient with gender <gender> with random name, aged <age> with mobile number <mobileNumber>
 * Click create new patient
-* Enter patient first name <firstName>
-* Enter patient middle name <middleName>
-* Enter patient last name <lastName>
+* Enter patient random first name
+* Enter patient random middle name
+* Enter patient random last name
 * Enter patient gender <gender>
 * Enter age of the patient <age>
 * Enter patient mobile number <mobileNumber>

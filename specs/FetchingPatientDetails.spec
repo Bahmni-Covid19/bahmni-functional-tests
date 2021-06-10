@@ -3,7 +3,7 @@
 ## Should be able to get patient lab reports
 * Login to Bahmni as a receptionist
 * Open registration module
-* Create a new patient with gender "Female" with first name "First" middle name "Middle" last name "Last", aged "29" with mobile number "+91-9876543210"
+* Create a new patient with gender "Female" with random name, aged "29" with mobile number "+91-9876543210"
 * Open newly created patient details by search
 * Start an OPD
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient
@@ -22,7 +22,7 @@
 ## Should be able to get patient prescription
 * Login to Bahmni as a receptionist
 * Open registration module
-* Create a new patient with gender "Female" with first name "First" middle name "Middle" last name "Last", aged "29" with mobile number "+91-9876543210"
+* Create a new patient with gender "Female" with random name, aged "29" with mobile number "+91-9876543210"
 * Open newly created patient details by search
 * Start an OPD
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient

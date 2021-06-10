@@ -1,9 +1,9 @@
 # HealthID
-|patientFirstName|patientLastName|patientHealthID|mobileNumber|
-|Something|M|somethingM@sbx|+91-9876543210|
+|mobileNumber|
+|+91-9876543210|
 ## Verify health ID
 * Login to Bahmni as a receptionist
-* Create a new patient with health id <patientHealthID> with firstName <patientFirstName> lastName <patientLastName> mobileNumber <mobileNumber>
+* Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Open newly created patient details by search
 * Start an OPD
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient

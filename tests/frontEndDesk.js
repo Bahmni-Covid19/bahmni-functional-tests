@@ -61,8 +61,17 @@ step("To Associate a healthID, vefiy it", async function () {
     await click("Verify Health ID");
 });
 
-step("Enter healthID <patientHealthID> details", async function (patientHealthID) {
+step("Enter random healthID details", async function () {
     await click(textBox(toRightOf("Enter Health ID")));
+    var firstName = randomName(10)
+    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+
+    var lastName = randomName(10)
+    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+
+    var patientHealthID = firstName+lastName+"@sbx";
+    gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
+
     await write(patientHealthID);
 });
 
@@ -137,20 +146,48 @@ step("Create a new patient with verfication id", async function () {
     await click("Create New");
 });
 
-step("Enter patient first name <firstName>", async function (firstName) {
+step("Enter patient random first name", async function () {
+    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+    if(firstName==null||firstName=="")
+    {
+        firstName = randomName(10)
+        gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+    }
     await write(firstName, into(textBox(toRightOf("Patient Name*"))));
-    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
 });
 
-step("Enter patient middle name <middleName>", async function (middleName) {
+step("Enter patient random middle name", async function () {
+    var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
+    if(middleName==null||firstName=="")
+    {
+        middleName = randomName(10)
+        gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
+    }
     await write(middleName, into(textBox({ "placeholder": "Middle Name" })));
     gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
 });
 
-step("Enter patient last name <lastName>", async function (lastName) {
+step("Enter patient random last name", async function () {
+    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
+    if(lastName==null||firstName=="")
+    {
+        lastName = randomName(10)
+        gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+    }
+
     await write(lastName, into(textBox({ "placeholder": "Last Name" })));
-    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
 });
+
+function randomName(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * 
+ charactersLength));
+   }
+   return result;
+}
 
 step("Enter patient gender <gender>", async function (gender) {
     await dropDown("Gender *").select(gender);
@@ -201,8 +238,10 @@ step("Open newly created patient details by search", async function () {
     await click("Search", toRightOf(patientIdentifierValue));
 });
 
-step("Verify if healthId <healthID> already exists", async function (healthID) {
+step("Verify if healthId entered already exists", async function () {
     const token = process.env.receptionist
+
+    var healthID =gauge.dataStore.scenarioStore.get("healthID")
 
     await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/existingPatients/" + healthID, (request) => {
         var body1 = {
@@ -227,21 +266,21 @@ step("waitFor <time>", async function (time) {
     await waitFor(time)
 });
 
-step("Enter OTP for health care validation <otp> for healthID <healthID> firstName <firstName> lastName <lastName> mobileNumber <patientMobileNumber>",
-    async function (otp, healthID,firstName,lastName,patientMobileNumber) {
+step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
+    async function (otp, patientMobileNumber) {
+        var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+        var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
+
+        var healthID = gauge.dataStore.scenarioStore.get("healthID",healthID)
+
         await write(otp, into(textBox(above("Confirm"))));
         const token = process.env.receptionist
         var yearOfBirth = "2000";
         var gender = "F"
-
-        gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
-        gauge.dataStore.scenarioStore.put("patientMiddleName","")
-        gauge.dataStore.scenarioStore.put("patientLastName",lastName)
-        gauge.dataStore.scenarioStore.put("patientMobileNumber",patientMobileNumber)
     
         var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
             .replace('<healthID>', healthID)
-            .replace('<fullName>', firstName + " " + lastName)
+            .replace('<fullName>', firstName +" " + lastName)
             .replace('<gender>', gender)
             .replace('<yearOfBirth>', yearOfBirth)
             .replace('<district>', "NORTH AND MIDDLE ANDAMAN")
