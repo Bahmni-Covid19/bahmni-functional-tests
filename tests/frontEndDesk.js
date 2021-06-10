@@ -359,3 +359,7 @@ step("Log out", async function () {
         await click('Logout')    
     }catch(e){}
 });
+
+step("Enter village <village>", async function(village) {
+	await write(village, into(textBox(toRightOf("Village"))))
+});

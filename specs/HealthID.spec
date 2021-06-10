@@ -18,3 +18,4 @@
 * Choose newly created patient
 * Add a lab report "labReport1"
 * Close the visit
+* Verify openmrs OPD patient details with mobileNumber <mobileNumber>

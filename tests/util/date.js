@@ -29,6 +29,14 @@ function ddmmyyyy(){
     return dd.toString()+mm.toString()+yyyy.toString();
 }
 
+function getddmmyyyyFormattedDate(date){
+    var dd = String(date.getDate()).padStart(2, '0');
+	var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = date.getFullYear();
+
+    return dd.toString()+"-"+mm.toString()+"-"+yyyy.toString();
+}
+
 function nextYear() {
 	var nextYear = new Date();
     nextYear.setFullYear(nextYear.getFullYear()+1);
@@ -40,5 +48,6 @@ module.exports={
     yesterday:yesterday,
     ddmmyyyy:ddmmyyyy,
     tomorrow:tomorrow,
-    nextYear:nextYear
+    nextYear:nextYear,
+    getddmmyyyyFormattedDate:getddmmyyyyFormattedDate
 }
