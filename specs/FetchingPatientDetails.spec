@@ -4,6 +4,7 @@
 * Login to Bahmni as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number "+91-9876543210"
+* Click on home page and goto registration module
 * Open newly created patient details by search
 * Start an OPD
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient
@@ -23,6 +24,7 @@
 * Login to Bahmni as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number "+91-9876543210"
+* Click on home page and goto registration module
 * Open newly created patient details by search
 * Start an OPD
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient

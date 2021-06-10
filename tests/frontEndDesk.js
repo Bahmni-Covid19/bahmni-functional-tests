@@ -249,7 +249,7 @@ step("Click create new patient", async function () {
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
-    await goto(process.env.bahmniHost+ "/bahmni/registration/index.html#/search")
+//    await goto(process.env.bahmniHost+ "/bahmni/registration/index.html#/search")
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
     await click("Search", toRightOf(patientIdentifierValue));
 });
@@ -362,4 +362,9 @@ step("Log out", async function () {
 
 step("Enter village <village>", async function(village) {
 	await write(village, into(textBox(toRightOf("Village"))))
+});
+
+step("Click on home page and goto registration module", async function () {
+    await click($(".back-btn"))
+    await click('Registration')
 });

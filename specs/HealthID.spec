@@ -4,6 +4,7 @@
 ## Verify health ID
 * Login to Bahmni as a receptionist
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
+* Click on home page and goto registration module
 * Open newly created patient details by search
 * Start an OPD
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient
