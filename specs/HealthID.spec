@@ -18,5 +18,3 @@
 * Choose newly created patient
 * Add a lab report "labReport1"
 * Close the visit
-## Login
-* Login to Bahmni as a receptionist
