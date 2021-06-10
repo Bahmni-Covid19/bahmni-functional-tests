@@ -249,7 +249,7 @@ step("Click create new patient", async function () {
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
-//    await goto(process.env.bahmniHost+ "/bahmni/registration/index.html#/search")
+    await waitFor(3000)
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
     await click("Search", toRightOf(patientIdentifierValue));
 });

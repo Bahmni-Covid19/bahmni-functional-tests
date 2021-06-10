@@ -27,9 +27,8 @@ step("Doctor opens the consultation tab for newly created patient", async functi
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
     await confirm("Cannot read property 'length' of undefined", async () => await accept())
-
     await click("Consultation",{force: true});
-    await waitFor(3000)
-    
-	await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true});
+    await waitFor(5000)
+
+    await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true});
 });
