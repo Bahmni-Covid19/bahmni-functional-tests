@@ -66,10 +66,10 @@ step("Create new consent request for healthID <healthID> <healthInfoTypes>", asy
 	await write(healthID,into(textBox(toRightOf("Patient Identifier"))))
 	patientResponse = {"patient":{"id":healthID+"@sbx","name":"cancer patient"}}
 
-	await intercept("https://ndhm-dev.bahmni-covid19.in/hiu-api/v1/patients/"+healthID+"@sbx", (request) => {
+	await intercept(process.env.bahmniHost+ "/hiu-api/v1/patients/"+healthID+"@sbx", (request) => {
         request.respond({
             method: 'GET',
-            hostname: 'https://ndhm-dev.bahmni-covid19.in/',
+            hostname: process.env.bahmniHost,
             body: patientResponse,
             headers: {
                 'Content-Type': 'application/json',

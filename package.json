@@ -6,6 +6,7 @@
   },
   "dependencies": {
     "taiko": "latest",
-    "axios": "latest"
+    "axios": "latest",
+    "buffer": "latest"
   }
 }

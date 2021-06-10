@@ -1,6 +1,7 @@
 /* globals gauge*/
 "use strict";
 const path = require('path');
+var Buffer = require('buffer/').Buffer
 const {
     openBrowser,
     $,
@@ -79,7 +80,7 @@ step("Fetch authentication modes", async function () {
     //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/
     const token = process.env.receptionist
 
-    await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/v0.5/hip/fetch-modes", (request) => {
+    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/fetch-modes", (request) => {
         var body1 = {
             "authModes": [
                 "MOBILE_OTP",
@@ -90,7 +91,7 @@ step("Fetch authentication modes", async function () {
         request.respond({
             method: 'POST',
             port: '9052',
-            hostname: 'https://ndhm-dev.bahmni-covid19.in/',
+            hostname: process.env.bahmniHost,
             path: '/v0.5/users/auth/on-fetch-modes',
             body: body1,
             headers: {
@@ -113,11 +114,11 @@ step("Authenticate with Mobile", async function () {
     const token = process.env.receptionist
     var reqBodyOnFetchModes = JSON.stringify("");
 
-    await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/v0.5/hip/auth/init", (request) => {
+    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/init", (request) => {
         request.respond({
             method: 'POST',
             port: '9052',
-            hostname: 'https://ndhm-dev.bahmni-covid19.in/',
+            hostname: process.env.bahmniHost,
             path: '/v0.5/users/auth/on-init',
             body: {},
             headers: {
@@ -132,13 +133,26 @@ step("Authenticate with Mobile", async function () {
 });
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    var userName = process.env.receptionistUserName;
-    var password = process.env.receptionistPassword;
+    var userName = getUserName(process.env.receptionist);
+    var password = getPassword(process.env.receptionist);
+    
     await write(userName, into(textBox(toRightOf("Username *"))));
     await write(password, into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);
     await click(button("Login"));
 });
+
+function getUserName(encodedUser){
+    let user = new Buffer(encodedUser,'base64');
+    let decodedUser = user.toString('ascii');
+    return decodedUser.split(":")[0]
+}
+
+function getPassword(encodedUser){
+    let user = new Buffer(encodedUser,'base64');
+    let decodedUser = user.toString('ascii');
+    return decodedUser.split(":")[1]
+}
 
 step("Goto Bahmni home", async function () {
     await goto(process.env.bahmniHome);
@@ -224,7 +238,7 @@ step("Click Save", async function () {
 });
 
 step("Go back to home page", async function () {
-    goto("https://ndhm-dev.bahmni-covid19.in/bahmni/home/index.html#/dashboard")
+    goto(process.env.bahmniHost+ "/bahmni/home/index.html#/dashboard")
     //    await click($('.back-btn'));
 });
 
@@ -235,7 +249,7 @@ step("Click create new patient", async function () {
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
-    await goto("https://ndhm-dev.bahmni-covid19.in/bahmni/registration/index.html#/search")
+    await goto(process.env.bahmniHost+ "/bahmni/registration/index.html#/search")
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
     await click("Search", toRightOf(patientIdentifierValue));
 });
@@ -245,7 +259,7 @@ step("Verify if healthId entered already exists", async function () {
 
     var healthID =gauge.dataStore.scenarioStore.get("healthID")
 
-    await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/existingPatients/" + healthID, (request) => {
+    await intercept(process.env.bahmniHost+ "/ndhm/null/existingPatients/" + healthID, (request) => {
         var body1 = {
             "error": { "code": "PATIENT_ID_NOT_FOUND", "message": "No patient found" }
         };
@@ -289,11 +303,11 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
             .replace('<state>', "ANDAMAN AND NICOBAR ISLANDS")
             .replace('<mobileNumber>', patientMobileNumber)
             .replace('<healthNumber>', "00-0000-0000-0000");
-        await intercept("https://ndhm-dev.bahmni-covid19.in/ndhm/null/v0.5/hip/auth/confirm", (request) => {
+        await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/confirm", (request) => {
             request.respond({
                 method: 'POST',
                 port: '9052',
-                hostname: 'https://ndhm-dev.bahmni-covid19.in/',
+                hostname: process.env.bahmniHost,
                 path: '/v0.5/users/auth/on-init',
                 body: confirm,
                 headers: {
@@ -304,7 +318,7 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
                 }
             })
         });
-        var existingPatientUrl = "https://ndhm-dev.bahmni-covid19.in/ndhm/null/existingPatients?patientName=" + 
+        var existingPatientUrl = process.env.bahmniHost+ "/ndhm/null/existingPatients?patientName=" + 
             firstName + "+" + lastName
             + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender;
         await intercept(existingPatientUrl, (request) => {
