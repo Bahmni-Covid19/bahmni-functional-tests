@@ -221,6 +221,7 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 
 step("Save the patient data", async function () {
     await click("Save");
+    await waitFor(5000)
     var patientIdentifier = await $('#patientIdentifierValue').text();
     gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
 });
@@ -249,8 +250,15 @@ step("Click create new patient", async function () {
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
-    await waitFor(3000)
-    await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
+    var patientIdentifierValueResolved = false;
+    do {
+        try{
+            await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
+            patientIdentifierValueResolved = true
+        }
+        catch(e){}
+    }
+    while (!patientIdentifierValueResolved);
     await click("Search", toRightOf(patientIdentifierValue));
 });
 
