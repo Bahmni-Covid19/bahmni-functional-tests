@@ -7,8 +7,6 @@ const {
     textBox,
     above,
     within,
-    accept,
-    confirm,
     $,
     waitFor,
 } = require('taiko');
@@ -26,8 +24,10 @@ step("Doctor opens the consultation tab for newly created patient", async functi
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
+    await waitFor(5000)
+
     await click("Consultation",{force: true});
-    await waitFor(10000)
+    await waitFor(5000)
 
     await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true});
 });

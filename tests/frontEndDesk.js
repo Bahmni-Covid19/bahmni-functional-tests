@@ -54,6 +54,7 @@ gauge.customScreenshotWriter = async function () {
 
 step("Open registration module", async function () {
     await goto(process.env.bahmniHome)
+
     await highlight("Clinical")
     await click("Registration", toLeftOf("Programs"));
 });
@@ -239,8 +240,8 @@ step("Click Save", async function () {
 });
 
 step("Go back to home page", async function () {
-    goto(process.env.bahmniHost+ "/bahmni/home/index.html#/dashboard")
-    //    await click($('.back-btn'));
+    await goto(process.env.bahmniHost+ "/bahmni/home/index.html#/dashboard")
+    //await click($('.back-btn'));
 });
 
 step("Click create new patient", async function () {
@@ -250,15 +251,15 @@ step("Click create new patient", async function () {
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
-    var patientIdentifierValueResolved = false;
-    do {
-        try{
-            await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
-            patientIdentifierValueResolved = true
-        }
-        catch(e){}
-    }
-    while (!patientIdentifierValueResolved);
+    await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
+    // do {
+    //     try{
+    //         await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
+    //         patientIdentifierValueResolved = true
+    //     }
+    //     catch(e){}
+    // }
+    // while (!patientIdentifierValueResolved);
     await click("Search", toRightOf(patientIdentifierValue));
 });
 
