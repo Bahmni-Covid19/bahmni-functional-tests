@@ -20,9 +20,10 @@ const {
     waitFor,
     confirm,
     accept,
+    scrollDown
 } = require('taiko');
-var _ndhm = require("./util/ndhm");
-var _users = require("./util/users");
+var _ndhm = require("../util/ndhm");
+var _users = require("../util/users");
 
 step("Open registration module", async function () {
     await goto(process.env.bahmniHome)
@@ -208,9 +209,4 @@ step("Enter village <village>", async function(village) {
 step("Click on home page and goto registration module", async function () {
     await click($(".back-btn"))
     await click('Registration')
-});
-
-step("Start an Emergency Visit", async function() {
-    await click($(".bm-pop-over-trigger"))
-    await click('Start EMERGENCY visit')
 });

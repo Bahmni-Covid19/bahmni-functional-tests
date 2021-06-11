@@ -3,6 +3,8 @@ const {
     closeBrowser,
     screenshot,
 } = require('taiko');
+const path = require('path');
+
 const headless = process.env.headless_chrome.toLowerCase() === 'true';
 
 beforeSuite(async () => {
