@@ -16,12 +16,12 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
 
     var yesterday = _date.getddmmyyyyFormattedDate(_date.yesterday())
-    var today = _date.getddmmyyyyFormattedDate(_date.today())
+    var tomorrow = _date.getddmmyyyyFormattedDate(_date.tomorrow())
 
     var OPDPrescriptions = process.env.bahmniHost
     + "/openmrs/ws/rest/v1/hip/prescriptions/visit?patientId="
     +existingPatientsResponse.data[0].uuid
-    +"&visitType=OPD&fromDate="+yesterday+"&toDate="+today;
+    +"&visitType=OPD&fromDate="+yesterday+"&toDate="+tomorrow;
 
     var prescriptionsVisitResponse = await _requestResponse.getOpenMRSResponse(OPDPrescriptions)
     console.log(prescriptionsVisitResponse.data);
@@ -32,7 +32,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
 
     var OPDDiagnosticReports = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/diagnosticReports/visit?"
     +"patientId="+existingPatientsResponse.data[0].uuid
-    +"&fromDate="+yesterday+"&toDate="+today
+    +"&fromDate="+yesterday+"&toDate="+tomorrow
     +"&visitType=OPD";
 
     var OPDDiagnosticResponse = await _requestResponse.getOpenMRSResponse(OPDDiagnosticReports)
