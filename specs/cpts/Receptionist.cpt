@@ -32,7 +32,7 @@
 * Doctor opens the consultation tab for newly created patient
 * Doctor captures consultation notes "Consultation notes"
 
-# Start an OPD
+# Start an OPD Visit
 * Click Start OPD Visit
 * Enter registration fees "100"
 * Click Save

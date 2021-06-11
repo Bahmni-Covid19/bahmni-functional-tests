@@ -6,7 +6,7 @@
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click on home page and goto registration module
 * Open newly created patient details by search
-* Start an OPD
+* Start an OPD Visit
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient
 * Doctor must be able to prescribe tests
 |TestName|

@@ -1,10 +1,7 @@
 "use strict";
 const path = require('path');
 const {
-    write,
     click,
-    into,
-    textBox,
     above,
     within,
     $,

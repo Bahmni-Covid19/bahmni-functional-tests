@@ -1,9 +1,7 @@
 /* globals gauge*/
 "use strict";
-const path = require('path');
-var Buffer = require('buffer/').Buffer
+
 const {
-    openBrowser,
     $,
     dropDown,
     button,
@@ -11,10 +9,7 @@ const {
     highlight,
     toRightOf,
     write,
-    intercept,
-    closeBrowser,
     goto,
-    screenshot,
     above,
     click,
     checkBox,
@@ -26,31 +21,8 @@ const {
     confirm,
     accept,
 } = require('taiko');
-var _fileExtension = require("./util/fileExtension");
-
-const assert = require("assert");
-const headless = process.env.headless_chrome.toLowerCase() === 'true';
-
-beforeSuite(async () => {
-    await openBrowser({headless:headless,
-        args: ["--start-fullscreen"]
-    })
-});
-
-afterSuite(async () => {
-    await closeBrowser();
-});
-
-// Return a screenshot file name
-gauge.customScreenshotWriter = async function () {
-    const screenshotFilePath = path.join(process.env['gauge_screenshots_dir'],
-        `screenshot-${process.hrtime.bigint()}.png`);
-
-    await screenshot({
-        path: screenshotFilePath
-    });
-    return path.basename(screenshotFilePath);
-};
+var _ndhm = require("./util/ndhm");
+var _users = require("./util/users");
 
 step("Open registration module", async function () {
     await goto(process.env.bahmniHome)
@@ -65,10 +37,10 @@ step("To Associate a healthID, vefiy it", async function () {
 
 step("Enter random healthID details", async function () {
     await click(textBox(toRightOf("Enter Health ID")));
-    var firstName = randomName(10)
+    var firstName = _users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
 
-    var lastName = randomName(10)
+    var lastName = _users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
 
     var patientHealthID = firstName+lastName+"@sbx";
@@ -78,32 +50,7 @@ step("Enter random healthID details", async function () {
 });
 
 step("Fetch authentication modes", async function () {
-    //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/
-    const token = process.env.receptionist
-
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/fetch-modes", (request) => {
-        var body1 = {
-            "authModes": [
-                "MOBILE_OTP",
-                "AADHAAR_OTP"
-            ]
-        };
-        var reqBodyOnFetchModes = JSON.stringify(body1);
-        request.respond({
-            method: 'POST',
-            port: '9052',
-            hostname: process.env.bahmniHost,
-            path: '/v0.5/users/auth/on-fetch-modes',
-            body: body1,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-                'content-length': reqBodyOnFetchModes.length,
-                'X-HIP-ID': '10000005'
-            }
-        })
-    })
-
+    await _ndhm.interceptFetchModes(process.env.receptionist);
     await click(text("Verify", within($(".verify-health-id"))));
 });
 
@@ -112,48 +59,16 @@ step("Select Mobile OTP", async function () {
 });
 
 step("Authenticate with Mobile", async function () {
-    const token = process.env.receptionist
-    var reqBodyOnFetchModes = JSON.stringify("");
-
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/init", (request) => {
-        request.respond({
-            method: 'POST',
-            port: '9052',
-            hostname: process.env.bahmniHost,
-            path: '/v0.5/users/auth/on-init',
-            body: {},
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-                'content-length': reqBodyOnFetchModes.length,
-                'X-HIP-ID': '10000005'
-            }
-        })
-    })
+    await _ndhm.interceptAuthInit(process.env.receptionist);
     await click(button("Authenticate"))
 });
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    var userName = getUserName(process.env.receptionist);
-    var password = getPassword(process.env.receptionist);
-    
-    await write(userName, into(textBox(toRightOf("Username *"))));
-    await write(password, into(textBox(toRightOf("Password *"))));
+    await write(_users.getReceptionistUserName(), into(textBox(toRightOf("Username *"))));
+    await write(_users.getReceptionistPassword(), into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);
     await click(button("Login"));
 });
-
-function getUserName(encodedUser){
-    let user = new Buffer(encodedUser,'base64');
-    let decodedUser = user.toString('ascii');
-    return decodedUser.split(":")[0]
-}
-
-function getPassword(encodedUser){
-    let user = new Buffer(encodedUser,'base64');
-    let decodedUser = user.toString('ascii');
-    return decodedUser.split(":")[1]
-}
 
 step("Goto Bahmni home", async function () {
     await goto(process.env.bahmniHome);
@@ -167,7 +82,7 @@ step("Enter patient random first name", async function () {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     if(firstName==null||firstName=="")
     {
-        firstName = randomName(10)
+        firstName = _users.randomName(10)
         gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     }
     await write(firstName, into(textBox(toRightOf("Patient Name*"))));
@@ -177,7 +92,7 @@ step("Enter patient random middle name", async function () {
     var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
     if(middleName==null||firstName=="")
     {
-        middleName = randomName(10)
+        middleName = _users.randomName(10)
         gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
     }
     await write(middleName, into(textBox({ "placeholder": "Middle Name" })));
@@ -188,23 +103,12 @@ step("Enter patient random last name", async function () {
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
     if(lastName==null||firstName=="")
     {
-        lastName = randomName(10)
+        lastName = _users.randomName(10)
         gauge.dataStore.scenarioStore.put("patientLastName",lastName)
     }
 
     await write(lastName, into(textBox({ "placeholder": "Last Name" })));
 });
-
-function randomName(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-    var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-      result += characters.charAt(Math.floor(Math.random() * 
- charactersLength));
-   }
-   return result;
-}
 
 step("Enter patient gender <gender>", async function (gender) {
     await dropDown("Gender *").select(gender);
@@ -256,27 +160,7 @@ step("Open newly created patient details by search", async function () {
 });
 
 step("Verify if healthId entered already exists", async function () {
-    const token = process.env.receptionist
-
-    var healthID =gauge.dataStore.scenarioStore.get("healthID")
-
-    await intercept(process.env.bahmniHost+ "/ndhm/null/existingPatients/" + healthID, (request) => {
-        var body1 = {
-            "error": { "code": "PATIENT_ID_NOT_FOUND", "message": "No patient found" }
-        };
-        var reqBodyOnFetchModes = JSON.stringify(body1);
-        request.respond({
-            method: 'POST',
-            port: '9052',
-            body: body1,
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-                'content-length': reqBodyOnFetchModes.length
-            }
-        })
-    })
-
+    await _ndhm.interceptExistingPatients(process.env.receptionist,gauge.dataStore.scenarioStore.get("healthID"))
 });
 
 step("waitFor <time>", async function (time) {
@@ -285,62 +169,18 @@ step("waitFor <time>", async function (time) {
 
 step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
     async function (otp, patientMobileNumber) {
-        var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
-        var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
-
-        var healthID = gauge.dataStore.scenarioStore.get("healthID",healthID)
-
-        await write(otp, into(textBox(above("Confirm"))));
-        const token = process.env.receptionist
+        await write(otp, into(textBox(above("Confirm"))));  
+        var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
+        var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
+        var healthID = gauge.dataStore.scenarioStore.get("healthID");
         var yearOfBirth = "2000";
-        var gender = "F"
-    
-        var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
-            .replace('<healthID>', healthID)
-            .replace('<fullName>', firstName +" " + lastName)
-            .replace('<gender>', gender)
-            .replace('<yearOfBirth>', yearOfBirth)
-            .replace('<district>', "NORTH AND MIDDLE ANDAMAN")
-            .replace('<state>', "ANDAMAN AND NICOBAR ISLANDS")
-            .replace('<mobileNumber>', patientMobileNumber)
-            .replace('<healthNumber>', "00-0000-0000-0000");
-        await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/confirm", (request) => {
-            request.respond({
-                method: 'POST',
-                port: '9052',
-                hostname: process.env.bahmniHost,
-                path: '/v0.5/users/auth/on-init',
-                body: confirm,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token,
-                    'content-length': confirm.length,
-                    'X-HIP-ID': '10000005'
-                }
-            })
-        });
-        var existingPatientUrl = process.env.bahmniHost+ "/ndhm/null/existingPatients?patientName=" + 
-            firstName + "+" + lastName
-            + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender;
-        await intercept(existingPatientUrl, (request) => {
-            var body1 = {
-                "error": { "code": "PATIENT_ID_NOT_FOUND", "message": "No patient found" }
-            };
-            var reqBodyOnFetchModes = JSON.stringify(body1);
-            request.respond({
-                method: 'GET',
-                port: '9052',
-                body: body1,
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': token,
-                    'content-length': reqBodyOnFetchModes.length
-                }
-            })
-        })
+        var gender = "F";
+        const token = process.env.receptionist
+        await _ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
+        await _ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
+
         await click(button("Confirm"))
         await click(button("Create New Record"))
-
         await click(button("Update"),{force: true})
     });
 
@@ -368,4 +208,9 @@ step("Enter village <village>", async function(village) {
 step("Click on home page and goto registration module", async function () {
     await click($(".back-btn"))
     await click('Registration')
+});
+
+step("Start an Emergency Visit", async function() {
+    await click($(".bm-pop-over-trigger"))
+    await click('Start EMERGENCY visit')
 });

@@ -1,20 +1,6 @@
 "use strict";
 var _requestResponse = require("./util/requestResponse");
 var _date = require("./util/date");
-step("Verify openmrs prescriptions for OPD from <fromDate> to <toDate>", async function (fromDate, toDate) {
-    var patientId = ""
-    var visitType = 'OPD'
-    var fromDate = ""
-    var toDate = ""
-    var patientGender = "F"
-    var patientName = "First Last"
-    var phoneNumber = "+91-9876543210"
-    var patientYearOfBirth = ""
-    var existingPatients = properties.env.bahmniHost + "/" + properties.env.existingPatients
-    var uuid = axios.get()
-    var visitPrescriptions = properties.env.bahmniHost + "/" + properties.env.visitPrescriptions
-
-});
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
