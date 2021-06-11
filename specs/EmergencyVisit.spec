@@ -2,7 +2,7 @@
 |mobileNumber|
 |+91-9876543210|
 ## Should be able to get patient lab reports
-* Login to Bahmni as a receptionist
+* Login to Bahmni location "Emergency Ward" as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Click on home page and goto registration module
@@ -23,7 +23,7 @@
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
 
 ## Should be able to get patient prescription
-* Login to Bahmni as a receptionist
+* Login to Bahmni location "Emergency Ward" as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Click on home page and goto registration module

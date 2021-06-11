@@ -5,7 +5,6 @@ const {
 } = require('taiko');
 
 step("Start an IP Visit", async function() {
-	await scrollDown($(".bm-pop-over-trigger"))
-    await click($(".bm-pop-over-trigger"))
+    await click(button(toRightOf('Start OPD Visit')))
     await click('Start IP Visit')
 });
