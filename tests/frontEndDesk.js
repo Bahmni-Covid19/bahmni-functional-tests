@@ -252,14 +252,6 @@ step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
-    // do {
-    //     try{
-    //         await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
-    //         patientIdentifierValueResolved = true
-    //     }
-    //     catch(e){}
-    // }
-    // while (!patientIdentifierValueResolved);
     await click("Search", toRightOf(patientIdentifierValue));
 });
 
