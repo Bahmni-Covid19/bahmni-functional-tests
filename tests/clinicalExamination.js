@@ -31,7 +31,7 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
     await doUntilNoError(write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true}),'TextBox[placeholder="Enter Notes here"] not found')
 });
 
-async function doUntilNoError(asyncFunction){
+async function doUntilNoError(asyncFunction,message){
     var hasNoError = false
     do{
         try{
