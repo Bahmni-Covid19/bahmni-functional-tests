@@ -28,19 +28,21 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 
     await click("Consultation",{force: true});
 
-    await doUntilNoError(write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true}),'TextBox[placeholder="Enter Notes here"] not found')
+    await doUntilNoError(write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true}),10)
 });
 
-async function doUntilNoError(asyncFunction,message){
+async function doUntilNoError(asyncFunction,count){
     var hasNoError = false
+    var localcount =0
     do{
         try{
             await asyncFunction;
             hasNoError = true
         }catch(e)
         {
-            if(e.message!=message)
+            if(localcount>=count)
                 throw e
+            localcount++
             await waitFor(3000)
         }
     }while(!hasNoError)
