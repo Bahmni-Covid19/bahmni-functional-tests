@@ -16,7 +16,7 @@
 * Enter patient mobile number <mobileNumber>
 * Enter village "Village"
 * Save the patient data
-
+* Click on home page and goto registration module
 # Create a new patient with gender <gender> with random name, aged <age> with mobile number <mobileNumber>
 * Click create new patient
 * Enter patient random first name
@@ -27,9 +27,11 @@
 * Enter patient mobile number <mobileNumber>
 * Enter village "Village"
 * Save the patient data
-
+* Click on home page and goto registration module
 # Doctor opens the consultation notes <consultationNotes> for newly created patient
 * Doctor opens the consultation tab for newly created patient
+* Select the newly created patient
+* Doctor begins consultation
 * Doctor captures consultation notes "Consultation notes"
 
 # Start an OPD Visit

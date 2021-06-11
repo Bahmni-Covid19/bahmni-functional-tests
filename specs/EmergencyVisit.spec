@@ -5,7 +5,6 @@
 * Login to Bahmni location "Emergency Ward" as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Click on home page and goto registration module
 * Open newly created patient details by search
 * Start an Emergency Visit
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient
@@ -26,7 +25,6 @@
 * Login to Bahmni location "Emergency Ward" as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Click on home page and goto registration module
 * Open newly created patient details by search
 * Start an Emergency Visit
 * Doctor opens the consultation notes "Consultation Notes" for newly created patient

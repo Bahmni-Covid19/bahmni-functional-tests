@@ -24,3 +24,8 @@ step("Choose newly created patient", async function() {
 
 	await click(firstName+" "+lastName,above(patientIdentifierValue))
 });
+
+step("Click Save", async function () {
+    await click("Save");
+});
+

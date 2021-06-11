@@ -6,6 +6,14 @@ function yesterday() {
     yesterday.setDate(yesterday.getDate() - 1)
     return yesterday;
 }
+
+function getDateYearsAgo(numberOfYearsAgo){
+    const today = new Date()
+    const dateYearsAgo = new Date(today)
+
+    dateYearsAgo.setFullYear(dateYearsAgo.getFullYear() - numberOfYearsAgo)
+    return dateYearsAgo;
+}
 function today() {
     const today = new Date()
     return today
@@ -48,5 +56,6 @@ module.exports={
     ddmmyyyy:ddmmyyyy,
     tomorrow:tomorrow,
     nextYear:nextYear,
-    getddmmyyyyFormattedDate:getyyyymmddFormattedDate
+    getddmmyyyyFormattedDate:getyyyymmddFormattedDate,
+    getDateYearsAgo:getDateYearsAgo
 }
