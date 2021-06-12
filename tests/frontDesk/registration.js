@@ -126,7 +126,7 @@ async function (patientIdentifierValue, firstName, lastName, patientHealthID) {
     await click("Search", toRightOf(patientIdentifierValue));	
 });
 
-step("Select the newly created patient", async function() {
+step("Select the newly created patient", async function() {    
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 

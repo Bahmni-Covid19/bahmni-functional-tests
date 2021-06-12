@@ -7,6 +7,7 @@ const {
     into, 
 	write, 
 	$,
+	highlight,
 } = require('taiko');
 
 step("Enter Pulse(/min)", async function() {

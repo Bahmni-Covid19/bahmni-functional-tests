@@ -29,7 +29,7 @@
 * Click on home page and goto registration module
 # Doctor opens the consultation notes <consultationNotes> for newly created patient
 * Doctor opens the consultation tab for newly created patient
-* Goto All sections and search the newly created patient
+* Select the newly created patient
 * Doctor begins consultation
 * Doctor captures consultation notes "Consultation notes"
 

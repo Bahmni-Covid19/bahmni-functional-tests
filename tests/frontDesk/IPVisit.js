@@ -1,7 +1,8 @@
 const {
     $,
     click,
-    scrollDown
+    button,
+    toRightOf
 } = require('taiko');
 
 step("Start an IP Visit", async function() {

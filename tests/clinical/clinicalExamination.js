@@ -34,12 +34,12 @@ step("Doctor prescribes drug dosage <dosage> for a duration <duration>.", async 
         await click("Add");
 });
 step("Doctor opens the consultation tab for newly created patient", async function () {
-    await click("Clinical");
+    await click("Clinical",{waitForNavigation:true});
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
     await waitFor(5000)
-    await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true})
+    // await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true})
 });
 
 // async function doUntilNoError(asyncFunction,count){
@@ -61,6 +61,7 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 
 step("Doctor begins consultation", async function() {
     await highlight("Consultation");
+    await waitFor(3000)
 
     await click("Consultation",{waitForNavigation:true,force:true});
 });

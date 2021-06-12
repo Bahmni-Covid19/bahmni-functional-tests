@@ -59,7 +59,6 @@ step("Enter History and examination details", async function() {
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));
         await click('Accept');
-        await highlight(textBox(toRightOf("for")))
         await write(chiefComplaint.for, into(textBox(toRightOf("for"))));    
         await dropDown(toRightOf("for")).select(chiefComplaint.for_frequency);
     }
