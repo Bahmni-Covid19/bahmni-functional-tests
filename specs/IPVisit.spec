@@ -1,4 +1,4 @@
-# Fetching Patient Details
+# IPD Visits
 |mobileNumber|
 |+91-9876543210|
 ## Should be able to get patient lab reports

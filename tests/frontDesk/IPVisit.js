@@ -7,5 +7,5 @@ const {
 
 step("Start an IP Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
-    await click('Start IP Visit',{waitForNavigation:true})
+    await click('Start IPD visit',{waitForNavigation:true})
 });
