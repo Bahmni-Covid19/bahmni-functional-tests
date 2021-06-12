@@ -54,7 +54,6 @@ async function interceptAuthInit(token) {
 
     await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/init", (request) => request.respond(response),1)
     await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/init", (request) => request.respond(response),1)
-    process.env.put("auth/init",'done')
 }
 
 async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber){
@@ -82,7 +81,6 @@ async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirt
     }
     await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
     await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
-    process.env.put('confirm',"done")
 }
 
 async function interceptExistingPatients(token, healthID){
