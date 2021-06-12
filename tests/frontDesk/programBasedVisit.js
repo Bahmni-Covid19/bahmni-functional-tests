@@ -11,9 +11,12 @@ const {
     into,
     timeField,
     waitFor,
+    attach,
+    fileField,
 } = require('taiko');
 var _date = require("../util/date");
 var _fileExtension = require("../util/fileExtension");
+var _path = require("path")
 
 step("Click Start Special OPD Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
@@ -46,7 +49,7 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
 
 step("Open the program dashboard <program>", async function(program) {
     await waitFor(3000)
-	await click($('.proggram-dashboard-text'));
+    await click($('.proggram-dashboard-text'),{waitForNavigation:true});
 });
 
 step("Enter History and examination details", async function() {
@@ -55,6 +58,7 @@ step("Enter History and examination details", async function() {
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));
         await click('Accept');
+        await highlight(textBox(toRightOf("for")))
         await write(chiefComplaint.for, into(textBox(toRightOf("for"))));    
         await dropDown(toRightOf("for")).select(chiefComplaint.for_frequency);
     }
@@ -63,8 +67,8 @@ step("Enter History and examination details", async function() {
     await write(historyAndExaminationDetails.Examination_notes,into(textBox("Examination Notes")));
     await click(historyAndExaminationDetails.Smoking_History,toRightOf("Smoking History"));
 
-    await attach(path.join("./data/program"+'programReport1.jpg'),await fileField({title:"Upload your file"}))
-    await click('Save')
+    await attach(_path.join("./data/program/"+'programReport1.jpg'),fileField({id:"file-browse-observation_9"}));
+    await click('Save',{waitForNavigation:true});
 });
 
 step("Goto All sections and search the newly created patient", async function () {

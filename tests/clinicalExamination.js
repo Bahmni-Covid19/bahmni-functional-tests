@@ -62,8 +62,7 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 // }
 
 step("Doctor begins consultation", async function() {
-    await waitFor(3000)
-    await highlight("Consultation",within($(".opd-header-bottom")));
+    await waitFor(4000)
 
-    await click("Consultation",within($(".opd-header-bottom")));
+    await click("Consultation",{waitForNavigation:true});
 });
