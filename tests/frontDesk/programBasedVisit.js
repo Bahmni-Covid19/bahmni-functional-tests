@@ -15,14 +15,14 @@ const {
 var _date = require("../util/date");
 var _fileExtension = require("../util/fileExtension");
 
-step("Start an Special OPD Visit", async function() {
+step("Click Start Special OPD Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
     await click('Start Special OPD Visit')
 });
 
 step("Open Programs module", async function() {
     await goto(process.env.bahmniHome)
-    await click("Programs");
+    await click("Programs",{waitForEvents:['networkAlmostIdle']});
 });
 
 step("Enroll in program <program> stage <programStage> starting <numberOfYearsAgo_startDate> years ago with treatment start <numberOfYearsAgo_treatmentDate> years ago, id <id>, dr incharge <doctor> and treatment stage <stage>", 
@@ -41,7 +41,7 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
     // await dropDown(toRightOf('Program Stage')).select(programStage)
     await write(doctor, into(textBox(toRightOf('Doctor-In-Charge'))))
     await dropDown(toRightOf('Patient Stage')).select(stage)
-    await click(button('Enroll'),{waitForNavigation:true})
+    await click(button('Enroll'))
 });
 
 step("Open the program dashboard <program>", async function(program) {
@@ -65,4 +65,12 @@ step("Enter History and examination details", async function() {
 
     await attach(path.join("./data/program"+'programReport1.jpg'),await fileField({title:"Upload your file"}))
     await click('Save')
+});
+
+step("Goto All sections and search the newly created patient", async function () {
+    await click("All",{force:true})
+    var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
+
+    await write(patientIdentifierValue, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))
+    await click('Search')
 });

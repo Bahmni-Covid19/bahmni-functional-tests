@@ -16,7 +16,6 @@
 * Enter patient mobile number <mobileNumber>
 * Enter village "Village"
 * Save the patient data
-* Click on home page and goto registration module
 # Create a new patient with gender <gender> with random name, aged <age> with mobile number <mobileNumber>
 * Click create new patient
 * Enter patient random first name
@@ -36,6 +35,12 @@
 
 # Start an OPD Visit
 * Click Start OPD Visit
+* Enter registration fees "100"
+* Click Save
+* Go back to home page
+
+# Start an Special OPD Visit
+* Click Start Special OPD Visit
 * Enter registration fees "100"
 * Click Save
 * Go back to home page
