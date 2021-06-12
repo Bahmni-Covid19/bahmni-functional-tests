@@ -131,7 +131,7 @@ step("Select the newly created patient", async function() {
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
-
+    await write(patientIdentifierValue)
     await click(firstName+" "+lastName,above(patientIdentifierValue));
 })
 
