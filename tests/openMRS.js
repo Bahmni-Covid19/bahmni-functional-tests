@@ -1,6 +1,5 @@
 "use strict";
 var _requestResponse = require("./util/requestResponse");
-var _date = require("./util/date");
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
@@ -15,32 +14,8 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
 
-    var yesterday = _date.getddmmyyyyFormattedDate(_date.yesterday())
-    var tomorrow = _date.getddmmyyyyFormattedDate(_date.tomorrow())
-
-    var OPDPrescriptions = process.env.bahmniHost
-    + "/openmrs/ws/rest/v1/hip/prescriptions/visit?patientId="
-    +existingPatientsResponse.data[0].uuid
-    +"&visitType=OPD&fromDate="+yesterday+"&toDate="+tomorrow;
-
-    var prescriptionsVisitResponse = await _requestResponse.getOpenMRSResponse(OPDPrescriptions)
-    console.log(prescriptionsVisitResponse.data);
-    console.log(prescriptionsVisitResponse.status);
-    console.log(prescriptionsVisitResponse.statusText);
-    console.log(prescriptionsVisitResponse.headers);
-    console.log(prescriptionsVisitResponse.config);
-
-    var OPDDiagnosticReports = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/diagnosticReports/visit?"
-    +"patientId="+existingPatientsResponse.data[0].uuid
-    +"&fromDate="+yesterday+"&toDate="+tomorrow
-    +"&visitType=OPD";
-
-    var OPDDiagnosticResponse = await _requestResponse.getOpenMRSResponse(OPDDiagnosticReports)
-    console.log(OPDDiagnosticResponse.data);
-    console.log(OPDDiagnosticResponse.status);
-    console.log(OPDDiagnosticResponse.statusText);
-    console.log(OPDDiagnosticResponse.headers);
-    console.log(OPDDiagnosticResponse.config);
+    await _requestResponse.makeOpenMRSCall(existingPatientsResponse.data[0].uuid,"OPD",process.env.visitPrescriptions)
+    await _requestResponse.makeOpenMRSCall(existingPatientsResponse.data[0].uuid,"OPD",process.env.visitDiagnosticReports)
 
     // var programPrescriptions = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/prescriptions/program?"+
     // +"patientId="+existingPatientsResponse.data[0].uuid
