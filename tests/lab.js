@@ -6,6 +6,7 @@ const {
 	attach,
 	fileField,
 	button,
+	write,
 } = require('taiko');
 
 step("Open Patient Documents", async function() {
