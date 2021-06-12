@@ -26,6 +26,6 @@ step("Choose newly created patient", async function() {
 });
 
 step("Click Save", async function () {
-    await click("Save");
+    await click("Save",{waitForNavigation:true});
 });
 

@@ -14,7 +14,7 @@ beforeSuite(async () => {
 });
 
 afterSuite(async () => {
-    //await closeBrowser();
+    await closeBrowser();
 });
 
 // Return a screenshot file name

@@ -20,7 +20,7 @@ var _path = require("path")
 
 step("Click Start Special OPD Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
-    await click('Start Special OPD Visit')
+    await click('Start Special OPD Visit',{waitForNavigation:true})
 });
 
 step("Open Programs module", async function() {
@@ -50,6 +50,7 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
 step("Open the program dashboard <program>", async function(program) {
     await waitFor(3000)
     await click($('.proggram-dashboard-text'),{waitForNavigation:true});
+    await waitFor(3000)
 });
 
 step("Enter History and examination details", async function() {

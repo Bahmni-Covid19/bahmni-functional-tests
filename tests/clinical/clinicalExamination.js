@@ -1,15 +1,13 @@
 "use strict";
 const {
     click,
-    within,
-    $,
     waitFor,
     toRightOf, 
     textBox, 
     into, 
     write, 
     dropDown,
-    highlight
+    highlight,
 } = require('taiko');
 
 step("Doctor must be able to prescribe tests <tests>", async function(tests) {
@@ -62,7 +60,7 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 // }
 
 step("Doctor begins consultation", async function() {
-    await waitFor(4000)
+    await highlight("Consultation");
 
-    await click("Consultation",{waitForNavigation:true});
+    await click("Consultation",{waitForNavigation:true,force:true});
 });

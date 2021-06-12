@@ -5,5 +5,5 @@ const {
 } = require('taiko');
 step("Start an Emergency Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
-    await click('Start EMERGENCY visit')
+    await click('Start EMERGENCY visit',{waitForNavigation:true})
 });

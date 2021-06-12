@@ -155,7 +155,7 @@ step("Enter registration fees <arg0>", async function (arg0) {
 });
 
 step("Go back to home page", async function () {
-    await goto(process.env.bahmniHost+ "/bahmni/home/index.html#/dashboard")
+    await goto(process.env.bahmniHost+ "/bahmni/home/index.html#/dashboard",{waitForNavigation:true})
     //await click($('.back-btn'));
 });
 
