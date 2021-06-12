@@ -6,55 +6,60 @@ const {
 var _fileExtension = require("./fileExtension");
 
 async function interceptFetchModes(token) {
-    //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/
-    var body1 = {
-        "authModes": [
-            "MOBILE_OTP",
-            "AADHAAR_OTP"
-        ]
-    };
-    var reqBodyOnFetchModes = JSON.stringify(body1);
-    var response = {
-        method: 'POST',
-        port: '9052',
-        hostname: process.env.bahmniHost,
-        path: '/v0.5/users/auth/on-fetch-modes',
-        body: body1,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token,
-            'content-length': reqBodyOnFetchModes.length,
-            'X-HIP-ID': '10000005'
+    if(process.env.get('fetch-modes')!=null){
+        //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/
+        var body1 = {
+            "authModes": [
+                "MOBILE_OTP",
+                "AADHAAR_OTP"
+            ]
+        };
+        var reqBodyOnFetchModes = JSON.stringify(body1);
+        var response = {
+            method: 'POST',
+            port: '9052',
+            hostname: process.env.bahmniHost,
+            path: '/v0.5/users/auth/on-fetch-modes',
+            body: body1,
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+                'content-length': reqBodyOnFetchModes.length,
+                'X-HIP-ID': '10000005'
+            }
         }
+        
+        await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/fetch-modes", (request) => {
+            request.respond(response)
+        },1)
+        await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/fetch-modes", (request) => {
+            request.respond(response)
+        },1)
+        process.env.put("fetch-modes","added")
     }
-    
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/fetch-modes", (request) => {
-        request.respond(response)
-    },1)
-    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/fetch-modes", (request) => {
-        request.respond(response)
-    },1)
-
 }
 
 async function interceptAuthInit(token) {
-    var reqBodyOnFetchModes = JSON.stringify("");
-    var response = {
-        method: 'POST',
-        port: '9052',
-        hostname: process.env.bahmniHost,
-        path: '/v0.5/users/auth/on-init',
-        body: {},
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token,
-            'content-length': reqBodyOnFetchModes.length,
-            'X-HIP-ID': '10000005'
+    if(process.env.get('auth/init')!=null){
+        var reqBodyOnFetchModes = JSON.stringify("");
+        var response = {
+            method: 'POST',
+            port: '9052',
+            hostname: process.env.bahmniHost,
+            path: '/v0.5/users/auth/on-init',
+            body: {},
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': token,
+                'content-length': reqBodyOnFetchModes.length,
+                'X-HIP-ID': '10000005'
+            }
         }
-    }
 
-    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/init", (request) => request.respond(response),1)
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/init", (request) => request.respond(response),1)
+        await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/init", (request) => request.respond(response),1)
+        await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/init", (request) => request.respond(response),1)
+        process.env.put("auth/init",'done')
+    }
 }
 
 async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber){
@@ -80,8 +85,11 @@ async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirt
             'X-HIP-ID': '10000005'
         }
     }
-    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
+    if(process.env.get('confirm')!=null){
+        await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
+        await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
+        process.env.put('confirm',"done")
+    }
 }
 
 async function interceptExistingPatients(token, healthID){
