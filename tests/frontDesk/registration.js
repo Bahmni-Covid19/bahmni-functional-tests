@@ -105,6 +105,7 @@ step("Save the patient data", async function () {
 
 step("Fetch authentication modes", async function () {
     await _ndhm.interceptFetchModes(process.env.receptionist);
+    await highlight(text("Verify", within($(".verify-health-id"))))
     await click(text("Verify", within($(".verify-health-id"))));
 });
 

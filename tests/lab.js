@@ -13,7 +13,7 @@ step("Open Patient Documents", async function() {
 });
 
 step("Add a lab report <labReport>", async function (labReport) {
-	await attach(path.join("./data", labReport+'.jpg'), await fileField({'name':'image-document-upload'}));
+	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}));
 	await click(button('SAVE'))
 });
 
