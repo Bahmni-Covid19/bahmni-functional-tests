@@ -33,7 +33,6 @@ step("Enter Blood Pressure systolic, diastolic and posture", async function() {
 });
 
 step("Click Vitals", async function() {
-	await highlight("Vitals")
-
+	await waitFor(3000)
 	await click("Vitals",{waitForNavigation:true})
 });

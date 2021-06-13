@@ -44,11 +44,11 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
     // await dropDown(toRightOf('Program Stage')).select(programStage)
     await write(doctor, into(textBox(toRightOf('Doctor-In-Charge'))))
     await dropDown(toRightOf('Patient Stage')).select(stage)
-    await click(button('Enroll'))
+    await click(button('Enroll'),{waitForNavigation:true})
 });
 
 step("Open the program dashboard <program>", async function(program) {
-    await waitFor($('.proggram-dashboard-text'))
+    await waitFor(3000)
     await click($('.proggram-dashboard-text'),{waitForNavigation:true});
     await waitFor(3000)
 });

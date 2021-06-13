@@ -14,6 +14,7 @@
 * Open the program dashboard "HIV Program Dashboard"
 * Doctor begins consultation
 * Enter History and examination details
+* Enter vitals
 ___
 * Close the visit
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
