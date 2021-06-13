@@ -15,7 +15,7 @@ const {
 var _date = require("./util/date");
 
 step("Login to the consent request management system", async function() {
-	await goto(process.env.bahmniHost+process.env.hiuURL);
+	await goto(process.env.bahmniHost+process.env.hiuURL,{waitForNavigation:true});
 	await write(process.env.hiuUser)
 	await write(process.env.hiuPassword,into(textBox({"id":"password"})))
 	await click(button("SIGN IN"))

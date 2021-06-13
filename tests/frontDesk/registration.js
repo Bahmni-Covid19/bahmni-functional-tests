@@ -23,7 +23,7 @@ var _users = require("../util/users");
 var _ndhm = require("../util/ndhm");
 
 step("Open registration module", async function () {
-    await goto(process.env.bahmniHome)
+    await goto(process.env.bahmniHome,{waitForNavigation:true})
 
     await highlight("Clinical")
     await click("Registration", toLeftOf("Programs"));
@@ -145,7 +145,7 @@ step("Login as a receptionist with admin credentials location <location>", async
 });
 
 step("Goto Bahmni home", async function () {
-    await goto(process.env.bahmniHome);
+    await goto(process.env.bahmniHome,{waitForNavigation:true});
 });
 
 step("Create a new patient with verfication id", async function () {

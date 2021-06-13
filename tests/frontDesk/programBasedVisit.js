@@ -24,7 +24,7 @@ step("Click Start Special OPD Visit", async function() {
 });
 
 step("Open Programs module", async function() {
-    await goto(process.env.bahmniHome)
+    await goto(process.env.bahmniHome,{waitForNavigation:true})
     await click("Programs",{waitForNavigation:true,waitForEvents:['networkIdle']});
 });
 
