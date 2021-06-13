@@ -77,5 +77,5 @@ step("Goto All sections and search the newly created patient", async function ()
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))
-    await click('Search')
+    await click('Search',{waitForNavigation:true})
 });

@@ -123,7 +123,7 @@ async function (patientIdentifierValue, firstName, lastName, patientHealthID) {
     gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
     gauge.dataStore.scenarioStore.put("patientIdentifier",patientIdentifierValue);
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
-    await click("Search", toRightOf(patientIdentifierValue));	
+    await click("Search", {waitForNavigation:true});
 });
 
 step("Select the newly created patient", async function() {    
@@ -182,12 +182,12 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
     });
 
 step("Enter visit details", async function() {
-	await click(button("Enter Visit Details"))
+	await click(button("Enter Visit Details"),{waitForNavigation:true})
 });
 
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
-	await click(button("Close Visit"))
+	await click(button("Close Visit"),{waitForNavigation:true})
 });
 
 step("Log out", async function () {

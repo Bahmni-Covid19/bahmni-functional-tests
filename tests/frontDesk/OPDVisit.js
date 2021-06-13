@@ -8,13 +8,14 @@ const {
     into,
     textBox,
     waitFor,
+    press,
 } = require('taiko');
 
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
-    await click("Search", toRightOf(patientIdentifierValue));
+    await press('Enter', {waitForNavigation:true});
 });
 
 step("waitFor <time>", async function (time) {
