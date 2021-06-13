@@ -23,7 +23,8 @@ var _users = require("../util/users");
 var _ndhm = require("../util/ndhm");
 
 step("Open registration module", async function () {
-    await goto(process.env.bahmniHome,{waitForNavigation:true})
+    await waitFor(3000)
+    await click($('.back-btn'),{waitForNavigation:true});
 
     await highlight("Clinical")
     await click("Registration", toLeftOf("Programs"));
@@ -156,8 +157,8 @@ step("Enter registration fees <arg0>", async function (arg0) {
 });
 
 step("Go back to home page", async function () {
-    await goto(process.env.bahmniHost+ "/bahmni/home/index.html#/dashboard",{waitForNavigation:true})
-    //await click($('.back-btn'));
+    await waitFor(3000)
+    await click($('.back-btn'),{waitForNavigation:true});
 });
 
 step("Verify if healthId entered already exists", async function () {
