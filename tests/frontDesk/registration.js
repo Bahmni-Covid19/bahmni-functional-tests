@@ -23,7 +23,7 @@ var _users = require("../util/users");
 var _ndhm = require("../util/ndhm");
 
 step("Open registration module", async function () {
-    await waitFor(3000)
+    await waitFor(process.env.openRegistrationTimeout)
     await click($('.back-btn'),{waitForNavigation:true});
 
     await highlight("Clinical")
