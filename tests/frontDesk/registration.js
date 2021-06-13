@@ -133,7 +133,8 @@ step("Select the newly created patient", async function() {
 
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue)
-    await click(firstName+" "+lastName,above(patientIdentifierValue));
+    await click(firstName+" "+lastName,{waitForNavigation:true});
+    await waitFor(3000)
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {

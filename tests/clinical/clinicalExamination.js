@@ -38,8 +38,9 @@ step("Doctor opens the consultation tab for newly created patient", async functi
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
-    await waitFor(5000)
-    // await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true})
+    await click("Consultation",{force:true,waitForNavigation:true,waitForStart:2000});
+    await waitFor(textBox({placeholder:"Enter Notes here"}))
+    await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true})
 });
 
 // async function doUntilNoError(asyncFunction,count){
@@ -60,8 +61,6 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 // }
 
 step("Doctor begins consultation", async function() {
-    await highlight("Consultation");
-    await waitFor(3000)
-
-    await click("Consultation",{waitForNavigation:true,force:true});
+    await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000});
+    await waitFor(2000)
 });

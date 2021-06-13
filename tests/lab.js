@@ -14,8 +14,8 @@ step("Open Patient Documents", async function() {
 });
 
 step("Add a lab report <labReport>", async function (labReport) {
-	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}));
-	await click(button('SAVE'))
+	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}),{waitForEvents:['DOMContentLoaded']});
+	await click(button('SAVE'),{waitForNavigation:true})
 });
 
 step("Choose newly created patient", async function() {

@@ -25,7 +25,7 @@ step("Click Start Special OPD Visit", async function() {
 
 step("Open Programs module", async function() {
     await goto(process.env.bahmniHome)
-    await click("Programs",{waitForEvents:['networkAlmostIdle']});
+    await click("Programs",{waitForNavigation:true,waitForEvents:['networkIdle']});
 });
 
 step("Enroll in program <program> stage <programStage> starting <numberOfYearsAgo_startDate> years ago with treatment start <numberOfYearsAgo_treatmentDate> years ago, id <id>, dr incharge <doctor> and treatment stage <stage>", 
@@ -48,7 +48,7 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
 });
 
 step("Open the program dashboard <program>", async function(program) {
-    await waitFor(3000)
+    await waitFor($('.proggram-dashboard-text'))
     await click($('.proggram-dashboard-text'),{waitForNavigation:true});
     await waitFor(3000)
 });
@@ -72,6 +72,7 @@ step("Enter History and examination details", async function() {
 });
 
 step("Goto All sections and search the newly created patient", async function () {
+    await waitFor("All")
     await click("All",{force:true})
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
