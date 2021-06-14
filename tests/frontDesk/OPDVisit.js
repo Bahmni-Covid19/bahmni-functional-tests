@@ -14,6 +14,7 @@ const {
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
+    console.log("patient Identifier"+patientIdentifierValue)
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
     await press('Enter', {waitForNavigation:true});
 });

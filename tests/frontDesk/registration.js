@@ -23,9 +23,6 @@ var _users = require("../util/users");
 var _ndhm = require("../util/ndhm");
 
 step("Open registration module", async function () {
-    await waitFor(process.env.openRegistrationTimeout)
-    await click($('.back-btn'),{waitForNavigation:true});
-
     await highlight("Clinical")
     await click("Registration", toLeftOf("Programs"));
 });
@@ -54,7 +51,7 @@ step("Enter patient random first name", async function () {
     {
         firstName = _users.randomName(10)
         gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
-    }
+    }    
     await write(firstName, into(textBox(toRightOf("Patient Name*"))));
 });
 
@@ -204,6 +201,12 @@ step("Enter village <village>", async function(village) {
 });
 
 step("Click on home page and goto registration module", async function () {
-    await click($(".back-btn"))
-    await click('Registration')
+    await waitFor(process.env.openRegistrationTimeout)
+    await click($('.back-btn'),{waitForNavigation:true});
+    await click('Registration',{waitForNavigation:true})
+});
+
+step("Click on home page", async function() {
+    await waitFor(process.env.openRegistrationTimeout)
+    await click($('.back-btn'),{waitForNavigation:true});
 });

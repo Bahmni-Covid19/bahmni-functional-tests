@@ -9,30 +9,40 @@ const {
     dropDown,
     highlight,
 } = require('taiko');
+var _fileExtension = require("../util/fileExtension");
 
-step("Doctor must be able to prescribe tests <tests>", async function(tests) {
-        await click("Orders",{force: true});
-        for (var test of tests.rows) {
-                await click(test.cells[0],{force: true})
-        }     
-        await click("Save",{force: true})   
+step("Doctor must be able to prescribe tests <prescriptions>", async function (prescriptionFile) {
+    var prescriptionFile = "./data/"+prescriptionFile+".json";
+
+    var prescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+    await click("Orders",{force: true});
+    for (var test of prescriptions.tests) {
+            await click(test.test,{force: true})
+    }     
+    await click("Save",{force: true})   
 });
 
-step("Doctor starts prescribing medications", async function () {
+step("Doctor starts prescribing medications <prescriptionNames>", async function (prescriptionNames) {
     await click("Medications");
-});
+    var prescriptionFile = "./data/"+prescriptionNames+".json";
+    gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
+    var prescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
 
-step("Doctor prescribes drug <drugName> at a frequency <frequency>", async function(drugName,frequency) {
-        await write(drugName,into(textBox(toRightOf("Drug Name"))));
-	    await dropDown({id: 'frequency'}).select(frequency)
+    if(prescriptions.drug_name!=null)
+    {
+        await write(prescriptions.drug_name,into(textBox(toRightOf("Drug Name"))));
+        await dropDown(toRightOf("Units")).select(prescriptions.units);
+        await dropDown(toRightOf("Frequency")).select(prescriptions.frequency)
         await click("Accept");
+    
+        await write(prescriptions.dose,into(textBox(toRightOf("Dose"))));
+        await write(prescriptions.duration,into(textBox(toRightOf("Duration"))));
+        await click("Add");
+    }
+    await click("Save")
 });
 
-step("Doctor prescribes drug dosage <dosage> for a duration <duration>.", async function (dosage, duration) {
-        await write(dosage,into(textBox(toRightOf("Dose"))));
-        await write(duration,into(textBox(toRightOf("Duration"))));
-        await click("Add");
-});
+
 step("Doctor opens the consultation tab for newly created patient", async function () {
     await click("Clinical",{waitForNavigation:true});
 });

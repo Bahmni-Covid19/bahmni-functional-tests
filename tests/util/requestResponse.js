@@ -1,6 +1,7 @@
 const path = require('path');
 const axios = require('axios')
 var _date = require("./date");
+const assert = require("assert");
 
 async function getOpenMRSResponse(request){
     return await axios.get(request
@@ -23,12 +24,13 @@ async function makeOpenMRSCall(patientUUID,visitType,URL){
 
     console.log(request_URL)
     var prescriptionsVisitResponse = await getOpenMRSResponse(request_URL)
+
+    assert.ok(prescriptionsVisitResponse.status==200)
+
     console.log(prescriptionsVisitResponse.data);
-    console.log(prescriptionsVisitResponse.status);
-    console.log(prescriptionsVisitResponse.statusText);
     console.log(prescriptionsVisitResponse.headers);
     console.log(prescriptionsVisitResponse.config);
-    
+    return prescriptionsVisitResponse.data;
 }
 
 module.exports={

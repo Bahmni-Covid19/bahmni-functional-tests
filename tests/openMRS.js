@@ -14,8 +14,21 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
 
-    await _requestResponse.makeOpenMRSCall(existingPatientsResponse.data[0].uuid,"OPD",process.env.visitPrescriptions)
-    await _requestResponse.makeOpenMRSCall(existingPatientsResponse.data[0].uuid,"OPD",process.env.visitDiagnosticReports)
+    const patientUUID = existingPatientsResponse.data[0].uuid;
+    var specialOPDPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"Special%20OPD",process.env.visitPrescriptions)
+    var specialOPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"Special%20OPD",process.env.visitDiagnosticReports)
+
+    var OPDPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"OPD",process.env.visitPrescriptions)
+    var OPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
+
+    var IPDPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"IPD",process.env.visitPrescriptions)
+    var IPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"IPD",process.env.visitDiagnosticReports)
+
+    var pharmacyPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
+    var pharmacyDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
+
+    var labPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"lab",process.env.visitPrescriptions)
+    var labDiagnostics =await _requestResponse.makeOpenMRSCall(patientUUID,"lab",process.env.visitDiagnosticReports)
 
     // var programPrescriptions = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/prescriptions/program?"+
     // +"patientId="+existingPatientsResponse.data[0].uuid
