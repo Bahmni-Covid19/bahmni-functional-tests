@@ -21,4 +21,4 @@
 * Go back to home page
 ___
 * Close the visit
-* Verify openmrs OPD patient details with mobileNumber <mobileNumber>
+* Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>

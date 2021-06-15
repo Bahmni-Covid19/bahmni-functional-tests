@@ -70,7 +70,7 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 //     }while(!hasNoError)
 // }
 
-step("Doctor begins consultation", async function() {
+step("Doctor clicks consultation", async function() {
     await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000});
     await waitFor(2000)
 });
