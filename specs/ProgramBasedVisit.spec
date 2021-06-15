@@ -3,7 +3,6 @@
 |+91-9876543210|
 ## Should be able to enter program level details for a patient
 * Login to Bahmni location "OPD-1" as a receptionist
-* Open registration module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click on home page and goto registration module
 * Open newly created patient details by search
@@ -15,6 +14,11 @@
 * Doctor begins consultation
 * Enter History and examination details
 * Enter vitals
+* Goto Bahmni home
+* Open Patient Documents
+* Choose newly created patient
+* Add a lab report "labReport1"
+* Go back to home page
 ___
 * Close the visit
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>

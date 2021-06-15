@@ -138,7 +138,7 @@ step("Login as a receptionist with admin credentials location <location>", async
     await write(_users.getReceptionistUserName(), into(textBox(toRightOf("Username *"))));
     await write(_users.getReceptionistPassword(), into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);
-    await click(button("Login"));
+    await click(button("Login"),{waitForNavigation:true});
 });
 
 step("Goto Bahmni home", async function () {
