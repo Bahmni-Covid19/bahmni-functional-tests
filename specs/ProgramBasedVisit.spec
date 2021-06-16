@@ -14,6 +14,7 @@
 * Doctor clicks consultation
 * Enter History and examination details
 * Enter vitals
+* Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
 * Goto Bahmni home
 * Open Patient Documents
 * Choose newly created patient
