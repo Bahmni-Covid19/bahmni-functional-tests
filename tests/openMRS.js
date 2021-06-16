@@ -21,7 +21,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
 });
 
 
-step("Verify openmrs Special OPD patient details with mobileNumber <arg0>", async function(arg0) {
+step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>", async function(mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 

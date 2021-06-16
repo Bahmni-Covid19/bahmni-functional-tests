@@ -11,7 +11,7 @@
 * Goto All sections and search the newly created patient
 * Enroll in program "HIV Program" stage "programStage" starting "5" years ago with treatment start "2" years ago, id "1234", dr incharge "doctor" and treatment stage "Initial Stage"
 * Open the program dashboard "HIV Program Dashboard"
-* Doctor begins consultation
+* Doctor clicks consultation
 * Enter History and examination details
 * Enter vitals
 * Goto Bahmni home
