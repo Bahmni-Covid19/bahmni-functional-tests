@@ -174,7 +174,8 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
         await _ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
         await _ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
-        await click(button("Confirm"),{waitForEvents:['networkIdle']})
+        await click(button("Confirm"))
+        await waitFor(1000)
         await click(button("Create New Record"))
         await click(button("Update"),{force: true})
     });

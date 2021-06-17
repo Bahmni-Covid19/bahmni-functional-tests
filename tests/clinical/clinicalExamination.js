@@ -8,6 +8,7 @@ const {
     write, 
     dropDown,
     highlight,
+    below
 } = require('taiko');
 var _fileExtension = require("../util/fileExtension");
 
@@ -73,4 +74,20 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 step("Doctor clicks consultation", async function() {
     await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000});
     await waitFor(2000)
+});
+
+step("Choose Disposition", async function() {
+    await click("Disposition",{waitForNavigation:true})    
+});
+
+step("Admit the patient", async function() {
+    await dropDown("Disposition Type").select('Admit Patient')
+    await write("Admission Notes",into(textBox(below("Disposition Notes"))))
+    await click("Save",{waitForNavigation:true})
+});
+
+step("Doctor to give discharge disposition", async function() {
+    await dropDown("Disposition Type").select('Discharge Patient')
+    await write("Discharge Notes",into(textBox(below("Disposition Notes"))))
+    await click("Save")
 });

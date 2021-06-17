@@ -6,3 +6,8 @@
 * Enter RR (/min)
 * Enter SPO2 (%)
 * Click Save
+
+# Doctor issues an Admit disposition
+* Doctor begins consultation
+* Choose Disposition
+* Admit the patient

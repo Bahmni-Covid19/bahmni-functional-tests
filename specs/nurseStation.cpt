@@ -1,0 +1,4 @@
+# Nurse at ADT is able to view bed availability and assign beds
+* Nurse opens admission tab
+* Select the newly created patient
+* Click Admit

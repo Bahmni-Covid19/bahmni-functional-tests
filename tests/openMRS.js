@@ -17,9 +17,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     const patientUUID = existingPatientsResponse.data[0].uuid;
     var OPDPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"OPD",process.env.visitPrescriptions)
     var OPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
-
 });
-
 
 step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>", async function(mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
