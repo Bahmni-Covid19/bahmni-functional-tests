@@ -29,7 +29,7 @@
 * Click on home page and goto registration module
 
 # Doctor begins consultation
-* Doctor opens the consultation tab for newly created patient
+* Doctor opens the clinical tab for newly created patient
 * Select the newly created patient
 * Doctor clicks consultation
 

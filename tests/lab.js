@@ -17,7 +17,7 @@ step("Open Patient Documents", async function() {
 
 step("Add a report <labReport> to <module>", async function (labReport, module) {
 	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}),{waitForEvents:['DOMContentLoaded']});
-	await waitFor(1000)
+	await waitFor(process.env.actionTimeout)
 	await click(button('SAVE'),{waitForNavigation:true})
 });
 

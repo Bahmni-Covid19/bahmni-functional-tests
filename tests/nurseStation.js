@@ -38,7 +38,7 @@ step("Allocate bed <bedNumber>", async function(bedNumber) {
 
 step("Click Assign", async function() {
 	await click("Assign")
-	await waitFor(1000)
+	await waitFor(process.env.actionTimeout)
 });
 
 step("Admit the patient", async function() {

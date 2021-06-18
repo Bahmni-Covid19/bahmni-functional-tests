@@ -46,9 +46,9 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
 });
 
 
-step("Doctor opens the consultation tab for newly created patient", async function () {
+step("Doctor opens the clinical tab for newly created patient", async function () {
     await click("Clinical",{waitForNavigation:true});
-    await waitFor(2000)
+    await waitFor(process.env.actionTimeout)
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
@@ -58,9 +58,9 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 });
 
 step("Doctor clicks consultation", async function() {
-	await waitFor(async () => (await text("Consultation").exists()))
+	await waitFor(process.env.actionTimeout)
     await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000});
-    await waitFor(2000)
+    await waitFor(process.env.actionTimeout)
 });
 
 step("Choose Disposition", async function() {

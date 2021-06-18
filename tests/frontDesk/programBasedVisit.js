@@ -32,7 +32,7 @@ step("Enroll in program <program> stage <programStage> starting <numberOfYearsAg
 async function (program, programStage, numberOfYearsAgo_startDate, numberOfYearsAgo_treatmentDate, id, doctor, stage) {
     await highlight('New Program Enrollment')
     await click('New Program Enrollment',below("Date of birth"))
-    await waitFor(1000)
+    await waitFor(process.env.actionTimeout)
     await dropDown(toRightOf('Program')).select(program)
     
     var startDate = _date.getDateYearsAgo(numberOfYearsAgo_startDate);
@@ -49,9 +49,9 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
 });
 
 step("Open the program dashboard <program>", async function(program) {
-    await waitFor(3000)
+    await waitFor(process.env.actionTimeout)
     await click($('.proggram-dashboard-text'),{waitForNavigation:true});
-    await waitFor(3000)
+    await waitFor(process.env.actionTimeout)
 });
 
 step("Enter History and examination details", async function() {

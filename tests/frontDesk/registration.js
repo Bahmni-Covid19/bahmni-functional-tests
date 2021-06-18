@@ -132,7 +132,6 @@ step("Select the newly created patient", async function() {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue)
     await press('Enter', {waitForNavigation:true});
-    await waitFor(3000)
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
@@ -155,7 +154,7 @@ step("Enter registration fees <arg0>", async function (arg0) {
 });
 
 step("Go back to home page", async function () {
-    await waitFor(3000)
+    await waitFor(process.env.actionTimeout)
     await click($('.back-btn'),{waitForNavigation:true});
 });
 
@@ -175,8 +174,9 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
         await _ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
         await _ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
+        await waitFor(process.env.actionTimeout)
         await click(button("Confirm"))
-        await waitFor(1000)
+        await waitFor(process.env.actionTimeout)
         await click(button("Create New Record"))
         await click(button("Update"),{force: true})
     });
@@ -203,12 +203,12 @@ step("Enter village <village>", async function(village) {
 });
 
 step("Click on home page and goto registration module", async function () {
-    await waitFor(process.env.openRegistrationTimeout)
+    await waitFor(process.env.actionTimeout)
     await click($('.back-btn'),{waitForNavigation:true});
     await click('Registration',{waitForNavigation:true})
 });
 
 step("Click on home page", async function() {
-    await waitFor(process.env.openRegistrationTimeout)
+    await waitFor(process.env.actionTimeout)
     await click($('.back-btn'),{waitForNavigation:true});
 });
