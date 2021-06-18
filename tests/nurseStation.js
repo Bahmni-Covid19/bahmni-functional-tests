@@ -14,7 +14,7 @@ const {
 	waitFor,
 	$
 } = require('taiko');
-const _openmrs = require("./util/openMRS")
+const _openmrs = require("./util/omod")
 step("Open In Patient module", async function() {
 	await click("InPatient",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
 });

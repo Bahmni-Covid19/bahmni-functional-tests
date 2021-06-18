@@ -16,9 +16,8 @@
 * Enter vitals
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
 * Goto Bahmni home
-* Open Patient Documents
-* Choose newly created patient
-* Add a lab report "labReport1"
+* Upload a report "labReport1" to Patient Documents
+* Upload a report "labReport1" to Radiology
 ___
 * Close the visit
 * Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>

@@ -20,7 +20,7 @@
 * Goto Bahmni home
 * Open Patient Documents
 * Choose newly created patient
-* Add a lab report "labReport1"
+* Add a report "labReport1" to "Patient Documents"
 * Click on home page
 * Doctor issues an Discharge disposition
 * Goto Bahmni home

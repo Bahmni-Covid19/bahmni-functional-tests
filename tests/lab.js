@@ -15,7 +15,7 @@ step("Open Patient Documents", async function() {
 	await click("Patient Documents")
 });
 
-step("Add a lab report <labReport>", async function (labReport) {
+step("Add a report <labReport> to <module>", async function (labReport, module) {
 	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}),{waitForEvents:['DOMContentLoaded']});
 	await waitFor(1000)
 	await click(button('SAVE'),{waitForNavigation:true})
@@ -31,7 +31,11 @@ step("Choose newly created patient", async function() {
 });
 
 step("Click Save", async function () {
-	await click("Save");
+	await click("Save",{waitForNavigation:true});
 	await waitFor(async () => !(await $("Saved").exists()))
 });
 
+
+step("Open Radiology Upload", async function() {
+	await click("Radiology Upload")
+});

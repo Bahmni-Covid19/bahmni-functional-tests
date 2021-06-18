@@ -1,15 +1,13 @@
 "use strict";
 var Buffer = require('buffer/').Buffer
 
-function getReceptionistUserName(){
-    var encodedUser = process.env.receptionist;
+function getUserNameFromEncoding(encodedUser){
     let user = new Buffer(encodedUser,'base64');
     let decodedUser = user.toString('ascii');
     return decodedUser.split(":")[0]
 }
 
-function getReceptionistPassword(){
-    var encodedUser = process.env.receptionist;
+function getPasswordFromEncoding(encodedUser){
     let user = new Buffer(encodedUser,'base64');
     let decodedUser = user.toString('ascii');
     return decodedUser.split(":")[1]
@@ -28,6 +26,6 @@ function randomName(length) {
 
 module.exports={
     randomName:randomName,
-    getReceptionistUserName:getReceptionistUserName,
-    getReceptionistPassword:getReceptionistPassword
+    getUserNameFromEncoding:getUserNameFromEncoding,
+    getPasswordFromEncoding:getPasswordFromEncoding
 }

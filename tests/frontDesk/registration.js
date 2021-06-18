@@ -136,8 +136,8 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    await write(_users.getReceptionistUserName(), into(textBox(toRightOf("Username *"))));
-    await write(_users.getReceptionistPassword(), into(textBox(toRightOf("Password *"))));
+    await write(_users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
+    await write(_users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);
     await click(button("Login"),{waitForNavigation:true});
 });

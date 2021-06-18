@@ -1,0 +1,9 @@
+# Upload a report <arg0> to Patient Documents
+* Open Patient Documents
+* Choose newly created patient
+* Add a report "labReport1" to "Patient Documents"
+
+# Upload a report <arg0> to Radiology
+* Open Radiology Upload
+* Choose newly created patient
+* Add a report "labReport1" to "Patient Documents"
