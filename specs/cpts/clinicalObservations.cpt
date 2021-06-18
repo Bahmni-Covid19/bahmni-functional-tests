@@ -10,4 +10,9 @@
 # Doctor issues an Admit disposition
 * Doctor begins consultation
 * Choose Disposition
-* Admit the patient
+* Doctor advises admitting the patient
+
+# Doctor issues an Discharge disposition
+* Doctor begins consultation
+* Choose Disposition
+* Doctor advises discharging the patient

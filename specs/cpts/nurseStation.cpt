@@ -1,0 +1,22 @@
+# Nurse at ADT is able to view bed availability and assign beds
+* Nurse opens admission tab
+* Select the newly created patient
+* Select Patient Movement "Admit Patient"
+* Enter adt notes "Admission notes"
+* Admit the patient
+* Select bed for admission
+* Allocate bed "304-c"
+* Click Assign
+
+# Nurse at ADT is able to give discharge disposition
+* Nurse opens admission tab
+* Goto All admissions
+* Select the newly created patient
+* Select Patient Movement "Discharge Patient"
+* Enter adt notes "Discharge notes"
+* Discharge the patient
+
+# Open Admitted patient details
+* Goto Admitted tab
+* Select the newly created patient
+* Goto clinical tab

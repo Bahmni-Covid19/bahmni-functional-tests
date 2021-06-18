@@ -1,4 +1,5 @@
 "use strict";
+
 var _requestResponse = require("./util/requestResponse");
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
@@ -37,7 +38,7 @@ step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber
     var specialOPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"Special%20OPD",process.env.visitDiagnosticReports)
 });
 
-step("Verify openmrs IPD patient details with mobileNumber <arg0>", async function(arg0) {
+step("Verify openmrs IPD patient details with mobileNumber <mobileNumber>", async function(mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
@@ -94,4 +95,10 @@ step("Verify openmrs pharmacy patient details with mobileNumber <arg0>", async f
 
     var pharmacyPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
     var pharmacyDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
+});
+
+
+step("Put first name <firstName> last name <lastName>", async function(firstName, lastName) {
+    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
 });

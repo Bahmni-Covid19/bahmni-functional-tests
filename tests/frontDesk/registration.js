@@ -17,7 +17,8 @@ const {
     waitFor,
     confirm,
     accept,
-    scrollDown
+    scrollDown,
+    press
 } = require('taiko');
 var _users = require("../util/users");
 var _ndhm = require("../util/ndhm");
@@ -130,7 +131,7 @@ step("Select the newly created patient", async function() {
 
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue)
-    await click(firstName+" "+lastName,{waitForNavigation:true});
+    await press('Enter', {waitForNavigation:true});
     await waitFor(3000)
 })
 

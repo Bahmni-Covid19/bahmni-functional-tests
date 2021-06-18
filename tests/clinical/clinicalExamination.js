@@ -8,7 +8,9 @@ const {
     write, 
     dropDown,
     highlight,
-    below
+    below,
+    $,
+    text
 } = require('taiko');
 var _fileExtension = require("../util/fileExtension");
 
@@ -20,7 +22,7 @@ step("Doctor must be able to prescribe tests <prescriptions>", async function (p
     for (var test of prescriptions.tests) {
             await click(test.test,{force: true})
     }     
-    await click("Save",{force: true})   
+    await click("Save",{force: true})
 });
 
 step("Doctor starts prescribing medications <prescriptionNames>", async function (prescriptionNames) {
@@ -46,6 +48,7 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
 
 step("Doctor opens the consultation tab for newly created patient", async function () {
     await click("Clinical",{waitForNavigation:true});
+    await waitFor(2000)
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
@@ -54,24 +57,8 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
     await write(notes,into(textBox({"placeholder" : "Enter Notes here"})),{force: true})
 });
 
-// async function doUntilNoError(asyncFunction,count){
-//     var hasNoError = false
-//     var localcount =0
-//     do{
-//         try{
-//             await asyncFunction;
-//             hasNoError = true
-//         }catch(e)
-//         {
-//             if(localcount>=count)
-//                 break;
-//             localcount++
-//             await waitFor(3000)
-//         }
-//     }while(!hasNoError)
-// }
-
 step("Doctor clicks consultation", async function() {
+	await waitFor(async () => (await text("Consultation").exists()))
     await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000});
     await waitFor(2000)
 });
@@ -80,14 +67,16 @@ step("Choose Disposition", async function() {
     await click("Disposition",{waitForNavigation:true})    
 });
 
-step("Admit the patient", async function() {
+step("Doctor advises admitting the patient", async function() {
     await dropDown("Disposition Type").select('Admit Patient')
     await write("Admission Notes",into(textBox(below("Disposition Notes"))))
-    await click("Save",{waitForNavigation:true})
+    await click("Save");
+    waitFor(async () => !(await $("Saved").exists()))
 });
 
-step("Doctor to give discharge disposition", async function() {
+step("Doctor advises discharging the patient", async function() {
     await dropDown("Disposition Type").select('Discharge Patient')
     await write("Discharge Notes",into(textBox(below("Disposition Notes"))))
-    await click("Save")
+    await click("Save");
+    waitFor(async () => !(await $("Saved").exists()))
 });

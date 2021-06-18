@@ -7,6 +7,8 @@ const {
 	fileField,
 	button,
 	write,
+	waitFor,
+	$
 } = require('taiko');
 
 step("Open Patient Documents", async function() {
@@ -29,6 +31,7 @@ step("Choose newly created patient", async function() {
 });
 
 step("Click Save", async function () {
-    await click("Save",{waitForNavigation:true});
+	await click("Save");
+	await waitFor(async () => !(await $("Saved").exists()))
 });
 
