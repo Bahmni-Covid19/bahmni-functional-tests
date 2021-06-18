@@ -9,7 +9,7 @@ const headless = process.env.headless_chrome.toLowerCase() === 'true';
 
 beforeSuite(async () => {
     await openBrowser({headless:headless,
-        args: ["--start-fullscreen"]
+        args: ["--start-maximized","--start-fullscreen"]
     })
 });
 

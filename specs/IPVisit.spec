@@ -8,7 +8,7 @@
 * Open newly created patient details by search
 * Start an IPD Visit
 * Doctor issues an Admit disposition
-* Go back from patient tab to home
+* Goto Bahmni home
 * Open In Patient module
 * Nurse at ADT is able to view bed availability and assign beds
 * Goto clinical tab
@@ -28,6 +28,5 @@
 * Nurse at ADT is able to give discharge disposition
 * Goto Bahmni home
 ___
-* Open registration module
 * Close the visit
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
