@@ -19,7 +19,6 @@
 * Open Patient Documents
 * Choose newly created patient
 * Add a lab report "labReport1"
-* Go back to home page
 ___
 * Close the visit
 * Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>

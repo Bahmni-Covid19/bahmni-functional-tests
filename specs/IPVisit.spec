@@ -26,7 +26,6 @@
 * Goto Bahmni home
 * Open In Patient module
 * Nurse at ADT is able to give discharge disposition
-* Goto Bahmni home
 ___
 * Close the visit
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
