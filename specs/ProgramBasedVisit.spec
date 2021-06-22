@@ -17,7 +17,6 @@
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
 * Goto Bahmni home
 * Upload a report "labReport1" to Patient Documents
-* Upload a report "labReport1" to Radiology
 ___
 * Close the visit
 * Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>

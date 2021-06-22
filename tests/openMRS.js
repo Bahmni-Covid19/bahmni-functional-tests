@@ -16,8 +16,8 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
-    var OPDPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"OPD",process.env.visitPrescriptions)
-    var OPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
+    var OPDPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitPrescriptions)
+    var OPDDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
 });
 
 step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>", async function(mobileNumber) {
@@ -34,8 +34,8 @@ step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
-    var specialOPDPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"Special%20OPD",process.env.visitPrescriptions)
-    var specialOPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"Special%20OPD",process.env.visitDiagnosticReports)
+    var specialOPDPrescriptions = await _requestResponse.makeOpenProgramCall(patientUUID,"HIV%20Program","1234",process.env.programPrescriptions)
+    var specialOPDDiagnostics = await _requestResponse.makeOpenProgramCall(patientUUID,"HIV%20Program","1234",process.env.programDiagnosticReports)
 });
 
 step("Verify openmrs IPD patient details with mobileNumber <mobileNumber>", async function(mobileNumber) {
@@ -52,8 +52,8 @@ step("Verify openmrs IPD patient details with mobileNumber <mobileNumber>", asyn
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
-    var IPDPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"IPD",process.env.visitPrescriptions)
-    var IPDDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"IPD",process.env.visitDiagnosticReports)
+    var IPDPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"IPD",process.env.visitPrescriptions)
+    var IPDDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"IPD",process.env.visitDiagnosticReports)
 });
 
 step("Verify openmrs lab patient details with mobileNumber <arg0>", async function(arg0) {
@@ -71,11 +71,11 @@ step("Verify openmrs lab patient details with mobileNumber <arg0>", async functi
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
 
-    var labPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"lab",process.env.visitPrescriptions)
-    var labDiagnostics =await _requestResponse.makeOpenMRSCall(patientUUID,"lab",process.env.visitDiagnosticReports)
+    var labPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"lab",process.env.visitPrescriptions)
+    var labDiagnostics =await _requestResponse.makeOpenVisitCall(patientUUID,"lab",process.env.visitDiagnosticReports)
 
-    var pharmacyPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
-    var pharmacyDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
+    var pharmacyPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
+    var pharmacyDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
 });
 
 step("Verify openmrs pharmacy patient details with mobileNumber <arg0>", async function(arg0) {
@@ -93,8 +93,8 @@ step("Verify openmrs pharmacy patient details with mobileNumber <arg0>", async f
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
 
-    var pharmacyPrescriptions = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
-    var pharmacyDiagnostics = await _requestResponse.makeOpenMRSCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
+    var pharmacyPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
+    var pharmacyDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
 });
 
 

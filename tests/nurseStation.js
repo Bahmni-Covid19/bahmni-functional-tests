@@ -38,7 +38,7 @@ step("Allocate bed <bedNumber>", async function(bedNumber) {
 
 step("Click Assign", async function() {
 	await click("Assign")
-	await waitFor(process.env.actionTimeout)
+	await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Admit the patient", async function() {

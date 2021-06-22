@@ -132,6 +132,7 @@ step("Select the newly created patient", async function() {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue)
     await press('Enter', {waitForNavigation:true});
+    await waitFor(async () => !(await $("overlay").exists()))
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
@@ -154,7 +155,7 @@ step("Enter registration fees <arg0>", async function (arg0) {
 });
 
 step("Go back to home page", async function () {
-    await waitFor(process.env.actionTimeout)
+    await waitFor(async () => !(await $("overlay").exists()))
     await click($('.back-btn'),{waitForNavigation:true});
 });
 
@@ -174,9 +175,9 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
         await _ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
         await _ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
-        await waitFor(process.env.actionTimeout)
+        await waitFor(async () => !(await $("overlay").exists()))
         await click(button("Confirm"))
-        await waitFor(process.env.actionTimeout)
+        await waitFor(async () => !(await $("overlay").exists()))
         await click(button("Create New Record"))
         await click(button("Update"),{force: true})
     });
@@ -194,7 +195,7 @@ step("Log out", async function () {
     try
     {
         await click(button({"class":"btn-user-info fr"}))
-        await click('Logout')    
+        await click('Logout',{waitForNavigation:true})    
     }catch(e){}
 });
 

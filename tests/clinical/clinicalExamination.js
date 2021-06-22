@@ -47,8 +47,7 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
 
 
 step("Doctor opens the clinical tab for newly created patient", async function () {
-    await click("Clinical",{waitForNavigation:true});
-    await waitFor(process.env.actionTimeout)
+    await click("Clinical",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:20000});
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
@@ -58,9 +57,8 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 });
 
 step("Doctor clicks consultation", async function() {
-	await waitFor(process.env.actionTimeout)
     await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000});
-    await waitFor(process.env.actionTimeout)
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Choose Disposition", async function() {
@@ -71,12 +69,12 @@ step("Doctor advises admitting the patient", async function() {
     await dropDown("Disposition Type").select('Admit Patient')
     await write("Admission Notes",into(textBox(below("Disposition Notes"))))
     await click("Save");
-    waitFor(async () => !(await $("Saved").exists()))
+    await waitFor(async () => !(await $("Saved").exists()))
 });
 
 step("Doctor advises discharging the patient", async function() {
     await dropDown("Disposition Type").select('Discharge Patient')
     await write("Discharge Notes",into(textBox(below("Disposition Notes"))))
     await click("Save");
-    waitFor(async () => !(await $("Saved").exists()))
+    await waitFor(async () => !(await $("Saved").exists()))
 });
