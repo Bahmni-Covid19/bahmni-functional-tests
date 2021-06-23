@@ -46,7 +46,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       
-      - run: xvfb-run gauge run --env ci specs -v
+      - run: xvfb-run npm test
       - store_artifacts:
           path: ./reports
           destination: htmlReports
