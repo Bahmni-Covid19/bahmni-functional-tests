@@ -24,5 +24,5 @@ step("waitFor <time>", async function (time) {
 });
 
 step("Click Start OPD Visit", async function () {
-    await click("Start OPD Visit");
+    await click("Start OPD Visit",{waitForNavigation:true});
 });

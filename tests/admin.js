@@ -20,7 +20,7 @@ step("Add this newly created patient as merge patient2", async function() {
 });
 
 step("Goto the openMRS Admin tab", async function() {
-	await goto(process.env.bahmniHome+process.env.admin);
+	await goto(process.env.bahmniHost+process.env.admin);
 });
 
 step("Find patients to merge", async function() {
@@ -29,7 +29,7 @@ step("Find patients to merge", async function() {
 
 step("Enter patient identifiers to be merged", async function() {
 	var patientsToBeMerged = gauge.dataStore.scenarioStore.get("merge_patientIdentifier1")+","+gauge.dataStore.scenarioStore.get("merge_patientIdentifier2")
-	await write(patientsToBeMerged)
+	await write(patientsToBeMerged,into(textBox(below("Identifier"))))
 	await click("Search",below(patientsToBeMerged))
 });
 
