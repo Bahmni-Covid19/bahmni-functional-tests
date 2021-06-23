@@ -1,4 +1,4 @@
-# OPD Visits
+# Merge Patient Visits
 |mobileNumber|
 |+91-9876543210|
 
@@ -20,8 +20,9 @@
 * Choose newly created patient
 * Add a report "labReport1" to "Patient Documents"
 * Close the visit
+* Goto Bahmni home
 * Open registration module
-* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
+* Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Add this newly created patient as merge patient2
 * Open newly created patient details by search
 * Start an IPD Visit

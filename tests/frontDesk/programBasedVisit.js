@@ -69,8 +69,7 @@ step("Enter History and examination details", async function() {
     await click(historyAndExaminationDetails.Smoking_History,toRightOf("Smoking History"));
 
     await attach(_path.join("./data/program/"+'programReport1.jpg'),fileField({id:"file-browse-observation_9"}));
-    await click('Save',{waitForNavigation:true});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await click('Save');
     await waitFor(async () => !(await $("Saved").exists()))
 });
 

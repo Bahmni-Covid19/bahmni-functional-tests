@@ -114,6 +114,7 @@ step("Select Mobile OTP", async function () {
 step("Authenticate with Mobile", async function () {
     await _ndhm.interceptAuthInit(process.env.receptionist);
     await click(button("Authenticate"))
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 step("Open patient <patientID> details by search firstName <firstName> lastName <lastName> patientHealthID <patientHealthID>", 
 async function (patientIdentifierValue, firstName, lastName, patientHealthID) {
@@ -165,7 +166,7 @@ step("Verify if healthId entered already exists", async function () {
 
 step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
     async function (otp, patientMobileNumber) {
-        await waitFor('Confirm')
+        await waitFor(button('Confirm'))
         await write(otp, into(textBox(above("Confirm"))));  
         var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
         var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
@@ -176,7 +177,6 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
         await _ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
         await _ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
-        await waitFor(async () => !(await $("overlay").exists()))
         await click(button("Confirm"))
         await waitFor(async () => !(await $("overlay").exists()))
         await click(button("Create New Record"))
