@@ -8,6 +8,7 @@ const {
 	write, 
 	$,
 	highlight,
+	waitFor,
 } = require('taiko');
 
 step("Enter Pulse(/min)", async function() {
@@ -33,6 +34,6 @@ step("Enter Blood Pressure systolic, diastolic and posture", async function() {
 });
 
 step("Click Vitals", async function() {
-	await waitFor(process.env.actionTimeout)
+	await waitFor('Vitals')
 	await click("Vitals",{waitForNavigation:true})
 });

@@ -33,13 +33,27 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
 
     if(prescriptions.drug_name!=null)
     {
-        await write(prescriptions.drug_name,into(textBox(toRightOf("Drug Name"))));
-        await dropDown(toRightOf("Units")).select(prescriptions.units);
-        await dropDown(toRightOf("Frequency")).select(prescriptions.frequency)
-        await click("Accept");
-    
-        await write(prescriptions.dose,into(textBox(toRightOf("Dose"))));
-        await write(prescriptions.duration,into(textBox(toRightOf("Duration"))));
+        if(textBox(toRightOf("Drug Name")).exists())
+        {
+            await write(prescriptions.drug_name,into(textBox(toRightOf("Drug Name"))));
+            await dropDown(toRightOf("Units")).select(prescriptions.units);
+            await dropDown(toRightOf("Frequency")).select(prescriptions.frequency)
+            await click("Accept");
+        
+            await write(prescriptions.dose,into(textBox(toRightOf("Dose"))));
+            await write(prescriptions.duration,into(textBox(toRightOf("Duration"))));    
+        }
+        if(textBox(below("Drug Name")).exists())
+        {
+            await write(prescriptions.drug_name,into(textBox(below("Drug Name"))));
+            await dropDown(below("Units")).select(prescriptions.units);
+            await dropDown(below("Frequency")).select(prescriptions.frequency)
+            await click("Accept");
+        
+            await write(prescriptions.dose,into(textBox(below("Dose"))));
+            await write(prescriptions.duration,into(textBox(below("Duration"))));    
+        }
+
         await click("Add");
     }
     await click("Save")

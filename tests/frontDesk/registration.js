@@ -165,6 +165,7 @@ step("Verify if healthId entered already exists", async function () {
 
 step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
     async function (otp, patientMobileNumber) {
+        await waitFor('Confirm')
         await write(otp, into(textBox(above("Confirm"))));  
         var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
         var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
