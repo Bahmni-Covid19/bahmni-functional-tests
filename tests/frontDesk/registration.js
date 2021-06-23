@@ -189,7 +189,8 @@ step("Enter visit details", async function() {
 
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
-	await click(button("Close Visit"),{waitForNavigation:true})
+    await click(button("Close Visit"))
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Log out", async function () {

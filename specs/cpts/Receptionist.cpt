@@ -4,7 +4,6 @@
 * Login as a receptionist with admin credentials location <location>
 
 # Create a new patient with random name and healthID mobileNumber <mobileNumber>
-* Open registration module
 * Create a new patient with verfication id
 * To Associate a healthID, vefiy it
 * Enter random healthID details

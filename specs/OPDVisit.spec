@@ -4,6 +4,7 @@
 
 ## Verify health ID
 * Login to Bahmni location "General Ward" as a receptionist
+* Open registration module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click on home page and goto registration module
 * Open newly created patient details by search
