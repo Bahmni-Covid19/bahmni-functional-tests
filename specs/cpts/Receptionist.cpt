@@ -12,6 +12,8 @@
 * Select Mobile OTP
 * Authenticate with Mobile
 * Enter OTP for health care validation "0000" for with new healthID, patient details and mobileNumber <mobileNumber>
+* Create new record
+* Update the verified HealthID
 * Enter patient mobile number <mobileNumber>
 * Enter village "Village"
 * Save the patient data

@@ -178,9 +178,6 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
         await _ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
         await click(button("Confirm"))
-        await waitFor(async () => !(await $("overlay").exists()))
-        await click(button("Create New Record"))
-        await click(button("Update"),{force: true})
     });
 
 step("Enter visit details", async function() {
@@ -214,4 +211,14 @@ step("Click on home page and goto registration module", async function () {
 step("Click on home page", async function() {
     await waitFor(process.env.actionTimeout)
     await click($('.back-btn'),{waitForNavigation:true});
+});
+
+step("Create new record", async function() {
+    await waitFor(button("Create New Record"))
+    await click(button("Create New Record"))
+});
+
+step("Update the verified HealthID", async function() {
+    await waitFor(button("Update"))
+	await click(button("Update"),{force: true})
 });
