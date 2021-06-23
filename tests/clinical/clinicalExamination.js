@@ -33,7 +33,7 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
 
     if(prescriptions.drug_name!=null)
     {
-        if(textBox(toRightOf("Drug Name")).exists())
+        try
         {
             await write(prescriptions.drug_name,into(textBox(toRightOf("Drug Name"))));
             await dropDown(toRightOf("Units")).select(prescriptions.units);
@@ -43,8 +43,7 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
             await write(prescriptions.dose,into(textBox(toRightOf("Dose"))));
             await write(prescriptions.duration,into(textBox(toRightOf("Duration"))));    
         }
-        if(textBox(below("Drug Name")).exists())
-        {
+        catch(e){
             await write(prescriptions.drug_name,into(textBox(below("Drug Name"))));
             await dropDown(below("Units")).select(prescriptions.units);
             await dropDown(below("Frequency")).select(prescriptions.frequency)
@@ -53,7 +52,6 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
             await write(prescriptions.dose,into(textBox(below("Dose"))));
             await write(prescriptions.duration,into(textBox(below("Duration"))));    
         }
-
         await click("Add");
     }
     await click("Save")
