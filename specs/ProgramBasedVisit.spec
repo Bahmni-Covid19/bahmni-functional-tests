@@ -16,7 +16,6 @@
 * Enter History and examination details
 * Enter vitals
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
-* Goto Bahmni home
 * Upload a report "labReport1" to Patient Documents
 ___
 * Close the visit

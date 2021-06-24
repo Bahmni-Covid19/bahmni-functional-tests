@@ -105,6 +105,7 @@ step("Save the patient data", async function () {
 step("Fetch authentication modes", async function () {
     await _ndhm.interceptFetchModes(process.env.receptionist);
     await click(text("Verify", within($(".verify-health-id"))));
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Select Mobile OTP", async function () {
@@ -120,10 +121,11 @@ step("Open patient <patientID> details by search firstName <firstName> lastName 
 async function (patientIdentifierValue, firstName, lastName, patientHealthID) {
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
-    gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
+    if(patientHealthID!="")
+        gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
     gauge.dataStore.scenarioStore.put("patientIdentifier",patientIdentifierValue);
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
-    await click("Search", {waitForNavigation:true});
+    await press("Enter", {waitForNavigation:true});
 });
 
 step("Select the newly created patient", async function() {    
@@ -203,13 +205,13 @@ step("Enter village <village>", async function(village) {
 });
 
 step("Click on home page and goto registration module", async function () {
-    await waitFor(process.env.actionTimeout)
+    await waitFor(async () => !(await $("overlay").exists()))
     await click($('.back-btn'),{waitForNavigation:true});
     await click('Registration',{waitForNavigation:true})
 });
 
 step("Click on home page", async function() {
-    await waitFor(process.env.actionTimeout)
+    await waitFor(async () => !(await $("overlay").exists()))
     await click($('.back-btn'),{waitForNavigation:true});
 });
 
