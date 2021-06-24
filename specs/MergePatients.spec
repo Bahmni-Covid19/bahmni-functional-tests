@@ -1,5 +1,5 @@
 # Merge Patient Visits
-Tags: e2e
+Tags: knownIssue
 |mobileNumber|
 |+91-9876543210|
 

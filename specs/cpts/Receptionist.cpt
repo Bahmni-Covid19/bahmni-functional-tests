@@ -1,6 +1,5 @@
 # Login to Bahmni location <location> as a receptionist
 * Goto Bahmni home
-* Log out if already logged in
 * Login as a receptionist with admin credentials location <location>
 
 # Create a new patient with random name and healthID mobileNumber <mobileNumber>

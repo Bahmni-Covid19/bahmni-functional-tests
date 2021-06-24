@@ -2,12 +2,14 @@
 |mobileNumber|
 |+91-9876543210|
 
-## Verify health ID
+## Should be able to search with healthID once associated
+Tags: knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click on home page and goto registration module
-* Open newly created patient details by search
+* Open newly created patient details by healthID
+* Verify correct patient form is open
 
 ## Should be able to get patient external lab reports and prescriptions
 * Login to Bahmni location "General Ward" as a receptionist
@@ -27,7 +29,7 @@
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
 
 ## Should be able to get in house lab reports and prescriptions of a patient
-Tags: e2e
+Tags: knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>

@@ -18,11 +18,11 @@ const {
     confirm,
     accept,
     scrollDown,
-    press
+    press,
 } = require('taiko');
 var _users = require("../util/users");
 var _ndhm = require("../util/ndhm");
-
+var assert = require("assert");
 step("Open registration module", async function () {
     await highlight("Clinical")
     await click("Registration", toLeftOf("Programs"));
@@ -109,6 +109,7 @@ step("Save the patient data", async function () {
 });
 
 step("Select Mobile OTP", async function () {
+    await waitFor("Preferred mode of Authentication")
     await dropDown("Preferred mode of Authentication").select("MOBILE_OTP");
 });
 
@@ -139,6 +140,12 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
+    if(!(await text('BAHMNI EMR LOGIN').exists()))
+    {
+        await click(button({"class":"btn-user-info fr"}))
+        await click('Logout',{waitForNavigation:true})        
+    }
+
     await write(_users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
     await write(_users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);
@@ -166,12 +173,11 @@ step("Verify if healthId entered already exists", async function () {
     await _ndhm.interceptFetchModes(process.env.receptionist)
     await _ndhm.interceptExistingPatients(process.env.receptionist,gauge.dataStore.scenarioStore.get("healthID"))
     await click(text("Verify", within($(".verify-health-id"))));
-    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
     async function (otp, patientMobileNumber) {
-        await waitFor(button('Confirm'))
+        await waitFor('Enter OTP')
         await write(otp, into(textBox(above("Confirm"))));  
         var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
         var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
@@ -193,14 +199,6 @@ step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
     await click(button("Close Visit"))
     await waitFor(async () => !(await $("overlay").exists()))
-});
-
-step("Log out if already logged in", async function () {
-    try
-    {
-        await click(button({"class":"btn-user-info fr"}))
-        await click('Logout',{waitForNavigation:true})    
-    }catch(e){}
 });
 
 step("Enter village <village>", async function(village) {
@@ -226,4 +224,30 @@ step("Create new record", async function() {
 step("Update the verified HealthID", async function() {
     await waitFor(button("Update"))
 	await click(button("Update"),{force: true})
+});
+
+step("Open newly created patient details by search", async function () {
+    var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
+
+    console.log("patient Identifier"+patientIdentifierValue)
+    gauge.message("patient Identifier"+patientIdentifierValue)
+
+    await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
+    await press('Enter', {waitForNavigation:true});
+    await waitFor(async () => !(await $("overlay").exists()))
+});
+step("Open newly created patient details by healthID", async function() {
+    var patientHealthID = gauge.dataStore.scenarioStore.get("healthID")
+
+    console.log("patient HealthID"+patientHealthID)
+    gauge.message("patient HealthID"+patientHealthID)
+
+    await write(patientHealthID, into(textBox({ "placeholder": "Enter ID" })))
+    await press('Enter', {waitForNavigation:true});
+    await waitFor(async () => !(await $("overlay").exists()))
+});
+
+step("Verify correct patient form is open", async function() {
+    var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
+    assert.ok(await text(patientIdentifierValue).exists());
 });
