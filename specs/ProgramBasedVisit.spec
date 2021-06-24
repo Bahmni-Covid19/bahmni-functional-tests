@@ -4,7 +4,7 @@
 ## Should be able to enter program level details for a patient
 * Login to Bahmni location "OPD-1" as a receptionist
 * Open registration module
-* Create a new patient with random name and healthID mobileNumber <mobileNumber>
+* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Click on home page and goto registration module
 * Open newly created patient details by search
 * Start an Special OPD Visit

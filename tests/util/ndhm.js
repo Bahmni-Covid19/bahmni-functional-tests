@@ -28,12 +28,9 @@ async function interceptFetchModes(token) {
         }
     }
     
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/fetch-modes", (request) => {
-        request.respond(response)
-    },1)
-    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/fetch-modes", (request) => {
-        request.respond(response)
-    },1)
+    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/fetch-modes", response,1)
+    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/fetch-modes", response,1)
+    gauge.message("intercepted"+process.env.bahmniHost+ "/hiprovider/v0.5/hip/fetch-modes")
 }
 
 async function interceptAuthInit(token) {
@@ -52,8 +49,10 @@ async function interceptAuthInit(token) {
         }
     }
 
-    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/init", (request) => request.respond(response),1)
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/init", (request) => request.respond(response),1)
+    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/init", response,1)
+    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/init", response,1)
+    gauge.message("intercepted"+process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/init")
+
 }
 
 async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber){
@@ -79,8 +78,9 @@ async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirt
             'X-HIP-ID': '10000005'
         }
     }
-    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
-    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/confirm", (request) => request.respond(response),1);
+    await intercept(process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/confirm", response,1);
+    await intercept(process.env.bahmniHost+ "/ndhm/null/v0.5/hip/auth/confirm", response,1);
+    gauge.message("intercepted"+process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/confirm")
 }
 
 async function interceptExistingPatients(token, healthID){
@@ -98,8 +98,9 @@ async function interceptExistingPatients(token, healthID){
             'content-length': reqBodyOnFetchModes.length
         }
     }
-    await intercept(process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients/" + healthID, (request) => request.respond(response),1)
-    await intercept(process.env.bahmniHost+ "/ndhm/null/existingPatients/" + healthID, (request) => request.respond(response),1)
+    await intercept(process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients/" + healthID, response,1)
+    await intercept(process.env.bahmniHost+ "/ndhm/null/existingPatients/" + healthID, response,1)
+    gauge.message("intercepted"+process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients/" + healthID)
 }
 
 async function interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender){
@@ -125,8 +126,8 @@ async function interceptExistingPatientsWithParams(token,firstName,lastName,year
         }
     }
 
-    await intercept(existingPatientUrl, (request) => request.respond(response),1);
-    await intercept(properExistingPatientUrl, (request) => request.respond(response),1);
+    await intercept(existingPatientUrl, (request) => response,1);
+    await intercept(properExistingPatientUrl, (request) => response,1);
 }
 
 module.exports={

@@ -36,12 +36,15 @@ step("Enter random healthID details", async function () {
     await click(textBox(toRightOf("Enter Health ID")));
     var firstName = _users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+    gauge.message("FirstName" + firstName);
 
     var lastName = _users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+    gauge.message("LastName" + lastName);
 
     var patientHealthID = firstName+lastName+"@sbx";
     gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
+    gauge.message("healthID" + patientHealthID);
 
     await write(patientHealthID);
 });
@@ -102,12 +105,6 @@ step("Save the patient data", async function () {
     gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
 });
 
-step("Fetch authentication modes", async function () {
-    await _ndhm.interceptFetchModes(process.env.receptionist);
-    await click(text("Verify", within($(".verify-health-id"))));
-    await waitFor(async () => !(await $("overlay").exists()))
-});
-
 step("Select Mobile OTP", async function () {
     await dropDown("Preferred mode of Authentication").select("MOBILE_OTP");
 });
@@ -163,7 +160,10 @@ step("Go back to home page", async function () {
 });
 
 step("Verify if healthId entered already exists", async function () {
+    await _ndhm.interceptFetchModes(process.env.receptionist)
     await _ndhm.interceptExistingPatients(process.env.receptionist,gauge.dataStore.scenarioStore.get("healthID"))
+    await click(text("Verify", within($(".verify-health-id"))));
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
