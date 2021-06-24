@@ -9,14 +9,6 @@
 * Click on home page and goto registration module
 * Open newly created patient details by search
 
-## Local development
-* Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
-* Open patient "GAN203451" details by search firstName "zDmzrjjmnD" lastName "Ocjzsrqcum" patientHealthID ""
-* Upload a report "labReport2" to Radiology
-* Close the visit
-* Verify openmrs OPD patient details with mobileNumber <mobileNumber>
-
 ## Should be able to get patient external lab reports and prescriptions
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
