@@ -46,7 +46,7 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       
-      - run: "xvfb-run --server-args='-screen 0, 1024x768x16' npm test"
+      - run: "xvfb-run --server-args='-screen 0, 1920x1200x24' npm test"
       - store_artifacts:
           path: ./reports
           destination: htmlReports
