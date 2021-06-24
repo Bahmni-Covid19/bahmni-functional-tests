@@ -38,4 +38,5 @@ step("Click Save", async function () {
 
 step("Open Radiology Upload", async function() {
 	await click("Radiology Upload")
+	await waitFor(async () => !(await $("Saved").exists()))
 });

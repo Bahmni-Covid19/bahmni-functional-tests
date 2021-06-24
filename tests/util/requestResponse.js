@@ -23,6 +23,7 @@ async function makeOpenVisitCall(patientUUID,visitType,URL){
         .replace("<visitType>",visitType)
 
     console.log(request_URL)
+    gauge.message(request_URL)
     var prescriptionsVisitResponse = await getOpenMRSResponse(request_URL)
 
     assert.ok(prescriptionsVisitResponse.status==200)
@@ -30,6 +31,10 @@ async function makeOpenVisitCall(patientUUID,visitType,URL){
     console.log(prescriptionsVisitResponse.data);
     console.log(prescriptionsVisitResponse.headers);
     console.log(prescriptionsVisitResponse.config);
+    gauge.message(prescriptionsVisitResponse.data);
+    gauge.message(prescriptionsVisitResponse.headers);
+    gauge.message(prescriptionsVisitResponse.config);
+
     return prescriptionsVisitResponse.data;
 }
 
@@ -45,6 +50,7 @@ async function makeOpenProgramCall(patientUUID,programName,programEnrollmentId,U
         .replace("<programEnrollmentId>",programEnrollmentId)
 
     console.log(request_URL)
+    gauge.message(request_URL)
     var prescriptionsVisitResponse = await getOpenMRSResponse(request_URL)
 
     assert.ok(prescriptionsVisitResponse.status==200)
@@ -52,6 +58,10 @@ async function makeOpenProgramCall(patientUUID,programName,programEnrollmentId,U
     console.log(prescriptionsVisitResponse.data);
     console.log(prescriptionsVisitResponse.headers);
     console.log(prescriptionsVisitResponse.config);
+    gauge.message(prescriptionsVisitResponse.data);
+    gauge.message(prescriptionsVisitResponse.headers);
+    gauge.message(prescriptionsVisitResponse.config);
+
     return prescriptionsVisitResponse.data;
 }
 

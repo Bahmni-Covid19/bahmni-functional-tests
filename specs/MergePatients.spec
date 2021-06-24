@@ -13,12 +13,6 @@ Tags: e2e
 * Doctor begins consultation
 * Enter History and examination details
 * Enter vitals
-* Doctor opens the consultation notes "Consultation Notes" for newly created patient
-* Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
-* Goto Bahmni home
-* Open Patient Documents
-* Choose newly created patient
-* Add a report "labReport1" to "Patient Documents"
 * Close the visit
 * Goto Bahmni home
 * Open registration module
@@ -35,12 +29,7 @@ Tags: e2e
 * Doctor clicks consultation
 * Enter History and examination details
 * Enter vitals
-* Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
 * Goto Bahmni home
-* Open Patient Documents
-* Choose newly created patient
-* Add a report "labReport2" to "Patient Documents"
-* Click on home page
 * Doctor issues an Discharge disposition
 * Goto Bahmni home
 * Open In Patient module
@@ -49,4 +38,3 @@ Tags: e2e
 * Merge the newly created patients
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
-

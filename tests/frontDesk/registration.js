@@ -36,14 +36,17 @@ step("Enter random healthID details", async function () {
     await click(textBox(toRightOf("Enter Health ID")));
     var firstName = _users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+    console.log("FirstName" + firstName)
     gauge.message("FirstName" + firstName);
 
     var lastName = _users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+    console.log("LastName" + lastName)
     gauge.message("LastName" + lastName);
 
     var patientHealthID = firstName+lastName+"@sbx";
     gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
+    console.log("healthID" + patientHealthID);
     gauge.message("healthID" + patientHealthID);
 
     await write(patientHealthID);
@@ -192,7 +195,7 @@ step("Close visit", async function() {
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
-step("Log out", async function () {
+step("Log out if already logged in", async function () {
     try
     {
         await click(button({"class":"btn-user-info fr"}))

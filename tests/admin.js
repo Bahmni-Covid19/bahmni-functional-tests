@@ -7,7 +7,8 @@ const {
     below,
     waitFor,
 	press,
-	checkBox
+	checkBox,
+	textBox,
 } = require('taiko');
 
 
