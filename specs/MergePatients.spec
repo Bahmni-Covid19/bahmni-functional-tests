@@ -1,5 +1,4 @@
 # Merge Patient Visits
-Tags: knownIssue
 |mobileNumber|
 |+91-9876543210|
 
