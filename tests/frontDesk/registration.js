@@ -57,6 +57,7 @@ step("Enter patient random first name", async function () {
     if(firstName==null||firstName=="")
     {
         firstName = _users.randomName(10)
+        gauge.write("firstName "+firstName)
         gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     }    
     await write(firstName, into(textBox(toRightOf("Patient Name*"))));
@@ -64,13 +65,13 @@ step("Enter patient random first name", async function () {
 
 step("Enter patient random middle name", async function () {
     var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
-    if(middleName==null||firstName=="")
+    if(middleName==null||middleName=="")
     {
         middleName = _users.randomName(10)
+        gauge.write("middleName "+middleName)
         gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
     }
     await write(middleName, into(textBox({ "placeholder": "Middle Name" })));
-    gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
 });
 
 step("Enter patient random last name", async function () {
@@ -78,6 +79,7 @@ step("Enter patient random last name", async function () {
     if(lastName==null||firstName=="")
     {
         lastName = _users.randomName(10)
+        gauge.write("middleName "+lastName)
         gauge.dataStore.scenarioStore.put("patientLastName",lastName)
     }
 

@@ -9,6 +9,11 @@ const {
 	press,
 	checkBox,
 	textBox,
+	toLeftOf,
+	$,
+	confirm,
+	accept,
+	button,
 } = require('taiko');
 
 
@@ -44,5 +49,10 @@ step("Merge patients", async function() {
 	await waitFor(async () => !(await $("Loading...").exists()))
 	await confirm('Are you sure you want to merge these patients?', async () => await accept())	
 	await click(button("Merge Patients"))
-	await waitFor(async () => (await $("Patients merged successfully").exists()))
+//	await waitFor(async () => (await $("Patients merged successfully").exists()))
+});
+
+step("add patients to be merged <patient1> and <patient2>", async function(patient1, patient2) {
+	gauge.dataStore.scenarioStore.put("merge_patientIdentifier1",patient1);
+	gauge.dataStore.scenarioStore.put("merge_patientIdentifier2",patient2)
 });

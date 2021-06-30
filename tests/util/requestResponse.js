@@ -28,7 +28,7 @@ async function makeOpenVisitCall(patientUUID,visitType,URL){
 
     assert.ok(prescriptionsVisitResponse.status==200)
 
-    console.log(prescriptionsVisitResponse.data);
+    console.log(JSON.stringify(prescriptionsVisitResponse.data));
     console.log(prescriptionsVisitResponse.headers);
     console.log(prescriptionsVisitResponse.config);
     gauge.message(prescriptionsVisitResponse.data);
