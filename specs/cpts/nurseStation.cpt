@@ -20,3 +20,10 @@
 * Goto Admitted tab
 * Select the newly created patient
 * Goto clinical tab
+
+# Nurse initiates clinical checkup
+* Nurse opens clinical tab
+* Enter History and examination details
+* Click Save
+* Enter vitals
+* Nurse opens the consultation notes "Consultation Notes" for newly created patient

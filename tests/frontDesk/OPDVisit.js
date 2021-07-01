@@ -9,8 +9,10 @@ const {
     textBox,
     waitFor,
     press,
+    $
 } = require('taiko');
 
 step("Click Start OPD Visit", async function () {
     await click("Start OPD Visit",{waitForNavigation:true});
+    await waitFor(async () => !(await $("overlay").exists()))
 });

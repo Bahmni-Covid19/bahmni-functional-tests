@@ -8,11 +8,18 @@
 * Click Save
 
 # Doctor issues an Admit disposition
-* Doctor begins consultation
+* Nurse opens clinical tab
 * Choose Disposition
 * Doctor advises admitting the patient
+* Click Save
 
 # Doctor issues an Discharge disposition
-* Doctor begins consultation
+* Nurse opens clinical tab
 * Choose Disposition
 * Doctor advises discharging the patient
+* Click Save
+
+# Doctor advises medicines <medicines> and tests <tests>
+* Doctor must be able to prescribe tests <tests>
+* Doctor starts prescribing medications <medicines>
+* Click Save

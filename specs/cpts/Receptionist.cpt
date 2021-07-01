@@ -13,7 +13,6 @@
 * Create new record
 * Update the verified HealthID
 * Enter patient mobile number <mobileNumber>
-* Enter village "Village"
 * Save the patient data
 # Create a new patient with gender <gender> with random name, aged <age> with mobile number <mobileNumber>
 * Click create new patient
@@ -23,21 +22,20 @@
 * Enter patient gender <gender>
 * Enter age of the patient <age>
 * Enter patient mobile number <mobileNumber>
-* Enter village "Village"
 * Save the patient data
 * Click on home page and goto registration module
 
-# Doctor begins consultation
+# Nurse opens clinical tab
 * Doctor opens the clinical tab for newly created patient
 * Select the newly created patient
 * Doctor clicks consultation
 
-# Doctor opens the consultation notes <consultationNotes> for newly created patient
+# Nurse opens the consultation notes <consultationNotes> for newly created patient
 * Doctor clicks consultation
 * Doctor captures consultation notes "Consultation notes"
 * Click Save
 
-# Start an OPD Visit
+# OPD Visit is started at the front desk
 * Click Start OPD Visit
 * Enter registration fees "100"
 * Click Save
@@ -55,9 +53,15 @@
 * Click Save
 * Go back to home page
 
-# Close the visit
+# visit is closed at the front desk
 * Goto Bahmni home
 * Open registration module
 * Open newly created patient details by search
 * Enter visit details
 * Close visit
+
+# Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
+* Open registration module
+* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
+* Open newly created patient details by search
+* OPD Visit is started at the front desk

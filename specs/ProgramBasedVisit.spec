@@ -15,9 +15,11 @@ Tags: core
 * Open the program dashboard "HIV Program Dashboard"
 * Doctor clicks consultation
 * Enter History and examination details
+* Click Save
 * Enter vitals
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
-* Upload a report "labReport1" to Patient Documents
+* Click Save
+* lab technician uploads patient document and radiology reports
 ___
-* Close the visit
+* visit is closed at the front desk
 * Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>

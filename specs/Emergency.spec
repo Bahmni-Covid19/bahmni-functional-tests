@@ -8,11 +8,12 @@
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Add this newly created patient as merge patient1
 * Open newly created patient details by search
-* Start an OPD Visit
-* Doctor begins consultation
+* OPD Visit is started at the front desk
+* Nurse opens clinical tab
 * Enter History and examination details
+* Click Save
 * Enter vitals
-* Close the visit
+* visit is closed at the front desk
 * Goto Bahmni home
 * Open registration module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
@@ -27,6 +28,7 @@
 * Goto clinical tab
 * Doctor clicks consultation
 * Enter History and examination details
+* Click Save
 * Enter vitals
 * Goto Bahmni home
 * Doctor issues an Discharge disposition

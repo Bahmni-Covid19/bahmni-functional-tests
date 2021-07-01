@@ -15,9 +15,11 @@ Tags: core
 * Goto clinical tab
 * Doctor clicks consultation
 * Enter History and examination details
+* Click Save
 * Enter vitals
 * Doctor must be able to prescribe tests "opd/prescriptionFlow/labTests"
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
+* Click Save
 * Goto Bahmni home
 * Open Patient Documents
 * Choose newly created patient
@@ -28,5 +30,5 @@ Tags: core
 * Open In Patient module
 * Nurse at ADT is able to give discharge disposition
 ___
-* Close the visit
+* visit is closed at the front desk
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>

@@ -57,7 +57,7 @@ step("Enter patient random first name", async function () {
     if(firstName==null||firstName=="")
     {
         firstName = _users.randomName(10)
-        gauge.write("firstName "+firstName)
+        gauge.message("firstName "+firstName)
         gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     }    
     await write(firstName, into(textBox(toRightOf("Patient Name*"))));
@@ -68,7 +68,7 @@ step("Enter patient random middle name", async function () {
     if(middleName==null||middleName=="")
     {
         middleName = _users.randomName(10)
-        gauge.write("middleName "+middleName)
+        gauge.message("middleName "+middleName)
         gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
     }
     await write(middleName, into(textBox({ "placeholder": "Middle Name" })));
@@ -79,7 +79,7 @@ step("Enter patient random last name", async function () {
     if(lastName==null||firstName=="")
     {
         lastName = _users.randomName(10)
-        gauge.write("middleName "+lastName)
+        gauge.message("lastName "+lastName)
         gauge.dataStore.scenarioStore.put("patientLastName",lastName)
     }
 
@@ -203,10 +203,6 @@ step("Close visit", async function() {
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
-step("Enter village <village>", async function(village) {
-	await write(village, into(textBox(toRightOf("Village"))))
-});
-
 step("Click on home page and goto registration module", async function () {
     await waitFor(async () => !(await $("overlay").exists()))
     await click($('.back-btn'),{waitForNavigation:true});
@@ -231,8 +227,8 @@ step("Update the verified HealthID", async function() {
 step("Open newly created patient details by search", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
-    console.log("patient Identifier"+patientIdentifierValue)
-    gauge.message("patient Identifier"+patientIdentifierValue)
+    console.log("patient Identifier "+patientIdentifierValue)
+    gauge.message("patient Identifier "+patientIdentifierValue)
 
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
     await press('Enter', {waitForNavigation:true});

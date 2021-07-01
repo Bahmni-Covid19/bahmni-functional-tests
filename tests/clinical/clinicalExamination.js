@@ -16,10 +16,11 @@ var _fileExtension = require("../util/fileExtension");
 
 step("Doctor must be able to prescribe tests <prescriptions>", async function (prescriptionFile) {
     var prescriptionFile = "./data/"+prescriptionFile+".json";
+    var testPrescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+    gauge.message(testPrescriptions)
 
-    var prescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
     await click("Orders",{force: true});
-    for (var test of prescriptions.tests) {
+    for (var test of testPrescriptions.tests) {
             await click(test.test,{force: true})
     }     
     await click("Save",{force: true})
@@ -29,32 +30,32 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
     await click("Medications");
     var prescriptionFile = "./data/"+prescriptionNames+".json";
     gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
-    var prescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+    var medicalPrescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+    gauge.message(medicalPrescriptions)
 
-    if(prescriptions.drug_name!=null)
+    if(medicalPrescriptions.drug_name!=null)
     {
         try
         {
-            await write(prescriptions.drug_name,into(textBox(toRightOf("Drug Name"))));
-            await dropDown(toRightOf("Units")).select(prescriptions.units);
-            await dropDown(toRightOf("Frequency")).select(prescriptions.frequency)
+            await write(medicalPrescriptions.drug_name,into(textBox(toRightOf("Drug Name"))));
+            await dropDown(toRightOf("Units")).select(medicalPrescriptions.units);
+            await dropDown(toRightOf("Frequency")).select(medicalPrescriptions.frequency)
             await click("Accept");
         
-            await write(prescriptions.dose,into(textBox(toRightOf("Dose"))));
-            await write(prescriptions.duration,into(textBox(toRightOf("Duration"))));    
+            await write(medicalPrescriptions.dose,into(textBox(toRightOf("Dose"))));
+            await write(medicalPrescriptions.duration,into(textBox(toRightOf("Duration"))));    
         }
         catch(e){
-            await write(prescriptions.drug_name,into(textBox(below("Drug Name"))));
-            await dropDown(below("Units")).select(prescriptions.units);
-            await dropDown(below("Frequency")).select(prescriptions.frequency)
+            await write(medicalPrescriptions.drug_name,into(textBox(below("Drug Name"))));
+            await dropDown(below("Units")).select(medicalPrescriptions.units);
+            await dropDown(below("Frequency")).select(medicalPrescriptions.frequency)
             await click("Accept");
         
-            await write(prescriptions.dose,into(textBox(below("Dose"))));
-            await write(prescriptions.duration,into(textBox(below("Duration"))));    
+            await write(medicalPrescriptions.dose,into(textBox(below("Dose"))));
+            await write(medicalPrescriptions.duration,into(textBox(below("Duration"))));    
         }
         await click("Add");
-    }
-    await click("Save")
+    }    
 });
 
 
@@ -80,13 +81,9 @@ step("Choose Disposition", async function() {
 step("Doctor advises admitting the patient", async function() {
     await dropDown("Disposition Type").select('Admit Patient')
     await write("Admission Notes",into(textBox(below("Disposition Notes"))))
-    await click("Save");
-    await waitFor(async () => !(await $("Saved").exists()))
 });
 
 step("Doctor advises discharging the patient", async function() {
     await dropDown("Disposition Type").select('Discharge Patient')
     await write("Discharge Notes",into(textBox(below("Disposition Notes"))))
-    await click("Save");
-    await waitFor(async () => !(await $("Saved").exists()))
 });
