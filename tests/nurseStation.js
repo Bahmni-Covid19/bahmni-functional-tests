@@ -21,6 +21,7 @@ step("Open In Patient module", async function() {
 });
 
 step("Nurse opens admission tab", async function() {
+    await waitFor(async () => !(await $("overlay").exists()))
 	await click("To Admit",{waitForNavigation:true})
 });
 
