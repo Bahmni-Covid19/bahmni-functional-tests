@@ -249,3 +249,7 @@ step("Verify correct patient form is open", async function() {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     assert.ok(await text(patientIdentifierValue).exists());
 });
+
+step("Enter village <village>", async function(village) {
+	await write(village, into(textBox(toRightOf("Village"))))
+});

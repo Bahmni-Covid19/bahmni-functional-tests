@@ -21,6 +21,7 @@
 * Enter patient random last name
 * Enter patient gender <gender>
 * Enter age of the patient <age>
+* Enter village "Village"
 * Enter patient mobile number <mobileNumber>
 * Save the patient data
 * Click on home page and goto registration module

@@ -2,7 +2,6 @@ const {
     openBrowser,
     closeBrowser,
     screenshot,
-    setConfig,
 } = require('taiko');
 const path = require('path');
 
@@ -12,7 +11,6 @@ beforeSuite(async () => {
     await openBrowser({headless:headless,
         args: ["--start-maximized","--start-fullscreen"]
     })
-    await setConfig({navigationTimeout:180000})
 });
 
 afterSuite(async () => {
