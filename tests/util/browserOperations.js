@@ -8,9 +8,7 @@ const path = require('path');
 const headless = process.env.headless_chrome.toLowerCase() === 'true';
 
 beforeSuite(async () => {
-    await openBrowser({headless:headless,
-        args: ["--start-maximized","--start-fullscreen"]
-    })
+    await openBrowser({headless:headless, args:["--no-sandbox","--start-maximized","--disable-dev-shm-usage","--start-fullscreen"]})
 });
 
 afterSuite(async () => {
