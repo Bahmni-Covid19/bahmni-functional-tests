@@ -9,21 +9,6 @@ USER root
 
 ENV container docker
 
-RUN apt-get update && apt-get install -y gnupg &&\
-    curl -sL https://deb.nodesource.com/setup_16.x | bash - &&\
-    apt-get update &&\ 
-    apt-get install -y nodejs make g++ &&\
-    apt autoremove -y &&\
-    rm -rf /var/lib/apt/lists/*
-
-RUN curl -SsL https://downloads.gauge.org/stable | sh
-# Set working directory
-WORKDIR /gauge
- 
-# Copy the local working folder
-COPY . .
-
-RUN apt-get -y install npm
 RUN apt-get update &&\
     apt-get install -y libgbm-dev
 
@@ -34,3 +19,24 @@ RUN apt-get update &&\
         libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 \
         libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 ca-certificates \
         fonts-liberation libappindicator1 libnss3 lsb-release xdg-utils wget
+
+RUN apt-get install -y xvfb &&\
+        apt-get -y install dbus-x11 xfonts-base xfonts-100dpi xfonts-75dpi xfonts-cyrillic xfonts-scalable &&\
+        apt-get -y install imagemagick x11-apps &&\
+        apt-get install -y dialog apt-utils &&\
+RUN echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections && \
+    echo keyboard-configuration keyboard-configuration/layout select 'English (US)' | debconf-set-selections && \
+    echo keyboard-configuration keyboard-configuration/layoutcode select 'us' | debconf-set-selections && \
+    echo "resolvconf resolvconf/linkify-resolvconf boolean false" | debconf-set-selections && \
+    apt-get -y install xorg gtk2-engines-pixbuf
+
+RUN curl -SsL https://downloads.gauge.org/stable | sh
+
+RUN apt-get update && apt-get install -y gnupg &&\
+    curl -sL https://deb.nodesource.com/setup_16.x | bash - &&\
+    apt-get update &&\ 
+    apt-get install -y nodejs make g++ &&\
+    apt autoremove -y &&\
+    rm -rf /var/lib/apt/lists/*
+
+RUN apt-get -y install npm
