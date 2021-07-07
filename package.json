@@ -1,6 +1,6 @@
 {
-  "name": "gauge-taiko-template",
-  "description": "Starter template for writing JavaScript tests for Gauge",
+  "name": "bahmni-ndhm-tests",
+  "description": "To test the ndhm compliance of Bahmni",
   "scripts": {
     "test": "gauge run --env ci --tags 'core' specs -v"
   },

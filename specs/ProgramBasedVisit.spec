@@ -2,7 +2,7 @@
 |mobileNumber|
 |+91-9876543210|
 ## Should be able to enter program level details for a patient
-Tags: core-all
+Tags: core, core-all
 * Login to Bahmni location "OPD-1" as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
