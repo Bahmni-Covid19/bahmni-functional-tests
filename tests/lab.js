@@ -13,6 +13,7 @@ const {
 
 step("Open Patient Documents", async function() {
 	await click("Patient Documents")
+	await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Add a report <labReport> to <module>", async function (labReport, module) {
