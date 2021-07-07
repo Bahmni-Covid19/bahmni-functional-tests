@@ -11,7 +11,7 @@
 * Verify correct patient form is open
 
 ## Should be able to get patient external lab reports and prescriptions
-Tags: core-all
+Tags: core, core-all
 * Login to Bahmni location "General Ward" as a receptionist
 * Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
 * Nurse initiates clinical checkup

@@ -27,10 +27,6 @@ async function makeOpenVisitCall(patientUUID,visitType,URL){
     var prescriptionsVisitResponse = await getOpenMRSResponse(request_URL)
 
     assert.ok(prescriptionsVisitResponse.status==200)
-
-    console.log(JSON.stringify(prescriptionsVisitResponse.data));
-    console.log(prescriptionsVisitResponse.headers);
-    console.log(prescriptionsVisitResponse.config);
     gauge.message(prescriptionsVisitResponse.data);
     gauge.message(prescriptionsVisitResponse.headers);
     gauge.message(prescriptionsVisitResponse.config);
@@ -55,9 +51,6 @@ async function makeOpenProgramCall(patientUUID,programName,programEnrollmentId,U
 
     assert.ok(prescriptionsVisitResponse.status==200)
 
-    console.log(prescriptionsVisitResponse.data);
-    console.log(prescriptionsVisitResponse.headers);
-    console.log(prescriptionsVisitResponse.config);
     gauge.message(prescriptionsVisitResponse.data);
     gauge.message(prescriptionsVisitResponse.headers);
     gauge.message(prescriptionsVisitResponse.config);
