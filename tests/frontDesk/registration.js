@@ -194,12 +194,13 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
     });
 
 step("Enter visit details", async function() {
-	await click(button("Enter Visit Details"),{waitForNavigation:true})
+    await click(button("Enter Visit Details"),{waitForNavigation:true})
+    await waitFor(async () => !(await $("overlay").exists()))    
 });
 
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
-    await click(button("Close Visit"))
+    await click(button("Close Visit"),{waitForNavigation:true})
     await waitFor(async () => !(await $("overlay").exists()))
 });
 

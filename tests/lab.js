@@ -11,8 +11,8 @@ const {
 	$
 } = require('taiko');
 
-step("Open Patient Documents", async function() {
-	await click("Patient Documents")
+step("Open module <moduleName>", async function (moduleName) {
+	await click(moduleName)
 	await waitFor(async () => !(await $("overlay").exists()))
 });
 
