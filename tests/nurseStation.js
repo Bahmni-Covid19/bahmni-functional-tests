@@ -16,12 +16,11 @@ const {
 } = require('taiko');
 const _openmrs = require("./util/omod")
 step("Open In Patient module", async function() {
-	await click("InPatient",{waitForNavigation:true})
+	await click("InPatient",{navigationTimeout:180000, waitForNavigation:true,waitForEvents:['networkIdle']})
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Nurse opens admission tab", async function() {
-    await waitFor(async () => !(await $("overlay").exists()))
 	await click("To Admit",{waitForNavigation:true})
 });
 
