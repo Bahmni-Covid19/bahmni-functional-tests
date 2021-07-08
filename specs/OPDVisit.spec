@@ -2,14 +2,6 @@
 |mobileNumber|
 |+91-9876543210|
 
-## Should be able to search with healthID once associated
-* Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
-* Create a new patient with random name and healthID mobileNumber <mobileNumber>
-* Click on home page and goto registration module
-* Open newly created patient details by healthID
-* Verify correct patient form is open
-
 ## Should be able to get patient external lab reports and prescriptions
 Tags: core
 * Login to Bahmni location "General Ward" as a receptionist

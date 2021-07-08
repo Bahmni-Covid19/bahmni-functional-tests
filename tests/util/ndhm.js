@@ -83,7 +83,25 @@ async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirt
     gauge.message("intercepted"+process.env.bahmniHost+ "/hiprovider/v0.5/hip/auth/confirm")
 }
 
-async function interceptExistingPatients(token, healthID){
+// async function interceptExistingPatients_WithPatientFound(token, healthID){
+//     var body1 = "0eb8d134-0b6a-4120-a03a-ec5a511324ad";
+//     var reqBodyOnFetchModes = JSON.stringify(body1);
+//     var response ={
+//         method: 'POST',
+//         port: '9052',
+//         body: body1,
+//         headers: {
+//             'Content-Type': 'application/json',
+//             'Authorization': token,
+//             'content-length': reqBodyOnFetchModes.length
+//         }
+//     }
+//     await intercept(process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients/" + healthID, response,1)
+//     await intercept(process.env.bahmniHost+ "/ndhm/null/existingPatients/" + healthID, response,1)
+//     gauge.message("intercepted"+process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients/" + healthID)
+// }
+
+async function interceptExistingPatients_WithPatientNotFound(token, healthID){
     var body1 = {
         "error": { "code": "PATIENT_ID_NOT_FOUND", "message": "No patient found" }
     };
@@ -133,7 +151,7 @@ async function interceptExistingPatientsWithParams(token,firstName,lastName,year
 module.exports={
     interceptFetchModes:interceptFetchModes,
     interceptAuthInit:interceptAuthInit,
-    interceptExistingPatients:interceptExistingPatients,
+    interceptExistingPatients_WithPatientNotFound:interceptExistingPatients_WithPatientNotFound,
     interceptAuthConfirm:interceptAuthConfirm,
     interceptExistingPatientsWithParams:interceptExistingPatientsWithParams
 }

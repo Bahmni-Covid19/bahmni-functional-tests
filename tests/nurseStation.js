@@ -66,6 +66,6 @@ step("Goto Admitted tab", async function() {
 	await click("Admitted")
 });
 
-step("Goto clinical tab", async function() {
+step("Goto home from clinical tab", async function () {
 	await click($("#clinicalHomeBackLink"),{waitForNavigation:true,waitForEvents:['networkIdle']});
 });

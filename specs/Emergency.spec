@@ -20,12 +20,12 @@
 * Add this newly created patient as merge patient2
 * Click on home page and goto registration module
 * Open newly created patient details by search
-* Start an IPD Visit
+* IPD Visit is started at the front desk
 * Doctor issues an Admit disposition
 * Goto Bahmni home
 * Open In Patient module
 * Nurse at ADT is able to view bed availability and assign beds
-* Goto clinical tab
+* Goto home from clinical tab
 * Doctor clicks consultation
 * Enter History and examination details
 * Click Save
