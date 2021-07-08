@@ -2,22 +2,10 @@
 * Goto Bahmni home
 * Login as a receptionist with admin credentials location <location>
 
-# Associate patient with healthID mobileNumber <mobileNumber>
-* Initiate healthID association
-* Enter healthID generated with first name and last name
-* Verify if healthId entered already exists
-* Select Mobile OTP
-* Authenticate with Mobile
-* Enter OTP for health care validation "0000" for with new healthID, patient details and mobileNumber <mobileNumber>
-* Create new record
-* Update the verified HealthID
-* Enter patient mobile number <mobileNumber>
-* Save the patient data
-
 # Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Create a new patient with verfication id
-* Initiate healthID association
-* Enter healthID generated with first name and last name
+* To Associate a healthID, vefiy it
+* Enter random healthID details
 * Verify if healthId entered already exists
 * Select Mobile OTP
 * Authenticate with Mobile
@@ -38,18 +26,6 @@
 * Save the patient data
 * Click on home page and goto registration module
 
-# Create a new patient with gender <gender> with name <firstName> <middleName> <lastName>, aged <age> with mobile number <mobileNumber>
-* Click create new patient if patient does not exist
-* Enter patient first name <firstName>
-* Enter patient middle name <middleName>
-* Enter patient last name <lastName>
-* Enter patient gender <gender>
-* Enter age of the patient <age>
-* Enter village "Village"
-* Enter patient mobile number <mobileNumber>
-* Save the newly created patient data
-* Click on home page and goto registration module
-
 # Nurse opens clinical tab
 * Doctor opens the clinical tab for newly created patient
 * Select the newly created patient
@@ -66,7 +42,7 @@
 * Click Save
 * Go back to home page
 
-# IPD Visit is started at the front desk
+# Start an IPD Visit
 * Click Start IPD Visit
 * Enter registration fees "100"
 * Click Save
@@ -90,16 +66,3 @@
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Open newly created patient details by search
 * OPD Visit is started at the front desk
-
-# Receptionist creates the patient with mobile number <mobileNumber> and starts an IPD
-* Open registration module
-* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Open newly created patient details by search
-* IPD Visit is started at the front desk
-
-# Create a new patient, if patient does not exist with firstName <firstName> middleName <middleName> lastName <lastName>, gender <gender> mobileNumber <mobileNumber> age <age>
-* Check if patient <firstName> <middleName> <lastName> with mobile "mobileNumber" exists
-* Create a new patient with gender <gender> with name <firstName> <middleName> <lastName>, aged <age> with mobile number <mobileNumber>
-
-# Should not allow to associate HeatlhID if already linked
-* Should not allow to associate HeatlhID if already linked1

@@ -19,7 +19,7 @@
 # Open Admitted patient details
 * Goto Admitted tab
 * Select the newly created patient
-* Goto home from clinical tab
+* Goto clinical tab
 
 # Nurse initiates clinical checkup
 * Nurse opens clinical tab
@@ -27,13 +27,3 @@
 * Click Save
 * Enter vitals
 * Nurse opens the consultation notes "Consultation Notes" for newly created patient
-
-# Nurse assigns bed to patient
-* Goto Bahmni home
-* Open In Patient module
-* Nurse at ADT is able to view bed availability and assign beds
-
-# Nurse discharges the patient from the allocated bed
-* Goto Bahmni home
-* Open In Patient module
-* Nurse at ADT is able to give discharge disposition

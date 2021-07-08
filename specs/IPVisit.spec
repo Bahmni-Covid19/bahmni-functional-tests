@@ -4,16 +4,31 @@
 ## Should be able to get patient lab reports
 Tags: core
 * Login to Bahmni location "General Ward" as a receptionist
-* Receptionist creates the patient with mobile number <mobileNumber> and starts an IPD
+* Open registration module
+* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
+* Open newly created patient details by search
+* Start an IPD Visit
 * Doctor issues an Admit disposition
-* Nurse assigns bed to patient
-* Goto home from clinical tab
-* Nurse initiates clinical checkup
-* Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"
-* lab technician uploads patient document and radiology reports
+* Goto Bahmni home
+* Open In Patient module
+* Nurse at ADT is able to view bed availability and assign beds
+* Goto clinical tab
+* Doctor clicks consultation
+* Enter History and examination details
+* Click Save
+* Enter vitals
+* Doctor must be able to prescribe tests "opd/prescriptionFlow/labTests"
+* Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
+* Click Save
+* Goto Bahmni home
+* Open module "Patient Documents"
+* Choose newly created patient
+* Add a report "labReport1" to "Patient Documents"
 * Click on home page
 * Doctor issues an Discharge disposition
-* Nurse discharges the patient from the allocated bed
+* Goto Bahmni home
+* Open In Patient module
+* Nurse at ADT is able to give discharge disposition
 ___
 * visit is closed at the front desk
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>

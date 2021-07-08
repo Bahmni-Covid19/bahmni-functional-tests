@@ -18,7 +18,6 @@ const {
     confirm,
     accept,
     scrollDown,
-    below,
     press,
 } = require('taiko');
 var _users = require("../util/users");
@@ -29,11 +28,11 @@ step("Open registration module", async function () {
     await click("Registration", toLeftOf("Programs"));
 });
 
-step("Initiate healthID association", async function () {
+step("To Associate a healthID, vefiy it", async function () {
     await click("Verify Health ID");
 });
 
-step("Enter healthID generated with first name and last name", async function () {
+step("Enter random healthID details", async function () {
     await click(textBox(toRightOf("Enter Health ID")));
     var firstName = _users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
@@ -51,33 +50,6 @@ step("Enter healthID generated with first name and last name", async function ()
     gauge.message("healthID" + patientHealthID);
 
     await write(patientHealthID);
-});
-
-step("Enter patient first name <firstName>", async function (firstName) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-    {
-        await write(firstName, into(textBox(toRightOf("Patient Name*"))));
-    }
-    gauge.message("firstName "+firstName)
-    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)    
-});
-
-step("Enter patient middle name <middleName>", async function (middleName) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-    {
-        await write(middleName, into(textBox({ "placeholder": "Middle Name" })));
-    }
-    gauge.message("middleName "+middleName)
-    gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
-});
-
-step("Enter patient last name <lastName>", async function (lastName) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-    {
-        await write(lastName, into(textBox({ "placeholder": "Last Name" })));
-    }
-    gauge.message("lastName "+lastName)
-    gauge.dataStore.scenarioStore.put("patientLastName",lastName)    
 });
 
 step("Enter patient random first name", async function () {
@@ -115,34 +87,21 @@ step("Enter patient random last name", async function () {
 });
 
 step("Enter patient gender <gender>", async function (gender) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await dropDown("Gender *").select(gender);        
+    await dropDown("Gender *").select(gender);
 });
 
 step("Enter age of the patient <age>", async function (age) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-    {
-        await write(age, into(textBox(toRightOf("Years"))));
-        await click(checkBox(toLeftOf("Estimated")));    
-    }
+    await write(age, into(textBox(toRightOf("Years"))));
+    await click(checkBox(toLeftOf("Estimated")));
 });
 
 step("Enter patient mobile number <mobile>", async function (mobile) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await write(mobile, into(textBox(toRightOf("Primary Contact"))));
+    await write(mobile, into(textBox(toRightOf("Primary Contact"))));
     gauge.dataStore.scenarioStore.put("patientMobileNumber",mobile)
 });
 
 step("Click create new patient", async function () {
     await click("Create New")
-    gauge.dataStore.scenarioStore.put("isNewPatient",true)
-});
-
-step("Save the newly created patient", async function () {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await click("Save",{waitForEvents:['networkIdle']});
-    var patientIdentifier = await $('#patientIdentifierValue').text();
-    gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
 });
 
 step("Save the patient data", async function () {
@@ -183,8 +142,6 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    await waitFor(async () => !(await $("overlay").exists()))
-
     if(!(await text('BAHMNI EMR LOGIN').exists()))
     {
         await click(button({"class":"btn-user-info fr"}))
@@ -203,7 +160,6 @@ step("Goto Bahmni home", async function () {
 
 step("Create a new patient with verfication id", async function () {
     await click("Create New");
-    gauge.dataStore.scenarioStore.put("isNewPatient",true)
 });
 
 step("Enter registration fees <arg0>", async function (arg0) {
@@ -217,7 +173,7 @@ step("Go back to home page", async function () {
 
 step("Verify if healthId entered already exists", async function () {
     await _ndhm.interceptFetchModes(process.env.receptionist)
-    await _ndhm.interceptExistingPatients_WithPatientNotFound(process.env.receptionist,gauge.dataStore.scenarioStore.get("healthID"))
+    await _ndhm.interceptExistingPatients(process.env.receptionist,gauge.dataStore.scenarioStore.get("healthID"))
     await click(text("Verify", within($(".verify-health-id"))));
 });
 
@@ -296,38 +252,5 @@ step("Verify correct patient form is open", async function() {
 });
 
 step("Enter village <village>", async function(village) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await write(village, into(textBox(toRightOf("Village"))))
-});
-
-step("Check if patient <firstName> <middleName> <lastName> with mobile <mobileNumber> exists", async function (firstName, middleName, lastName, arg2) {
-    await write(firstName+" "+ middleName+" "+lastName, into(textBox({"placeholder" : "Enter Name"})));    
-    await press("Enter");
-});
-
-step("Should not allow to associate HeatlhID if already linked1", async function() {
-    await click(text("Verify", within($(".verify-health-id"))));
-    await text("Matching record with Health ID found").exists();
-});
-
-step("Should fetch record with similar details", async function() {
-	throw 'Unimplemented Step';
-});
-
-step("Save the newly created patient data", async function() {
-    var patientIdentifier = await $('#patientIdentifierValue').text();
-    gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
-
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-    {
-        await click("Save",{waitForEvents:['networkIdle']});
-    }
-});
-
-step("Click create new patient if patient does not exist", async function() {
-    gauge.dataStore.scenarioStore.put("isNewPatient",await text("No results found").exists())
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await click("Create New")
-    else 
-        await click("GAN",below("ID"))
+	await write(village, into(textBox(toRightOf("Village"))))
 });
