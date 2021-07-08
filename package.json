@@ -2,7 +2,7 @@
   "name": "bahmni-ndhm-tests",
   "description": "To test the ndhm compliance of Bahmni",
   "scripts": {
-    "test": "gauge run --env ci --tags 'core' specs -v"
+    "test": "gauge run --env ndhm --tags 'core' specs -v"
   },
   "dependencies": {
     "taiko": "latest",

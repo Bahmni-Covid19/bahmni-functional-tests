@@ -135,6 +135,7 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 
 step("Click create new patient", async function () {
     await click("Create New")
+    gauge.dataStore.scenarioStore.put("isNewPatient",true)
 });
 
 step("Save the newly created patient", async function () {
@@ -202,6 +203,7 @@ step("Goto Bahmni home", async function () {
 
 step("Create a new patient with verfication id", async function () {
     await click("Create New");
+    gauge.dataStore.scenarioStore.put("isNewPatient",true)
 });
 
 step("Enter registration fees <arg0>", async function (arg0) {
