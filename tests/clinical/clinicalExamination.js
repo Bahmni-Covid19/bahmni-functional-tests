@@ -75,7 +75,8 @@ step("Doctor clicks consultation", async function() {
 });
 
 step("Choose Disposition", async function() {
-    await click("Disposition",{waitForNavigation:true})    
+    await click("Disposition",{waitForNavigation:true})  
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Doctor advises admitting the patient", async function() {
