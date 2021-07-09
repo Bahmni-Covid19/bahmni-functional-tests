@@ -6,8 +6,6 @@ Tags: core
 * Login to Bahmni location "OPD-1" as a receptionist
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Click on home page and goto registration module
-* Open newly created patient details by search
 * Start an Special OPD Visit
 * Open Programs module
 * Goto All sections and search the newly created patient

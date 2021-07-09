@@ -13,6 +13,7 @@
 * Create new record
 * Update the verified HealthID
 * Enter patient mobile number <mobileNumber>
+* Enter village "Village"
 * Save the patient data
 # Create a new patient with gender <gender> with random name, aged <age> with mobile number <mobileNumber>
 * Click create new patient
@@ -24,7 +25,6 @@
 * Enter village "Village"
 * Enter patient mobile number <mobileNumber>
 * Save the patient data
-* Click on home page and goto registration module
 
 # Nurse opens clinical tab
 * Doctor opens the clinical tab for newly created patient
@@ -64,5 +64,4 @@
 # Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Open newly created patient details by search
 * OPD Visit is started at the front desk
