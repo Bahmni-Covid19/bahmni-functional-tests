@@ -26,23 +26,7 @@ Tags: core
 * Click on home page
 * Doctor issues an Discharge disposition
 * Goto Bahmni home
-* Open In Patient module
-* Nurse at ADT is able to give discharge disposition
+* Discharge the patient from allocated bed
 ___
 * visit is closed at the front desk
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
-
-## Admit and discharge patient
-* Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
-* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Start an IPD Visit
-* Doctor issues an Admit disposition
-* Goto Bahmni home
-* Open In Patient module
-* Nurse at ADT is able to view bed availability and assign beds
-* Click on home page
-* Doctor issues an Discharge disposition
-* Goto Bahmni home
-* Discharge the patient from allocated bed
-

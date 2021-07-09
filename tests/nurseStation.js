@@ -15,6 +15,7 @@ const {
 	within,
 	confirm,
 	accept,
+	text,
 	press,
 	highlight,
 	$
@@ -94,9 +95,10 @@ step("Click Discharge", async function() {
 });
 
 step("Click Discharge on popup", async function() {
-    await waitFor(async () => (await $("Adt Notes").exists()))
+    await waitFor(async () => (await text("Adt Notes").exists()))
 
 	await highlight(button("Discharge"),below("Adt Notes"));
-	await click(button("Discharge"),below("Adt Notes"));
+    await waitFor(1000)
+    await click($("#modal-revise-button1"));
     await waitFor(async () => !(await text("Successfully Discharged from 304-c").exists()))
 });

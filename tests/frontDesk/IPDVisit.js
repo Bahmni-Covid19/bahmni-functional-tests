@@ -3,7 +3,16 @@ const {
     click,
     button,
     toRightOf,
-    waitFor
+    waitFor,
+    goto,
+    write,
+    into,
+    textBox,
+    dropDown,
+    highlight,
+    toLeftOf,
+    within,
+    text
 } = require('taiko');
 
 step("Click Start IPD Visit", async function() {

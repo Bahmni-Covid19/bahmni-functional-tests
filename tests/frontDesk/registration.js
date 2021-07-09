@@ -20,8 +20,8 @@ const {
     scrollDown,
     press,
 } = require('taiko');
-var _users = require("../util/users");
-var _ndhm = require("../util/ndhm");
+var users = require("../util/users");
+var ndhm = require("../util/ndhm");
 var assert = require("assert");
 step("Open registration module", async function () {
     await highlight("Clinical")
@@ -34,12 +34,12 @@ step("To Associate a healthID, vefiy it", async function () {
 
 step("Enter random healthID details", async function () {
     await click(textBox(toRightOf("Enter Health ID")));
-    var firstName = _users.randomName(10)
+    var firstName = users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     console.log("FirstName" + firstName)
     gauge.message("FirstName" + firstName);
 
-    var lastName = _users.randomName(10)
+    var lastName = users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
     console.log("LastName" + lastName)
     gauge.message("LastName" + lastName);
@@ -56,7 +56,7 @@ step("Enter patient random first name", async function () {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     if(firstName==null||firstName=="")
     {
-        firstName = _users.randomName(10)
+        firstName = users.randomName(10)
         gauge.message("firstName "+firstName)
         gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     }    
@@ -67,7 +67,7 @@ step("Enter patient random middle name", async function () {
     var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
     if(middleName==null||middleName=="")
     {
-        middleName = _users.randomName(10)
+        middleName = users.randomName(10)
         gauge.message("middleName "+middleName)
         gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
     }
@@ -78,7 +78,7 @@ step("Enter patient random last name", async function () {
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
     if(lastName==null||firstName=="")
     {
-        lastName = _users.randomName(10)
+        lastName = users.randomName(10)
         gauge.message("lastName "+lastName)
         gauge.dataStore.scenarioStore.put("patientLastName",lastName)
     }
@@ -116,7 +116,7 @@ step("Select Mobile OTP", async function () {
 });
 
 step("Authenticate with Mobile", async function () {
-    await _ndhm.interceptAuthInit(process.env.receptionist);
+    await ndhm.interceptAuthInit(process.env.receptionist);
     await click(button("Authenticate"))
     await waitFor(async () => !(await $("overlay").exists()))
 });
@@ -148,8 +148,8 @@ step("Login as a receptionist with admin credentials location <location>", async
         await click('Logout',{waitForNavigation:true})        
     }
 
-    await write(_users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
-    await write(_users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
+    await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
+    await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);
     await click(button("Login"),{waitForNavigation:true});
 });
@@ -172,8 +172,8 @@ step("Go back to home page", async function () {
 });
 
 step("Verify if healthId entered already exists", async function () {
-    await _ndhm.interceptFetchModes(process.env.receptionist)
-    await _ndhm.interceptExistingPatients(process.env.receptionist,gauge.dataStore.scenarioStore.get("healthID"))
+    await ndhm.interceptFetchModes(process.env.receptionist)
+    await ndhm.interceptExistingPatients(process.env.receptionist,gauge.dataStore.scenarioStore.get("healthID"))
     await click(text("Verify", within($(".verify-health-id"))));
 });
 
@@ -187,8 +187,8 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
         var yearOfBirth = "2000";
         var gender = "F";
         const token = process.env.receptionist
-        await _ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
-        await _ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
+        await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
+        await ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
         await click(button("Confirm"))
     });
