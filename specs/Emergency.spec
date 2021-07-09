@@ -7,7 +7,7 @@
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Add this newly created patient as merge patient1
-* OPD Visit is started at the front desk
+* Start an OPD Visit
 * Nurse opens clinical tab
 * Enter History and examination details
 * Click Save

@@ -40,7 +40,7 @@
 * Doctor captures consultation notes "Consultation notes"
 * Click Save
 
-# OPD Visit is started at the front desk
+# Start an OPD Visit
 * Click Start OPD Visit
 * Enter registration fees "100"
 * Click Save
@@ -68,4 +68,4 @@
 # Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* OPD Visit is started at the front desk
+* Start an OPD Visit
