@@ -46,7 +46,12 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
       
-      - run: "xvfb-run --server-args='-screen 0, 3840x2160x24' npm run ndhm"
+      - run: "xvfb-run --server-args='-screen 0, 3840x2160x24' npm run qa01-core"
       - store_artifacts:
           path: ./reports
-          destination: htmlReports
+          destination: core-htmlReports
+
+      - run: "xvfb-run --server-args='-screen 0, 3840x2160x24' npm run qa01-ndhm"
+      - store_artifacts:
+          path: ./reports
+          destination: ndhm-htmlReports

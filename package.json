@@ -2,12 +2,10 @@
   "name": "bahmni-ndhm-tests",
   "description": "To test the ndhm compliance of Bahmni",
   "scripts": {
-    "qa01-core": "gauge run -p --env ci --tags 'core' specs -v",
+    "qa01-core": "gauge run -p --env qa01 --tags 'core' specs -v",
     "qa01-ndhm": "gauge run -p --env qa01 --tags 'ndhm' specs -v",
-    "qa02-core": "gauge run -p --env qa01 --tags 'core' specs -v",
-    "qa02-ndhm": "gauge run -p --env ci --tags 'ndhm' specs -v",
-    "ci": "gauge run -p --env ci --tags 'core' specs -v",
-    "ndhm": "gauge run -p --env qa01 --tags 'core' specs -v",
+    "qa02-core": "gauge run -p --env qa02 --tags 'core' specs -v",
+    "qa02-ndhm": "gauge run -p --env qa02 --tags 'ndhm' specs -v",
     "test": "gauge run -p --env default --tags 'core' specs -v"
   },
   "dependencies": {
