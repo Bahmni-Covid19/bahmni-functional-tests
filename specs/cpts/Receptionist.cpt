@@ -31,6 +31,10 @@
 * Select the newly created patient
 * Doctor clicks consultation
 
+# Nurse opens clinical tab with healthID
+* Doctor opens the clinical tab for newly created patient
+* Select the newly created patient with healthID
+* Doctor clicks consultation
 # Nurse opens the consultation notes <consultationNotes> for newly created patient
 * Doctor clicks consultation
 * Doctor captures consultation notes "Consultation notes"

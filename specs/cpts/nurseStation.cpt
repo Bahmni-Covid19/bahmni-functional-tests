@@ -28,6 +28,12 @@
 * Enter vitals
 * Nurse opens the consultation notes "Consultation Notes" for newly created patient
 
+# Nurse initiates clinical checkup with healthID
+* Nurse opens clinical tab with healthID
+* Enter History and examination details
+* Click Save
+* Enter vitals
+* Nurse opens the consultation notes "Consultation Notes" for newly created patient
 # Discharge the patient from allocated bed
 * Open Bed management module
 * View Admitted patients

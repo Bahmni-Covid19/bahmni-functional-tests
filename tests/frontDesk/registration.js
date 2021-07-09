@@ -254,3 +254,10 @@ step("Verify correct patient form is open", async function() {
 step("Enter village <village>", async function(village) {
 	await write(village, into(textBox(toRightOf("Village"))))
 });
+
+step("Select the newly created patient with healthID", async function() {    
+    var healthID = gauge.dataStore.scenarioStore.get("healthID")
+    await write(healthID)
+    await press('Enter', {waitForNavigation:true});
+    await waitFor(async () => !(await $("overlay").exists()))
+})
