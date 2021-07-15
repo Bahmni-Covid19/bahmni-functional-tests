@@ -112,9 +112,12 @@ step("Enter age of the patient <age>", async function (age) {
 });
 
 step("Enter patient mobile number <mobile>", async function (mobile) {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await write(mobile, into(textBox(toRightOf("Primary Contact"))));
-    gauge.dataStore.scenarioStore.put("patientMobileNumber",mobile)
+    if(await $("Primary Contact").exists())
+    {
+        if(gauge.dataStore.scenarioStore.get("isNewPatient"))
+            await write(mobile, into(textBox(toRightOf("Primary Contact"))));
+        gauge.dataStore.scenarioStore.put("patientMobileNumber",mobile)
+    }
 });
 
 step("Click create new patient", async function () {
@@ -156,10 +159,7 @@ async function (patientIdentifierValue, firstName, lastName, patientHealthID) {
     await press("Enter", {waitForNavigation:true});
 });
 
-step("Select the newly created patient", async function() {    
-    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
-    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
-
+step("Select the newly created patient", async function() {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue)
     await press('Enter', {waitForNavigation:true});
@@ -342,8 +342,8 @@ step("Enter patient last name <lastName>", async function (lastName) {
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)    
 });
 
-step("Find match for NDHM record with firstName <firstName> lastName <lastName> middleName <middleName> age <age> gender <gender> mobileNumber <mobileNumber>", 
-async function (firstName, lastName, middleName, age, gender, mobileNumber) {
+step("Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>", 
+async function (firstName, middleName, lastName, age, gender, mobileNumber) {
     await waitFor('Enter OTP')
     await write("0000", into(textBox(above("Confirm"))));  
     var healthID = gauge.dataStore.scenarioStore.get("healthID");
@@ -355,9 +355,10 @@ async function (firstName, lastName, middleName, age, gender, mobileNumber) {
     await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,mobileNumber);
     await ndhm.redirectExistingPatients(token, firstName,lastName,yearOfBirth,gender,mobileNumber);
     await click(button("Confirm"))
+    await waitFor(async () => !(await $("overlay").exists()))    
 });
 
-step("Should find record in Bahmni firstName <firstName> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", async function (firstName, lastName, gender, age, mobileNumber) {
+step("Should display Bahmni record with firstName <firstName> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", async function (firstName, lastName, gender, age, mobileNumber) {
     assert.ok(async () => (await $("Bahmni").exists()))
     assert.ok(await (await text(firstName+" "+lastName,below("Bahmni"),toRightOf("Name"))).exists())
     assert.ok(await (await text(gender,below("Bahmni"),toRightOf("Gender"))).exists())
@@ -371,7 +372,7 @@ step("wait for <timeInMilliSeconds>", async function(timeInMilliSeconds) {
 	await waitFor(timeInMilliSeconds)
 });
 
-step("Should find record in NDHM firstName <firstName> middleName <S> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", async function (firstName, arg5, lastName, gender, age, mobileNumber) {
+step("Should display NDHM record with firstName <firstName> middleName <S> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", async function (firstName, arg5, lastName, gender, age, mobileNumber) {
     assert.ok(async () => (await $("NDHM").exists()))
     assert.ok(await (await text(firstName+" "+lastName,below("NDHM"),toRightOf("Name"))).exists())
     assert.ok(await (await text(gender,below("NDHM"),toRightOf("Gender"))).exists())
@@ -379,4 +380,26 @@ step("Should find record in NDHM firstName <firstName> middleName <S> lastName <
     var yearOfBirth = _yearOfBirth.getFullYear();
     assert.ok(await (await text(yearOfBirth.toString(),below("NDHM"),toRightOf("Year Of Birth"))).exists())
     assert.ok(await (await text(mobileNumber,below("NDHM"),toRightOf("Phone"))).exists())	
+});
+
+
+step("Should verify details of newly created record from NDHM - firstName <firstName> middleName <middleName> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", 
+async function (firstName, middleName, lastName, gender, age, mobileNumber) {
+    var createdFirstName = await textBox({placeholder:"First Name"}).text();
+    var createdMiddleName = await textBox({placeholder:"Middle Name"}).text();
+    var createdLastName = await textBox({placeholder:"Last Name"}).text();
+    
+    var createdGender = await dropDown("Gender *").value();
+    if(await $("Primary Contact").exists())
+    {
+        var createdMobileNumber = await textBox(toRightOf("Primary Contact *")).text();
+    }
+    assert.equal(createdFirstName,firstName)
+    assert.equal(createdMiddleName,middleName)
+    assert.equal(createdLastName,lastName)
+    assert.equal(createdGender,users.getGender(gender))
+    assert.equal(createdMobileNumber,mobileNumber)
+    // var patientDetailsText = "NDHM Record: "+firstName+" "+lastName+", "+age+", "+patientGender+", "+mobileNumber
+    // console.log(patientDetailsText)
+    // assert.ok(await (await text(patientDetailsText).exists()))
 });

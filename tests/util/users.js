@@ -24,8 +24,20 @@ function randomName(length) {
    return result;
 }
 
+function getGender(gender){
+    if(gender=='M')
+        return "Male"
+    if(gender=='F')
+        return "Female"
+    if(gender=='O')
+        return "Other"
+    if(gender=='U')
+        return "Undisclosed"
+}
+
 module.exports={
     randomName:randomName,
     getUserNameFromEncoding:getUserNameFromEncoding,
-    getPasswordFromEncoding:getPasswordFromEncoding
+    getPasswordFromEncoding:getPasswordFromEncoding,
+    getGender:getGender
 }

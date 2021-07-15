@@ -4,7 +4,7 @@ const {
     intercept
 } = require('taiko');
 const axios = require('axios')
-var _fileExtension = require("./fileExtension");
+var fileExtension = require("./fileExtension");
 
 async function interceptFetchModes(token) {
     //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/
@@ -85,7 +85,7 @@ async function redirectExistingPatients(token,firstName,lastName,yearOfBirth,gen
 }
 
 async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber){
-    var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
+    var confirm = fileExtension.parseContent("./data/confirm/simple.txt")
     .replace('<healthID>', healthID)
     .replace('<fullName>', firstName +" " + lastName)
     .replace('<gender>', gender)

@@ -94,10 +94,10 @@
 # Should not allow to associate HeatlhID if already linked
 * Should not allow to associate HeatlhID if already linked1
 
-# Should fetch record with firstName <firstName> lastName <lastName> middleName <middleName> gender <gender> age <age> and mobileNumber <mobileNumber>
+# Should fetch record with firstName <firstName> middleName <middleName> lastName <lastName> gender <gender> age <age> and mobileNumber <mobileNumber>
 * To Associate a healthID, vefiy it
 * Enter healthID "soumyag@sbx"
 * Verify if healthId entered already exists
 * Select Mobile OTP
 * Authenticate with Mobile
-* Find match for NDHM record with firstName <firstName> lastName <lastName> middleName <middleName> age <age> gender <gender> mobileNumber <mobileNumber>
+* Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>
