@@ -3,7 +3,7 @@
 * Login as a receptionist with admin credentials location <location>
 
 # Create a new patient with random name and healthID mobileNumber <mobileNumber>
-* Create a new patient with verfication id
+* Click create new patient
 * To Associate a healthID, vefiy it
 * Enter random healthID details
 * Verify if healthId entered already exists

@@ -119,6 +119,7 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 
 step("Click create new patient", async function () {
     await click("Create New")
+    gauge.dataStore.scenarioStore.put("isNewPatient",true)
 });
 
 step("Save the patient data", async function () {
@@ -180,10 +181,6 @@ step("Login as a receptionist with admin credentials location <location>", async
 
 step("Goto Bahmni home", async function () {
     await goto(process.env.bahmniHome,{waitForNavigation:true});
-});
-
-step("Create a new patient with verfication id", async function () {
-    await click("Create New");
 });
 
 step("Enter registration fees <arg0>", async function (arg0) {
