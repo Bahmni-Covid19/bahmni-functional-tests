@@ -292,11 +292,10 @@ step("Should fetch record with similar details", async function() {
 });
 
 step("Save the newly created patient data", async function() {
-    var patientIdentifier = await $('#patientIdentifierValue').text();
-    gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
-
     if(gauge.dataStore.scenarioStore.get("isNewPatient"))
         await click("Save",{waitForEvents:['networkIdle']});
+    var patientIdentifier = await $('#patientIdentifierValue').text();
+        gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);    
 });
 
 step("Click create new patient if patient does not exist", async function() {
