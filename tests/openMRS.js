@@ -11,7 +11,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName="+patientName
+    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
@@ -46,7 +46,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber> firstN
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName="+patientName
+    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
@@ -89,7 +89,7 @@ step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName="+patientName
+    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
@@ -107,7 +107,7 @@ step("Verify openmrs IPD patient details with mobileNumber <mobileNumber>", asyn
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName="+patientName
+    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
@@ -125,7 +125,7 @@ step("Verify openmrs lab patient details with mobileNumber <arg0>", async functi
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName="+patientName
+    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
@@ -147,7 +147,7 @@ step("Verify openmrs pharmacy patient details with mobileNumber <arg0>", async f
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName="+patientName
+    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
     var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)

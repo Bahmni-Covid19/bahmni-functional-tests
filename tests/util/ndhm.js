@@ -63,7 +63,7 @@ async function redirectExistingPatients(token,firstName,lastName,yearOfBirth,gen
     + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+(mobileNumber.split('+')[1]==null)?mobileNumber:mobileNumber.split('+')[1];
 
     console.log(properExistingPatientUrl)
-    var newURL = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName=" + fullName
+    var newURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName=" + fullName
     + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+mobileNumber;
     var data = JSON.stringify((await axios.get(newURL, {
             headers: {
@@ -127,14 +127,17 @@ async function interceptExistingPatients(token, healthID){
             'content-length': reqBodyOnFetchModes.length
         }
     }
-    await intercept(process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients/" + healthID, response,1)
+    await intercept(process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients/" + healthID, response,1)
     await intercept(process.env.bahmniHost+ "/ndhm/null/existingPatients/" + healthID, response,1)
-    gauge.message("intercepted"+process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients/" + healthID)
+    gauge.message("intercepted"+process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients/" + healthID)
 }
 
 async function interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender){
     var fullName = (lastName=="")? firstName:firstName+" "+lastName
-    var properExistingPatientUrl = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName=" + fullName
+    var existingPatientUrl = process.env.bahmniHost+ "/ndhm/null/existingPatients/?patientName=" + fullName
+    + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender;
+
+    var properExistingPatientUrl = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName=" + fullName
     + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender;
 
     var body1 = {

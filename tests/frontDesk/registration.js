@@ -274,7 +274,7 @@ step("Verify correct patient form is open", async function() {
 
 step("Enter village <village>", async function(village) {
     if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-    await write(village, into(textBox(toRightOf("Village"))))
+        await write(village, into(textBox(toRightOf("Village"))))
 });
 
 step("Check if patient <firstName> <middleName> <lastName> with mobile <mobileNumber> exists", async function (firstName, middleName, lastName, arg2) {
@@ -296,15 +296,15 @@ step("Save the newly created patient data", async function() {
     gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
 
     if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-    {
         await click("Save",{waitForEvents:['networkIdle']});
-    }
 });
 
 step("Click create new patient if patient does not exist", async function() {
-    gauge.dataStore.scenarioStore.put("isNewPatient",await text("No results found").exists())
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
+    if(await text("No results found").exists())
+    {
         await click("Create New")
+        gauge.dataStore.scenarioStore.put("isNewPatient",true)
+    }
     else 
         await click(link(below("ID")))
 });
