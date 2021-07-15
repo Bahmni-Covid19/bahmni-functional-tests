@@ -3,6 +3,7 @@
 const {
     intercept
 } = require('taiko');
+const axios = require('axios')
 var _fileExtension = require("./fileExtension");
 
 async function interceptFetchModes(token) {
@@ -55,6 +56,34 @@ async function interceptAuthInit(token) {
 
 }
 
+async function redirectExistingPatients(token,firstName,lastName,yearOfBirth,gender,mobileNumber){
+    var fullName = (lastName=="")? firstName:firstName+"+"+lastName
+
+    var properExistingPatientUrl = process.env.bahmniHost+ "/ndhm/null/existingPatients?patientName=" + fullName
+    + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+(mobileNumber.split('+')[1]==null)?mobileNumber:mobileNumber.split('+')[1];
+
+    console.log(properExistingPatientUrl)
+    var newURL = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName=" + fullName
+    + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+mobileNumber;
+    var data = JSON.stringify((await axios.get(newURL, {
+            headers: {
+                'Authorization': `token ${process.env.receptionist}`
+            }
+        })).data)
+    var response ={
+        method: 'POST',
+        port: '9052',
+        body: data,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+            'content-length': data.length
+        }
+    }
+    
+    await intercept(properExistingPatientUrl, response,1);
+}
+
 async function interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber){
     var confirm = _fileExtension.parseContent("./data/confirm/simple.txt")
     .replace('<healthID>', healthID)
@@ -104,11 +133,8 @@ async function interceptExistingPatients(token, healthID){
 }
 
 async function interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender){
-    var existingPatientUrl = process.env.bahmniHost+ "/ndhm/null/existingPatients?patientName=" + 
-    firstName + "+" + lastName
-    + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender;
-    var properExistingPatientUrl = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName=" + 
-    firstName + "+" + lastName
+    var fullName = (lastName=="")? firstName:firstName+" "+lastName
+    var properExistingPatientUrl = process.env.bahmniHost+ "/openmrs/ws/rest/v1/hip/existingPatients?patientName=" + fullName
     + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender;
 
     var body1 = {
@@ -135,5 +161,7 @@ module.exports={
     interceptAuthInit:interceptAuthInit,
     interceptExistingPatients:interceptExistingPatients,
     interceptAuthConfirm:interceptAuthConfirm,
+    redirectExistingPatients:redirectExistingPatients,
     interceptExistingPatientsWithParams:interceptExistingPatientsWithParams
 }
+
