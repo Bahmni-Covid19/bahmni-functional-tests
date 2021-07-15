@@ -112,7 +112,7 @@ step("Enter age of the patient <age>", async function (age) {
 });
 
 step("Enter patient mobile number <mobile>", async function (mobile) {
-    if(await $("Primary Contact").exists())
+    if(await text("Primary Contact").exists())
     {
         if(gauge.dataStore.scenarioStore.get("isNewPatient"))
             await write(mobile, into(textBox(toRightOf("Primary Contact"))));
@@ -391,7 +391,7 @@ async function (firstName, middleName, lastName, gender, age, mobileNumber) {
     var createdLastName = await textBox({placeholder:"Last Name"}).text();
     
     var createdGender = await dropDown("Gender *").value();
-    if(await $("Primary Contact").exists())
+    if(await text("Primary Contact").exists())
     {
         var createdMobileNumber = await textBox(toRightOf("Primary Contact *")).text();
     }
