@@ -126,7 +126,8 @@ step("Click create new patient", async function () {
 });
 
 step("Save the patient data", async function () {
-    await click("Save",{waitForEvents:['networkIdle']});
+    await click("Save");
+    await waitFor(async () => !(await $("overlay").exists()))
     var patientIdentifier = await $('#patientIdentifierValue').text();
     gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
 });
