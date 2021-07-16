@@ -1,16 +1,11 @@
-
+. ~/.cronfile
 GITHUB_BASE_URL="https://github.com/Bahmni/bahmni-scripts/raw/master/demo/db-backups/v0.92"
 
-
 OPENELIS_SQL_FILE="openelis_backup.sql"
-
 OPENMRS_SQL_FILE="openmrs_backup.sql"
-
-DEST_LOCATION="/home/centos/dbRestore"
+DEST_LOCATION="/home/go/dbRestore"
 OPENMRS_DB_NAME="openmrs"
 OPENELIS_DB_NAME="clinlims"
-
-
 
 setup(){
 	rm -rf $DEST_LOCATION
@@ -19,12 +14,8 @@ setup(){
 
 download_and_unzip(){
 	wget -O $DEST_LOCATION/$OPENELIS_SQL_FILE.gz $GITHUB_BASE_URL/$OPENELIS_SQL_FILE.gz
-	
 	wget -O $DEST_LOCATION/$OPENMRS_SQL_FILE.gz $GITHUB_BASE_URL/$OPENMRS_SQL_FILE.gz
-	
-
-
-	gzip -d $DEST_LOCATION/$OPENELIS_SQL_FILE.gz $DEST_LOCATION/$ODOO_SQL_FILE.gz $DEST_LOCATION/$OPENMRS_SQL_FILE.gz $DEST_LOCATION/$BAHMNIPACS_SQL_FILE.gz $DEST_LOCATION/$PACSDB_SQL_FILE.gz
+	gzip -d $DEST_LOCATION/$OPENELIS_SQL_FILE.gz  $DEST_LOCATION/$OPENMRS_SQL_FILE.gz
 }
 
 restore(){
