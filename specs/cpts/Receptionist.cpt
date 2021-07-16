@@ -65,6 +65,11 @@
 * Enter visit details
 * Close visit
 
+# Receptionist creates the patient firstName <firstName> middleName <middleName> lastName <lastName> with mobile number <mobileNumber> and starts an OPD
+* Open registration module
+* Create a new patient, if patient does not exist with firstName <firstName> middleName <middleName> lastName <lastName>, gender "F" mobileNumber <mobileNumber> age "30"
+* Start an OPD Visit
+
 # Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>

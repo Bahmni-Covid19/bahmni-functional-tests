@@ -30,7 +30,6 @@ step("Open Programs module", async function() {
 
 step("Enroll in program <program> stage <programStage> starting <numberOfYearsAgo_startDate> years ago with treatment start <numberOfYearsAgo_treatmentDate> years ago, id <id>, dr incharge <doctor> and treatment stage <stage>", 
 async function (program, programStage, numberOfYearsAgo_startDate, numberOfYearsAgo_treatmentDate, id, doctor, stage) {
-    await highlight('New Program Enrollment')
     await click('New Program Enrollment',below("Date of birth"))
     await waitFor("Program :")
     await dropDown(toRightOf('Program')).select(program)

@@ -88,7 +88,7 @@ step("Enter patient random middle name", async function () {
 
 step("Enter patient random last name", async function () {
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
-    if(lastName==null||firstName=="")
+    if(lastName==null||lastName=="")
     {
         lastName = users.randomName(10)
         gauge.message("lastName "+lastName)
@@ -130,6 +130,8 @@ step("Save the patient data", async function () {
     await waitFor(async () => !(await $("overlay").exists()))
     var patientIdentifier = await $('#patientIdentifierValue').text();
     gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
+    console.log("patient Identifier "+patientIdentifier)
+    gauge.message("patient Identifier "+patientIdentifier)
 });
 
 step("Save the newly created patient", async function () {
@@ -393,7 +395,7 @@ async function (firstName, middleName, lastName, gender, age, mobileNumber) {
     var createdGender = await dropDown("Gender *").value();
     if(await text("Primary Contact").exists())
     {
-        var createdMobileNumber = await textBox(toRightOf("Primary Contact *")).text();
+        var createdMobileNumber = await textBox(toRightOf("Primary Contact")).text();
     }
     assert.equal(createdFirstName,firstName)
     assert.equal(createdMiddleName,middleName)

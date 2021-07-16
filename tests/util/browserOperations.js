@@ -2,6 +2,7 @@ const {
     openBrowser,
     closeBrowser,
     screenshot,
+    // screencast,
 } = require('taiko');
 const path = require('path');
 
@@ -9,9 +10,11 @@ const headless = process.env.headless_chrome.toLowerCase() === 'true';
 
 beforeSuite(async () => {
     await openBrowser({headless:headless, args:["--no-sandbox","--start-maximized","--disable-dev-shm-usage","--start-fullscreen"]})
+    // await screencast.startScreencast('output.gif');
 });
 
 afterSuite(async () => {
+    // await screencast.stopScreencast();
     await closeBrowser();
 });
 
