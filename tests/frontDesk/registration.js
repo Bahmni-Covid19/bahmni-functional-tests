@@ -30,6 +30,7 @@ var assert = require("assert");
 step("Open registration module", async function () {
     await highlight("Clinical")
     await click("Registration", toLeftOf("Programs"));
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("To Associate a healthID, vefiy it", async function () {
@@ -170,17 +171,16 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    if(await text('BAHMNI EMR LOGIN').exists())
+    if(!(await text('BAHMNI EMR LOGIN').exists()))
     {
-        await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
-        await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
-        await dropDown("Location").select(location);
-        await click(button("Login"),{waitForNavigation:true});
-    }
-    else{
         await click(button({"class":"btn-user-info fr"}))
         await click('Logout',{waitForNavigation:true})
     }
+    await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
+    await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
+    await dropDown("Location").select(location);
+    await click(button("Login"),{waitForNavigation:true});
+
 });
 
 step("Goto Bahmni home", async function () {
@@ -225,7 +225,7 @@ step("Enter visit details", async function() {
 
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
-    await click(button("Close Visit"),{waitForNavigation:true})
+    await click(button("Close Visit"),{waitForNavigation:true,waitForStart:1000})
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
