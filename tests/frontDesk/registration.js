@@ -170,16 +170,17 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    if(!(await text('BAHMNI EMR LOGIN').exists()))
+    if(await text('BAHMNI EMR LOGIN').exists())
     {
-        await click(button({"class":"btn-user-info fr"}))
-        await click('Logout',{waitForNavigation:true})        
+        await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
+        await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
+        await dropDown("Location").select(location);
+        await click(button("Login"),{waitForNavigation:true});
     }
-
-    await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
-    await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
-    await dropDown("Location").select(location);
-    await click(button("Login"),{waitForNavigation:true});
+    else{
+        await click(button({"class":"btn-user-info fr"}))
+        await click('Logout',{waitForNavigation:true})
+    }
 });
 
 step("Goto Bahmni home", async function () {
