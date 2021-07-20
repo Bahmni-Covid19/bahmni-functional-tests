@@ -95,5 +95,6 @@ step("Click Discharge", async function() {
 });
 
 step("Click Discharge on popup", async function() {
-	await highlight(text('Discharge', within($('[ng-click="dischargeConfirmation()"]'))));
+	await waitFor(async () => !(await $("overlay").exists()));
+	await click(text('Discharge', within($('[ng-click="dischargeConfirmation()"]'))));
 });

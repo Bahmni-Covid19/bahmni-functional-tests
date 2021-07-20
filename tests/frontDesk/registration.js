@@ -225,7 +225,7 @@ step("Enter visit details", async function() {
 
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
-    await click(button("Close Visit"),{waitForNavigation:true,waitForStart:1000})
+    await click(button("Close Visit"),{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:180000})
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
