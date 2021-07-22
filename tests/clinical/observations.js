@@ -26,9 +26,12 @@ step("Enter SPO2 (%)", async function() {
 	await write("99",into(textBox(toRightOf("SPO2"))));
 });
 
-step("Enter Blood Pressure systolic, diastolic and posture", async function() {
+step("Enter systolic, diastolic", async function () {
 	await write("110",into(textBox(toRightOf("Systolic"))));
 	await write("110",into(textBox(toRightOf("Diastolic"))));
+});
+
+step("Enter posture", async function () {
 	await click("Sitting",toRightOf("Posture"));
 });
 

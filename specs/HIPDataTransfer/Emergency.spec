@@ -37,37 +37,3 @@ Tags:prescriptions, diagnostics
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
 
-## Should be able to get OP Consultation notes patient
-Tags:OPConsultationNotes
-* Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
-* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Add this newly created patient as merge patient1
-* Start an OPD Visit
-* Nurse opens clinical tab
-* Enter History and examination details
-* Click Save
-* Enter vitals
-* visit is closed at the front desk
-* Goto Bahmni home
-* Open registration module
-* Create a new patient with gender "Female" with random name, aged "27" with mobile number <mobileNumber>
-* Add this newly created patient as merge patient2
-* Start an IPD Visit
-* Doctor issues an Admit disposition
-* Goto Bahmni home
-* Open In Patient module
-* Nurse at ADT is able to view bed availability and assign beds
-* Goto clinical tab
-* Doctor clicks consultation
-* Enter History and examination details
-* Click Save
-* Enter vitals
-* Goto Bahmni home
-* Doctor issues an Discharge disposition
-* Goto Bahmni home
-* Discharge the patient from allocated bed
-* Goto the openMRS Admin tab
-* Merge the newly created patients
-* Verify openmrs OPD patient details with mobileNumber <mobileNumber>
-* Verify openmrs IPD patient details with mobileNumber <mobileNumber>

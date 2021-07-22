@@ -18,6 +18,8 @@ const {
 	text,
 	press,
 	highlight,
+	timeField,
+	toRightOf,
 	$
 } = require('taiko');
 const _openmrs = require("./util/omod")
@@ -97,4 +99,120 @@ step("Click Discharge", async function() {
 step("Click Discharge on popup", async function() {
 	await waitFor(async () => !(await $("overlay").exists()));
 	await click(text('Discharge', within($('[ng-click="dischargeConfirmation()"]'))));
+});
+
+step("Select Second Vitals", async function () {
+	await waitFor('Second Vitals')
+	await click("Second Vitals",{waitForNavigation:true})
+});
+
+step("Add new observation form", async function() {
+	await click("Add New Obs Form",{waitForNavigation:true});
+    await waitFor(async () => !(await $("overlay").exists()))
+});
+
+step("Nurse adds observation form <observationForm>", async function (observationForm) {
+	await click(button(observationForm));
+    await waitFor(async () => !(await $("overlay").exists()))
+});
+
+step("Diagnosis Confirmed elsewhere", async function() {
+        await click(button("Confirmed Elsewhere",toRightOf("Diagnosis Confirmed")));
+});
+
+step("Choose Diabtes type <diabetesType>", async function(diabetesType) {
+	//Type 2 DM
+    await click(button(diabetesType,toRightOf("Diabetes type")));
+});
+
+step("Enter Hypertension Intake values", async function () {
+	await timeField({type:"date"},toRightOf("Last Visit Date")).select(new Date());
+	await write("Previous Followup Location",into(textBox("Previous Followup Location")));
+	await click(button("No Previous Diagnosis"),toRightOf("Diagnosis Status"));
+	await timeField({type:"date"},toRightOf("Date Confirmed")).select(new Date());
+	await click(button("Yes",toRightOf(text("Hypertensive Emergency or Cardiac Hospitalization in 12 Months"))));
+	await click(button("Chest Pain",toRightOf(text("Hypertensive Emergency or Cardiac Hospitalization For"))));
+	await write("EKG",into(textBox("EKG")));
+	await write("Echocardiogram",into(textBox("Echocardiogram")));
+	await write("Lipids",into(textBox("Lipids")));
+	await write("Primary/Essential Hypertension",into(textBox("Essential Hypertension")));
+	await click(button("Primary Renal Disease",toRightOf(text("Secondary Hypertension"))));
+	await click(button("Drug Induced",toRightOf(text("Secondary Hypertension"))));
+	await click(button("HCTZ",toRightOf(text("Current Home Medications"))));
+});
+step("Last known A1C Date", async function() {
+    await timeField({type:"date"},toRightOf("Last known A1C Date")).select(new Date());
+});
+
+step("Last known Fasting Blood Sugar", async function() {
+    await timeField({type:"date"},toRightOf("Last known Fasting Blood Sugar")).select(new Date());
+});
+
+step("New Patient symptom", async function() {
+    await click(button("Blurred Vision",toRightOf("If new patient")));
+});
+
+step("enter Cormorbidities", async function() {
+    await click(button("Hypertension",toRightOf("Cormorbidities")));
+});
+
+step("history of Diabetes", async function() {
+    await click(button("Yes",toRightOf("Family History of Diabetes")));
+});
+
+step("Details Of Family History Of Diabetes", async function() {
+    await write("Details Of Family History Of Diabetes",into(textBox(toRightOf("Details Of Family History Of Diabetes"))));
+});
+
+step("Enter A1C", async function() {
+	await write("A1C",into(textBox(toRightOf("A1C"))));
+});
+
+step("Enter Last A1C Date", async function() {
+	await timeField({type:"date"},toRightOf("Last A1C Date")).select(new Date());
+});
+
+step("Enter Fasting Glucose", async function() {
+    await write("Fasting Glucose",into(textBox(toRightOf("Fasting Glucose"))));
+});
+
+step("Enter Lipid Panel", async function() {
+    await write("Lipid Panel",into(textBox(toRightOf("Lipid Panel"))));
+});
+
+step("Enter Excercise", async function() {
+    await click(button("Standing at work",toRightOf("Exercise")));
+});
+
+step("Smoking history", async function() {
+    await click(button("Yes",toRightOf("Smoking history")));
+	await write("2",into(textBox(toRightOf("Packs per day"))));
+	await write("2",into(textBox(toRightOf("Number of years"))));
+});
+
+step("Alcohol abuse", async function() {
+    await click(button("Yes",toRightOf("Alcohol abuse")));
+    await write("Details of Alcohol abuse",into(textBox(below("Alcohol abuse"))));
+});
+
+step("Home medication", async function() {
+    await click(button("Insulin"), toRightOf("Current home medication"));
+    await write("Other current home medications", into(textBox(toRightOf("Other current home medication"))));
+});
+
+step("Enter Last LDL", async function() {
+	await write("Last LDL",into(textBox(toRightOf("Last LDL"))));
+    await timeField({type:"date"},toRightOf("Last LDL Date")).select(new Date());
+});
+
+step("Enter Ulcers present on feet", async function() {
+	await click(button("Yes",toRightOf(text("Ulcers present on feet "))));
+});
+
+step("Last Eye exam date", async function() {
+	await timeField({type:"date"},toRightOf("Last eye exam date")).select(new Date());
+});
+
+step("Enter Hypertension Progress values", async function() {
+	throw 'Unimplemented Step';
 });

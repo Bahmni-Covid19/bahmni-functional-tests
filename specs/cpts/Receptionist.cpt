@@ -35,7 +35,7 @@
 * Doctor opens the clinical tab for newly created patient
 * Select the newly created patient with healthID
 * Doctor clicks consultation
-# Nurse opens the consultation notes <consultationNotes> for newly created patient
+# Doctor captures the consultation notes <consultationNotes> for newly created patient
 * Doctor clicks consultation
 * Doctor captures consultation notes "Consultation notes"
 * Click Save
@@ -74,6 +74,11 @@
 * Open registration module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Start an OPD Visit
+
+# Receptionist creates the patient with mobile number <mobileNumber> and starts an Special OPD
+* Open registration module
+* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
+* Start an Special OPD Visit
 
 # Create a new patient with gender <gender> with name <firstName> <middleName> <lastName>, aged <age> with mobile number <mobileNumber>
 * Click create new patient if patient does not exist
