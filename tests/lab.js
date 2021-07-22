@@ -32,7 +32,7 @@ step("Choose newly created patient", async function() {
 });
 
 step("Click Save", async function () {
-	await click("Save",{waitForNavigation:true});
+	await click("Save",{waitForNavigation:true,navigationTimeout:180000});
 	await waitFor(async () => !(await $("Saved").exists()))
 });
 

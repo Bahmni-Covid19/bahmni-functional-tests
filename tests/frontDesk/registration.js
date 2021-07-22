@@ -127,7 +127,7 @@ step("Click create new patient", async function () {
 });
 
 step("Save the patient data", async function () {
-    await click("Save");
+    await click("Save",{waitForNavigation:true,navigationTimeout:180000});
     await waitFor(async () => !(await $("overlay").exists()))
     var patientIdentifier = await $('#patientIdentifierValue').text();
     gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
@@ -390,14 +390,14 @@ step("Should display NDHM record with firstName <firstName> middleName <S> lastN
 
 step("Should verify details of newly created record from NDHM - firstName <firstName> middleName <middleName> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", 
 async function (firstName, middleName, lastName, gender, age, mobileNumber) {
-    var createdFirstName = await evaluate(textBox({placeholder:"First Name"}), (element) => element.value);
-    var createdMiddleName = await evaluate(textBox({placeholder:"Middle Name"}), (element) => element.value);
-    var createdLastName = await evaluate(textBox({placeholder:"Last Name"}), (element) => element.value);
+    var createdFirstName = await textBox({placeholder:"First Name"}).value();
+    var createdMiddleName = await textBox({placeholder:"Middle Name"}).value();
+    var createdLastName = await textBox({placeholder:"Last Name"}).value()
     
     var createdGender = await dropDown("Gender *").value();
     if(await text("Primary Contact").exists())
     {
-        var createdMobileNumber = await evaluate(textBox(toRightOf("Primary Contact")), (element) => element.value); 
+        var createdMobileNumber = await textBox(toRightOf("Primary Contact")).value()
     }
     assert.equal(createdFirstName,firstName)
     assert.equal(createdMiddleName,middleName)
