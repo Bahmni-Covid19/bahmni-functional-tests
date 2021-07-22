@@ -3,7 +3,7 @@
 |+91-9876543210|
 
 ## Should be able to search with healthID in registration module
-Tags:ndhm
+Tags:hipInitiatedLinking
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
@@ -12,7 +12,7 @@ Tags:ndhm
 * Verify correct patient form is open
 
 ## Should be able to search with healthID in clinical module
-Tags: ndhm
+Tags: hipInitiatedLinking
 * knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
@@ -24,7 +24,7 @@ Tags: ndhm
 * Nurse initiates clinical checkup with healthID
 
 ## Should be able to search with healthID in program module
-Tags: ndhm
+Tags: hipInitiatedLinking
 * knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module

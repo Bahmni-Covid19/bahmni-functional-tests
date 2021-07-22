@@ -3,7 +3,7 @@
 |+91-9876543210|
 
 ## Should display NDHM Record details when no mapping found
-Tags:ndhm
+Tags:hipInitiatedLinking
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Click create new patient
