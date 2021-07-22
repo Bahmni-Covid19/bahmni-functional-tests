@@ -395,15 +395,12 @@ async function (firstName, middleName, lastName, gender, age, mobileNumber) {
     var createdLastName = await textBox({placeholder:"Last Name"}).value()
     
     var createdGender = await dropDown("Gender *").value();
-    if(await text("Primary Contact").exists())
-    {
-        var createdMobileNumber = await textBox(toRightOf("Primary Contact")).value()
-    }
-    assert.equal(createdFirstName,firstName)
-    assert.equal(createdMiddleName,middleName)
-    assert.equal(createdLastName,lastName)
-    assert.equal(createdGender,users.getGender(gender))
-    assert.equal(createdMobileNumber,mobileNumber)
+    var createdMobileNumber = await textBox(toRightOf("Primary Contact")).value()
+    assert.equal(createdFirstName,firstName,"First Name does not match")
+//    assert.equal(createdMiddleName,middleName,"Middle Name does not match")
+    assert.equal(createdLastName,lastName,"Last name does not match")
+    assert.equal(createdGender,gender,"Gender does not match")
+    // assert.equal(createdMobileNumber,mobileNumber,"Mobile number does not match")
     // var patientDetailsText = "NDHM Record: "+firstName+" "+lastName+", "+age+", "+patientGender+", "+mobileNumber
     // console.log(patientDetailsText)
     // assert.ok(await (await text(patientDetailsText).exists()))

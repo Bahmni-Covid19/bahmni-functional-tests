@@ -3,7 +3,7 @@
 |+91-9876543210|
 
 ## Should be able to get patient external lab reports and prescriptions
-Tags: prescriptionsAndDiagnostics
+Tags: prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
 * Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
 * Nurse initiates clinical checkup
@@ -13,7 +13,7 @@ Tags: prescriptionsAndDiagnostics
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
 
 ## Should be able to get in house lab reports and prescriptions of a patient
-Tags: prescriptionsAndDiagnostics
+Tags: prescriptions, diagnostics
 * knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD

@@ -2,11 +2,11 @@
   "name": "bahmni-ndhm-tests",
   "description": "To test the ndhm compliance of Bahmni",
   "scripts": {
-    "qa01-prescriptionsAndDiagnostics": "gauge run -p --env qa01 --tags 'prescriptionsAndDiagnostics' specs -v",
-    "qa01-hipInitiatedLinking": "gauge run -p --env qa01 --tags 'hipInitiatedLinking' specs -v",
-    "qa02-prescriptionsAndDiagnostics": "gauge run -p --env qa02 --tags 'prescriptionsAndDiagnostics' specs -v",
-    "qa02-hipInitiatedLinking": "gauge run -p --env qa02 --tags 'hipInitiatedLinking' specs -v",
-    "test": "gauge run -p --env default --tags 'prescriptionsAndDiagnostics' specs -v"
+    "qa01-prescriptionsAndDiagnostics": "gauge run -p --env qa01 --tags 'prescriptions & diagnostics' specs -v",
+    "qa01-HIPInitiatedLinking": "gauge run -p --env qa01 --tags 'HIPInitiatedLinking' specs -v",
+    "qa02-prescriptionsAndDiagnostics": "gauge run -p --env qa02 --tags 'prescriptions & diagnostics' specs -v",
+    "qa02-HIPInitiatedLinking": "gauge run -p --env qa02 --tags 'HIPInitiatedLinking' specs -v",
+    "test": "gauge run -p --env default --tags 'prescriptions & diagnostics' specs -v"
   },
   "dependencies": {
     "taiko": "latest",
