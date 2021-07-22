@@ -13,12 +13,13 @@ Tags:ndhm
 * Should display NDHM record with firstName "Somya" middleName "" lastName "G" gender "F" age "32" with mobile number "1234567890"
 ## Should be able to map NDHM Record with first name, middle name and last name
 Tags: ndhm
+* knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Create a new patient, if patient does not exist with firstName "Soumya" middleName "Swaroop" lastName "Gupta", gender "F" mobileNumber <mobileNumber> age "30"
-* Should fetch record with firstName "Somya" middleName "" lastName "G" gender "F" age "32" and mobileNumber "1234567890"
+* Should fetch record with firstName "Somya" middleName "S" lastName "G" gender "F" age "32" and mobileNumber "1234567890"
 * Should display Bahmni record with firstName "Soumya" lastName "Gupta" gender "F" age "30" with mobile number <mobileNumber>
-* Should display NDHM record with firstName "Somya" middleName "" lastName "G" gender "F" age "32" with mobile number "1234567890"
+* Should display NDHM record with firstName "Somya" middleName "S" lastName "G" gender "F" age "32" with mobile number "1234567890"
 
 ## Should be able to map NDHM Record with first and last name
 Tags: ndhm

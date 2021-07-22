@@ -390,14 +390,14 @@ step("Should display NDHM record with firstName <firstName> middleName <S> lastN
 
 step("Should verify details of newly created record from NDHM - firstName <firstName> middleName <middleName> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", 
 async function (firstName, middleName, lastName, gender, age, mobileNumber) {
-    var createdFirstName = await textBox({placeholder:"First Name"}).text();
-    var createdMiddleName = await textBox({placeholder:"Middle Name"}).text();
-    var createdLastName = await textBox({placeholder:"Last Name"}).text();
+    var createdFirstName = await evaluate(textBox({placeholder:"First Name"}), (element) => element.value);
+    var createdMiddleName = await evaluate(textBox({placeholder:"Middle Name"}), (element) => element.value);
+    var createdLastName = await evaluate(textBox({placeholder:"Last Name"}), (element) => element.value);
     
     var createdGender = await dropDown("Gender *").value();
     if(await text("Primary Contact").exists())
     {
-        var createdMobileNumber = await textBox(toRightOf("Primary Contact")).text();
+        var createdMobileNumber = await evaluate(textBox(toRightOf("Primary Contact")), (element) => element.value); 
     }
     assert.equal(createdFirstName,firstName)
     assert.equal(createdMiddleName,middleName)
