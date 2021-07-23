@@ -18,6 +18,7 @@ const {
 var _date = require("../util/date");
 var _fileExtension = require("../util/fileExtension");
 var _path = require("path")
+var taikoHelper = require("../util/taikoHelper");
 
 step("Click Start Special OPD Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
@@ -52,6 +53,17 @@ step("Open the program dashboard <program>", async function(program) {
     await click($('.proggram-dashboard-text'),{waitForNavigation:true});
     await waitFor(async () => !(await $("overlay").exists()))
 });
+
+step("Enter Observation Form <observationFormFile>", async function(observationFormFile) {
+    await click("Add New Obs Form",{waitForNavigation:true,navigationTimeout:180000});
+    await waitFor(async () => !(await $("overlay").exists()))
+
+    var observationFormValues = JSON.parse(_fileExtension.parseContent("./data/program/"+observationFormFile+".json"))
+
+    await click(button(observationFormValues.ObservationFormName));
+    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.executeConfigurations(observationFormValues.ObservationFormDetails)
+})
 
 step("Enter History and examination details", async function() {
     var historyAndExaminationDetails = JSON.parse(_fileExtension.parseContent("./data/program/historyAndExaminationDetails.json"))

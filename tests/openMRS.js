@@ -163,3 +163,23 @@ step("Put first name <firstName> last name <lastName>", async function(firstName
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
 });
+
+step("Put first name <firstName> middleName <middleName> last name <lastName>", async function(firstName,middleName, lastName) {
+    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+    gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
+    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+});
+
+step("Put first name <firstName> middleName <middleName> last name <lastName> gender <gender> mobileNumber <mobileNumber> age <age>", 
+async function(firstName,middleName, lastName,gender,mobileNumber,age) {
+    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+    gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
+    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+
+    gauge.dataStore.scenarioStore.put("patientGender",gender)
+    gauge.dataStore.scenarioStore.put("patientMobileNumber",mobileNumber)
+    gauge.dataStore.scenarioStore.put("patientAge",age)
+
+});
+
+

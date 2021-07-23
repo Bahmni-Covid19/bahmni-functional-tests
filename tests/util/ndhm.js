@@ -59,12 +59,10 @@ async function interceptAuthInit(token) {
 async function redirectExistingPatients(token,firstName,lastName,yearOfBirth,gender,mobileNumber){
     var fullName = (lastName=="")? firstName:firstName+"+"+lastName
 
-    var properExistingPatientUrl = process.env.bahmniHost+ "/ndhm/null/existingPatients?patientName=" + fullName
-    + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+(mobileNumber.split('+')[1]==null)?mobileNumber:mobileNumber.split('+')[1];
-
-    console.log(properExistingPatientUrl)
     var newURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName=" + fullName
     + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+mobileNumber;
+    console.log(newURL)
+
     var data = JSON.stringify((await axios.get(newURL, {
             headers: {
                 'Authorization': `token ${process.env.receptionist}`
@@ -80,7 +78,10 @@ async function redirectExistingPatients(token,firstName,lastName,yearOfBirth,gen
             'content-length': data.length
         }
     }
-    
+
+    var properExistingPatientUrl = process.env.bahmniHost+ "/ndhm/null/existingPatients?patientName=" + fullName
+    + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+(mobileNumber.split('+')[1]==null)?mobileNumber:mobileNumber.split('+')[1];
+
     await intercept(properExistingPatientUrl, response,1);
 }
 

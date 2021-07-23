@@ -101,7 +101,8 @@ step("Enter patient random last name", async function () {
 
 step("Enter patient gender <gender>", async function (gender) {
     if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await dropDown("Gender *").select(gender);        
+        await dropDown("Gender *").select(gender); 
+    gauge.dataStore.scenarioStore.put("patientGender",gender)
 });
 
 step("Enter age of the patient <age>", async function (age) {
@@ -110,6 +111,7 @@ step("Enter age of the patient <age>", async function (age) {
         await write(age, into(textBox(toRightOf("Years"))));
         await click(checkBox(toLeftOf("Estimated")));    
     }
+    gauge.dataStore.scenarioStore.put("patientAge",age)
 });
 
 step("Enter patient mobile number <mobile>", async function (mobile) {

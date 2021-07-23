@@ -2,7 +2,24 @@
 const {
     intercept
 } = require('taiko');
+const axios = require('axios')
+
 var _fileExtension = require("./fileExtension");
+
+async function getNDHMRecord(fullName,gender, yearOfBirth,mobileNumber){
+    var newURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName=" + fullName
+    + "&patientYearOfBirth=" + yearOfBirth + "&patientGender=" + gender+"&phoneNumber=%2B"+mobileNumber;
+
+    console.log("NewURL "+newURL)
+    gauge.message("NewURL "+newURL)
+
+    var result = await axios.get(newURL, {
+        headers: {
+            'Authorization': `token ${process.env.receptionist}`
+        }
+    })
+    return result.data
+}
 
 async function interceptAdmissionLocation(token) {
     var body1 = JSON.parse(_fileExtension.parseContent("./data/admission/admissionLocation.json"))
@@ -51,4 +68,5 @@ async function interceptGeneralWard(token) {
 module.exports={
     interceptAdmissionLocation:interceptAdmissionLocation,
     interceptGeneralWard:interceptGeneralWard,
+    getNDHMRecord:getNDHMRecord
 }

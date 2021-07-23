@@ -54,10 +54,13 @@
 * Enter Fasting Glucose
 * Enter Lipid Panel
 * Enter Excercise
-* Smoking history
-* Alcohol abuse
+* Nurse enters exposures
 * Home medication
 * Click Save
+
+# Nurse enters exposures
+* Smoking history
+* Alcohol abuse
 
 # Nurse enters Tuberculosis details
 * Add new observation form
@@ -65,9 +68,12 @@
 * Nurse enters Tuberculosis Followup
 
 # Nurse enters HIV details
+* Nurse enters HIV Treatment and Care - Progress
+
+# Nurse enters HIV Testing and Counselling
 * Add new observation form
-* Nurse enters HIV Intake
-* Nurse enters HIV Followup
+* Nurse adds observation form "HIV Testing and Counseling"
+* Nurse enters HIV Testing and Counseling details
 
 # Nurse enters basic clinical details
 * Enter History and examination details
@@ -106,3 +112,12 @@
 * Enter Ulcers present on feet
 * Last Eye exam date
 * Click Save
+
+# Nurse enters HIV Treatment and Care - Intake
+* Add new observation form
+* Nurse adds observation form "HIV Treatment and Care - Intake"
+* Nurse enters HIV Treatment and Care - Intake details
+
+# Nurse enters HIV Treatment and Care - Progress
+* Enter Observation Form "HIVTreatmentAndCareIntake"
+                                        

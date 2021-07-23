@@ -107,7 +107,7 @@ step("Select Second Vitals", async function () {
 });
 
 step("Add new observation form", async function() {
-	await click("Add New Obs Form",{waitForNavigation:true});
+	await click("Add New Obs Form",{waitForNavigation:true,navigationTimeout:180000});
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
@@ -214,5 +214,33 @@ step("Last Eye exam date", async function() {
 });
 
 step("Enter Hypertension Progress values", async function() {
+	throw 'Unimplemented Step';
+});
+
+step("Nurse enters HIV Testing and Counseling details", async function() {
+	await click(button("Yes",toRightOf("Pre-test Counseling")));
+	await click(button("Yes",toRightOf("HIV Tested Before")));
+	await click(button("Positive",toRightOf("If tested, Result")));
+	await click(button("STI",toRightOf("Medical Reason for Test")));
+	await write("Others(Specify)",into(textBox(toRightOf("Others (Specify)"))));
+	await click(button("No",toRightOf("Pregnancy Status")));
+	await click(button("Others",toRightOf("Risk Group")));
+	await click(button("Yes",toRightOf("Informed Consent")));
+	await click(button("Positive",toRightOf("Initial")));
+	await click(button("Negative",toRightOf("Confirmatory")));
+	await click(button("Not Applicable",toRightOf("Tie Breaker")));
+	await click(button("No",toRightOf("Post-test Counseling")));
+	await click(button("No",toRightOf("Result Recieved")));
+	await click(button("Negative",toRightOf("Test Result")));
+	await click(button("No",toRightOf("Partner Counseling")));
+	await click(button("II",toRightOf("WHO Staging")));
+	await click(button("In",toRightOf("Referred")));
+});
+
+step("Nurse enters HIV Treatment and Care - Intake details", async function() {
+	throw 'Unimplemented Step';
+});
+
+step("Nurse enters HIV Treatment and Care - Progress details", async function() {
 	throw 'Unimplemented Step';
 });

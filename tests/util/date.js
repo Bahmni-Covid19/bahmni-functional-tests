@@ -7,6 +7,20 @@ function yesterday() {
     return yesterday;
 }
 
+function getDateAgo(dateAgo){
+    var days = dateAgo.split("/")[0]
+    var months = dateAgo.split("/")[1]
+    var years = dateAgo.split("/")[2]
+    
+    const today = new Date()
+    const dateYearsAgo = new Date(today)
+
+    dateYearsAgo.setFullYear(dateYearsAgo.getFullYear() - parseInt(years))
+    dateYearsAgo.setMonth(dateYearsAgo.getMonth()-parseInt(months))
+    dateYearsAgo.setDate(dateYearsAgo.getDate()-parseInt(days))
+    return dateYearsAgo;
+}
+
 function getDateYearsAgo(numberOfYearsAgo){
     const today = new Date()
     const dateYearsAgo = new Date(today)
@@ -57,5 +71,6 @@ module.exports={
     tomorrow:tomorrow,
     nextYear:nextYear,
     getddmmyyyyFormattedDate:getyyyymmddFormattedDate,
-    getDateYearsAgo:getDateYearsAgo
+    getDateYearsAgo:getDateYearsAgo,
+    getDateAgo:getDateAgo
 }
