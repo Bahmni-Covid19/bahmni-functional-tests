@@ -8,9 +8,27 @@ async function executeConfigurations(configurations){
                 await executeConfigurations(configuration.value)
               break;
             case 'TextArea':
-                await write(configuration.value,into(textBox(toRightOf(configuration.label))))
+                if(configuration.proximity!=null&&configuration.proximity!="")
+                {
+                    switch(configuration.proximity){
+                        case 'below':
+                            await write(configuration.value,into(textBox(below(configuration.proximityLabel), toRightOf(configuration.label))))
+                        break;
+                        case 'above':
+                            await write(configuration.value,into(textBox(below(configuration.proximityLabel), toRightOf(configuration.label))))
+                        break;
+                        default:
+                                console.log("Unhandled "+configuration.label+":"+configuration.value)
+                            break;
+                    }
+                }
+                else
+                    await write(configuration.value,into(textBox(toRightOf(configuration.label))))
               break;
-            case 'Button':
+            case 'TextBox':
+                await write(configuration.value,into(textBox(toRightOf(configuration.label))))
+            break;
+          case 'Button':
                 await click(button(configuration.value),toRightOf(configuration.label))
             break;      
             case 'Date':

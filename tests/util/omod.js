@@ -4,7 +4,7 @@ const {
 } = require('taiko');
 const axios = require('axios')
 
-var _fileExtension = require("./fileExtension");
+var fileExtension = require("./fileExtension");
 
 async function getNDHMRecord(fullName,gender, yearOfBirth,mobileNumber){
     var newURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName=" + fullName
@@ -22,7 +22,7 @@ async function getNDHMRecord(fullName,gender, yearOfBirth,mobileNumber){
 }
 
 async function interceptAdmissionLocation(token) {
-    var body1 = JSON.parse(_fileExtension.parseContent("./data/admission/admissionLocation.json"))
+    var body1 = JSON.parse(fileExtension.parseContent("./data/admission/admissionLocation.json"))
     var reqBodyOnFetchModes = JSON.stringify(body1);
     var response = {
         method: 'POST',
@@ -44,7 +44,7 @@ async function interceptAdmissionLocation(token) {
 
 async function interceptGeneralWard(token) {
     var generalWard = process.env.generalWard
-    var body1 = JSON.parse(_fileExtension.parseContent("./data/admission/admissionGeneralWard.json"))
+    var body1 = JSON.parse(fileExtension.parseContent("./data/admission/admissionGeneralWard.json"))
     var reqBodyOnFetchModes = JSON.stringify(body1);
     var response = {
     method: 'POST',

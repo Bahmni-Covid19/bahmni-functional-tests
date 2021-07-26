@@ -16,7 +16,7 @@ Tags: prescriptions, diagnostics
 Tags: OPConsultation
 * Login to Bahmni location "General Ward" as a receptionist
 * Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
-* Nurse initiates clinical checkup
+* Nurse opens clinical tab
 * Nurse captures BP, sugar checkup
 * Doctor captures the consultation notes "consultationNotes" for newly created patient
 * Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"

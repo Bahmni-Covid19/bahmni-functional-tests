@@ -16,9 +16,8 @@ const {
     below,
 } = require('taiko');
 var _date = require("../util/date");
-var _fileExtension = require("../util/fileExtension");
+var fileExtension = require("../util/fileExtension");
 var _path = require("path")
-var taikoHelper = require("../util/taikoHelper");
 
 step("Click Start Special OPD Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
@@ -54,19 +53,8 @@ step("Open the program dashboard <program>", async function(program) {
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
-step("Enter Observation Form <observationFormFile>", async function(observationFormFile) {
-    await click("Add New Obs Form",{waitForNavigation:true,navigationTimeout:180000});
-    await waitFor(async () => !(await $("overlay").exists()))
-
-    var observationFormValues = JSON.parse(_fileExtension.parseContent("./data/program/"+observationFormFile+".json"))
-
-    await click(button(observationFormValues.ObservationFormName));
-    await waitFor(async () => !(await $("overlay").exists()))
-    await taikoHelper.executeConfigurations(observationFormValues.ObservationFormDetails)
-})
-
 step("Enter History and examination details", async function() {
-    var historyAndExaminationDetails = JSON.parse(_fileExtension.parseContent("./data/program/historyAndExaminationDetails.json"))
+    var historyAndExaminationDetails = JSON.parse(fileExtension.parseContent("./data/program/historyAndExaminationDetails.json"))
 
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));

@@ -20,6 +20,7 @@ Tags: prescriptions, diagnostics
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
 * Click Save
 * Goto Bahmni home
+* Open In Patient module
 * Open module "Patient Documents"
 * Choose newly created patient
 * Add a report "labReport1" to "Patient Documents"

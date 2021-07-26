@@ -20,11 +20,11 @@ Tags:HIPInitiatedLinking
 * knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
-* Create a new patient, if patient does not exist with firstName "Priya" middleName "" lastName "S", gender "F" mobileNumber <mobileNumber> age "30"
-* Verify match with NDHM record with one letter more in firstName "Priya" lastName "S"
-* Verify match with NDHM record with one letter more in firstName "Priyanshu" lastName "Singh"
-* Verify match with NDHM record with firstName "Priya" middleName "Kapoor" lastName "Singh"
-* Verify match with NDHM record with firstName "Priya" middleName "" lastName ""
+* Create a new patient, if patient does not exist with firstName "Un" middleName "" lastName "N", gender "F" mobileNumber <mobileNumber> age "30"
+* Verify match with NDHM record with one letter more in firstName "Unco" lastName "Name"
+* Verify match with NDHM record with one letter more in firstName "Uncommon" lastName "Name"
+* Verify match with NDHM record with firstName "Uncommon" middleName "Something" lastName "Name"
+* Verify match with NDHM record with firstName "Uncommon" middleName "" lastName ""
 
 ## Should be able to map NDHM Records based on fuzzy logic Known Issues
 * knownIssue

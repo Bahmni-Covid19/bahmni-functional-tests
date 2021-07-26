@@ -1,6 +1,6 @@
 "use strict";
 var assert = require("assert");
-var _fileExtension = require("./util/fileExtension")
+var fileExtension = require("./util/fileExtension")
 var _requestResponse = require("./util/requestResponse");
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
@@ -24,7 +24,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
         assert.ok(prescription.careContext.careContextReference=="OPD")
         assert.ok(prescription.bundle!=null)
         var prescriptionFile = gauge.dataStore.scenarioStore.get("prescriptions")
-        var prescriptionDetails = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+        var prescriptionDetails = JSON.parse(fileExtension.parseContent(prescriptionFile))
         var medication = parseInt(prescriptionDetails.dose).toFixed(1)+" "+prescriptionDetails.units+" "+ prescriptionDetails.frequency+"  "+prescriptionDetails.duration+" Day(s) "
         assert.equal(prescription.bundle.entry[4].resource.dosageInstruction[0].text,medication)
     }
@@ -59,7 +59,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber> firstN
         assert.ok(prescription.careContext.careContextReference=="OPD")
         assert.ok(prescription.bundle!=null)
         var prescriptionFile = gauge.dataStore.scenarioStore.get("prescriptions")
-        var prescriptionDetails = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+        var prescriptionDetails = JSON.parse(fileExtension.parseContent(prescriptionFile))
         var medication = parseInt(prescriptionDetails.dose).toFixed(1)+" "+prescriptionDetails.units+" "+ prescriptionDetails.frequency+"  "+prescriptionDetails.duration+" Day(s) "
         assert.equal(prescription.bundle.entry[4].resource.dosageInstruction[0].text,medication)
     }

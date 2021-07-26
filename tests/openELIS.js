@@ -1,6 +1,6 @@
 "use strict"
 const { goto, toRightOf, textBox, into, write, click, $,below, checkBox,waitFor,image,within } = require('taiko');
-var _fileExtension = require('./util/fileExtension')
+var fileExtension = require('./util/fileExtension')
 step("Enter password in ELIS", async function() {
     await write("adminADMIN!",into(textBox(toRightOf("Enter Password:"))));
 });
@@ -37,7 +37,7 @@ step("Save in openELIS", async function () {
 
 
 step("Enter lab result <details> in the result", async function (details) {
-        var content = _fileExtension.parseContent("./data/elis/samplesCollected/"+details+".json")
+        var content = fileExtension.parseContent("./data/elis/samplesCollected/"+details+".json")
         var bloodResultsContent = null;
         bloodResultsContent = JSON.parse(content)
         for(var bloodResultIndx=0;bloodResultIndx<bloodResultsContent.bloodResults.length;bloodResultIndx++){
@@ -58,7 +58,7 @@ step("Click collect sample for <patientIdentifier>", async function(patientIdent
 step("Validate lab result details in samples collected", async function() {
         var patientIdentifier = gauge.dataStore.scenarioStore.get("patientIdentifier")
         await click(image({title:'Validate'}),toRightOf(patientIdentifier))
-        var content = _fileExtension.parseContent("./data/elis/samplesCollected/blood.json")
+        var content = fileExtension.parseContent("./data/elis/samplesCollected/blood.json")
         var bloodResultsContent = null;
         bloodResultsContent = JSON.parse(content)
         for(var bloodResultIndx=0;bloodResultIndx<bloodResultsContent.bloodResults.length;bloodResultIndx++){

@@ -26,37 +26,13 @@
 * Nurse enters basic clinical details
 
 # Nurse captures BP, sugar checkup
-* Nurse enters Diabeties Intake
-* Nurse enters Diabeties Progress
-* Nurse enters Hypertension Intake
-
-# Nurse enters Hypertension Intake
-* Add new observation form
-* Nurse adds observation form "Hypertension – Intake"
-* Enter Hypertension Intake values
+* Enter Observation Form "DiabetiesIntake"
+* Enter Observation Form "DiabetiesProgress"
 
 # Nurse enters Hypertension Progress
 * Add new observation form
 * Nurse adds observation form "Hypertension – Progress"
 * Enter Hypertension Progress values
-# Nurse enters Diabeties Intake
-* Add new observation form
-* Nurse adds observation form "Diabetes – Intake"
-* Diagnosis Confirmed elsewhere
-* Choose Diabtes type "Type 2 DM"
-* Last known A1C Date
-* Last known Fasting Blood Sugar
-* New Patient symptom
-* enter Cormorbidities
-* history of Diabetes
-* Details Of Family History Of Diabetes
-* Enter A1C
-* Enter Fasting Glucose
-* Enter Lipid Panel
-* Enter Excercise
-* Nurse enters exposures
-* Home medication
-* Click Save
 
 # Nurse enters exposures
 * Smoking history
@@ -68,7 +44,7 @@
 * Nurse enters Tuberculosis Followup
 
 # Nurse enters HIV details
-* Nurse enters HIV Treatment and Care - Progress
+* Enter Observation Form "HIVTreatmentAndCareIntake"
 
 # Nurse enters HIV Testing and Counselling
 * Add new observation form
@@ -101,22 +77,9 @@
 * Enter RR (/min)
 * Enter SPO2 (%)
 
-# Nurse enters Diabeties Progress
-* Add new observation form
-* Nurse adds observation form "Diabetes – Progress"
-* Enter systolic, diastolic
-* Enter A1C
-* Enter Last A1C Date
-* Enter Last LDL
-* Enter Ulcers present on feet
-* Last Eye exam date
-* Click Save
-
 # Nurse enters HIV Treatment and Care - Intake
 * Add new observation form
 * Nurse adds observation form "HIV Treatment and Care - Intake"
 * Nurse enters HIV Treatment and Care - Intake details
 
-# Nurse enters HIV Treatment and Care - Progress
-* Enter Observation Form "HIVTreatmentAndCareIntake"
                                         

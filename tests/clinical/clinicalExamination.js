@@ -12,11 +12,11 @@ const {
     $,
     text
 } = require('taiko');
-var _fileExtension = require("../util/fileExtension");
+var fileExtension = require("../util/fileExtension");
 
 step("Doctor must be able to prescribe tests <prescriptions>", async function (prescriptionFile) {
     var prescriptionFile = "./data/"+prescriptionFile+".json";
-    var testPrescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+    var testPrescriptions = JSON.parse(fileExtension.parseContent(prescriptionFile))
     gauge.message(testPrescriptions)
 
     await click("Orders",{force: true});
@@ -30,7 +30,7 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
     await click("Medications");
     var prescriptionFile = "./data/"+prescriptionNames+".json";
     gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
-    var medicalPrescriptions = JSON.parse(_fileExtension.parseContent(prescriptionFile))
+    var medicalPrescriptions = JSON.parse(fileExtension.parseContent(prescriptionFile))
     gauge.message(medicalPrescriptions)
 
     if(medicalPrescriptions.drug_name!=null)
