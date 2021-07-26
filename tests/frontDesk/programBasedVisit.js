@@ -26,7 +26,8 @@ step("Click Start Special OPD Visit", async function() {
 });
 
 step("Open Programs module", async function() {
-    await click("Programs",{waitForNavigation:true,waitForEvents:['networkIdle']});
+    await click("Programs",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Enroll in program <program> stage <programStage> starting <numberOfYearsAgo_startDate> years ago with treatment start <numberOfYearsAgo_treatmentDate> years ago, id <id>, dr incharge <doctor> and treatment stage <stage>", 
@@ -72,20 +73,19 @@ step("Enter History and examination details", async function() {
     await attach(_path.join("./data/program/"+'programReport1.jpg'),fileField({id:"file-browse-observation_9"}));
 });
 
-step("Goto All sections and search the newly created patient", async function () {
+step("Goto All sections", async function () {
     await waitFor("All")
     await click("All",{force:true,waitForNavigation:true})
-    var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
+});
 
+step("Search the newly created patient", async function () {
+    var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))
     await click('Search',{waitForNavigation:true})
 });
 
-step("Goto All sections and search the newly created patient with HealthID", async function () {
-    await waitFor("All")
-    await click("All",{force:true,waitForNavigation:true})
+step("Search the newly created patient with HealthID", async function () {
     var healthID = gauge.dataStore.scenarioStore.get("healthID")
-
     await write(healthID, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))
     await click('Search',{waitForNavigation:true})
 });

@@ -30,3 +30,7 @@
 * Goto All sections and search the newly created patient
 * Enroll in program <program> stage <stage> starting <startingDate> years ago with treatment start <treatmentStartDate> years ago, id <id>, dr incharge <doctorIncharge> and treatment stage <treatmentStage>
 * Open the program dashboard <program>
+
+# Goto All sections and search the newly created patient
+* Goto All sections
+* Search the newly created patient

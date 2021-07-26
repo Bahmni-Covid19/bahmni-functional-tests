@@ -33,4 +33,5 @@ Tags:HIPInitiatedLinking
 * Verify correct patient form is open
 * Start an Special OPD Visit
 * Open Programs module
-* Goto All sections and search the newly created patient with HealthID
+* Goto All sections
+* Search the newly created patient with HealthID
