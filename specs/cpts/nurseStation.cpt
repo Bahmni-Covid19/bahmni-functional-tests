@@ -8,7 +8,7 @@
 * Allocate bed "304-c"
 * Click Assign
 
-# Nurse at ADT is able to give discharge disposition
+# Nurse at ADT gives discharge disposition
 * Nurse opens admission tab
 * Goto All admissions
 * Select the newly created patient
@@ -79,7 +79,6 @@
 * Enter History and examination details
 * Click Save
 * Enter vitals
-* Enter Second Vitals sdf
 
 # Nurse initiates clinical checkup with healthID
 * Nurse opens clinical tab with healthID
@@ -92,7 +91,7 @@
 * Click Discharge
 * Click Discharge on popup
 
-# Enter Second Vitals sdf
+# Enter Second Vitals
 * Add new observation form
 * Select Second Vitals
 * Enter Pulse(/min)

@@ -29,7 +29,7 @@ step("Open In Patient module", async function() {
 });
 
 step("Nurse opens admission tab", async function() {
-	await click("To Admit",{waitForNavigation:true})
+	await click("To Admit",{waitForNavigation:true,navigationTimeout:180000})
 });
 
 step("Enter adt notes <notes>", async function (notes) {
@@ -57,7 +57,7 @@ step("Admit the patient", async function() {
 
 step("Discharge the patient", async function() {
 	await dropDown('Patient Movement').select('Discharge Patient')
-	await click("Discharge",{waitForNavigation:true})
+	await click("Discharge",{waitForNavigation:true,navigationTimeout:180000})
 });
 
 step("Select Patient Movement <movement>", async function(movement) {

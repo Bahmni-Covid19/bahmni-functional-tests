@@ -58,7 +58,7 @@ step(["Verify match with NDHM record with one letter changed in firstName <first
         assert.ok(result.length==1)    
     });
 
-step("Verify match with NDHM record with one firstName <firstName> middleName <middleName> lastName <lastName>", 
+step("Verify match with NDHM record with firstName <firstName> middleName <middleName> lastName <lastName>", 
 async function (firstName, middleName, lastName) {
     var fullName = firstName+"+"+lastName;
 

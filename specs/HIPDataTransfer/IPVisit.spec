@@ -26,7 +26,7 @@ Tags: prescriptions, diagnostics
 * Click on home page
 * Doctor issues an Discharge disposition
 * Goto Bahmni home
-* Discharge the patient from allocated bed
+* Nurse at ADT gives discharge disposition
 ___
 * visit is closed at the front desk
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
