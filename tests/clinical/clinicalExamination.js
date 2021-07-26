@@ -70,7 +70,7 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 });
 
 step("Doctor clicks consultation", async function() {
-    await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000});
+    await click("Consultation",{force:true, waitForNavigation:true,waitForStart:2000,navigationTimeout:180000});
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
