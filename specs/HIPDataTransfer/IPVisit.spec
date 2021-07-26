@@ -20,13 +20,13 @@ Tags: prescriptions, diagnostics
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
 * Click Save
 * Goto Bahmni home
-* Open In Patient module
 * Open module "Patient Documents"
 * Choose newly created patient
 * Add a report "labReport1" to "Patient Documents"
 * Click on home page
 * Doctor issues an Discharge disposition
 * Goto Bahmni home
+* Open In Patient module
 * Nurse at ADT gives discharge disposition
 ___
 * visit is closed at the front desk
