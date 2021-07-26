@@ -165,7 +165,7 @@ step("Enter Observation Form <observationFormFile>", async function(observationF
 
     var observationFormValues = JSON.parse(fileExtension.parseContent("./data/opConsultation/"+observationFormFile+".json"))
 
-    await click(button(observationFormValues.ObservationFormName));
+    await click(button(observationFormValues.ObservationFormName,{waitForNavigation:true,navigationTimeout:180000}));
     await waitFor(async () => !(await $("overlay").exists()))
     await taikoHelper.executeConfigurations(observationFormValues.ObservationFormDetails,observationFormValues.ObservationFormName)
 

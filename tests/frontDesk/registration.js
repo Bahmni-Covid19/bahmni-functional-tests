@@ -29,7 +29,7 @@ var date = require("../util/date");
 var assert = require("assert");
 step("Open registration module", async function () {
     await highlight("Clinical")
-    await click("Registration", toLeftOf("Programs"));
+    await click("Registration",{waitForNavigation:true,navigationTimeout:180000}, toLeftOf("Programs"));
     await waitFor(async () => !(await $("overlay").exists()))
 });
 

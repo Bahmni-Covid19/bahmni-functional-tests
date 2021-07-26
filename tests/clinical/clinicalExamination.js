@@ -23,7 +23,7 @@ step("Doctor must be able to prescribe tests <prescriptions>", async function (p
     for (var test of testPrescriptions.tests) {
             await click(test.test,{force: true})
     }     
-    await click("Save",{force: true})
+    await click("Save",{force: true,waitForNavigation:true,navigationTimeout:180000})
 });
 
 step("Doctor starts prescribing medications <prescriptionNames>", async function (prescriptionNames) {
