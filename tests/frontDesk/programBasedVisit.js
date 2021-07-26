@@ -5,6 +5,7 @@ const {
     button,
     toRightOf,
     highlight,
+    focus,
     dropDown,
     write,
     textBox,
@@ -57,6 +58,7 @@ step("Enter History and examination details", async function() {
     var historyAndExaminationDetails = JSON.parse(fileExtension.parseContent("./data/program/historyAndExaminationDetails.json"))
 
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
+        await focus(textBox(toRightOf("Chief Complaint")))
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));
         await click('Accept');
         await write(chiefComplaint.for, into(textBox(toRightOf("for"))));    
@@ -72,7 +74,7 @@ step("Enter History and examination details", async function() {
 
 step("Goto All sections and search the newly created patient", async function () {
     await waitFor("All")
-    await click("All",{force:true})
+    await click("All",{force:true,waitForNavigation:true})
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
 
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))
@@ -81,7 +83,7 @@ step("Goto All sections and search the newly created patient", async function ()
 
 step("Goto All sections and search the newly created patient with HealthID", async function () {
     await waitFor("All")
-    await click("All",{force:true})
+    await click("All",{force:true,waitForNavigation:true})
     var healthID = gauge.dataStore.scenarioStore.get("healthID")
 
     await write(healthID, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))

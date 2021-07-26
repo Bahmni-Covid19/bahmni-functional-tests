@@ -174,7 +174,7 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    if(!(await textBox(toRightOf("Username *")).exists()))
+    if(await button({"class":"btn-user-info"}).exists())
     {
         await click(button({"class":"btn-user-info"}))
         await click('Logout',{waitForNavigation:true})
@@ -186,7 +186,7 @@ step("Login as a receptionist with admin credentials location <location>", async
 });
 
 step("Goto Bahmni home", async function () {
-    await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:180000});
+    await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:500000});
 });
 
 step("Enter registration fees <arg0>", async function (arg0) {
