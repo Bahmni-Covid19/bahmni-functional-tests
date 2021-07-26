@@ -1,11 +1,11 @@
-const { button, toRightOf, textBox, into, write, click, timeField,below,scrollTo, checkBox,waitFor,image,within } = require('taiko');
+const { button, toRightOf, textBox, into, write, click, timeField,below,scrollTo,text, checkBox,waitFor,image,within } = require('taiko');
 var date = require("./date");
 
-async function executeConfigurations(configurations){
+async function executeConfigurations(configurations,observationFormName){
     for(var configuration of configurations){
         switch(configuration.type) {
             case 'Group':
-                await executeConfigurations(configuration.value)
+                await executeConfigurations(configuration.value,observationFormName)
               break;
             case 'TextArea':
                 if(configuration.proximity!=null&&configuration.proximity!="")
@@ -30,7 +30,7 @@ async function executeConfigurations(configurations){
             break;
           case 'Button':
               {
-                await scrollTo(button(configuration.value),toRightOf(configuration.label))
+                await scrollTo(text(observationFormName,toRightOf("History and Examination")))
                 await click(button(configuration.value),toRightOf(configuration.label))
             }
             break;      

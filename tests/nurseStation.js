@@ -167,7 +167,7 @@ step("Enter Observation Form <observationFormFile>", async function(observationF
 
     await click(button(observationFormValues.ObservationFormName));
     await waitFor(async () => !(await $("overlay").exists()))
-    await taikoHelper.executeConfigurations(observationFormValues.ObservationFormDetails)
+    await taikoHelper.executeConfigurations(observationFormValues.ObservationFormDetails,observationFormValues.ObservationFormName)
 
     await click("Save",{waitForNavigation:true,navigationTimeout:180000});
     await waitFor(async () => !(await $("overlay").exists()))

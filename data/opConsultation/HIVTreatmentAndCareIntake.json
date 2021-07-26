@@ -22,7 +22,7 @@
                         {"type":"Date","label":"Antibody test date","value":"Today"},
                         {"type":"TextArea","label":"Antibody test result","value":"Antibody test result"}
                 ]},
-                {"type":"TextArea","label":"Antibody test result","value":"CPT Prophylaxis start date after 6wks"}
+                {"type":"Date","label":"CPT Prophylaxis start date after 6wks","value":"Today-00/06/0004"}
             ]},
         {"type":"Group","label":"HIV Care History","value":[
                 {"type":"Date","label":"HIV +ve diagnosed date","value":"Today-00/00/0004"},
