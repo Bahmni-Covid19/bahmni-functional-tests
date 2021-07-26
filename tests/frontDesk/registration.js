@@ -28,6 +28,7 @@ var date = require("../util/date");
 
 var assert = require("assert");
 step("Open registration module", async function () {
+    await waitFor(async () => (await $("Clinical").exists()))
     await highlight("Clinical")
     await click("Registration",{waitForNavigation:true,navigationTimeout:180000}, toLeftOf("Programs"));
     await waitFor(async () => !(await $("overlay").exists()))
@@ -196,7 +197,7 @@ step("Enter registration fees <arg0>", async function (arg0) {
 
 step("Go back to home page", async function () {
     await waitFor(async () => !(await $("overlay").exists()))
-    await click($('.back-btn'),{waitForNavigation:true});
+    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:180000});
 });
 
 step("Verify if healthId entered already exists", async function () {

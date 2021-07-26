@@ -27,7 +27,7 @@ step("Doctor must be able to prescribe tests <prescriptions>", async function (p
 });
 
 step("Doctor starts prescribing medications <prescriptionNames>", async function (prescriptionNames) {
-    await click("Medications");
+    await click("Medications",{waitForNavigation:true,navigationTimeout:180000});
     var prescriptionFile = "./data/"+prescriptionNames+".json";
     gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
     var medicalPrescriptions = JSON.parse(fileExtension.parseContent(prescriptionFile))
@@ -60,7 +60,7 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
 
 
 step("Doctor opens the clinical tab for newly created patient", async function () {
-    await click("Clinical",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:20000});
+    await click("Clinical",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
 });
 
 step("Doctor captures consultation notes <notes>", async function(notes) {
