@@ -174,9 +174,9 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
-    if(!(await text('BAHMNI EMR LOGIN').exists()))
+    if(!(await textBox(toRightOf("Username *")).exists()))
     {
-        await click(button({"class":"btn-user-info fr"}))
+        await click(button({"class":"btn-user-info"}))
         await click('Logout',{waitForNavigation:true})
     }
     await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
