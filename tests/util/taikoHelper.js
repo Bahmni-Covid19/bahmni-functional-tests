@@ -1,4 +1,4 @@
-const { button, toRightOf, textBox, into, write, click, timeField,below, checkBox,waitFor,image,within } = require('taiko');
+const { button, toRightOf, textBox, into, write, click, timeField,below,scrollTo, checkBox,waitFor,image,within } = require('taiko');
 var date = require("./date");
 
 async function executeConfigurations(configurations){
@@ -29,7 +29,10 @@ async function executeConfigurations(configurations){
                 await write(configuration.value,into(textBox(toRightOf(configuration.label))))
             break;
           case 'Button':
+              {
+                await scrollTo(button(configuration.value),toRightOf(configuration.label))
                 await click(button(configuration.value),toRightOf(configuration.label))
+            }
             break;      
             case 'Date':
                 if(configuration.value=='Today')

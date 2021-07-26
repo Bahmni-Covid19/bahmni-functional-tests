@@ -23,9 +23,6 @@ Tags: OPConsultation
 * Nurse enters HIV details
 * Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"
 * lab technician uploads patient document and radiology reports
-* visit is closed at the front desk
-* Verify openmrs OPD patient details with mobileNumber <mobileNumber>
-
 ___
 * visit is closed at the front desk
 * Verify openmrs Special OPD patient details with mobileNumber <mobileNumber>
