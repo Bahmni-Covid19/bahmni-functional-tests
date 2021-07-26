@@ -28,7 +28,6 @@ var date = require("../util/date");
 
 var assert = require("assert");
 step("Open registration module", async function () {
-    await waitFor(async () => (await $("Clinical").exists()))
     await highlight("Clinical")
     await click("Registration",{waitForNavigation:true,navigationTimeout:180000}, toLeftOf("Programs"));
     await waitFor(async () => !(await $("overlay").exists()))
@@ -183,12 +182,11 @@ step("Login as a receptionist with admin credentials location <location>", async
     await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
     await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
     await dropDown("Location").select(location);
-    await click(button("Login"),{waitForNavigation:true});
-
+    await click(button("Login"),{waitForNavigation:true,navigationTimeout:180000});
 });
 
 step("Goto Bahmni home", async function () {
-    await goto(process.env.bahmniHome,{waitForNavigation:true});
+    await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:180000});
 });
 
 step("Enter registration fees <arg0>", async function (arg0) {
