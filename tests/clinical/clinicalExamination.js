@@ -68,7 +68,7 @@ step("Doctor clicks consultation", async function() {
 });
 
 step("Choose Disposition", async function() {
-    await click("Disposition",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
+    await click("Disposition",{waitForNavigation:true,navigationTimeout:180000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 

@@ -11,15 +11,10 @@
 # Nurse at ADT gives discharge disposition
 * Nurse opens admission tab
 * Goto All admissions
-* Select the newly created patient
+* Search the newly created patient
 * Select Patient Movement "Discharge Patient"
 * Enter adt notes "Discharge notes"
 * Discharge the patient
-
-# Open Admitted patient details
-* Goto Admitted tab
-* Select the newly created patient
-* Goto back from clinical tab
 
 # Nurse initiates clinical checkup
 * Nurse opens clinical tab
@@ -29,27 +24,8 @@
 * Enter Observation Form "DiabetiesIntake"
 * Enter Observation Form "DiabetiesProgress"
 
-# Nurse enters Hypertension Progress
-* Add new observation form
-* Nurse adds observation form "Hypertension – Progress"
-* Enter Hypertension Progress values
-
-# Nurse enters exposures
-* Smoking history
-* Alcohol abuse
-
-# Nurse enters Tuberculosis details
-* Add new observation form
-* Nurse enters Tuberculosis Intake
-* Nurse enters Tuberculosis Followup
-
 # Nurse enters HIV details
 * Enter Observation Form "HIVTreatmentAndCareIntake"
-
-# Nurse enters HIV Testing and Counselling
-* Add new observation form
-* Nurse adds observation form "HIV Testing and Counseling"
-* Nurse enters HIV Testing and Counseling details
 
 # Nurse enters basic clinical details
 * Enter History and examination details
@@ -76,10 +52,4 @@
 * Enter Temperature (F)
 * Enter RR (/min)
 * Enter SPO2 (%)
-
-# Nurse enters HIV Treatment and Care - Intake
-* Add new observation form
-* Nurse adds observation form "HIV Treatment and Care - Intake"
-* Nurse enters HIV Treatment and Care - Intake details
-
                                         

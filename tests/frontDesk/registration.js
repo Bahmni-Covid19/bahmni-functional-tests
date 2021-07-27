@@ -125,8 +125,9 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 });
 
 step("Click create new patient", async function () {
-    await click("Create New")
+    await click("Create New",{waitForNavigation:true,navigationTimeout:180000})
     gauge.dataStore.scenarioStore.put("isNewPatient",true)
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Save the patient data", async function () {
