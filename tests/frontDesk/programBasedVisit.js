@@ -52,7 +52,7 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
     await dropDown(toRightOf('Patient Stage')).select(stage)
     await click(button('Enroll'),{waitForNavigation:true,navigationTimeout:180000})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    await waitFor(async () => !(await text("Saved").exists()))
+    await taikoHelper.repeatUntilNotFound(text("Saved"))
 });
 
 step("Open the program dashboard <program>", async function(program) {
