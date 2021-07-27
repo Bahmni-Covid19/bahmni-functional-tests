@@ -11,6 +11,7 @@ const {
 	$,
 	text
 } = require('taiko');
+const taikoHelper = require("./util/taikoHelper")
 
 step("Add a report <labReport> to <module>", async function (labReport, module) {
 	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}),{waitForEvents:['DOMContentLoaded']});
@@ -29,7 +30,7 @@ step("Choose newly created patient", async function() {
 
 step("Save consultation data", async function () {
 	await click("Save",{waitForNavigation:true,navigationTimeout:180000});
-	await waitFor(async () => !(await text("Saved").exists()))
+    await taikoHelper.repeatUntilNotFound(text("Saved"))
 });
 
 step("Save visit data", async function () {
