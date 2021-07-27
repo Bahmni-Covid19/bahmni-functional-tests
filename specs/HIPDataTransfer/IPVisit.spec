@@ -11,12 +11,12 @@ Tags: prescriptions, diagnostics
 * Goto Bahmni home
 * Open "InPatient" module
 * Nurse at ADT is able to view bed availability and assign beds
-* Goto clinical tab
+* Goto back from clinical tab
 * Doctor clicks consultation
 * Enter History and examination details
 * Click Save
 * Enter vitals
-* Doctor must be able to prescribe tests "opd/prescriptionFlow/labTests"
+* Doctor starts ordering tests "opd/prescriptionFlow/labTests"
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
 * Click Save
 * Goto Bahmni home

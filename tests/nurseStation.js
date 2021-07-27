@@ -45,7 +45,7 @@ step("Allocate bed <bedNumber>", async function(bedNumber) {
 });
 
 step("Click Assign", async function() {
-	await click("Assign")
+	await click("Assign",{waitForNavigation:true,navigationTimeout:180000})
 	await waitFor(async () => !(await $("overlay").exists()))
 });
 
@@ -72,8 +72,9 @@ step("Goto Admitted tab", async function() {
 	await click("Admitted")
 });
 
-step("Goto clinical tab", async function() {
-	await click($("#clinicalHomeBackLink"),{waitForNavigation:true,waitForEvents:['networkIdle']});
+step("Goto back from clinical tab", async function () {
+	await click($("#clinicalHomeBackLink"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("View Admitted patients", async function() {

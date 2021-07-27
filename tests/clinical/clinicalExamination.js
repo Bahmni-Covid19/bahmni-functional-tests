@@ -14,20 +14,18 @@ const {
 } = require('taiko');
 var fileExtension = require("../util/fileExtension");
 
-step("Doctor must be able to prescribe tests <prescriptions>", async function (prescriptionFile) {
+step("Doctor prescribe tests <prescriptions>", async function (prescriptionFile) {
     var prescriptionFile = "./data/"+prescriptionFile+".json";
     var testPrescriptions = JSON.parse(fileExtension.parseContent(prescriptionFile))
     gauge.message(testPrescriptions)
 
-    await click("Orders",{force: true});
     for (var test of testPrescriptions.tests) {
             await click(test.test,{force: true})
     }     
     await click("Save",{force: true,waitForNavigation:true,navigationTimeout:180000})
 });
 
-step("Doctor starts prescribing medications <prescriptionNames>", async function (prescriptionNames) {
-    await click("Medications",{waitForNavigation:true,navigationTimeout:180000});
+step("Doctor prescribes medicines <prescriptionNames>", async function (prescriptionNames) {
     var prescriptionFile = "./data/"+prescriptionNames+".json";
     gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
     var medicalPrescriptions = JSON.parse(fileExtension.parseContent(prescriptionFile))
@@ -82,4 +80,9 @@ step("Doctor advises admitting the patient", async function() {
 step("Doctor advises discharging the patient", async function() {
     await dropDown("Disposition Type").select('Discharge Patient')
     await write("Discharge Notes",into(textBox(below("Disposition Notes"))))
+});
+
+step("Open <tabName> Tab", async function(tabName) {
+    await click(tabName,{waitForNavigation:true,navigationTimeout:180000});
+    await waitFor(async () => !(await $("overlay").exists()))
 });

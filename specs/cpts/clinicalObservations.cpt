@@ -21,7 +21,7 @@
 * Click Save
 
 # Doctor advises medicines <medicines> and tests <tests>
-* Doctor must be able to prescribe tests <tests>
+* Doctor starts ordering tests <tests>
 * Doctor starts prescribing medications <medicines>
 * Click Save
 
@@ -34,3 +34,11 @@
 # Goto All sections and search the newly created patient
 * Goto All sections
 * Search the newly created patient
+
+# Doctor starts prescribing medications <medication>
+* Open "Medications" Tab
+* Doctor prescribes medicines <medication>
+
+# Doctor starts ordering tests <tests>
+* Open "Orders" Tab
+* Doctor prescribe tests <tests>

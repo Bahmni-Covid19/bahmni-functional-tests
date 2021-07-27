@@ -19,7 +19,7 @@
 # Open Admitted patient details
 * Goto Admitted tab
 * Select the newly created patient
-* Goto clinical tab
+* Goto back from clinical tab
 
 # Nurse initiates clinical checkup
 * Nurse opens clinical tab
