@@ -32,6 +32,6 @@ Tags:HIPInitiatedLinking
 * Open newly created patient details by healthID
 * Verify correct patient form is open
 * Start an Special OPD Visit
-* Open Programs module
+* Open "Programs" module
 * Goto All sections
 * Search the newly created patient with HealthID

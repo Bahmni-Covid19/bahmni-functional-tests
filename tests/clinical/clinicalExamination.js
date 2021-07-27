@@ -58,11 +58,6 @@ step("Doctor starts prescribing medications <prescriptionNames>", async function
     }    
 });
 
-
-step("Doctor opens the clinical tab for newly created patient", async function () {
-    await click("Clinical",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
-});
-
 step("Doctor captures consultation notes <notes>", async function(notes) {
     await click("Consultation",{force:true,waitForNavigation:true,waitForStart:2000});
     await waitFor(textBox({placeholder:"Enter Notes here"}))

@@ -27,12 +27,12 @@
 * Save the patient data
 
 # Nurse opens clinical tab
-* Doctor opens the clinical tab for newly created patient
+* Open "Clinical" module
 * Select the newly created patient
 * Doctor clicks consultation
 
 # Nurse opens clinical tab with healthID
-* Doctor opens the clinical tab for newly created patient
+* Open "Clinical" module
 * Select the newly created patient with healthID
 * Doctor clicks consultation
 # Doctor captures the consultation notes <consultationNotes> for newly created patient

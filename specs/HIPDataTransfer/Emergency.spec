@@ -21,7 +21,7 @@ Tags:prescriptions, diagnostics
 * Start an IPD Visit
 * Doctor issues an Admit disposition
 * Goto Bahmni home
-* Open In Patient module
+* Open "InPatient" module
 * Nurse at ADT is able to view bed availability and assign beds
 * Goto clinical tab
 * Doctor clicks consultation

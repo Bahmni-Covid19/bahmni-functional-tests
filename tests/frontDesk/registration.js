@@ -228,7 +228,7 @@ step("Enter visit details", async function() {
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
     await click(button("Close Visit"),{waitForNavigation:true,navigationTimeout:180000})
-    await waitFor(async () => (await textBox({placeholder:"Enter ID"}).exists()))    
+    await waitFor(async () => (await textBox({placeholder:"Enter ID"}).exists()),{retryInterval:300,retryTimeout:3000})    
 });
 
 step("Click on home page and goto registration module", async function () {

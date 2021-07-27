@@ -11,11 +11,6 @@ const {
 	$
 } = require('taiko');
 
-step("Open module <moduleName>", async function (moduleName) {
-	await click(moduleName)
-	await waitFor(async () => !(await $("overlay").exists()))
-});
-
 step("Add a report <labReport> to <module>", async function (labReport, module) {
 	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}),{waitForEvents:['DOMContentLoaded']});
 	await waitFor(async () => !(await $("overlay").exists()))

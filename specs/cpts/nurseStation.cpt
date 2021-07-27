@@ -61,7 +61,7 @@
 * Nurse enters basic clinical details
 
 # Discharge the patient from allocated bed
-* Open Bed management module
+* Open "Bed Management" module
 * View Admitted patients
 * Enter admitted patient details
 * Click Discharge

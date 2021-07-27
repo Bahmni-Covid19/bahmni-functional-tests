@@ -25,8 +25,8 @@ step("Click Start Special OPD Visit", async function() {
     await click('Start Special OPD Visit',{waitForNavigation:true})
 });
 
-step("Open Programs module", async function() {
-    await click("Programs",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
+step("Open <moduleName> module", async function (moduleName) {
+    await click(moduleName,{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:180000});
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
