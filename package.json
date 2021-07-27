@@ -2,10 +2,8 @@
   "name": "bahmni-ndhm-tests",
   "description": "To test the ndhm compliance of Bahmni",
   "scripts": {
-    "qa01-HIPDataTransfer": "gauge run -p --env qa01 --tags '(prescriptions & diagnostics) | OPConsultation' specs -v",
-    "qa01-HIPInitiatedLinking": "gauge run -p --env qa01 --tags 'HIPInitiatedLinking' specs -v",
-    "qa02-HIPDataTransfer": "gauge run -p --env qa02 --tags '(prescriptions & diagnostics) | OPConsultation' specs -v",
-    "qa02-HIPInitiatedLinking": "gauge run -p --env qa02 --tags 'HIPInitiatedLinking' specs -v",
+    "qa01-NDHM": "gauge run -p --env qa01 --tags 'HIPInitiatedLinking | (prescriptions & diagnostics) | OPConsultation' specs -v",
+    "qa02-NDHM": "gauge run -p --env qa02 --tags 'HIPInitiatedLinking | (prescriptions & diagnostics) | OPConsultation' specs -v",
     "test": "gauge run -p --env default --tags 'prescriptions & diagnostics' specs -v"
   },
   "dependencies": {
