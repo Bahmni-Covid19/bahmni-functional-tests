@@ -180,8 +180,8 @@ step("Login as a receptionist with admin credentials location <location>", async
         await click(button({"class":"btn-user-info"}))
         await click('Logout',{waitForNavigation:true})
     }
-    await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox(toRightOf("Username *"))));
-    await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox(toRightOf("Password *"))));
+    await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your username"})));
+    await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your password"})));
     await dropDown("Location").select(location);
     await click(button("Login"),{waitForNavigation:true,navigationTimeout:180000});
 });
