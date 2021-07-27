@@ -31,7 +31,7 @@ var assert = require("assert");
 step("Open registration module", async function () {
     await waitFor(async () => (await link("Programs").exists()))
     await click("Registration",{waitForNavigation:true,navigationTimeout:180000}, toLeftOf(link("Programs")));
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("To Associate a healthID, vefiy it", async function () {
@@ -155,7 +155,7 @@ step("Select Mobile OTP", async function () {
 step("Authenticate with Mobile", async function () {
     await ndhm.interceptAuthInit(process.env.receptionist);
     await click(button("Authenticate"))
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 step("Open patient <patientID> details by search firstName <firstName> lastName <lastName> patientHealthID <patientHealthID>", 
 async function (patientIdentifierValue, firstName, lastName, patientHealthID) {
@@ -172,7 +172,7 @@ step("Select the newly created patient", async function() {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue)
     await press('Enter', {waitForNavigation:true});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
@@ -265,7 +265,7 @@ step("Open newly created patient details by search", async function () {
 
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
     await press('Enter', {waitForNavigation:true});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 step("Open newly created patient details by healthID", async function() {
     var patientHealthID = gauge.dataStore.scenarioStore.get("healthID")
@@ -275,7 +275,7 @@ step("Open newly created patient details by healthID", async function() {
 
     await write(patientHealthID, into(textBox({ "placeholder": "Enter ID" })))
     await press('Enter', {waitForNavigation:true});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Verify correct patient form is open", async function() {
@@ -323,7 +323,7 @@ step("Select the newly created patient with healthID", async function() {
     var healthID = gauge.dataStore.scenarioStore.get("healthID")
     await write(healthID)
     await press('Enter', {waitForNavigation:true});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 })
 
 step("Enter patient first name <firstName>", async function (firstName) {
@@ -366,7 +366,7 @@ async function (firstName, middleName, lastName, age, gender, mobileNumber) {
     await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,mobileNumber);
     await ndhm.redirectExistingPatients(token, firstName,lastName,yearOfBirth,gender,mobileNumber);
     await click(button("Confirm"))
-    await waitFor(async () => !(await $("overlay").exists()))    
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Should display Bahmni record with firstName <firstName> lastName <lastName> gender <gender> age <age> with mobile number <mobileNumber>", async function (firstName, lastName, gender, age, mobileNumber) {

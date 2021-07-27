@@ -15,7 +15,7 @@ const taikoHelper = require("./util/taikoHelper")
 
 step("Add a report <labReport> to <module>", async function (labReport, module) {
 	await attach(path.join("./data", labReport+'.jpg'), fileField({'name':'image-document-upload'}),{waitForEvents:['DOMContentLoaded']});
-	await waitFor(async () => !(await $("overlay").exists()))
+	await taikoHelper.repeatUntilNotFound($("#overlay"))
 	await click(button('SAVE'),{waitForNavigation:true})
 });
 
