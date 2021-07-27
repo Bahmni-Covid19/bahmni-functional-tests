@@ -27,6 +27,7 @@ var taikoHelper = require("../util/taikoHelper")
 step("Click Start Special OPD Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
     await click('Start Special OPD Visit',{waitForNavigation:true})
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Open <moduleName> module", async function (moduleName) {
@@ -88,10 +89,12 @@ step("Search the newly created patient", async function () {
     var patientIdentifierValue = gauge.dataStore.scenarioStore.get("patientIdentifier");
     await write(patientIdentifierValue, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))
     await click('Search',{waitForNavigation:true})
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Search the newly created patient with HealthID", async function () {
     var healthID = gauge.dataStore.scenarioStore.get("healthID")
     await write(healthID, into(textBox({ "placeholder": "Search Name/Patient Identifier  ..." })))
     await click('Search',{waitForNavigation:true})
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });

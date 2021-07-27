@@ -125,7 +125,7 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 });
 
 step("Click create new patient", async function () {
-    await click("Create New",{waitForNavigation:true,navigationTimeout:180000})
+    await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
     gauge.dataStore.scenarioStore.put("isNewPatient",true)
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
@@ -141,13 +141,6 @@ step("Save the patient data", async function () {
     gauge.message("patient Identifier "+patientIdentifier)
 });
 
-step("Save the newly created patient", async function () {
-    if(gauge.dataStore.scenarioStore.get("isNewPatient"))
-        await click("Save",{waitForEvents:['networkIdle']});
-    var patientIdentifier = await $('#patientIdentifierValue').text();
-    gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);
-});
-
 step("Select Mobile OTP", async function () {
     await waitFor("Preferred mode of Authentication")
     await dropDown("Preferred mode of Authentication").select("MOBILE_OTP");
@@ -157,16 +150,6 @@ step("Authenticate with Mobile", async function () {
     await ndhm.interceptAuthInit(process.env.receptionist);
     await click(button("Authenticate"))
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-});
-step("Open patient <patientID> details by search firstName <firstName> lastName <lastName> patientHealthID <patientHealthID>", 
-async function (patientIdentifierValue, firstName, lastName, patientHealthID) {
-    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
-    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
-    if(patientHealthID!="")
-        gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
-    gauge.dataStore.scenarioStore.put("patientIdentifier",patientIdentifierValue);
-    await write(patientIdentifierValue, into(textBox({ "placeholder": "Enter ID" })))
-    await press("Enter", {waitForNavigation:true});
 });
 
 step("Select the newly created patient", async function() {
@@ -238,9 +221,10 @@ step("Close visit", async function() {
 });
 
 step("Click on home page and goto registration module", async function () {
-    await waitFor(async () => !(await $("overlay").exists()))
     await click($('.back-btn'),{waitForNavigation:true});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
     await click('Registration',{waitForNavigation:true})
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Click on home page", async function() {
@@ -305,7 +289,10 @@ step("Should fetch record with similar details", async function() {
 
 step("Save the newly created patient data", async function() {
     if(gauge.dataStore.scenarioStore.get("isNewPatient"))
+    {
         await click("Save",{waitForEvents:['networkIdle']});
+        await taikoHelper.repeatUntilNotFound($("#overlay"))
+    }
     var patientIdentifier = await $('#patientIdentifierValue').text();
         gauge.dataStore.scenarioStore.put("patientIdentifier", patientIdentifier);    
 });
@@ -313,8 +300,9 @@ step("Save the newly created patient data", async function() {
 step("Click create new patient if patient does not exist", async function() {
     if(await text("No results found").exists())
     {
-        await click("Create New")
+        await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
         gauge.dataStore.scenarioStore.put("isNewPatient",true)
+        await taikoHelper.repeatUntilNotFound($("#overlay"))
     }
     else 
         await click(link(below("ID")))

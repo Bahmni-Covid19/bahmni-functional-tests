@@ -9,11 +9,15 @@ async function repeatUntilFound(element){
     }while (!isFound) 
 }
 
-async function repeatUntilNotVisible(elemet){
+async function repeatUntilNotVisible(element){
     var isFound = true;
     do {
-        isFound = await elemet.isVisible()
-        waitFor(1000)
+        try
+        {
+            isFound = await element.isVisible()
+            waitFor(1000)
+        }
+        catch(e){isFound = false;}
     }while (isFound) 
 }
 
