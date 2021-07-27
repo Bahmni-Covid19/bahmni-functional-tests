@@ -64,11 +64,12 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 
 step("Doctor clicks consultation", async function() {
     await click("Consultation",{force:true, waitForNavigation:true ,navigationTimeout:180000});
-    await waitFor(async () => !(await $("overlay").exists()))    
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
+    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Choose Disposition", async function() {
-    await click("Disposition",{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
+    await click("Disposition",{waitForNavigation:true,navigationTimeout:180000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
