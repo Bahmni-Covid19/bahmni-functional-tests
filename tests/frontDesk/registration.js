@@ -184,8 +184,9 @@ step("Enter registration fees <arg0>", async function (arg0) {
 });
 
 step("Go back to home page", async function () {
-    await waitFor(async () => !(await $("overlay").exists()))
-    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:180000});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
+    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:500000});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Verify if healthId entered already exists", async function () {
@@ -223,15 +224,16 @@ step("Close visit", async function() {
 });
 
 step("Click on home page and goto registration module", async function () {
-    await click($('.back-btn'),{waitForNavigation:true});
+    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:180000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    await click('Registration',{waitForNavigation:true})
+    await click('Registration',{waitForNavigation:true,navigationTimeout:180000})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Click on home page", async function() {
-    await waitFor(async () => !(await $("overlay").exists()))
-    await click($('.back-btn'),{waitForNavigation:true});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
+    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:180000});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Create new record", async function() {
