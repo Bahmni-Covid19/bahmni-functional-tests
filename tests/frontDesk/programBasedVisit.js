@@ -79,8 +79,8 @@ step("Enter History and examination details", async function() {
 });
 
 step("Goto All sections", async function () {
-    await taikoHelper.repeatUntilFound(button("All"))
-    await click(button("All"),{force:true,waitForNavigation:true,navigationTimeout:180000})    
+    await taikoHelper.repeatUntilFound(link("All"))
+    await click(link("All"),{force:true,waitForNavigation:true,navigationTimeout:180000})    
 });
 
 step("Search the newly created patient", async function () {
