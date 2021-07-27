@@ -13,6 +13,7 @@ const {
     text
 } = require('taiko');
 var fileExtension = require("../util/fileExtension");
+var taikoHelper = require("../util/taikoHelper");
 
 step("Doctor prescribe tests <prescriptions>", async function (prescriptionFile) {
     var prescriptionFile = "./data/"+prescriptionFile+".json";
@@ -62,13 +63,13 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 });
 
 step("Doctor clicks consultation", async function() {
-    await click("Consultation",{force:true, waitForNavigation:true,navigationTimeout:180000});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await click("Consultation",{force:true, waitForNavigation:true ,navigationTimeout:180000});
+    await taikoHelper.repeatUntilNotFound("#overlay")    
 });
 
 step("Choose Disposition", async function() {
     await click("Disposition",{waitForNavigation:true})  
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound("#overlay")
 });
 
 step("Doctor advises admitting the patient", async function() {
@@ -83,5 +84,5 @@ step("Doctor advises discharging the patient", async function() {
 
 step("Open <tabName> Tab", async function(tabName) {
     await click(tabName,{waitForNavigation:true,navigationTimeout:180000});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound("#overlay")
 });

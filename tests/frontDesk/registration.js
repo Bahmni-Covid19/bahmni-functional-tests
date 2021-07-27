@@ -25,6 +25,7 @@ const {
 var users = require("../util/users");
 var ndhm = require("../util/ndhm");
 var date = require("../util/date");
+var taikoHelper = require("../util/taikoHelper");
 
 var assert = require("assert");
 step("Open registration module", async function () {
@@ -228,7 +229,7 @@ step("Enter visit details", async function() {
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
     await click(button("Close Visit"),{waitForNavigation:true,navigationTimeout:480000})
-    await waitFor(async () => !(await $("overlay").exists()),180000)
+    await taikoHelper.repeatUntilNotFound("#overlay")
 });
 
 step("Click on home page and goto registration module", async function () {

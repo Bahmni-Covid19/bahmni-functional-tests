@@ -11,8 +11,9 @@ const {
     press,
     $
 } = require('taiko');
+var taikoHelper = require("../util/taikoHelper");
 
 step("Click Start OPD Visit", async function () {
     await click("Start OPD Visit",{waitForNavigation:true});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound("#overlay")
 });

@@ -15,6 +15,7 @@ const {
     attach,
     fileField,
     below,
+    toLeftOf,
 } = require('taiko');
 var _date = require("../util/date");
 var fileExtension = require("../util/fileExtension");
@@ -58,7 +59,7 @@ step("Enter History and examination details", async function() {
     var historyAndExaminationDetails = JSON.parse(fileExtension.parseContent("./data/program/historyAndExaminationDetails.json"))
 
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
-        await focus(textBox(toRightOf("Chief Complaint")))
+        await focus(textBox(toRightOf("Chief Complaint"),toLeftOf("Accept")))
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));
         await click('Accept');
         await write(chiefComplaint.for, into(textBox(toRightOf("for"))));    
