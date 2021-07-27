@@ -1,4 +1,4 @@
-var _path = require("path");
+var path = require("path");
 
 var cwd = process.cwd();
 var fs = require("fs");
@@ -52,7 +52,7 @@ function rmContentsOfDir(dirPath,extension) {
   }
   if (files.length > 0)
     for (var i = 0; i < files.length; i++) {
-      var filePath = _path.join(dirPath , files[i]);
+      var filePath = path.join(dirPath , files[i]);
       if(extension && !filePath.endsWith(extension))
         continue;
       if (fs.statSync(filePath).isFile())

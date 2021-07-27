@@ -1,6 +1,6 @@
 const path = require('path');
 const axios = require('axios')
-var _date = require("./date");
+var date = require("./date");
 const assert = require("assert");
 
 async function getOpenMRSResponse(request){
@@ -13,8 +13,8 @@ async function getOpenMRSResponse(request){
 }
 
 async function makeOpenVisitCall(patientUUID,visitType,URL){
-    var yesterday = _date.getddmmyyyyFormattedDate(_date.yesterday())
-    var tomorrow = _date.getddmmyyyyFormattedDate(_date.tomorrow())
+    var yesterday = date.getddmmyyyyFormattedDate(date.yesterday())
+    var tomorrow = date.getddmmyyyyFormattedDate(date.tomorrow())
 
     var request_URL = process.env.bahmniHost+URL
         .replace("<patientId>",patientUUID)
@@ -35,8 +35,8 @@ async function makeOpenVisitCall(patientUUID,visitType,URL){
 }
 
 async function makeOpenProgramCall(patientUUID,programName,programEnrollmentId,URL){
-    var yesterday = _date.getddmmyyyyFormattedDate(_date.yesterday())
-    var tomorrow = _date.getddmmyyyyFormattedDate(_date.tomorrow())
+    var yesterday = date.getddmmyyyyFormattedDate(date.yesterday())
+    var tomorrow = date.getddmmyyyyFormattedDate(date.tomorrow())
 
     var request_URL = process.env.bahmniHost+URL
         .replace("<patientId>",patientUUID)

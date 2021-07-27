@@ -1,7 +1,7 @@
 "use strict";
 var assert = require("assert");
 var fileExtension = require("./util/fileExtension")
-var _requestResponse = require("./util/requestResponse");
+var requestResponse = require("./util/requestResponse");
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
@@ -14,10 +14,10 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
-    var OPDPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitPrescriptions)
+    var OPDPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitPrescriptions)
     assert.ok(OPDPrescriptions!=null && OPDPrescriptions.prescriptions!=null)
     for(var prescription of OPDPrescriptions.prescriptions){
         assert.ok(prescription.careContext!=null)
@@ -29,7 +29,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
         assert.equal(prescription.bundle.entry[4].resource.dosageInstruction[0].text,medication)
     }
 
-    var OPDDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
+    var OPDDiagnostics = await requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
     assert.ok(OPDDiagnostics!=null && OPDDiagnostics.diagnosticReports!=null)
     // for(var diagnosticReport of OPDPrescriptions.diagnosticReports){
     //     assert.ok(diagnosticReport.careContext!=null)
@@ -49,10 +49,10 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber> firstN
     var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
-    var OPDPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitPrescriptions)
+    var OPDPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitPrescriptions)
     assert.ok(OPDPrescriptions!=null && OPDPrescriptions.prescriptions!=null)
     for(var prescription of OPDPrescriptions.prescriptions){
         assert.ok(prescription.careContext!=null)
@@ -64,7 +64,7 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber> firstN
         assert.equal(prescription.bundle.entry[4].resource.dosageInstruction[0].text,medication)
     }
 
-    var OPDDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
+    var OPDDiagnostics = await requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitDiagnosticReports)
     assert.ok(OPDDiagnostics!=null && OPDDiagnostics.diagnosticReports!=null)
     var verified = false
     for(var diagnosticReport of OPDDiagnostics.diagnosticReports){
@@ -92,11 +92,11 @@ step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber
     var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
-    var specialOPDPrescriptions = await _requestResponse.makeOpenProgramCall(patientUUID,"HIV%20Program","1234",process.env.programPrescriptions)
-    var specialOPDDiagnostics = await _requestResponse.makeOpenProgramCall(patientUUID,"HIV%20Program","1234",process.env.programDiagnosticReports)
+    var specialOPDPrescriptions = await requestResponse.makeOpenProgramCall(patientUUID,"HIV%20Program","1234",process.env.programPrescriptions)
+    var specialOPDDiagnostics = await requestResponse.makeOpenProgramCall(patientUUID,"HIV%20Program","1234",process.env.programDiagnosticReports)
 });
 
 step("Verify openmrs IPD patient details with mobileNumber <mobileNumber>", async function(mobileNumber) {
@@ -110,11 +110,11 @@ step("Verify openmrs IPD patient details with mobileNumber <mobileNumber>", asyn
     var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
-    var IPDPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"IPD",process.env.visitPrescriptions)
-    var IPDDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"IPD",process.env.visitDiagnosticReports)
+    var IPDPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"IPD",process.env.visitPrescriptions)
+    var IPDDiagnostics = await requestResponse.makeOpenVisitCall(patientUUID,"IPD",process.env.visitDiagnosticReports)
 });
 
 step("Verify openmrs lab patient details with mobileNumber <arg0>", async function(arg0) {
@@ -128,15 +128,15 @@ step("Verify openmrs lab patient details with mobileNumber <arg0>", async functi
     var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
 
-    var labPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"lab",process.env.visitPrescriptions)
-    var labDiagnostics =await _requestResponse.makeOpenVisitCall(patientUUID,"lab",process.env.visitDiagnosticReports)
+    var labPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"lab",process.env.visitPrescriptions)
+    var labDiagnostics =await requestResponse.makeOpenVisitCall(patientUUID,"lab",process.env.visitDiagnosticReports)
 
-    var pharmacyPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
-    var pharmacyDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
+    var pharmacyPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
+    var pharmacyDiagnostics = await requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
 });
 
 step("Verify openmrs pharmacy patient details with mobileNumber <arg0>", async function(arg0) {
@@ -150,12 +150,12 @@ step("Verify openmrs pharmacy patient details with mobileNumber <arg0>", async f
     var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await _requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
 
-    var pharmacyPrescriptions = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
-    var pharmacyDiagnostics = await _requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
+    var pharmacyPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitPrescriptions)
+    var pharmacyDiagnostics = await requestResponse.makeOpenVisitCall(patientUUID,"pharmacy",process.env.visitDiagnosticReports)
 });
 
 

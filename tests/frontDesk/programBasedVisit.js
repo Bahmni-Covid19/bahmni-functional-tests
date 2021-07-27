@@ -17,9 +17,10 @@ const {
     below,
     toLeftOf,
 } = require('taiko');
-var _date = require("../util/date");
+var date = require("../util/date");
 var fileExtension = require("../util/fileExtension");
-var _path = require("path")
+var path = require("path")
+var taikoHelper = require("../util/taikoHelper")
 
 step("Click Start Special OPD Visit", async function() {
     await click(button(toRightOf('Start OPD Visit')))
@@ -36,10 +37,10 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
     await waitFor("Program :")
     await dropDown(toRightOf('Program')).select(program)
     
-    var startDate = _date.getDateYearsAgo(numberOfYearsAgo_startDate);
+    var startDate = date.getDateYearsAgo(numberOfYearsAgo_startDate);
     await timeField({type:"date"},toRightOf("Start Date")).select(startDate);
 
-    var treatmentDate = _date.getDateYearsAgo(numberOfYearsAgo_treatmentDate);
+    var treatmentDate = date.getDateYearsAgo(numberOfYearsAgo_treatmentDate);
     await timeField({type:"date"},toRightOf("Treatment Date")).select(treatmentDate);
 
     await write(id, into(textBox(toRightOf('ID Number'))))
@@ -47,19 +48,19 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
     await write(doctor, into(textBox(toRightOf('Doctor-In-Charge'))))
     await dropDown(toRightOf('Patient Stage')).select(stage)
     await click(button('Enroll'),{waitForNavigation:true})
+    await taikoHelper.repeatUntilNotFound("#overlay")
 });
 
 step("Open the program dashboard <program>", async function(program) {
-    await waitFor(async () => !(await $("overlay").exists()))
     await click($('.proggram-dashboard-text'),{waitForNavigation:true});
-    await waitFor(async () => !(await $("overlay").exists()))
+    await taikoHelper.repeatUntilNotFound("#overlay")
 });
 
 step("Enter History and examination details", async function() {
     var historyAndExaminationDetails = JSON.parse(fileExtension.parseContent("./data/program/historyAndExaminationDetails.json"))
 
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
-        await focus(textBox(toRightOf("Chief Complaint"),toLeftOf("Accept")))
+        await focus(textBox(toRightOf("Chief Complaint"),toLeftOf(button("Accept"))))
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));
         await click('Accept');
         await write(chiefComplaint.for, into(textBox(toRightOf("for"))));    
@@ -70,7 +71,7 @@ step("Enter History and examination details", async function() {
     await write(historyAndExaminationDetails.Examination_notes,into(textBox("Examination Notes")));
     await click(historyAndExaminationDetails.Smoking_History,toRightOf("Smoking History"));
 
-    await attach(_path.join("./data/program/"+'programReport1.jpg'),fileField({id:"file-browse-observation_9"}));
+    await attach(path.join("./data/program/"+'programReport1.jpg'),fileField({id:"file-browse-observation_9"}));
 });
 
 step("Goto All sections", async function () {

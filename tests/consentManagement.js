@@ -12,7 +12,7 @@ const {
 	press,
 } = require('taiko');
 
-var _date = require("./util/date");
+var date = require("./util/date");
 
 step("Login to the consent request management system", async function() {
 	await goto(process.env.bahmniHost+process.env.hiuURL,{waitForNavigation:true});
@@ -40,20 +40,20 @@ step("Create new consent request for healthID <healthID> <healthInfoTypes>", asy
     })
 
 	await press("Enter")
-	var yesterday = _date.yesterday();
-	var yesterday_ddmmyyyy= _date.ddmmyyyy(yesterday);
+	var yesterday = date.yesterday();
+	var yesterday_ddmmyyyy= date.ddmmyyyy(yesterday);
 	await write(yesterday_ddmmyyyy,into(textBox(toRightOf("Health info from"))))
 	
-	var today = _date.today();
-	var today_ddmmyyyy= _date.ddmmyyyy(today);
+	var today = date.today();
+	var today_ddmmyyyy= date.ddmmyyyy(today);
 	await write(today_ddmmyyyy,into(textBox(toRightOf("Health info to"))))
 
 	for (healthInfoType of healthInfoTypes.rows) {
 		await click(checkBox(toLeftOf(healthInfoType.cells[0])))
 	}
 	
-	var nextYear = _date.nextYear();
-	var nextYear_ddmmyyyy= _date.ddmmyyyy(nextYear);
+	var nextYear = date.nextYear();
+	var nextYear_ddmmyyyy= date.ddmmyyyy(nextYear);
 	await write(nextYear_ddmmyyyy,into(textBox(toRightOf("Consent Expiry"))))
 
 	await click("REQUEST CONSENT")
