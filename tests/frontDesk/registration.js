@@ -74,7 +74,7 @@ step("Enter patient random first name", async function () {
         gauge.message("firstName "+firstName)
         gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     }    
-    await write(firstName, into(textBox(toRightOf("Patient Name*"))));
+    await write(firstName, into(textBox({ "placeholder": "First Name" })));
 });
 
 step("Enter patient random middle name", async function () {
@@ -180,6 +180,7 @@ step("Login as a receptionist with admin credentials location <location>", async
     {
         await click(button({"class":"btn-user-info"}))
         await click('Logout',{waitForNavigation:true})
+        await taikoHelper.repeatUntilNotFound($("#overlay"))
     }
     await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your username"})));
     await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your password"})));
@@ -328,7 +329,7 @@ step("Select the newly created patient with healthID", async function() {
 step("Enter patient first name <firstName>", async function (firstName) {
     if(gauge.dataStore.scenarioStore.get("isNewPatient"))
     {
-        await write(firstName, into(textBox(toRightOf("Patient Name*"))));
+        await write(firstName, into(textBox({ "placeholder": "First Name" })));
     }
     gauge.message("firstName "+firstName)
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)    

@@ -16,6 +16,7 @@ const {
     fileField,
     below,
     toLeftOf,
+    link,
     text,
 } = require('taiko');
 var date = require("../util/date");
