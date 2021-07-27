@@ -184,6 +184,7 @@ step("Login as a receptionist with admin credentials location <location>", async
     await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your password"})));
     await dropDown("Location").select(location);
     await click(button("Login"),{waitForNavigation:true,navigationTimeout:180000});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Goto Bahmni home", async function () {
@@ -229,7 +230,7 @@ step("Enter visit details", async function() {
 step("Close visit", async function() {
     await confirm('Are you sure you want to close this visit?', async () => await accept())
     await click(button("Close Visit"),{waitForNavigation:true,navigationTimeout:480000})
-    await taikoHelper.repeatUntilNotFound("#overlay")
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Click on home page and goto registration module", async function () {

@@ -1,12 +1,20 @@
-const { button, toRightOf, textBox, into, write, click, timeField,below,scrollTo,text,$, checkBox,waitFor,image,within } = require('taiko');
+const { button, toRightOf, textBox, into, write, click, timeField,below,scrollTo,text,evaluate,$, checkBox,waitFor,image,within } = require('taiko');
 var date = require("./date");
 
-async function repeatUntilNotFound(elementIdentifier){
+async function repeatUntilFound(elemet){
     var isFound = false;
     do {
-        isFound = await $(elementIdentifier).exists()
+        isFound = await elemet.isVisible()
         waitFor(1000)
     }while (!isFound) 
+}
+
+async function repeatUntilNotVisible(elemet){
+    var isFound = true;
+    do {
+        isFound = await elemet.isVisible()
+        waitFor(1000)
+    }while (isFound) 
 }
 
 async function executeConfigurations(configurations,observationFormName){
@@ -62,5 +70,6 @@ async function executeConfigurations(configurations,observationFormName){
 
 module.exports={
     executeConfigurations:executeConfigurations,
-    repeatUntilNotFound:repeatUntilNotFound
+    repeatUntilNotFound:repeatUntilNotVisible,
+    repeatUntilFound:repeatUntilFound
 }

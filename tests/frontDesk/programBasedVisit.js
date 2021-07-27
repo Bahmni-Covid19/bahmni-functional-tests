@@ -47,19 +47,21 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
     // await dropDown(toRightOf('Program Stage')).select(programStage)
     await write(doctor, into(textBox(toRightOf('Doctor-In-Charge'))))
     await dropDown(toRightOf('Patient Stage')).select(stage)
-    await click(button('Enroll'),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
+    await click(button('Enroll'),{waitForNavigation:true,navigationTimeout:180000})
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
     await waitFor(async () => !(await $("Saved").exists()))
 });
 
 step("Open the program dashboard <program>", async function(program) {
-    await click($('.proggram-dashboard-text'),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
-    await taikoHelper.repeatUntilNotFound("#overlay")
+    await click($('.proggram-dashboard-text'),{waitForNavigation:true,navigationTimeout:480000});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Enter History and examination details", async function() {
     var historyAndExaminationDetails = JSON.parse(fileExtension.parseContent("./data/program/historyAndExaminationDetails.json"))
 
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
+        await taikoHelper.repeatUntilFound(textBox(toRightOf("Chief Complaint")))
         await focus(textBox(toRightOf("Chief Complaint"),toLeftOf(button("Accept"))))
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));
         await click('Accept');
