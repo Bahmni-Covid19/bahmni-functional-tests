@@ -22,7 +22,6 @@ step("Doctor prescribe tests <prescriptions>", async function (prescriptionFile)
     for (var test of testPrescriptions.tests) {
             await click(test.test,{force: true})
     }     
-    await click("Save",{force: true,waitForNavigation:true,navigationTimeout:180000})
 });
 
 step("Doctor prescribes medicines <prescriptionNames>", async function (prescriptionNames) {

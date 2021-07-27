@@ -11,7 +11,6 @@ Tags: prescriptions, diagnostics
 * Nurse captures BP, sugar checkup
 * Doctor captures the consultation notes "Consultation Notes" for newly created patient
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
-* Click Save
 * lab technician uploads patient document and radiology reports
 
 ## Should be able to get OPConsultation notes of a patient

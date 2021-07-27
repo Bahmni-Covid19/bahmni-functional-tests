@@ -35,27 +35,23 @@
 * Open "Clinical" module
 * Select the newly created patient with healthID
 * Doctor clicks consultation
-# Doctor captures the consultation notes <consultationNotes> for newly created patient
-* Doctor clicks consultation
-* Doctor captures consultation notes "Consultation notes"
-* Click Save
 
 # Start an OPD Visit
 * Click Start OPD Visit
 * Enter registration fees "100"
-* Click Save
+* Save visit data
 * Go back to home page
 
 # Start an IPD Visit
 * Click Start IPD Visit
 * Enter registration fees "100"
-* Click Save
+* Save visit data
 * Go back to home page
 
 # Start an Special OPD Visit
 * Click Start Special OPD Visit
 * Enter registration fees "100"
-* Click Save
+* Save visit data
 * Go back to home page
 
 # visit is closed at the front desk

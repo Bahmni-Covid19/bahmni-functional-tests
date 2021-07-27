@@ -13,12 +13,9 @@ Tags: prescriptions, diagnostics
 * Nurse at ADT is able to view bed availability and assign beds
 * Goto back from clinical tab
 * Doctor clicks consultation
-* Enter History and examination details
-* Click Save
-* Enter vitals
+* Nurse enters basic clinical details
 * Doctor starts ordering tests "opd/prescriptionFlow/labTests"
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
-* Click Save
 * Goto Bahmni home
 * Open "Patient Documents" module
 * Choose newly created patient

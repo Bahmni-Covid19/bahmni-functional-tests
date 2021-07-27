@@ -10,9 +10,7 @@ Tags:prescriptions, diagnostics
 * Add this newly created patient as merge patient1
 * Start an OPD Visit
 * Nurse opens clinical tab
-* Enter History and examination details
-* Click Save
-* Enter vitals
+* Nurse enters basic clinical details
 * visit is closed at the front desk
 * Goto Bahmni home
 * Open registration module
@@ -25,9 +23,7 @@ Tags:prescriptions, diagnostics
 * Nurse at ADT is able to view bed availability and assign beds
 * Goto back from clinical tab
 * Doctor clicks consultation
-* Enter History and examination details
-* Click Save
-* Enter vitals
+* Nurse enters basic clinical details
 * Goto Bahmni home
 * Doctor issues an Discharge disposition
 * Goto Bahmni home

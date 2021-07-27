@@ -27,7 +27,6 @@ step("Click Start Special OPD Visit", async function() {
 
 step("Open <moduleName> module", async function (moduleName) {
     await click(moduleName,{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:180000});
-    await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Enroll in program <program> stage <programStage> starting <numberOfYearsAgo_startDate> years ago with treatment start <numberOfYearsAgo_treatmentDate> years ago, id <id>, dr incharge <doctor> and treatment stage <stage>", 
