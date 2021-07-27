@@ -29,6 +29,7 @@ step("Click Start Special OPD Visit", async function() {
 
 step("Open <moduleName> module", async function (moduleName) {
     await click(moduleName,{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:180000});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))    
 });
 
 step("Enroll in program <program> stage <programStage> starting <numberOfYearsAgo_startDate> years ago with treatment start <numberOfYearsAgo_treatmentDate> years ago, id <id>, dr incharge <doctor> and treatment stage <stage>", 
@@ -62,7 +63,7 @@ step("Enter History and examination details", async function() {
 
     for(var chiefComplaint of historyAndExaminationDetails.Chief_Complaints){
         await taikoHelper.repeatUntilFound(textBox(toRightOf("Chief Complaint")))
-        await focus(textBox(toRightOf("Chief Complaint"),toLeftOf(button("Accept"))))
+        await focus(textBox(toRightOf("Chief Complaint")))
         await write(chiefComplaint.Chief_Complaint,into(textBox(toRightOf("Chief Complaint"))));
         await click('Accept');
         await write(chiefComplaint.for, into(textBox(toRightOf("for"))));    
@@ -77,8 +78,8 @@ step("Enter History and examination details", async function() {
 });
 
 step("Goto All sections", async function () {
-    await waitFor("All")
-    await click("All",{force:true,waitForNavigation:true})
+    await taikoHelper.repeatUntilFound(button("All"))
+    await click(button("All"),{force:true,waitForNavigation:true,navigationTimeout:180000})    
 });
 
 step("Search the newly created patient", async function () {

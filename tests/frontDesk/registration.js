@@ -225,7 +225,7 @@ async function (otp, patientMobileNumber) {
     
 step("Enter visit details", async function() {
     await click(button("Enter Visit Details"),{waitForNavigation:true})
-    await waitFor(async () => !(await $("overlay").exists()))    
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Close visit", async function() {

@@ -1,10 +1,10 @@
 const { button, toRightOf, textBox, into, write, click, timeField,below,scrollTo,text,evaluate,$, checkBox,waitFor,image,within } = require('taiko');
 var date = require("./date");
 
-async function repeatUntilFound(elemet){
+async function repeatUntilFound(element){
     var isFound = false;
     do {
-        isFound = await elemet.isVisible()
+        isFound = await element.exists()
         waitFor(1000)
     }while (!isFound) 
 }
