@@ -36,7 +36,7 @@ step("Save consultation data", async function () {
 });
 
 step("Save visit data", async function () {
-	await click("Save",{waitForNavigation:true,waitForStart:2000,navigationTimeout:180000});
+	await click("Save",{waitForNavigation:true,navigationTimeout:180000});
 	await taikoHelper.repeatUntilNotFound($("#overlay"))
 	await taikoHelper.repeatUntilNotFound(text("Saved"))
 });

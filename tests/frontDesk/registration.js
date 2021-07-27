@@ -179,6 +179,7 @@ step("Goto Bahmni home", async function () {
 });
 
 step("Enter registration fees <arg0>", async function (arg0) {
+    await taikoHelper.repeatUntilFound(textBox(toRightOf("Registration Fees")))
     await write("100", into(textBox(toRightOf("Registration Fees"))));
 });
 
@@ -215,6 +216,7 @@ step("Enter visit details", async function() {
 });
 
 step("Close visit", async function() {
+    await taikoHelper.repeatUntilFound(textBox(toRightOf("Registration Fees")))
     await confirm('Are you sure you want to close this visit?', async () => await accept())
     await click(button("Close Visit"),{waitForNavigation:true,navigationTimeout:480000})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
