@@ -125,6 +125,7 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 });
 
 step("Click create new patient", async function () {
+    await waitFor(2000)
     await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     gauge.dataStore.scenarioStore.put("isNewPatient",true)
@@ -161,7 +162,7 @@ step("Select the newly created patient", async function() {
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    if(await button({"class":"btn-user-info"}).exists())
+    if(await !(await text("BAHMNI EMR LOGIN").isVisible()))
     {
         await click(button({"class":"btn-user-info"}))
         await click('Logout',{waitForNavigation:true,navigationTimeout:250000});
@@ -171,6 +172,7 @@ step("Login as a receptionist with admin credentials location <location>", async
     await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your password"})));
     await dropDown("Location").select(location);
     await click(button("Login"),{waitForNavigation:true,navigationTimeout:250000});
+    await taikoHelper.repeatUntilNotFound(text("BAHMNI EMR LOGIN"))
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 step("Goto Bahmni home", async function () {
@@ -219,8 +221,9 @@ step("Enter visit details", async function() {
 step("Close visit", async function() {
     await taikoHelper.repeatUntilFound(textBox(toRightOf("Registration Fees")))
     await confirm('Are you sure you want to close this visit?', async () => await accept())
-    await click(button("Close Visit"),{waitForNavigation:true,navigationTimeout:480000})
+    await click(button("Close Visit"),{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:340000})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
+    await taikoHelper.repeatUntilFound(link("Create New"))
 });
 
 step("Click on home page and goto registration module", async function () {
@@ -304,6 +307,7 @@ step("Save the newly created patient data", async function() {
 step("Click create new patient if patient does not exist", async function() {
     if(await text("No results found").exists())
     {
+        await waitFor(2000)
         await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
         gauge.dataStore.scenarioStore.put("isNewPatient",true)
         await taikoHelper.repeatUntilNotFound($("#overlay"))

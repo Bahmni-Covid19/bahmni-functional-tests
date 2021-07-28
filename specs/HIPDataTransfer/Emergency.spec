@@ -12,6 +12,8 @@ Tags:prescriptions, diagnostics
 * Nurse opens clinical tab
 * Nurse enters basic clinical details
 * visit is closed at the front desk
+* Go back to home page
+* Open registration module
 * Create a new patient with gender "Female" with random name, aged "27" with mobile number <mobileNumber>
 * Add this newly created patient as merge patient2
 * Start an IPD Visit
@@ -25,6 +27,7 @@ Tags:prescriptions, diagnostics
 * Doctor issues an Discharge disposition
 * Goto Bahmni home
 * Discharge the patient from allocated bed
+* visit is closed at the front desk
 * Goto the openMRS Admin tab
 * Merge the newly created patients
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
