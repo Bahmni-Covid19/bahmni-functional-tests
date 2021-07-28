@@ -73,7 +73,7 @@ step("Goto Admitted tab", async function() {
 });
 
 step("Goto back from clinical tab", async function () {
-	await click($("#clinicalHomeBackLink"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000});
+	await click($("#clinicalHomeBackLink"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:250000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
