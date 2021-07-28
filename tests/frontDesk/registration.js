@@ -173,7 +173,7 @@ step("Login as a receptionist with admin credentials location <location>", async
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 step("Goto Bahmni home", async function () {
-    await goto(process.env.bahmniHome,{waitForNavigation:true});
+    await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:250000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 

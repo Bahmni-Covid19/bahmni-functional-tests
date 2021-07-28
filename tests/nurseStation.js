@@ -20,7 +20,7 @@ const {
 	highlight,
 	timeField,
 	toRightOf,
-	$
+	$,
 } = require('taiko');
 const openmrs = require("./util/omod")
 var taikoHelper = require("./util/taikoHelper");
@@ -60,6 +60,7 @@ step("Discharge the patient", async function() {
 });
 
 step("Select Patient Movement <movement>", async function(movement) {
+	await waitFor(2000)
 	await dropDown('Patient Movement').select(movement)
 });
 
