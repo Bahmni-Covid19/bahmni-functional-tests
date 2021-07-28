@@ -35,7 +35,7 @@ step("Open registration module", async function () {
 });
 
 step("To Associate a healthID, vefiy it", async function () {
-    await click("Verify Health ID");
+    await click("Verify Health ID",{waitForNavigation:true,navigationTimeout:1800000});
 });
 
 step("Enter random healthID details", async function () {
@@ -125,6 +125,7 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 });
 
 step("Click create new patient", async function () {
+    await taikoHelper.repeatUntilFound(link("Create New"))
     await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
     gauge.dataStore.scenarioStore.put("isNewPatient",true)
     await taikoHelper.repeatUntilNotFound($("#overlay"))
