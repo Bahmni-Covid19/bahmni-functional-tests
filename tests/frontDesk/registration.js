@@ -30,7 +30,7 @@ var taikoHelper = require("../util/taikoHelper");
 var assert = require("assert");
 step("Open registration module", async function () {
     await waitFor(async () => (await link("Programs").exists()))
-    await click("Registration",{waitForNavigation:true,navigationTimeout:180000}, toLeftOf(link("Programs")));
+    await click("Registration",{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:180000}, toLeftOf(link("Programs")));
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
@@ -125,10 +125,9 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 });
 
 step("Click create new patient", async function () {
-    await taikoHelper.repeatUntilFound(link("Create New"))
     await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
-    gauge.dataStore.scenarioStore.put("isNewPatient",true)
     await taikoHelper.repeatUntilNotFound($("#overlay"))
+    gauge.dataStore.scenarioStore.put("isNewPatient",true)
 });
 
 step("Save the patient data", async function () {
@@ -175,7 +174,7 @@ step("Login as a receptionist with admin credentials location <location>", async
 });
 
 step("Goto Bahmni home", async function () {
-    await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:500000});
+    await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:300000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
@@ -186,7 +185,7 @@ step("Enter registration fees <arg0>", async function (arg0) {
 
 step("Go back to home page", async function () {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:500000});
+    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:300000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
