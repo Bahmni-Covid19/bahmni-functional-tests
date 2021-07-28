@@ -37,7 +37,9 @@ step("Open <moduleName> module", async function (moduleName) {
 });
 
 step("Open registration module", async function () {
-    await waitFor(async () => (await link("Programs").exists()))
+    try{
+        await waitFor(async () => (await link("Programs").exists()))
+    }catch(e){}
     await click("Registration",{waitForNavigation:true,
         waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:process.env.actionTimeout}, 
         toLeftOf(link("Programs")));
