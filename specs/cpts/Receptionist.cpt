@@ -1,6 +1,7 @@
 # Login to Bahmni location <location> as a receptionist
 * Goto Bahmni home
 * Login as a receptionist with admin credentials location <location>
+* wait for overlay to disappear
 
 # Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click create new patient

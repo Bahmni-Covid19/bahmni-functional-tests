@@ -169,10 +169,11 @@ step("Login as a receptionist with admin credentials location <location>", async
     await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your username"})));
     await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your password"})));
     await dropDown("Location").select(location);
-    await click(button("Login"),{waitForNavigation:true,navigationTimeout:180000});
-    await taikoHelper.repeatUntilNotFound($("#overlay"))
+    await click(button("Login"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:250000});
 });
-
+step("wait for overlay to disappear", async function () {
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
+})
 step("Goto Bahmni home", async function () {
     await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:300000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
