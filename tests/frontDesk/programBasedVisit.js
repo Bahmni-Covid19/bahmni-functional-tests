@@ -31,7 +31,7 @@ step("Click Start Special OPD Visit", async function() {
 });
 
 step("Open <moduleName> module", async function (moduleName) {
-    await click(moduleName,{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:180000});
+    await click(moduleName,{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))    
 });
 
@@ -51,7 +51,7 @@ async function (program, programStage, numberOfYearsAgo_startDate, numberOfYears
     // await dropDown(toRightOf('Program Stage')).select(programStage)
     await write(doctor, into(textBox(toRightOf('Doctor-In-Charge'))))
     await dropDown(toRightOf('Patient Stage')).select(stage)
-    await click(button('Enroll'),{waitForNavigation:true,navigationTimeout:180000})
+    await click(button('Enroll'),{waitForNavigation:true,navigationTimeout:process.env.actionTimeout})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     await taikoHelper.repeatUntilNotFound(text("Saved"))
 });
@@ -82,7 +82,7 @@ step("Enter History and examination details", async function() {
 
 step("Goto All sections", async function () {
     await taikoHelper.repeatUntilFound(link("All"))
-    await click(link("All"),{force:true,waitForNavigation:true,navigationTimeout:180000})    
+    await click(link("All"),{force:true,waitForNavigation:true,navigationTimeout:process.env.actionTimeout})    
 });
 
 step("Search the newly created patient", async function () {

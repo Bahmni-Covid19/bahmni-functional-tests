@@ -21,6 +21,7 @@ const {
     link,
     below,
     press,
+    scrollTo
 } = require('taiko');
 var users = require("../util/users");
 var ndhm = require("../util/ndhm");
@@ -30,12 +31,14 @@ var taikoHelper = require("../util/taikoHelper");
 var assert = require("assert");
 step("Open registration module", async function () {
     await waitFor(async () => (await link("Programs").exists()))
-    await click("Registration",{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:180000}, toLeftOf(link("Programs")));
+    await click("Registration",{waitForNavigation:true,
+        waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:process.env.actionTimeout}, 
+        toLeftOf(link("Programs")));
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("To Associate a healthID, vefiy it", async function () {
-    await click("Verify Health ID",{waitForNavigation:true,navigationTimeout:1800000});
+    await click("Verify Health ID",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
 });
 
 step("Enter random healthID details", async function () {
@@ -126,13 +129,13 @@ step("Enter patient mobile number <mobile>", async function (mobile) {
 
 step("Click create new patient", async function () {
     await waitFor(2000)
-    await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
+    await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:process.env.actionTimeout})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     gauge.dataStore.scenarioStore.put("isNewPatient",true)
 });
 
 step("Save the patient data", async function () {
-    await click("Save",{waitForNavigation:true,navigationTimeout:180000});
+    await click("Save",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     await taikoHelper.repeatUntilNotFound(text("Saved"))
     await taikoHelper.repeatUntilFound($("#patientIdentifierValue"))
@@ -162,7 +165,7 @@ step("Select the newly created patient", async function() {
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    if(await !(await text("BAHMNI EMR LOGIN").exists()))
+    if(await await button({"class":"btn-user-info"}).exists())
     {
         await click(button({"class":"btn-user-info"}))
         await click('Logout',{waitForNavigation:true,navigationTimeout:250000});
@@ -214,12 +217,13 @@ async function (otp, patientMobileNumber) {
 });
     
 step("Enter visit details", async function() {
+    await scrollTo(button("Enter Visit Details"))
     await click(button("Enter Visit Details"),{waitForNavigation:true})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Close visit", async function() {
-    await taikoHelper.repeatUntilFound(textBox(toRightOf("Registration Fees")))
+    await taikoHelper.repeatUntilFound($("Registration Fees"))
     await confirm('Are you sure you want to close this visit?', async () => await accept())
     await click(button("Close Visit"),{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:340000})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
@@ -227,15 +231,15 @@ step("Close visit", async function() {
 });
 
 step("Click on home page and goto registration module", async function () {
-    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:180000});
+    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    await click('Registration',{waitForNavigation:true,navigationTimeout:180000})
+    await click('Registration',{waitForNavigation:true,navigationTimeout:process.env.actionTimeout})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Click on home page", async function() {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:180000});
+    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
@@ -308,7 +312,7 @@ step("Click create new patient if patient does not exist", async function() {
     if(await text("No results found").exists())
     {
         await waitFor(2000)
-        await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:180000})
+        await click(link("Create New"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:process.env.actionTimeout})
         gauge.dataStore.scenarioStore.put("isNewPatient",true)
         await taikoHelper.repeatUntilNotFound($("#overlay"))
     }

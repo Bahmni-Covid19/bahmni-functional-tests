@@ -63,27 +63,29 @@ step("Doctor captures consultation notes <notes>", async function(notes) {
 });
 
 step("Doctor clicks consultation", async function() {
-    await click("Consultation",{force:true, waitForNavigation:true ,navigationTimeout:180000});
+    await click("Consultation",{force:true, waitForNavigation:true ,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     await waitFor(async () => !(await $("overlay").exists()))
 });
 
 step("Choose Disposition", async function() {
-    await click("Disposition",{waitForNavigation:true,navigationTimeout:180000});
+    await click("Disposition",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Doctor advises admitting the patient", async function() {
+    await taikoHelper.repeatUntilNotFound(text("The Disposition Note will also be removed"))
     await dropDown("Disposition Type").select('Admit Patient')
     await write("Admission Notes",into(textBox(below("Disposition Notes"))))
 });
 
 step("Doctor advises discharging the patient", async function() {
+    await taikoHelper.repeatUntilNotFound(text("The Disposition Note will also be removed"))
     await dropDown("Disposition Type").select('Discharge Patient')
     await write("Discharge Notes",into(textBox(below("Disposition Notes"))))
 });
 
 step("Open <tabName> Tab", async function(tabName) {
-    await click(tabName,{waitForNavigation:true,navigationTimeout:180000});
+    await click(tabName,{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });

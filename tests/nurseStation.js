@@ -28,7 +28,7 @@ var fileExtension = require("./util/fileExtension");
 
 step("Nurse opens admission tab", async function() {
 	await taikoHelper.repeatUntilNotFound($("#overlay"))
-	await click("To Admit",{force:true, waitForNavigation:true,navigationTimeout:180000})
+	await click("To Admit",{force:true, waitForNavigation:true,navigationTimeout:process.env.actionTimeout})
 });
 
 step("Enter adt notes <notes>", async function (notes) {
@@ -45,7 +45,7 @@ step("Allocate bed <bedNumber>", async function(bedNumber) {
 });
 
 step("Click Assign", async function() {
-	await click("Assign",{waitForNavigation:true,navigationTimeout:180000})
+	await click("Assign",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout})
 	await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
@@ -56,7 +56,7 @@ step("Admit the patient", async function() {
 
 step("Discharge the patient", async function() {
 	await dropDown('Patient Movement').select('Discharge Patient')
-	await click("Discharge",{waitForNavigation:true,navigationTimeout:180000})
+	await click("Discharge",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout})
 });
 
 step("Select Patient Movement <movement>", async function(movement) {
@@ -104,25 +104,25 @@ step("Select Second Vitals", async function () {
 });
 
 step("Add new observation form", async function() {
-	await click("Add New Obs Form",{waitForNavigation:true,navigationTimeout:180000});
+	await click("Add New Obs Form",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Enter Observation Form <observationFormFile>", async function(observationFormFile) {
-    await click("Add New Obs Form",{waitForNavigation:true,navigationTimeout:180000});
+    await click("Add New Obs Form",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 
     var observationFormValues = JSON.parse(fileExtension.parseContent("./data/opConsultation/"+observationFormFile+".json"))
 
-    await click(button(observationFormValues.ObservationFormName,{waitForNavigation:true,navigationTimeout:180000}));
+    await click(button(observationFormValues.ObservationFormName,{waitForNavigation:true,navigationTimeout:process.env.actionTimeout}));
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     await taikoHelper.executeConfigurations(observationFormValues.ObservationFormDetails,observationFormValues.ObservationFormName)
 
-    await click("Save",{waitForNavigation:true,navigationTimeout:180000});
+    await click("Save",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 })
 
 step("Click History and Examination", async function() {
-	await click("History and Examination",{waitForNavigation:true,navigationTimeout:180000})
+	await click("History and Examination",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
