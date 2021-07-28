@@ -28,7 +28,7 @@ var fileExtension = require("./util/fileExtension");
 
 step("Nurse opens admission tab", async function() {
 	await taikoHelper.repeatUntilNotFound($("#overlay"))
-	await click("To Admit",{waitForNavigation:true,navigationTimeout:180000})
+	await click("To Admit",{force:true, waitForNavigation:true,navigationTimeout:180000})
 });
 
 step("Enter adt notes <notes>", async function (notes) {
@@ -121,3 +121,8 @@ step("Enter Observation Form <observationFormFile>", async function(observationF
     await click("Save",{waitForNavigation:true,navigationTimeout:180000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 })
+
+step("Click History and Examination", async function() {
+	await click("History and Examination",{waitForNavigation:true,navigationTimeout:180000})
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
+});

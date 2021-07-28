@@ -16,12 +16,11 @@ Tags: prescriptions, diagnostics
 * Nurse enters basic clinical details
 * Doctor starts ordering tests "opd/prescriptionFlow/labTests"
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
+* Doctor issues an Discharge disposition
 * Goto Bahmni home
 * Open "Patient Documents" module
 * Choose newly created patient
 * Add a report "labReport1" to "Patient Documents"
-* Click on home page
-* Doctor issues an Discharge disposition
 * Goto Bahmni home
 * Open "InPatient" module
 * Nurse at ADT gives discharge disposition
