@@ -9,7 +9,7 @@ const {
 	$,
 	highlight,
 } = require('taiko');
-const taikoHelper = require("./util/taikoHelper")
+const taikoHelper = require("../util/taikoHelper")
 
 step("Enter Pulse(/min)", async function() {
 	await write("70",into(textBox(toRightOf("Pulse"))));
