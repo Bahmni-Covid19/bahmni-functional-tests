@@ -29,6 +29,13 @@ var date = require("../util/date");
 var taikoHelper = require("../util/taikoHelper");
 
 var assert = require("assert");
+
+step("Open <moduleName> module", async function (moduleName) {
+    await waitFor(async () => (await link("Programs").exists()))
+    await click(moduleName,{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:process.env.actionTimeout});
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
+});
+
 step("Open registration module", async function () {
     await waitFor(async () => (await link("Programs").exists()))
     await click("Registration",{waitForNavigation:true,

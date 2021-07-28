@@ -30,11 +30,6 @@ step("Click Start Special OPD Visit", async function() {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
-step("Open <moduleName> module", async function (moduleName) {
-    await click(moduleName,{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:process.env.actionTimeout});
-    await taikoHelper.repeatUntilNotFound($("#overlay"))    
-});
-
 step("Enroll in program <program> stage <programStage> starting <numberOfYearsAgo_startDate> years ago with treatment start <numberOfYearsAgo_treatmentDate> years ago, id <id>, dr incharge <doctor> and treatment stage <stage>", 
 async function (program, programStage, numberOfYearsAgo_startDate, numberOfYearsAgo_treatmentDate, id, doctor, stage) {
     await click('New Program Enrollment',below("Date of birth"))
