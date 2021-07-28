@@ -160,6 +160,7 @@ step("Select the newly created patient", async function() {
 })
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
+    await taikoHelper.repeatUntilNotFound($("#overlay"))
     if(await button({"class":"btn-user-info"}).exists())
     {
         await click(button({"class":"btn-user-info"}))

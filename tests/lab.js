@@ -26,10 +26,12 @@ step("Choose newly created patient", async function() {
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
 	await write(patientIdentifierValue);
-	await click(firstName+" "+lastName,above(patientIdentifierValue))
+	await click(firstName+" "+lastName,{waitForNavigation:true,navigationTimeout:180000},above(patientIdentifierValue))
+	await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
 step("Save consultation data", async function () {
+	await taikoHelper.repeatUntilNotFound($("#overlay"))
 	await click("Save",{waitForNavigation:true,navigationTimeout:180000});
 	await taikoHelper.repeatUntilNotFound($("#overlay"))
     await taikoHelper.repeatUntilNotFound(text("Saved"))
