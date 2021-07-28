@@ -162,7 +162,7 @@ step("Select the newly created patient", async function() {
 
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    if(await !(await text("BAHMNI EMR LOGIN").isVisible()))
+    if(await !(await text("BAHMNI EMR LOGIN").exists()))
     {
         await click(button({"class":"btn-user-info"}))
         await click('Logout',{waitForNavigation:true,navigationTimeout:250000});
