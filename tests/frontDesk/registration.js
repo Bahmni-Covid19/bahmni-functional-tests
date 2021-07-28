@@ -163,13 +163,13 @@ step("Login as a receptionist with admin credentials location <location>", async
     if(await button({"class":"btn-user-info"}).exists())
     {
         await click(button({"class":"btn-user-info"}))
-        await click('Logout',{waitForNavigation:true})
+        await click('Logout',{waitForNavigation:true,navigationTimeout:250000});
         await taikoHelper.repeatUntilNotFound($("#overlay"))
     }
     await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your username"})));
     await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your password"})));
     await dropDown("Location").select(location);
-    await click(button("Login"),{waitForNavigation:true,waitForEvents:['networkIdle'],navigationTimeout:250000});
+    await click(button("Login"),{waitForNavigation:true,navigationTimeout:250000});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 step("Goto Bahmni home", async function () {
