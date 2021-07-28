@@ -223,9 +223,9 @@ step("Enter visit details", async function() {
 });
 
 step("Close visit", async function() {
-    await taikoHelper.repeatUntilFound($("Registration Fees"))
+    await waitFor(2000)
     await confirm('Are you sure you want to close this visit?', async () => await accept())
-    await click(button("Close Visit"),{waitForNavigation:true,waitForEvents:['networkIdle','DOMContentLoaded'],navigationTimeout:340000})
+    await click(button("Close Visit"),{waitForNavigation:true,navigationTimeout:340000})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     await taikoHelper.repeatUntilFound(link("Create New"))
 });

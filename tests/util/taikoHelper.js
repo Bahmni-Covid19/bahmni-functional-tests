@@ -1,6 +1,15 @@
 const { button, toRightOf, textBox, into, write, click, timeField,below,scrollTo,text,evaluate,$, checkBox,waitFor,image,within } = require('taiko');
 var date = require("./date");
 
+
+async function repeatUntilEnabled(element){
+    var isDisabled = true;
+    do {
+        isDisabled = await element.isDisabled()
+        waitFor(1000)
+    }while (!isDisabled) 
+}
+
 async function repeatUntilFound(element){
     var isFound = false;
     do {
@@ -75,5 +84,6 @@ async function executeConfigurations(configurations,observationFormName){
 module.exports={
     executeConfigurations:executeConfigurations,
     repeatUntilNotFound:repeatUntilNotVisible,
-    repeatUntilFound:repeatUntilFound
+    repeatUntilFound:repeatUntilFound,
+    repeatUntilEnabled:repeatUntilEnabled
 }
