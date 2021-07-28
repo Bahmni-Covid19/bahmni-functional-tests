@@ -173,7 +173,7 @@ step("Login as a receptionist with admin credentials location <location>", async
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 step("Goto Bahmni home", async function () {
-    await goto(process.env.bahmniHome,{waitForNavigation:true,navigationTimeout:300000});
+    await goto(process.env.bahmniHome,{waitForNavigation:true});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
@@ -184,7 +184,7 @@ step("Enter registration fees <arg0>", async function (arg0) {
 
 step("Go back to home page", async function () {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
-    await click($('.back-btn'),{waitForNavigation:true,navigationTimeout:300000});
+    await click($('.back-btn'),{waitForNavigation:true});
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
