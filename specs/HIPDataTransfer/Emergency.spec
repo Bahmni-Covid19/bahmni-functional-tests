@@ -18,7 +18,7 @@ Tags:prescriptions, diagnostics
 * Add this newly created patient as merge patient2
 * Start an IPD Visit
 * Doctor issues an Admit disposition
-* Go back to home page
+* Goto Bahmni home
 * Open "InPatient" module
 * Nurse at ADT is able to view bed availability and assign beds
 * Goto back from clinical tab
