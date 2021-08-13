@@ -1,0 +1,5 @@
+# discover care context for <username> and password <password>
+* Login to PHR app
+* Fetch the latest request
+* Get the temporary token
+* Approve the consent request

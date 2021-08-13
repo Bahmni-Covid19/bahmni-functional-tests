@@ -7,14 +7,14 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", asyn
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
-    var patientName = firstName+" "+lastName
+    var patientName = firstName+"+"+lastName
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
+    var existingPatientsURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatientsURL)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
     var OPDPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitPrescriptions)
@@ -42,14 +42,14 @@ step("Verify openmrs OPD patient details with mobileNumber <mobileNumber> firstN
     var prescriptionFile = "./data/opd/prescriptionFlow/prescriptions.json";
     gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
 
-    var patientName = firstName+" "+lastName
+    var patientName = firstName+"+"+lastName
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
+    var existingPatientsURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatientsURL)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
     var OPDPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.visitPrescriptions)
@@ -85,14 +85,14 @@ step("Verify openmrs Special OPD patient details with mobileNumber <mobileNumber
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
-    var patientName = firstName+" "+lastName
+    var patientName = firstName+"+"+lastName
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
+    var existingPatientsURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatientsURL)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
     var specialOPDPrescriptions = await requestResponse.makeOpenProgramCall(patientUUID,"HIV%20Program","1234",process.env.programPrescriptions)
@@ -103,14 +103,14 @@ step("Verify openmrs IPD patient details with mobileNumber <mobileNumber>", asyn
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
-    var patientName = firstName+" "+lastName
+    var patientName = firstName+"+"+lastName
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
+    var existingPatientsURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatientsURL)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
     var IPDPrescriptions = await requestResponse.makeOpenVisitCall(patientUUID,"IPD",process.env.visitPrescriptions)
@@ -121,14 +121,14 @@ step("Verify openmrs lab patient details with mobileNumber <arg0>", async functi
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
-    var patientName = firstName+" "+lastName
+    var patientName = firstName+"+"+lastName
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
+    var existingPatientsURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatientsURL)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
 
@@ -143,14 +143,14 @@ step("Verify openmrs pharmacy patient details with mobileNumber <arg0>", async f
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
 
-    var patientName = firstName+" "+lastName
+    var patientName = firstName+"+"+lastName
     var patientYearOfBirth = "2000"
     var patientGender = "F"
     var phoneNumber = mobileNumber
-    var existingPatients = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
+    var existingPatientsURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
     +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
     
-    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatients)
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatientsURL)
 
     const patientUUID = existingPatientsResponse.data[0].uuid;
 

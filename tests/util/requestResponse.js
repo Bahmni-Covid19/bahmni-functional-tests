@@ -4,6 +4,9 @@ var date = require("./date");
 const assert = require("assert");
 
 async function getOpenMRSResponse(request){
+    console.log(request)
+    gauge.message(request)
+
     return await axios.get(request
         , {
             headers: {
