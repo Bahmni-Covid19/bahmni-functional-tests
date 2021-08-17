@@ -17,7 +17,7 @@ const {
 var taikoHelper = require("../util/taikoHelper");
 
 step("Click Start IPD Visit", async function() {
-    await click(button(toRightOf('Start OPD Visit')))
+    await click(button(toRightOf('Start OPD Visit'), within($(".submit-btn-container"))));
     await click('Start IPD visit',{waitForNavigation:true})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
