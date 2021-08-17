@@ -22,7 +22,6 @@ Tags:prescriptions, diagnostics
 * Admit a patient to general ward bed "305-b"
 * Goto Bahmni home
 * Nurse opens clinical tab
-* Doctor clicks consultation
 * Nurse enters basic clinical details
 * Doctor issues an Discharge disposition
 * Goto Bahmni home

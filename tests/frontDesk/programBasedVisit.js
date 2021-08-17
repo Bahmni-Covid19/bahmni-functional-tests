@@ -18,6 +18,7 @@ const {
     toLeftOf,
     link,
     text,
+    within
 } = require('taiko');
 var date = require("../util/date");
 var fileExtension = require("../util/fileExtension");
