@@ -9,10 +9,9 @@ Tags: prescriptions, diagnostics
 * Start an IPD Visit
 * Doctor issues an Admit disposition
 * Goto Bahmni home
-* Open "InPatient" module
-* Nurse at ADT is able to view bed availability and assign beds
-* Goto back from clinical tab
-* Doctor clicks consultation
+* Admit a patient to general ward bed "304-d"
+* Goto Bahmni home
+* Nurse opens clinical tab
 * Nurse enters basic clinical details
 * Doctor starts ordering tests "opd/prescriptionFlow/labTests"
 * Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"

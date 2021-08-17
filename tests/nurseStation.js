@@ -20,7 +20,7 @@ const {
 	highlight,
 	timeField,
 	toRightOf,
-	$,
+	$
 } = require('taiko');
 const openmrs = require("./util/omod")
 var taikoHelper = require("./util/taikoHelper");
@@ -89,6 +89,10 @@ step("Enter admitted patient details", async function() {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
+step("Click Admit", async function() {
+	await click("Admit");
+});
+
 step("Click Discharge", async function() {
 	await click("Discharge")
 });
@@ -96,6 +100,11 @@ step("Click Discharge", async function() {
 step("Click Discharge on popup", async function() {
 	await waitFor(async () => !(await $("overlay").exists()));
 	await click(text('Discharge', within($('[ng-click="dischargeConfirmation()"]'))));
+});
+
+step("Click Admit on popup", async function() {
+	await waitFor(async () => !(await $("overlay").exists()));
+	await click(text('Admit', within($('[ng-click="admitConfirmation()"]'))));
 });
 
 step("Select Second Vitals", async function () {
@@ -125,4 +134,9 @@ step("Enter Observation Form <observationFormFile>", async function(observationF
 step("Click History and Examination", async function() {
 	await click("History and Examination",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
+});
+
+step("Select the general ward", async function() {	
+	await click('General Ward');
+	await click('General Ward room');
 });

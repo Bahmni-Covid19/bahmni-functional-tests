@@ -9,7 +9,6 @@
 * Click Assign
 
 # Nurse at ADT gives discharge disposition
-* Nurse opens admission tab
 * Goto All admissions
 * Search the newly created patient
 * Select Patient Movement "Discharge Patient"
@@ -36,6 +35,15 @@
 # Nurse initiates clinical checkup with healthID
 * Nurse opens clinical tab with healthID
 * Nurse enters basic clinical details
+
+# Admit a patient to general ward bed <wardNumber>
+* Open "Bed Management" module
+* Goto All admissions
+* Search the newly created patient
+* Select the general ward
+* Allocate bed <wardNumber>
+* Click Admit
+* Click Admit on popup
 
 # Discharge the patient from allocated bed
 * Open "Bed Management" module

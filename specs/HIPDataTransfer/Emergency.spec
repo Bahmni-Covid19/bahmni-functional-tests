@@ -19,14 +19,15 @@ Tags:prescriptions, diagnostics
 * Start an IPD Visit
 * Doctor issues an Admit disposition
 * Goto Bahmni home
-* Open "InPatient" module
-* Nurse at ADT is able to view bed availability and assign beds
-* Goto back from clinical tab
+* Admit a patient to general ward bed "305-b"
+* Goto Bahmni home
+* Nurse opens clinical tab
 * Doctor clicks consultation
 * Nurse enters basic clinical details
 * Doctor issues an Discharge disposition
 * Goto Bahmni home
-* Discharge the patient from allocated bed
+* Open "InPatient" module
+* Nurse at ADT gives discharge disposition
 * visit is closed at the front desk
 * Goto the openMRS Admin tab
 * Merge the newly created patients
