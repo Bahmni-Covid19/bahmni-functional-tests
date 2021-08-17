@@ -27,3 +27,4 @@ Tags: prescriptions, diagnostics
 ___
 * visit is closed at the front desk
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
+
