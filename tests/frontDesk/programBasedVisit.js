@@ -25,7 +25,7 @@ var path = require("path")
 var taikoHelper = require("../util/taikoHelper")
 
 step("Click Start Special OPD Visit", async function() {
-    await click(button(toRightOf('Start OPD Visit')))
+    await click(button(toRightOf('Start OPD Visit'), within($(".submit-btn-container"))));
     await click('Start Special OPD Visit',{waitForNavigation:true})
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
