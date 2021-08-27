@@ -26,7 +26,6 @@ Tags: OPConsultation
 
 ## Should be able to get in house lab reports and prescriptions of a patient
 Tags: prescriptions, diagnostics
-* knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
 * Nurse initiates clinical checkup
@@ -36,8 +35,8 @@ Tags: prescriptions, diagnostics
 * Collect Sample
 * Enter blood Lab results
 * Enter serum Lab results
-* Find the patient
-* Validate lab result details in samples collected
+* Validate lab result "details" in samples collected
 * Goto Bahmni home
 * visit is closed at the front desk
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
+

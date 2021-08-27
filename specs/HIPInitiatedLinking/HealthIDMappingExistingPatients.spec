@@ -4,6 +4,7 @@ Tags:HIPInitiatedLinking
 |mobileNumber|
 |+91-9876543210|
 ## Should be able to map NDHM Records based on fuzzy logic
+* To be revisited
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Create a new patient, if patient does not exist with firstName "Soumya" middleName "Swaroop" lastName "Gupta", gender "F" mobileNumber <mobileNumber> age "30"
@@ -33,6 +34,7 @@ Tags:HIPInitiatedLinking
 * Verify match with NDHM record with only firstName "Sowmya"
 
 ## Should be able to map NDHM Record with name spelling, date of birth and mobile number mismatch
+* To be revisited
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Create a new patient, if patient does not exist with firstName "Soumya" middleName "Swaroop" lastName "Gupta", gender "F" mobileNumber <mobileNumber> age "30"

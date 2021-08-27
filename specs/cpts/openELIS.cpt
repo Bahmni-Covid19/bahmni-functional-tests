@@ -5,7 +5,6 @@
 * click Submit
 
 # Collect Sample
-* Click backlog of sample collection
 * Find the patient
 * Click collect sample
 * Generate the auto id
@@ -15,19 +14,17 @@
 * Click today's sample in samples collected 
 * Find the patient
 * Enter lab result "blood" in samples collected
-* Save in openELIS
 
 # Enter serum Lab results
 * Click today's sample in samples collected 
 * Find the patient
 * Enter lab result "serum" in samples collected
-* Save in openELIS
 # Enter lab result <details> in samples collected
 * Open the result of the patient
 * Enter lab result <details> in the result
 * Save in openELIS
 
 # Validate lab result <details> in samples collected
-* Open the result of the patient
-* Enter lab result <details> in the result
+* Click lab dashboard
+* Validate lab result "blood"
 * Save in openELIS

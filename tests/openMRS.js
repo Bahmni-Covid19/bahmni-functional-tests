@@ -183,3 +183,12 @@ async function(firstName,middleName, lastName,gender,mobileNumber,age) {
 });
 
 
+
+step("Put <patientIdentifier> as patient identifier", async function(patientIdentifier) {
+    gauge.dataStore.scenarioStore.put("patientIdentifier",patientIdentifier)
+});
+
+step("Put <prescriptionNames> as prescriptions", async function(prescriptionNames) {
+    var prescriptionFile = "./data/"+prescriptionNames+".json";
+    gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
+});

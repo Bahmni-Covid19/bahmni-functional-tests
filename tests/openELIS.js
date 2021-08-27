@@ -1,5 +1,5 @@
 "use strict"
-const { goto, toRightOf, textBox, into, write, click, $,below, checkBox,waitFor,image,within } = require('taiko');
+const { goto, toRightOf, textBox, into, write, click, $,below, checkBox,waitFor,image,within,link } = require('taiko');
 var fileExtension = require('./util/fileExtension')
 step("Enter password in ELIS", async function() {
     await write("adminADMIN!",into(textBox(toRightOf("Enter Password:"))));
@@ -35,13 +35,13 @@ step("Save in openELIS", async function () {
         await click("Save");
 });
 
-
 step("Enter lab result <details> in the result", async function (details) {
         var content = fileExtension.parseContent("./data/elis/samplesCollected/"+details+".json")
-        var bloodResultsContent = null;
-        bloodResultsContent = JSON.parse(content)
-        for(var bloodResultIndx=0;bloodResultIndx<bloodResultsContent.bloodResults.length;bloodResultIndx++){
-                await write(bloodResultsContent.bloodResults[bloodResultIndx].value,into(textBox(toRightOf(bloodResultsContent.bloodResults[bloodResultIndx].name)))) 
+        var data = null;
+        data = JSON.parse(content)
+        for(var resultIndx=0;resultIndx<data.results.length;resultIndx++){
+                await write(data.results[resultIndx].value,
+                        into(textBox(toRightOf(data.results[resultIndx].name)))) 
         }        
 });
 
@@ -55,16 +55,15 @@ step("Click collect sample for <patientIdentifier>", async function(patientIdent
         await click("Collect Sample");
 });
 
-step("Validate lab result details in samples collected", async function() {
+step("Validate lab result <details>", async function (details) {
         var patientIdentifier = gauge.dataStore.scenarioStore.get("patientIdentifier")
         await click(image({title:'Validate'}),toRightOf(patientIdentifier))
-        var content = fileExtension.parseContent("./data/elis/samplesCollected/blood.json")
-        var bloodResultsContent = null;
-        bloodResultsContent = JSON.parse(content)
-        for(var bloodResultIndx=0;bloodResultIndx<bloodResultsContent.bloodResults.length;bloodResultIndx++){
-                await click(checkBox(within($("#row_"+bloodResultIndx),below("Accept"))));
+        var content = fileExtension.parseContent("./data/elis/samplesCollected/"+details+".json")
+        var data = null;
+        data = JSON.parse(content)
+        for(var resultIndx=0;resultIndx<data.results.length;resultIndx++){
+                await click(checkBox(within($("#row_"+resultIndx),below("Accept"))));
         }
-        await click("Save")
 });
 
 step("Put identifier <patientIdentifier>", async function(patientIdentifier) {
@@ -78,4 +77,8 @@ step("Click backlog of sample collection", async function() {
 step("Open the result of the patient", async function() {
         var patientIdentifier = gauge.dataStore.scenarioStore.get("patientIdentifier")
         await click(image({title:'Result'}),toRightOf(patientIdentifier))
+});
+
+step("Click lab dashboard", async function() {
+        await click(link("Lab Dashboard"))
 });
