@@ -1,7 +1,4 @@
 # OPD E2E Tests
-|mobileNumber|
-|9876543210|
-
 ## Should be able to get prescriptions
 Tags: prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
@@ -15,7 +12,7 @@ Tags: prescriptions, diagnostics
 * Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"
 * lab technician uploads patient document and radiology reports
 * visit is closed at the front desk
-* Verify openmrs OPD patient details with mobileNumber <mobileNumber>
+* Verify openmrs OPD patient details with mobileNumber "9845348122"
 * Login to the consent request management system
 * Create a consent request for the healthID "automationopdprescription"
 |Health Info Types|
