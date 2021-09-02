@@ -27,10 +27,12 @@ step("Fetch the latest request", async function () {
 		}
 	});
 
-	const result = listOfRequests.data.consents.requests.filter(request => request.status != 'EXPIRED');
+	const result = listOfRequests.data.consents.requests.filter(request => request.status == 'REQUESTED');
 
 	var request = result[0]
-	console.log( request)
+	console.log('PHR_RequestId '+ request.id)
+	console.log('PHR_From '+ request.permission.dateRange.from)
+	console.log('PHR_To'+ request.permission.dateRange.to)
 
 	gauge.dataStore.scenarioStore.put('PHR_RequestId', request.id)
 	gauge.dataStore.scenarioStore.put('PHR_From', request.permission.dateRange.from)
@@ -46,16 +48,25 @@ step("Approve the consent request", async function() {
 			'X-AUTH-TOKEN':gauge.dataStore.scenarioStore.get('X-AUTH-TOKEN'),	
 		}
 	});
-	console.log(patientLinks)
+	//console.log(patientLinks)
 	approveConsentRequestURL = process.env.approveConsentRequest;
 
 	var requestId=gauge.dataStore.scenarioStore.get('PHR_RequestId')
 	var temporaryToken = gauge.dataStore.scenarioStore.get('temporaryToken')
+
+	console.log('<bahmniHost>'+process.env.consentManagement)	
+	console.log('<request_id>'+requestId)
+	console.log('<X-Auth-Token>'+temporaryToken)
+	console.log('<careContextReference>'+patientLinks.data.patient.links[0].careContexts[0].referenceNumber)
+	console.log('<patientReference>'+patientLinks.data.patient.links[0].referenceNumber)
+	console.log('<hip_id>'+patientLinks.data.patient.links[0].hip.id)
+
 	var curlExecCommand = fileExtension.parseContent("./data/consentRequest/approve/curl.txt")
+	.replace('<bahmniHost>',process.env.consentManagement)	
 	.replace('<request_id>',requestId)
 	.replace('<X-Auth-Token>',temporaryToken)
 	.replace('<careContextReference>',patientLinks.data.patient.links[0].careContexts[0].referenceNumber)
-	.replace('<patientReference>',patientLinks.data.patient.id)
+	.replace('<patientReference>',patientLinks.data.patient.links[0].referenceNumber)
 	.replace('<hip_id>',patientLinks.data.patient.links[0].hip.id)
 
 	console.log(curlExecCommand)
@@ -82,10 +93,9 @@ step("Reject the consent request", async function() {
 });
 
 step("Get the temporary token", async function() {
-	var verifyPin = "curl -X POST 'https://dev.ndhm.gov.in/cm/patients/verify-pin' -H  'accept: application/json' -H  'X-AUTH-TOKEN: "
+	var verifyPin = "curl -X POST '"+process.env.consentManagement+"/patients/verify-pin' -H  'accept: application/json' -H  'X-AUTH-TOKEN: "
 	+gauge.dataStore.scenarioStore.get('X-AUTH-TOKEN')
 	+"' -H  'Content-Type: application/json' -d '{\"requestId\":\""+listOfRequests.data.consents.requests[0].id+"\",\"pin\":\"1234\",\"scope\":\"consentrequest.approve\"}'"
-	console.log(verifyPin)
 	var result = child_process.execSync(verifyPin)
 	var temporaryToken = (JSON.parse(result.toString('UTF8'))).temporaryToken
 	console.log("The temporary Token "+temporaryToken)

@@ -275,7 +275,7 @@ step("Open newly created patient details by search", async function () {
 step("Open newly created patient details by healthID", async function() {
     var patientHealthID = gauge.dataStore.scenarioStore.get("healthID")
 
-    console.log("patient HealthID"+patientHealthID)
+    console.log("patient HealthID "+patientHealthID)
     gauge.message("patient HealthID"+patientHealthID)
 
     await write(patientHealthID, into(textBox({ "placeholder": "Enter ID" })))

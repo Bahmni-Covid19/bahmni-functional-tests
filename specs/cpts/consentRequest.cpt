@@ -1,3 +1,8 @@
 # Create a consent request for the healthID <healthID> <healthInfoTypes>
-* Login to the consent request management system
-* Create new consent request for healthID <healthID> <healthInfoTypes>
+* Click new consent request
+* Find the patient <healthID> for initiating the consent request
+* Enter consent from date
+* Enter consent to date
+* Enter health info types <healthInfoTypes>
+* Enter consent expiry
+* Raise the consent request

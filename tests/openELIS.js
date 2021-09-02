@@ -82,3 +82,7 @@ step("Open the result of the patient", async function() {
 step("Click lab dashboard", async function() {
         await click(link("Lab Dashboard"))
 });
+
+step("Put healthID <healthID>", async function(healthID) {
+        gauge.dataStore.scenarioStore.put("healthID",healthID);
+});
