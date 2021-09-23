@@ -40,7 +40,7 @@ step("Fetch the latest request", async function () {
 });
 
 
-step("Approve the consent request", async function() {
+step("Approve the consent request <healthInfoTypes>", async function(healthInfoTypes) {
 	var patientLinks = await axios.get(process.env.consentManagement+"/patients/links", {
 		headers: {
 			'accept': `application/json`,
@@ -53,6 +53,55 @@ step("Approve the consent request", async function() {
 
 	var requestId=gauge.dataStore.scenarioStore.get('PHR_RequestId')
 	var temporaryToken = gauge.dataStore.scenarioStore.get('temporaryToken')
+
+	var hiTypes = ""
+	for (healthInfoType of healthInfoTypes.rows) {
+		if(hiTypes!="")
+			hiTypes = hiTypes.concat(",")
+		hiTypes = hiTypes.concat("\"" +healthInfoType.cells[0]+"\"")
+	}
+//OPConsultation,DiagnosticReport,Prescription,ImmunizationRecord,DischargeSummary,HealthDocumentRecord,WellnessRecord
+	console.log('<bahmniHost>'+process.env.consentManagement)	
+	console.log('<request_id>'+requestId)
+	console.log('<X-Auth-Token>'+temporaryToken)
+	console.log('<careContextReference>'+patientLinks.data.patient.links[0].careContexts[0].referenceNumber)
+	console.log('<patientReference>'+patientLinks.data.patient.links[0].referenceNumber)
+	console.log('<hip_id>'+patientLinks.data.patient.links[0].hip.id)
+
+	var curlExecCommand = fileExtension.parseContent("./data/consentRequest/approve/curl.txt")
+	.replace('<bahmniHost>',process.env.consentManagement)	
+	.replace('<request_id>',requestId)
+	.replace('<X-Auth-Token>',temporaryToken)
+	.replace('<careContextReference>',patientLinks.data.patient.links[0].careContexts[0].referenceNumber)
+	.replace('<patientReference>',patientLinks.data.patient.links[0].referenceNumber)
+	.replace('<hip_id>',patientLinks.data.patient.links[0].hip.id)
+	.replace('<hiTypes>',hiTypes)
+
+	// console.log(curlExecCommand)
+	var result = child_process.execSync(curlExecCommand);
+	console.log(result.toString('UTF8'))
+});
+
+step("Revoke the consent request <healthInfoTypes>", async function(healthInfoTypes) {
+	var patientLinks = await axios.get(process.env.consentManagement+"/patients/links", {
+		headers: {
+			'accept': `application/json`,
+			'Content-Type': `application/json`,
+			'X-AUTH-TOKEN':gauge.dataStore.scenarioStore.get('X-AUTH-TOKEN'),	
+		}
+	});
+	//console.log(patientLinks)
+	approveConsentRequestURL = process.env.approveConsentRequest;
+
+	var requestId=gauge.dataStore.scenarioStore.get('PHR_RequestId')
+	var temporaryToken = gauge.dataStore.scenarioStore.get('temporaryToken')
+
+	var hiTypes = ""
+	for (healthInfoType of healthInfoTypes.rows) {
+		if(hiTypes!="")
+			hiTypes = hiTypes.concat(",")
+		hiTypes = hiTypes.concat("\"" +healthInfoType.cells[0]+"\"")
+	}
 
 	console.log('<bahmniHost>'+process.env.consentManagement)	
 	console.log('<request_id>'+requestId)
@@ -68,12 +117,11 @@ step("Approve the consent request", async function() {
 	.replace('<careContextReference>',patientLinks.data.patient.links[0].careContexts[0].referenceNumber)
 	.replace('<patientReference>',patientLinks.data.patient.links[0].referenceNumber)
 	.replace('<hip_id>',patientLinks.data.patient.links[0].hip.id)
+	.replace('<hiTypes>',hiTypes)
 
-	console.log(curlExecCommand)
 	var result = child_process.execSync(curlExecCommand);
 	console.log(result.toString('UTF8'))
 });
-
 step("Reject the consent request", async function() {
 	rejectConsentRequestURL = process.env.rejectConsentRequest
 

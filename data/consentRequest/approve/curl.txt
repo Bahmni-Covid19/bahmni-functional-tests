@@ -14,7 +14,7 @@ curl --location --request POST 'https://dev.ndhm.gov.in/cm/consent-requests/<req
                 "code": "CAREMGT"
             },
             "hiTypes": [
-                "Prescription"
+                <hiTypes>
             ],
             "hip": {
                 "id": "<hip_id>"

@@ -29,7 +29,7 @@ Tags:HIPInitiatedLinking
 
 ## Should be able to map NDHM Records based on fuzzy logic Known Issues
 * knownIssue
-* Put first name "Soumya" middleName "" last name "Gupta" gender "F" mobileNumber <mobileNumber> age "30"
+* Put first name "Soumya" middleName "" last name "Gupta" gender "F" mobileNumber <mobileNumber> with yearof birth "1991"
 * Verify match with NDHM record with firstName "Sowmya" middleName "SomethingElse" lastName "Guptha"
 * Verify match with NDHM record with only firstName "Sowmya"
 

@@ -5,7 +5,7 @@
 Tags: prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
-* Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber <mobileNumber> age "20"
+* Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber <mobileNumber> with yearof birth "2001"
 * Put "GAN205238" as patient identifier
 * Put healthID "automationopdprescription@sbx"
 * Open newly created patient details by healthID
@@ -37,6 +37,8 @@ Tags: prescriptions, diagnostics
 * Create a consent request for the healthID "automationopdprescription"
 |Health Info Types|
 |Prescription|
+|Discharge Summary|
 * Login to PHR app
 * approve the consent request of "automationopdprescription@sbx" and password "P@ssw0rd"
+* wait for "20000"
 

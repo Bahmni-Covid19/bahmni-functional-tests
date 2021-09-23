@@ -2,7 +2,7 @@
 ## Should be able to enter program level details for a patient
 Tags: prescriptions, diagnostics
 * Login to Bahmni location "OPD-1" as a receptionist
-* Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber "9845348122" age "20"
+* Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber "9845348122" with yearof birth "2001"
 * Put "GAN205238" as patient identifier
 * Put healthID "automationopdprescription@sbx"
 * Open registration module
@@ -25,6 +25,7 @@ Tags: prescriptions, diagnostics
 * Create a consent request for the healthID "automationopdprescription"
 |Health Info Types|
 |Prescription|
+|Diagnostic Reports|
 * Login to PHR app
 * approve the consent request of "automationopdprescription@sbx" and password "P@ssw0rd"
 

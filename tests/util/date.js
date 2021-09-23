@@ -7,6 +7,23 @@ function yesterday() {
     return yesterday;
 }
 
+function getAgeByYears(yearOfBirth){    
+    const today = new Date()
+    const dateYearsAgo = new Date(today)
+
+    return (today.getFullYear() - yearOfBirth.getFullYear())
+}
+
+function getAge(yearOfBirth){    
+    const today = new Date()
+    const dateYearsAgo = new Date(today)
+
+    dateYearsAgo.setFullYear(today.getFullYear() - yearOfBirth.getFullYear())
+    dateYearsAgo.setMonth(today.getMonth()-yearOfBirth.getMonth())
+    dateYearsAgo.setDate(today.getDate()-yearOfBirth.getDate())
+    return dateYearsAgo;
+}
+
 function getDateAgo(dateAgo){
     var days = dateAgo.split("/")[0]
     var months = dateAgo.split("/")[1]
@@ -72,5 +89,7 @@ module.exports={
     nextYear:nextYear,
     getddmmyyyyFormattedDate:getyyyymmddFormattedDate,
     getDateYearsAgo:getDateYearsAgo,
-    getDateAgo:getDateAgo
+    getDateAgo:getDateAgo,
+    getAge:getAge,
+    getAgeByYears:getAgeByYears
 }

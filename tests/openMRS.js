@@ -2,6 +2,7 @@
 var assert = require("assert");
 var fileExtension = require("./util/fileExtension")
 var requestResponse = require("./util/requestResponse");
+const date = require("./util/date")
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
@@ -170,19 +171,18 @@ step("Put first name <firstName> middleName <middleName> last name <lastName>", 
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
 });
 
-step("Put first name <firstName> middleName <middleName> last name <lastName> gender <gender> mobileNumber <mobileNumber> age <age>", 
-async function(firstName,middleName, lastName,gender,mobileNumber,age) {
+step("Put first name <firstName> middleName <middleName> last name <lastName> gender <gender> mobileNumber <mobileNumber> with yearof birth <yearOfBirth>", 
+async function(firstName,middleName, lastName,gender,mobileNumber,yearOfBirth) {
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     gauge.dataStore.scenarioStore.put("patientMiddleName",middleName)
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
 
     gauge.dataStore.scenarioStore.put("patientGender",gender)
     gauge.dataStore.scenarioStore.put("patientMobileNumber",mobileNumber)
+    var age = date.getAgeByYears(yearOfBirth)
     gauge.dataStore.scenarioStore.put("patientAge",age)
 
 });
-
-
 
 step("Put <patientIdentifier> as patient identifier", async function(patientIdentifier) {
     gauge.dataStore.scenarioStore.put("patientIdentifier",patientIdentifier)
@@ -191,4 +191,37 @@ step("Put <patientIdentifier> as patient identifier", async function(patientIden
 step("Put <prescriptionNames> as prescriptions", async function(prescriptionNames) {
     var prescriptionFile = "./data/"+prescriptionNames+".json";
     gauge.dataStore.scenarioStore.put("prescriptions",prescriptionFile)
+});
+
+step("Verify OP Consultation notes", async function() {
+    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
+    
+    var patientName = firstName+"+"+lastName
+    var age = gauge.dataStore.scenarioStore.get("patientAge");
+    var patientYearOfBirth = "2000";
+    if(age!=null)
+    {
+        patientYearOfBirth = date.getDateYearsAgo(age-2).getFullYear();
+    }
+
+    var patientGender = gauge.dataStore.scenarioStore.get("patientGender")==null 
+        ? "F": gauge.dataStore.scenarioStore.get("patientGender");
+
+    var patientGender = gauge.dataStore.scenarioStore.get("patientMobileNumber")==null 
+        ? mobileNumber: gauge.dataStore.scenarioStore.get("patientMobileNumber");
+
+    var existingPatientsURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName="+patientName
+        +"&patientYearOfBirth="+patientYearOfBirth+"&patientGender="+patientGender+"&phoneNumber="+phoneNumber;
+    
+    var existingPatientsResponse = await requestResponse.getOpenMRSResponse(existingPatientsURL)
+
+    const patientUUID = existingPatientsResponse.data[0].uuid;
+    var OPDConsultations = await requestResponse.makeOpenVisitCall(patientUUID,"OPD",process.env.opConsultation)
+    assert.ok(OPDConsultations!=null && OPDConsultations.opConsults!=null)
+    for(var opConsult of OPDConsultations.opConsults){
+        assert.ok(opConsult.careContext!=null)
+        assert.ok(opConsult.careContext.careContextReference=="OPD")
+        assert.ok(opConsult.bundle!=null)
+    }
 });

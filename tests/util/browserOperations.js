@@ -2,6 +2,7 @@ const {
     openBrowser,
     closeBrowser,
     screenshot,
+    reload
 } = require('taiko');
 const path = require('path');
 
@@ -25,3 +26,7 @@ gauge.customScreenshotWriter = async function () {
     });
     return path.basename(screenshotFilePath);
 };
+
+step("reload the consent request page", async function () {
+    await reload(process.env.bahmniHost+process.env.HIUURL, { navigationTimeout: 10000 })
+});

@@ -71,3 +71,11 @@ step("Enter consent expiry", async function() {
 step("Raise the consent request", async function() {
 	await click("REQUEST CONSENT",{waitForNavigation:true})
 });
+
+step("verify the prescription details recieved", async function() {
+	console.log("todo verify the prescription details")
+});
+
+step("Logout of HIU", async function() {
+	await click(button("LOGOUT"))
+});
