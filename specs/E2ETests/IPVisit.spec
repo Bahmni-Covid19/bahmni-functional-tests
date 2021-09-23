@@ -40,5 +40,8 @@ Tags: prescriptions, diagnostics
 |Discharge Summary|
 * Login to PHR app
 * approve the consent request of "automationopdprescription@sbx" and password "P@ssw0rd"
+|Health Info Types|
+|Prescription|
+|Discharge Summary|
 * wait for "20000"
 

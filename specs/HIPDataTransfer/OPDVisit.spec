@@ -40,10 +40,3 @@ Tags: prescriptions, diagnostics
 * visit is closed at the front desk
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
 
-## Should approve the request
-* Login to the consent request management system
-* Create a consent request for the healthID "automationopdprescription"
-|Health Info Types|
-|Prescription|
-* Login to PHR app
-* approve the consent request of "automationopdprescription@sbx" and password "P@ssw0rd"

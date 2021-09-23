@@ -80,6 +80,7 @@ step("Approve the consent request <healthInfoTypes>", async function(healthInfoT
 	// console.log(curlExecCommand)
 	var result = child_process.execSync(curlExecCommand);
 	console.log(result.toString('UTF8'))
+	gauge.dataStore.scenarioStore.put("ApprovalArtifacts",result.toString('UTF8'))
 });
 
 step("Revoke the consent request <healthInfoTypes>", async function(healthInfoTypes) {
@@ -92,8 +93,9 @@ step("Revoke the consent request <healthInfoTypes>", async function(healthInfoTy
 	});
 	//console.log(patientLinks)
 	approveConsentRequestURL = process.env.approveConsentRequest;
+	approvalArtifact = gauge.dataStore.scenarioStore.get("ApprovalArtifacts")
 
-	var requestId=gauge.dataStore.scenarioStore.get('PHR_RequestId')
+	var requestId=approvalArtifact.id
 	var temporaryToken = gauge.dataStore.scenarioStore.get('temporaryToken')
 
 	var hiTypes = ""
