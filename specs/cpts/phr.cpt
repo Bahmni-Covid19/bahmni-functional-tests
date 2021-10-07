@@ -3,7 +3,11 @@
 * Get the temporary token
 * Approve the consent request <hitypes>
 
-# revoke the consent request of <username> and password <password> <hitypes>
+# deny the consent request of <username> and password <password>
 * Fetch the latest request
-* Get the temporary token
+* Get the temporary token for deny
+* Deny the consent request
+
+# revoke the consent request of <username> and password <password> <hitypes>
+* Get the temporary token for revoke
 * Revoke the consent request <hitypes>

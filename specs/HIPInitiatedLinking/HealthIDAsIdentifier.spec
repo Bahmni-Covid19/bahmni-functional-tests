@@ -13,7 +13,6 @@ Tags:HIPInitiatedLinking
 * Verify correct patient form is open
 
 ## Should be able to search with healthID in clinical module
-* knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open registration module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>

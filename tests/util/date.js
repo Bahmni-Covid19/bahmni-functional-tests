@@ -9,9 +9,9 @@ function yesterday() {
 
 function getAgeByYears(yearOfBirth){    
     const today = new Date()
-    const dateYearsAgo = new Date(today)
+    const dateYearsAgo = new Date(yearOfBirth)
 
-    return (today.getFullYear() - yearOfBirth.getFullYear())
+    return (today.getFullYear() - dateYearsAgo.getFullYear())
 }
 
 function getAge(yearOfBirth){    
@@ -45,7 +45,7 @@ function getDateYearsAgo(numberOfYearsAgo){
     dateYearsAgo.setFullYear(dateYearsAgo.getFullYear() - numberOfYearsAgo)
     return dateYearsAgo;
 }
-function today() {
+function date() {
     const today = new Date()
     return today
 }
@@ -58,14 +58,24 @@ function tomorrow() {
     return tomorrow;
 }
 
-function ddmmyyyy(){
-    const today = new Date()
+function ddmmyyyy(dateToBeFormatted){
+    const date = (dateToBeFormatted==null)? new Date(): dateToBeFormatted;
 
-    var dd = String(today.getDate()).padStart(2, '0');
-	var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-	var yyyy = today.getFullYear();
+    var dd = String(date.getDate()).padStart(2, '0');
+	var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = date.getFullYear();
 
     return dd.toString()+mm.toString()+yyyy.toString();
+}
+
+function ddmmyyyyHHMM(dateToBeFormatted){
+    const date = (dateToBeFormatted==null)? new Date(): dateToBeFormatted;
+
+    var dd = String(date.getDate()).padStart(2, '0');
+	var mm = String(date.getMonth() + 1).padStart(2, '0'); //January is 0!
+	var yyyy = date.getFullYear();
+
+    return dd.toString()+"/"+mm.toString()+"/"+yyyy.toString()+" "+(new Date()).getHours()+":"+(new Date().getMinutes());
 }
 
 function getyyyymmddFormattedDate(date){
@@ -82,14 +92,15 @@ function nextYear() {
 }
 
 module.exports={
-    today:today,
+    today:date,
     yesterday:yesterday,
     ddmmyyyy:ddmmyyyy,
     tomorrow:tomorrow,
     nextYear:nextYear,
-    getddmmyyyyFormattedDate:getyyyymmddFormattedDate,
+    getyyyymmddFormattedDate:getyyyymmddFormattedDate,
     getDateYearsAgo:getDateYearsAgo,
     getDateAgo:getDateAgo,
     getAge:getAge,
-    getAgeByYears:getAgeByYears
+    getAgeByYears:getAgeByYears,
+    ddmmyyyyMMSS:ddmmyyyyHHMM
 }

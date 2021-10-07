@@ -16,8 +16,8 @@ async function getOpenMRSResponse(request){
 }
 
 async function makeOpenVisitCall(patientUUID,visitType,URL){
-    var yesterday = date.getddmmyyyyFormattedDate(date.yesterday())
-    var tomorrow = date.getddmmyyyyFormattedDate(date.tomorrow())
+    var yesterday = date.getyyyymmddFormattedDate(date.yesterday())
+    var tomorrow = date.getyyyymmddFormattedDate(date.tomorrow())
 
     var request_URL = process.env.bahmniHost+URL
         .replace("<patientId>",patientUUID)
@@ -38,8 +38,8 @@ async function makeOpenVisitCall(patientUUID,visitType,URL){
 }
 
 async function makeOpenProgramCall(patientUUID,programName,programEnrollmentId,URL){
-    var yesterday = date.getddmmyyyyFormattedDate(date.yesterday())
-    var tomorrow = date.getddmmyyyyFormattedDate(date.tomorrow())
+    var yesterday = date.getyyyymmddFormattedDate(date.yesterday())
+    var tomorrow = date.getyyyymmddFormattedDate(date.tomorrow())
 
     var request_URL = process.env.bahmniHost+URL
         .replace("<patientId>",patientUUID)

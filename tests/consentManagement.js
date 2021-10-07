@@ -10,6 +10,7 @@ const {
 	goto,
 	intercept,
 	press,
+	clear
 } = require('taiko');
 
 var date = require("./util/date");
@@ -47,13 +48,15 @@ step("Find the patient <healthID> for initiating the consent request", async fun
 step("Enter consent from date", async function() {
 	var yesterday = date.yesterday();
 	var yesterday_ddmmyyyy= date.ddmmyyyy(yesterday);
-	await write(yesterday_ddmmyyyy,into(textBox(toRightOf("Health info from"))))
+	await clear(textBox(toRightOf("Health info from")))
+	await write(yesterday_ddmmyyyy)
 });
 
 step("Enter consent to date", async function() {
 	var today = date.today();
 	var today_ddmmyyyy= date.ddmmyyyy(today);
-	await write(today_ddmmyyyy,into(textBox(toRightOf("Health info to"))))
+	//await clear(textBox(toRightOf("Health info to")))
+	await write(today_ddmmyyyy,textBox(toRightOf("Health info to")))
 });
 
 step("Enter health info types <healthInfoTypes>", async function (healthInfoTypes) {
@@ -64,8 +67,9 @@ step("Enter health info types <healthInfoTypes>", async function (healthInfoType
 
 step("Enter consent expiry", async function() {
 	var nextYear = date.nextYear();
-	var nextYear_ddmmyyyy= date.ddmmyyyy(nextYear);
-	await write(nextYear_ddmmyyyy,into(textBox(toRightOf("Consent Expiry"))))
+	var nextYear_ddmmyyyy= date.ddmmyyyyMMSS(nextYear);
+	await clear(textBox(toRightOf("Consent Expiry")))
+	await write(nextYear_ddmmyyyy)
 });
 
 step("Raise the consent request", async function() {

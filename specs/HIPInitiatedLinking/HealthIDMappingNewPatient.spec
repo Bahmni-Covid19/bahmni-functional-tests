@@ -11,5 +11,4 @@ Tags:HIPInitiatedLinking
 * Click create new patient
 * Should fetch record with firstName "New" middleName "Patient" lastName "Record" gender "U" age "32" and mobileNumber "1234567890"
 * Create new record
-* Update the verified HealthID
 * Should verify details of newly created record from NDHM - firstName "New" middleName "Patient" lastName "Record" gender "U" age "32" with mobile number "1234567890"

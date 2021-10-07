@@ -212,7 +212,7 @@ step("Verify if healthId entered already exists", async function () {
 step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
 async function (otp, patientMobileNumber) {
     await waitFor('Enter OTP')
-    await write(otp, into(textBox(above("Confirm"))));  
+    await write(otp, into(textBox(above("Fetch NDHM Data"))));  
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
     var healthID = gauge.dataStore.scenarioStore.get("healthID");
@@ -222,7 +222,7 @@ async function (otp, patientMobileNumber) {
     await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
     await ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
-    await click(button("Confirm"))
+    await click(button("Fetch NDHM Data"))
 });
     
 step("Enter visit details", async function() {
@@ -366,7 +366,7 @@ step("Enter patient last name <lastName>", async function (lastName) {
 step("Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>", 
 async function (firstName, middleName, lastName, age, gender, mobileNumber) {
     await waitFor('Enter OTP')
-    await write("0000", into(textBox(above("Confirm"))));  
+    await write("0000", into(textBox(above("Fetch NDHM Data"))));  
     var healthID = gauge.dataStore.scenarioStore.get("healthID");
     var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
     var _yearOfBirth = date.getDateYearsAgo(age)
@@ -375,7 +375,7 @@ async function (firstName, middleName, lastName, age, gender, mobileNumber) {
     const token = process.env.receptionist
     await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,mobileNumber);
     await ndhm.redirectExistingPatients(token, firstName,lastName,yearOfBirth,gender,mobileNumber);
-    await click(button("Confirm"))
+    await click(button("Fetch NDHM Data"))
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
