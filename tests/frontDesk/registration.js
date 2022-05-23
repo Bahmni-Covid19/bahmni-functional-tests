@@ -47,11 +47,11 @@ step("Open registration module", async function () {
 });
 
 step("To Associate a healthID, vefiy it", async function () {
-    await click("Verify Health ID",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
+    await click("Verify ABHA",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
 });
 
 step("Enter random healthID details", async function () {
-    await click(textBox(toRightOf("Enter Health ID")));
+    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
     var firstName = users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
     console.log("FirstName" + firstName)
@@ -212,7 +212,7 @@ step("Verify if healthId entered already exists", async function () {
 step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
 async function (otp, patientMobileNumber) {
     await waitFor('Enter OTP')
-    await write(otp, into(textBox(above("Fetch NDHM Data"))));  
+    await write(otp, into(textBox(above("Fetch ABDM Data"))));  
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
     var healthID = gauge.dataStore.scenarioStore.get("healthID");
@@ -222,7 +222,7 @@ async function (otp, patientMobileNumber) {
     await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
     await ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
-    await click(button("Fetch NDHM Data"))
+    await click(button("Fetch ABDM Data"),{waitForEvents:['networkIdle0']})
 });
     
 step("Enter visit details", async function() {
@@ -253,12 +253,12 @@ step("Click on home page", async function() {
 });
 
 step("Create new record", async function() {
-    await waitFor(button("Create New Record"))
+    await waitFor(async () => (await button("Create New Record").exists()))
     await click(button("Create New Record"))
 });
 
 step("Update the verified HealthID", async function() {
-    await waitFor(button("Update"))
+    await waitFor(async () => (await button("Update").exists()))
 	await click(button("Update"),{force: true})
 });
 
