@@ -4,7 +4,7 @@ const {
     intercept
 } = require('taiko');
 const axios = require('axios')
-var fileExtension = require("./fileExtension");
+var fileExtension = require("../../bahmni-e2e-common-flows/tests/util/fileExtension");
 
 async function interceptFetchModes(token) {
     //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/

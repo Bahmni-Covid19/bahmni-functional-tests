@@ -7,7 +7,7 @@ Tags:HIPInitiatedLinking
 ## Should display NDHM Record details when no mapping found
 * To be revisited
 * Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
+* Open "Registration" module
 * Click create new patient
 * Should fetch record with firstName "New" middleName "Patient" lastName "Record" gender "U" age "32" and mobileNumber "1234567890"
 * Create new record

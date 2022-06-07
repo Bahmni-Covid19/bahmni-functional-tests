@@ -5,26 +5,26 @@
 ## Should be able to get patient lab reports and prescriptions after merge
 Tags:prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
+* Open "Registration" module
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Add this newly created patient as merge patient1
 * Start an OPD Visit
 * Nurse opens clinical tab
 * Nurse enters basic clinical details
 * visit is closed at the front desk
-* Goto Bahmni home
-* Open registration module
+* Goto Clinical application
+* Open "Registration" module
 * Create a new patient with gender "Female" with random name, aged "27" with mobile number <mobileNumber>
 * Add this newly created patient as merge patient2
 * Start an IPD Visit
 * Doctor issues an Admit disposition
-* Goto Bahmni home
+* Goto Clinical application
 * Admit a patient to general ward bed "305-b"
-* Goto Bahmni home
+* Goto Clinical application
 * Nurse opens clinical tab
 * Nurse enters basic clinical details
 * Doctor issues an Discharge disposition
-* Goto Bahmni home
+* Goto Clinical application
 * Open "InPatient" module
 * Nurse at ADT gives discharge disposition
 * visit is closed at the front desk

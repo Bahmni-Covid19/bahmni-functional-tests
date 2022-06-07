@@ -6,7 +6,7 @@ Tags:HIPInitiatedLinking
 
 ## Should be able to search with healthID in registration module
 * Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
+* Open "Registration" module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -14,7 +14,7 @@ Tags:HIPInitiatedLinking
 
 ## Should be able to search with healthID in clinical module
 * Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
+* Open "Registration" module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -25,7 +25,7 @@ Tags:HIPInitiatedLinking
 ## Should be able to search with healthID in program module
 * knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
+* Open "Registration" module
 * Create a new patient with random name and healthID mobileNumber <mobileNumber>
 * Click on home page and goto registration module
 * Open newly created patient details by healthID

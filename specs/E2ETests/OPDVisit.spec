@@ -2,7 +2,7 @@
 ## A doctor should be able to record the patient complaints raise tests and prescribe medication
 Tags: prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
+* Open "Registration" module
 * Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber "9845348122" with yearof birth "2001"
 * Put "GAN205238" as patient identifier
 * Put healthID "automationopdprescription@sbx"

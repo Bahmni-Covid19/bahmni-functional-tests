@@ -1,8 +1,8 @@
 "use strict";
 var assert = require("assert");
-var fileExtension = require("./util/fileExtension")
-var requestResponse = require("./util/requestResponse");
-const date = require("./util/date")
+var fileExtension = require("../bahmni-e2e-common-flows/tests/util/fileExtension")
+var requestResponse = require("../bahmni-e2e-common-flows/tests/util/requestResponse");
+const date = require("../bahmni-e2e-common-flows/tests/util/date")
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")

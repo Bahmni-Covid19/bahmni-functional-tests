@@ -1,6 +1,6 @@
 const axios = require('axios')
 const assert = require("assert");
-const date = require("./util/date")
+const date = require("../bahmni-e2e-common-flows/tests/util/date")
 const omod = require("./util/omod")
 
 step("Verify match with NDHM record with age less than 2 years", async function() {

@@ -36,7 +36,7 @@ Tags: prescriptions, diagnostics
 * Enter blood Lab results
 * Enter serum Lab results
 * Validate lab result "details" in samples collected
-* Goto Bahmni home
+* Goto Clinical application
 * visit is closed at the front desk
 * Verify openmrs OPD patient details with mobileNumber <mobileNumber>
 

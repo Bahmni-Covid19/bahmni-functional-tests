@@ -12,6 +12,8 @@
     "taiko": "latest",
     "axios": "latest",
     "buffer": "latest",
-    "uuid": "latest"
+    "uuid": "latest",
+    "csvtojson": "latest",
+    "json2csv": "latest"
   }
 }

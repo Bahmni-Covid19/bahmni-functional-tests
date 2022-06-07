@@ -13,8 +13,8 @@ const {
 	clear
 } = require('taiko');
 
-var date = require("./util/date");
-var users = require("./util/users")
+var date = require("../bahmni-e2e-common-flows/tests/util/date");
+var users = require("../bahmni-e2e-common-flows/tests/util/users")
 step("Login to the consent request management system", async function() {
 	await goto(process.env.bahmniHost+process.env.hiuURL,{waitForNavigation:true});
 	await write(users.getUserNameFromEncoding(process.env.hiuUser))
@@ -82,4 +82,8 @@ step("verify the prescription details recieved", async function() {
 
 step("Logout of HIU", async function() {
 	await click(button("LOGOUT"))
+});
+
+step("reload the consent request page", async function () {
+    await reload(process.env.bahmniHost+process.env.hiuURL, { navigationTimeout: 10000 })
 });

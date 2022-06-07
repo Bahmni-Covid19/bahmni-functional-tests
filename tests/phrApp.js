@@ -1,6 +1,6 @@
 const axios = require('axios')
-var users = require('./util/users')
-var fileExtension = require('./util/fileExtension')
+var users = require('../bahmni-e2e-common-flows/tests/util/users')
+var fileExtension = require('../bahmni-e2e-common-flows/tests/util/fileExtension')
 const child_process = require('child_process');
 
 step("Login to PHR app", async function() {

@@ -4,31 +4,31 @@
 ## Should be able to get patient lab reports
 Tags: prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
-* Open registration module
+* Open "Registration" module
 * Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber <mobileNumber> with yearof birth "2001"
 * Put "GAN205238" as patient identifier
 * Put healthID "automationopdprescription@sbx"
 * Open newly created patient details by healthID
 * Start an IPD Visit
 * Doctor issues an Admit disposition
-* Goto Bahmni home
+* Goto Clinical application
 * Admit a patient to general ward bed "304-d"
-* Goto Bahmni home
+* Goto Clinical application
 * Nurse opens clinical tab
 * Nurse enters basic clinical details
-* Doctor starts ordering tests "opd/prescriptionFlow/labTests"
-* Doctor starts prescribing medications "opd/prescriptionFlow/prescriptions"
+* Doctor prescribes tests "opd/prescriptionFlow/labTests"
+* Doctor prescribes medications "opd/prescriptionFlow/prescriptions"
 * Doctor issues an Discharge disposition
 * Login to Open ELIS
 * Collect Sample
 * Enter blood Lab results
 * Enter serum Lab results
 * Validate lab result "details" in samples collected
-* Goto Bahmni home
+* Goto Clinical application
 * Open "Patient Documents" module
 * Choose newly created patient
 * Add a report "labReport1" to "Patient Documents"
-* Goto Bahmni home
+* Goto Clinical application
 * Open "InPatient" module
 * Nurse at ADT gives discharge disposition
 * visit is closed at the front desk

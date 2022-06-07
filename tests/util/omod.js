@@ -4,7 +4,7 @@ const {
 } = require('taiko');
 const axios = require('axios')
 
-var fileExtension = require("./fileExtension");
+var fileExtension = require("../../bahmni-e2e-common-flows/tests/util/fileExtension");
 
 async function getNDHMRecord(fullName,gender, yearOfBirth,mobileNumber){
     var newURL = process.env.bahmniHost+ process.env.openMRSRestAPIPrefix+ "/existingPatients?patientName=" + fullName
