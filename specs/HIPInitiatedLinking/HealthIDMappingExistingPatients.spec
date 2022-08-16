@@ -1,10 +1,12 @@
 # HealthID Mapping with existing patients Fuzzy Logic
-Tags:HIPInitiatedLinking
 
-|mobileNumber|
-|+91-9876543210|
+tags: HIPInitiatedLinking
+
+   |mobileNumber  |
+   |--------------|
+   |+91-9876543210|
 ## Should be able to map NDHM Records based on fuzzy logic
-* To be revisited
+To be revisited
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
 * Create a new patient, if patient does not exist with firstName "Soumya" middleName "Swaroop" lastName "Gupta", gender "F" mobileNumber <mobileNumber> age "30"
@@ -18,7 +20,7 @@ Tags:HIPInitiatedLinking
 * Verify match with NDHM record with firstName "Somya" middleName "" lastName "G"
 
 ## Should be able to map NDHM Records to Bahmni Records on fuzzy logic
-* knownIssue
+knownIssue
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
 * Create a new patient, if patient does not exist with firstName "Un" middleName "" lastName "N", gender "F" mobileNumber <mobileNumber> age "30"
@@ -28,13 +30,13 @@ Tags:HIPInitiatedLinking
 * Verify match with NDHM record with firstName "Uncommon" middleName "" lastName ""
 
 ## Should be able to map NDHM Records based on fuzzy logic Known Issues
-* knownIssue
+knownIssue
 * Put first name "Soumya" middleName "" last name "Gupta" gender "F" mobileNumber <mobileNumber> with yearof birth "1991"
 * Verify match with NDHM record with firstName "Sowmya" middleName "SomethingElse" lastName "Guptha"
 * Verify match with NDHM record with only firstName "Sowmya"
 
 ## Should be able to map NDHM Record with name spelling, date of birth and mobile number mismatch
-* To be revisited
+To be revisited
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
 * Create a new patient, if patient does not exist with firstName "Soumya" middleName "Swaroop" lastName "Gupta", gender "F" mobileNumber <mobileNumber> age "30"

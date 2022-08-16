@@ -9,8 +9,8 @@ Tags:prescriptions, diagnostics
 * Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
 * Add this newly created patient as merge patient1
 * Start an OPD Visit
-* Nurse opens clinical tab
-* Nurse enters basic clinical details
+* Doctor opens clinical tab
+* Doctor enters basic clinical details
 * visit is closed at the front desk
 * Goto Clinical application
 * Open "Registration" module
@@ -21,12 +21,12 @@ Tags:prescriptions, diagnostics
 * Goto Clinical application
 * Admit a patient to general ward bed "305-b"
 * Goto Clinical application
-* Nurse opens clinical tab
-* Nurse enters basic clinical details
+* Doctor opens clinical tab
+* Doctor enters basic clinical details
 * Doctor issues an Discharge disposition
 * Goto Clinical application
 * Open "InPatient" module
-* Nurse at ADT gives discharge disposition
+* Doctor at ADT gives discharge disposition
 * visit is closed at the front desk
 * Goto the openMRS Admin tab
 * Merge the newly created patients

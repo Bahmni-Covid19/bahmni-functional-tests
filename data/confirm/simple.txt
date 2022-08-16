@@ -3,7 +3,9 @@
         "id": "<healthID>",
         "name": "<fullName>",
         "gender": "<gender>",
-        "yearOfBirth": "<yearOfBirth>",
+        "yearOfBirth": <yearOfBirth>,
+        "monthOfBirth": <monthOfBirth>,
+        "dayOfBirth": <dayOfBirth>,
         "address": {
             "district": "<district>",
             "state": "<state>"
@@ -14,8 +16,7 @@
                 "value": "<mobileNumber>"
             },
             {
-                "type": "HEALTH_NUMBER",
-                "value": "<healthNumber>"
+                "type": "HEALTH_NUMBER"
             }
         ]
     }

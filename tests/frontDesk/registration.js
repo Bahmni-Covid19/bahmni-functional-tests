@@ -21,7 +21,8 @@ const {
     link,
     below,
     press,
-    scrollTo
+    scrollTo,
+    radioButton
 } = require('taiko');
 var users = require("../../bahmni-e2e-common-flows/tests/util/users");
 var ndhm = require("../util/ndhm");
@@ -30,7 +31,7 @@ var taikoHelper = require("../../bahmni-e2e-common-flows/tests/util/taikoHelper"
 
 var assert = require("assert");
 
-step("To Associate a healthID, vefiy it", async function () {
+step("To Associate a healthID, verify it", async function () {
     await click("Verify ABHA",{waitForNavigation:true,navigationTimeout:process.env.actionTimeout});
 });
 
@@ -45,6 +46,8 @@ step("Enter random healthID details", async function () {
     gauge.dataStore.scenarioStore.put("patientLastName",lastName)
     console.log("LastName" + lastName)
     gauge.message("LastName" + lastName);
+    
+    gauge.dataStore.scenarioStore.put("patientMiddleName","")
 
     var patientHealthID = firstName+lastName+"@sbx";
     gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
@@ -54,8 +57,50 @@ step("Enter random healthID details", async function () {
     await write(patientHealthID);
 });
 
+step("Enter healthID <healthID> for random patient name", async function (healthID) {
+    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
+    var firstName = users.randomName(10)
+    gauge.dataStore.scenarioStore.put("patientFirstName",firstName)
+    console.log("FirstName" + firstName)
+    gauge.message("FirstName" + firstName);
+
+    var lastName = users.randomName(10)
+    gauge.dataStore.scenarioStore.put("patientLastName",lastName)
+    console.log("LastName" + lastName)
+    gauge.message("LastName" + lastName);
+
+    gauge.dataStore.scenarioStore.put("patientMiddleName","")
+
+    var patientHealthID = healthID;
+    gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
+    console.log("healthID" + patientHealthID);
+    gauge.message("healthID" + patientHealthID);
+
+    await write(patientHealthID);
+});
+
+step("Enter random healthID for existing patient details", async function () {
+    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
+    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+    console.log("FirstName" + firstName)
+    gauge.message("FirstName" + firstName);
+
+    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
+    console.log("LastName" + lastName)
+    gauge.message("LastName" + lastName);
+
+    gauge.dataStore.scenarioStore.put("patientMiddleName","")
+    
+    var patientHealthID = firstName+lastName+"@sbx";
+    gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
+    console.log("healthID" + patientHealthID);
+    gauge.message("healthID" + patientHealthID);
+
+    await write(patientHealthID);
+});
+
 step("Enter healthID <healthID>", async function (patientHealthID) {
-    await click(textBox(toRightOf("Enter Health ID")));
+    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
     gauge.dataStore.scenarioStore.put("healthID",patientHealthID)
     console.log("healthID" + patientHealthID);
     gauge.message("healthID" + patientHealthID);
@@ -83,7 +128,7 @@ step("Login as a receptionist with admin credentials location <location>", async
     }
     await write(users.getUserNameFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your username"})));
     await write(users.getPasswordFromEncoding(process.env.receptionist), into(textBox({placeholder:"Enter your password"})));
-    await dropDown("Location").select(location);
+    await dropDown("Location").select(process.env["OPD_location"]);
     await click(button("Login"),{waitForNavigation:true,navigationTimeout:250000});
     await taikoHelper.repeatUntilNotFound(text("BAHMNI EMR LOGIN"))
     await taikoHelper.repeatUntilNotFound($("#overlay"))
@@ -114,7 +159,25 @@ async function (otp, patientMobileNumber) {
     await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
     await ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
 
-    await click(button("Fetch ABDM Data"),{waitForEvents:['networkIdle0']})
+    await click(button("Fetch ABDM Data"))
+});
+
+step("Enter OTP for health care validation <otp> and fetch the existing patient details",
+async function (otp) {
+    await waitFor('Enter OTP')
+    await write(otp, into(textBox(above("Fetch ABDM Data"))));  
+    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
+    var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
+    var healthID = gauge.dataStore.scenarioStore.get("healthID");
+    var yearOfBirth = gauge.dataStore.scenarioStore.get("patientBirthYear");
+    var gender = gauge.dataStore.scenarioStore.get("patientGender");
+    (gender == "Female") ? gender = "F": gender = "M";
+    var patientMobileNumber = "+919876543210";
+    const token = process.env.receptionist
+    await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,patientMobileNumber);
+    // await ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
+
+    await click(button("Fetch ABDM Data"))
 });
 
 step("Update the verified HealthID", async function() {
@@ -147,7 +210,7 @@ step("Select the newly created patient with healthID", async function() {
 step("Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>", 
 async function (firstName, middleName, lastName, age, gender, mobileNumber) {
     await waitFor('Enter OTP')
-    await write("0000", into(textBox(above("Fetch NDHM Data"))));  
+    await write("0000", into(textBox(above("Fetch ABDM Data"))));  
     var healthID = gauge.dataStore.scenarioStore.get("healthID");
     var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
     var _yearOfBirth = date.getDateYearsAgo(age)
@@ -156,7 +219,7 @@ async function (firstName, middleName, lastName, age, gender, mobileNumber) {
     const token = process.env.receptionist
     await ndhm.interceptAuthConfirm(token,healthID,firstName,lastName,yearOfBirth,gender,mobileNumber);
     await ndhm.redirectExistingPatients(token, firstName,lastName,yearOfBirth,gender,mobileNumber);
-    await click(button("Fetch NDHM Data"))
+    await click(button("Fetch ABDM Data"))
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
@@ -178,7 +241,7 @@ async function (firstName, middleName, lastName, gender, age, mobileNumber) {
     var createdLastName = await textBox({placeholder:"Last Name"}).value()
     
     var createdGender = await dropDown("Gender *").value();
-    var createdMobileNumber = await textBox(toRightOf("Primary Contact")).value()
+    // var createdMobileNumber = await textBox(toRightOf("Primary Contact")).value()
     assert.equal(createdFirstName,firstName,"First Name does not match")
 //    assert.equal(createdMiddleName,middleName,"Middle Name does not match")
     assert.equal(createdLastName,lastName,"Last name does not match")
@@ -191,4 +254,13 @@ async function (firstName, middleName, lastName, gender, age, mobileNumber) {
 
 step("Put healthID <healthID>", async function(healthID) {
     gauge.dataStore.scenarioStore.put("healthID",healthID);
+});
+
+step("Click on Confirm Selection", async function() {
+    await click(button("Confirm Selection "));
+});
+
+step("Select the Existing Patient", async function() {
+	var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
+	await click(radioButton(toRightOf(firstName)));
 });

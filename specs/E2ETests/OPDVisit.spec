@@ -8,8 +8,8 @@ Tags: prescriptions, diagnostics
 * Put healthID "automationopdprescription@sbx"
 * Open newly created patient details by healthID
 * Start an OPD Visit
-* Nurse initiates clinical checkup
-* Nurse captures BP, sugar checkup
+* Doctor initiates clinical checkup
+* Doctor captures BP, sugar checkup
 * Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"
 * lab technician uploads patient document and radiology reports
 * visit is closed at the front desk
@@ -26,7 +26,7 @@ Tags: prescriptions, diagnostics
 |Health Info Types|
 |DiagnosticReport|
 * wait for "20000"
-* verify the prescription details recieved
+* Validate the consent Request on HIU for health id "automationopdprescription@sbx"
 * Logout of HIU
 
 ## A doctor should be able to view the approved diagnostics
@@ -39,7 +39,7 @@ Tags: prescriptions, diagnostics
 |Health Info Types|
 |DiagnosticReport|
 * wait for "20000"
-* verify the prescription details recieved
+* Validate the consent Request on HIU for health id "automationopdprescription@sbx"
 * Logout of HIU
 
 ## A doctor should be able to view the approved OPConsultation
@@ -54,7 +54,7 @@ Tags: OPConsultation
 |OPConsultation|
 * wait for "20000"
 * reload the consent request page
-* verify the prescription details recieved
+* Validate the consent Request on HIU for health id "automationopdprescription@sbx"
 
 ## A doctor should not be able to view the reports when patien denies the approval
 * Login to the consent request management system

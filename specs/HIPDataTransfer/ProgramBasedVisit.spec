@@ -7,8 +7,8 @@ Tags: prescriptions, diagnostics
 * Receptionist creates the patient with mobile number <mobileNumber> and starts an Special OPD
 * Doctor enrolls Patient onto "HIV Program" stage "programStage" starting "5" years ago with treatment start "2" years ago, id "1234", dr incharge "doctor" and treatment stage "Initial Stage"
 * Doctor clicks consultation
-* Nurse enters basic clinical details
-* Nurse captures BP, sugar checkup
+* Doctor enters basic clinical details
+* Doctor captures BP, sugar checkup
 * Doctor captures the consultation notes "Consultation Notes" for newly created patient
 * Doctor prescribes medications "opd/prescriptionFlow/prescriptions"
 * lab technician uploads patient document and radiology reports
@@ -19,7 +19,7 @@ Tags: OPConsultation
 * Receptionist creates the patient with mobile number <mobileNumber> and starts an Special OPD
 * Doctor enrolls Patient onto "HIV Program" stage "programStage" starting "5" years ago with treatment start "2" years ago, id "1234", dr incharge "doctor" and treatment stage "Initial Stage"
 * Doctor clicks consultation
-* Nurse enters HIV details
+* Doctor enters HIV details
 * Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"
 * lab technician uploads patient document and radiology reports
 ___

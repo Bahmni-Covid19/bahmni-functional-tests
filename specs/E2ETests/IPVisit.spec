@@ -14,8 +14,8 @@ Tags: prescriptions, diagnostics
 * Goto Clinical application
 * Admit a patient to general ward bed "304-d"
 * Goto Clinical application
-* Nurse opens clinical tab
-* Nurse enters basic clinical details
+* Doctor opens clinical tab
+* Doctor enters basic clinical details
 * Doctor prescribes tests "opd/prescriptionFlow/labTests"
 * Doctor prescribes medications "opd/prescriptionFlow/prescriptions"
 * Doctor issues an Discharge disposition
@@ -30,7 +30,7 @@ Tags: prescriptions, diagnostics
 * Add a report "labReport1" to "Patient Documents"
 * Goto Clinical application
 * Open "InPatient" module
-* Nurse at ADT gives discharge disposition
+* Doctor at ADT gives discharge disposition
 * visit is closed at the front desk
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
 * Login to the consent request management system

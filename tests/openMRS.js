@@ -3,6 +3,7 @@ var assert = require("assert");
 var fileExtension = require("../bahmni-e2e-common-flows/tests/util/fileExtension")
 var requestResponse = require("../bahmni-e2e-common-flows/tests/util/requestResponse");
 const date = require("../bahmni-e2e-common-flows/tests/util/date")
+const ndhm = require("./util/ndhm")
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
@@ -224,4 +225,9 @@ step("Verify OP Consultation notes", async function() {
         assert.ok(opConsult.careContext.careContextReference=="OPD")
         assert.ok(opConsult.bundle!=null)
     }
+});
+
+step("Delete <abhaAddress> in Bahmni", async function(abhaAddress) {
+    var response = await ndhm.deleteAbhaAddress(abhaAddress);
+	assert.equal(response.status,202)
 });

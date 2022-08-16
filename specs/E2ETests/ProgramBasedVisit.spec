@@ -10,8 +10,8 @@ Tags: prescriptions, diagnostics
 * Start an Special OPD Visit
 * Doctor opens Patient "HIV Program" dashboard
 * Doctor clicks consultation
-* Nurse enters basic clinical details
-* Nurse captures BP, sugar checkup
+* Doctor enters basic clinical details
+* Doctor captures BP, sugar checkup
 * Doctor captures the consultation notes "Consultation Notes" for newly created patient
 * Doctor prescribes medications "opd/prescriptionFlow/prescriptions"
 * Login to Open ELIS

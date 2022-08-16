@@ -4,5 +4,17 @@
 * Enter consent from date
 * Enter consent to date
 * Enter health info types <healthInfoTypes>
-* Enter consent expiry
+Enter consent expiry
 * Raise the consent request
+* reload the consent request page
+
+# Validate the consent Request on HIU for health id <healthID>
+* Open the consent request for <healthID>
+* Verify Patient data is fetched.
+* Validate Chief Complaint and notes in HIU
+* Validate Diagnosis in HIU
+* Validate Condition in HIU
+* Validate Consultation Notes in HIU
+* Validate Lab Orders in HIU
+* Validate Medications in HIU
+* Validate Patient Documents in HIU

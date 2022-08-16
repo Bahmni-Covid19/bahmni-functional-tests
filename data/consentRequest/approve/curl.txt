@@ -1,37 +1,31 @@
-curl --location --request POST 'https://dev.ndhm.gov.in/cm/consent-requests/<request_id>/approve' \
---header 'X-Auth-Token:  <X-Auth-Token>' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "consents": [
+{
+  "consents": [
+    {
+      "careContexts": [
         {
-            "careContexts": [
-                {
-                    "careContextReference": "<careContextReference>",
-                    "patientReference": "<patientReference>"
-                }
-            ],
-            "purpose": {
-                "code": "CAREMGT"
-            },
-            "hiTypes": [
-                <hiTypes>
-            ],
-            "hip": {
-                "id": "<hip_id>"
-            },
-            "permission": {
-                "accessMode": "VIEW",
-                "dataEraseAt": "2031-10-30T12:30:00.352",
-                "dateRange": {
-                    "from": "1992-04-03T10:05:26.352",
-                    "to": "2031-07-30T10:05:26.352"
-                },
-                "frequency": {
-                    "value": 1,
-                    "unit": "HOUR",
-                    "repeats": 0
-                }
-            }
+          "careContextReference": "<careContextReference>",
+          "patientReference": "<patientReference>"
         }
-    ]
-}'
+      ],
+      "hiTypes": [
+        <hiTypes>
+      ],
+      "hip": {
+        "id": "<hip_id>"
+      },
+      "permission": {
+        "accessMode": "VIEW",
+        "dataEraseAt": "2031-10-30T12:30:00.352",
+        "dateRange": {
+          "from": "1992-04-03T10:05:26.352",
+          "to": "2031-07-30T10:05:26.352"
+        },
+        "frequency": {
+          "value": 1,
+          "unit": "HOUR",
+          "repeats": 0
+        }
+      }
+    }
+  ]
+}
