@@ -4,11 +4,11 @@ tags: clinic, abdm
 
    |mobileNumber  |
    |--------------|
-   |+91-9876543210|
+   |+919876543210|
 
 ## User should be able to register patient with ABHA address, log clinical details, create consent request, approve consent request and view details in HIU.
 
-tags: clinic, abdm, hiu, phr
+tags: clinic, abdm, hiu, phr, regression
 
 * Delete "automationtest@sbx" in Bahmni
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
@@ -17,9 +17,9 @@ tags: clinic, abdm, hiu, phr
 * Start a "OPD" Visit
 * Logout and Login to Bahmni location "Bahmni Clinic" as a "doctor"
 * Doctor initiates clinical checkup with healthID
-* Doctor notes the diagnosis
+* Doctor notes the diagnosis and condition "consultation/diagnosis/diagnosis_condition"
 * Doctor captures the consultation notes "Consultation Notes" for newly created patient
-* Doctor advises medicines "opd/prescriptionFlow/medication/paracetamol" and tests "opd/prescriptionFlow/lab/Haemogram"
+* Doctor advises medicines "consultation/medications/paracetamol" and tests "consultation/orders/Haemogram"
 * Click back button
 * Click back button
 * Open "Lab entry" module

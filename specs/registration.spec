@@ -4,7 +4,7 @@ tags: clinic, abdm
 
    |mobileNumber  |
    |--------------|
-   |+91-9876543210|
+   |+919876543210|
 
 ## Should be able to register a new patient with ABHA address and proceed with logging clinical details
 
@@ -26,7 +26,7 @@ tags: clinic, abdm, registration
 
 ## Should be able to map the existing patient with ABHA address and proceed with logging clinical details
 
-tags: clinic, abdm, registration
+tags: clinic, abdm, registration, regression
 
 * Login to Bahmni location "Bahmni Clinic" as a receptionist
 * Receptionist creates the patient with mobile number <mobileNumber> without village

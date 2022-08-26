@@ -16,5 +16,8 @@
     "json2csv": "latest",
     "pdf-parse": "latest",
     "uuid": "latest"
+  },
+  "devDependencies": {
+    "taiko-video": "^0.2.1"
   }
 }

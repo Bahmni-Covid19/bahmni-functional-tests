@@ -11,9 +11,9 @@
 
 # Doctor enters basic clinical details
 * Click History and Examination
-* Enter History and examination details
+* Enter History and examination details "consultation/observations/historyAndExaminationDetails"
 * Save consultation data
-* Enter vitals
+* Enter vitals "consultation/observations/Vitals"
 
 # Doctor initiates clinical checkup with healthID
 * Doctor opens clinical tab with healthID
