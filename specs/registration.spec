@@ -8,7 +8,7 @@ tags: clinic, abdm
 
 ## Should be able to register a new patient with ABHA address and proceed with logging clinical details
 
-tags: clinic, abdm, registration
+tags: clinic, abdm, registration, regression
 
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * Open "Registration" module
