@@ -1,8 +1,8 @@
 name: ABDM E2E Tests
 on:
   push:
-    # branches:
-    #   - master
+    branches:
+      - master
   schedule:
     - cron: "0 5 * * *" # Schedule fpr QA.lite Env Runs at 10.30AM IST - 5.00AM UTC
   workflow_dispatch:
