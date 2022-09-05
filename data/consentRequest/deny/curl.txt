@@ -1,6 +1,0 @@
-curl --location --request POST 'https://dev.ndhm.gov.in/cm/consent-requests/<request_id>/deny' \
---header 'X-Auth-Token:  <X-Auth-Token>' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "reason": "some reason"
-}'
