@@ -12,3 +12,5 @@ reports
 node_modules
 
 *.pyc
+.idea
+bahmni-e2e-common-flows
