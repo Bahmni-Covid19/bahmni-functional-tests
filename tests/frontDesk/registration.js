@@ -260,6 +260,6 @@ step("Click on Confirm Selection", async function () {
 });
 step("Select the Existing Patient", async function () {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
-    await scrollTo(radioButton(toRightOf(firstName)));
-    await click(radioButton(toRightOf(firstName)));
+    await scrollTo($("//BUTTON//STRONG[contains(text(),'" + firstName + "')]"));
+    await click($("//BUTTON//STRONG[contains(text(),'" + firstName + "')]"));
 });
