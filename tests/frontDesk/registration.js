@@ -22,7 +22,8 @@ const {
     below,
     press,
     scrollTo,
-    radioButton
+    radioButton,
+    evaluate
 } = require('taiko');
 var users = require("../../bahmni-e2e-common-flows/tests/util/users");
 var ndhm = require("../util/ndhm");
@@ -157,7 +158,6 @@ step("Enter OTP for health care validation <otp> for with new healthID, patient 
         const token = process.env.receptionist
         await ndhm.interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
         await ndhm.interceptExistingPatientsWithParams(token, firstName, lastName, yearOfBirth, gender);
-
         await click(button("Fetch ABDM Data"))
     });
 
@@ -262,4 +262,15 @@ step("Select the Existing Patient", async function () {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
     await scrollTo($("//BUTTON//STRONG[contains(text(),'" + firstName + "')]"));
     await click($("//BUTTON//STRONG[contains(text(),'" + firstName + "')]"));
+});
+
+step("Create new record", async function () {
+    await waitFor(button("Create New Record"))
+    await evaluate($(`//button[contains(text(),'Create New Record')]`), (el) => el.click())
+});
+
+
+step("Should not allow to associate HeatlhID if already linked1", async function () {
+    await click(text("Verify", within($(".verify-health-id"))));
+    await text("Matching record with Health ID found").exists();
 });
