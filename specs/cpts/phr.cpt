@@ -1,13 +1,13 @@
-# approve the consent request of <username> and password <password> <hitypes>
+# approve the consent request <hitypes>
 * Fetch the latest request
 * Get the temporary token
-* Approve the consent request <hitypes>
+* Approve the consent request for Health info types <hitypes>
 
-# deny the consent request of <username> and password <password>
+# deny the consent request
 * Fetch the latest request
 * Get the temporary token for deny
 * Deny the consent request
 
-# revoke the consent request of <username> and password <password> <hitypes>
+# revoke the consent request <hitypes>
 * Get the temporary token for revoke
 * Revoke the consent request <hitypes>

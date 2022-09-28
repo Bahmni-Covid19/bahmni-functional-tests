@@ -64,7 +64,7 @@ step("Deny the consent request", async function () {
 });
 
 
-step("Approve the consent request <healthInfoTypes>", async function (healthInfoTypes) {
+step("Approve the consent request for Health info types <healthInfoTypes>", async function (healthInfoTypes) {
 	var hiTypes = ""
 	for (healthInfoType of healthInfoTypes.rows) {
 		if (hiTypes != "")

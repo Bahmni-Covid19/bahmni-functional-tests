@@ -2,18 +2,18 @@
 
 tags: clinic, abdm
 
-   |mobileNumber  |
-   |--------------|
+   |mobileNumber |
+   |-------------|
    |+919876543210|
 
 ## User should be able to register patient with ABHA address, log clinical details, create consent request, approve consent request and view details in HIU.
 
 tags: clinic, abdm, hiu, phr, regression
 
-* Delete "automationtest@sbx" in Bahmni
+* Delete ABHA Address in Bahmni
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * Open "Registration" module
-* Create a new patient with random name and health ID "automationtest@sbx" mobileNumber <mobileNumber>
+* Create a new patient with random name, health ID and mobileNumber <mobileNumber>
 * Start a "OPD" Visit
 * Logout and Login to Bahmni location "Bahmni Clinic" as a "doctor"
 * Doctor initiates clinical checkup with healthID
@@ -30,7 +30,7 @@ tags: clinic, abdm, hiu, phr, regression
 * visit is closed at the front desk
 * Click back button
 * Login to the consent request management system
-* Create a consent request for the healthID "automationtest"
+* Create a consent request for the healthID
 
    |Health Info Types     |
    |----------------------|
@@ -44,7 +44,7 @@ tags: clinic, abdm, hiu, phr, regression
 
 * Login to PHR app
 * Link the care context with user
-* approve the consent request of "automationtest@sbx" and password "automationtest"
+* approve the consent request
 
    |Health Info Types   |
    |--------------------|
@@ -56,6 +56,6 @@ tags: clinic, abdm, hiu, phr, regression
    |HealthDocumentRecord|
    |WellnessRecord      |
 * wait for "5000"
-* Validate the consent Request on HIU for health id "automationtest@sbx"
+* Validate the consent Request on HIU for health id
 * Logout of HIU
-* Delete "automationtest@sbx" in Bahmni
+* Delete ABHA Address in Bahmni

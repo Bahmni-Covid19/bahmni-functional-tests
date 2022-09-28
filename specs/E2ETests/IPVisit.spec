@@ -1,14 +1,15 @@
 # IPD Visits E2E Tests
-|mobileNumber|
-|9845348122|
+   |mobileNumber |
+   |-------------|
+   |+919876543210|
 ## Should be able to get patient lab reports
-Tags: prescriptions, diagnostics
+
+tags: prescriptions, diagnostics
+
+* Delete ABHA Address in Bahmni
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
-* Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber <mobileNumber> with yearof birth "2001"
-* Put "GAN205238" as patient identifier
-* Put healthID "automationopdprescription@sbx"
-* Open newly created patient details by healthID
+* Create a new patient with random name, health ID and mobileNumber <mobileNumber>
 * Start an IPD Visit
 * Doctor issues an Admit disposition
 * Goto Clinical application
@@ -34,14 +35,18 @@ Tags: prescriptions, diagnostics
 * visit is closed at the front desk
 * Verify openmrs IPD patient details with mobileNumber <mobileNumber>
 * Login to the consent request management system
-* Create a consent request for the healthID "automationopdprescription"
-|Health Info Types|
-|Prescription|
-|Discharge Summary|
+* Create a consent request for the healthID
+
+   |Health Info Types|
+   |-----------------|
+   |Prescription     |
+   |Discharge Summary|
 * Login to PHR app
-* approve the consent request of "automationopdprescription@sbx" and password "P@ssw0rd"
-|Health Info Types|
-|Prescription|
-|Discharge Summary|
+* approve the consent request
+
+   |Health Info Types|
+   |-----------------|
+   |Prescription     |
+   |Discharge Summary|
 * wait for "20000"
 

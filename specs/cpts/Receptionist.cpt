@@ -14,10 +14,10 @@
 Enter village "Village"
 * Save the patient data
 
-# Create a new patient with random name and health ID <healthID> mobileNumber <mobileNumber>
+# Create a new patient with random name, health ID and mobileNumber <mobileNumber>
 * Click create new patient
 * To Associate a healthID, verify it
-* Enter healthID <healthID> for random patient name
+* Enter healthID for random patient name
 * Verify if healthId entered already exists
 * Select Mobile OTP
 * Authenticate with Mobile

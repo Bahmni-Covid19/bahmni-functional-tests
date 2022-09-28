@@ -58,7 +58,7 @@ step("Enter random healthID details", async function () {
     await write(patientHealthID);
 });
 
-step("Enter healthID <healthID> for random patient name", async function (healthID) {
+step("Enter healthID for random patient name", async function () {
     await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
     var firstName = users.randomName(10)
     gauge.dataStore.scenarioStore.put("patientFirstName", firstName)
@@ -72,7 +72,7 @@ step("Enter healthID <healthID> for random patient name", async function (health
 
     gauge.dataStore.scenarioStore.put("patientMiddleName", "")
 
-    var patientHealthID = healthID;
+    var patientHealthID = users.getUserNameFromEncoding(process.env.PHR_user);
     gauge.dataStore.scenarioStore.put("healthID", patientHealthID)
     console.log("healthID" + patientHealthID);
     gauge.message("healthID" + patientHealthID);

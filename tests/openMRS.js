@@ -4,6 +4,7 @@ var fileExtension = require("../bahmni-e2e-common-flows/tests/util/fileExtension
 var requestResponse = require("../bahmni-e2e-common-flows/tests/util/requestResponse");
 const date = require("../bahmni-e2e-common-flows/tests/util/date")
 const ndhm = require("./util/ndhm")
+var users = require("../bahmni-e2e-common-flows/tests/util/users");
 
 step("Verify openmrs OPD patient details with mobileNumber <mobileNumber>", async function (mobileNumber) {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
@@ -227,7 +228,8 @@ step("Verify OP Consultation notes", async function() {
     }
 });
 
-step("Delete <abhaAddress> in Bahmni", async function(abhaAddress) {
-    var response = await ndhm.deleteAbhaAddress(abhaAddress);
+step("Delete ABHA Address in Bahmni", async function() {
+    gauge.dataStore.scenarioStore.put("healthID",users.getUserNameFromEncoding(process.env.PHR_user))
+    var response = await ndhm.deleteAbhaAddress(gauge.dataStore.scenarioStore.get("healthID"));
 	assert.equal(response.status,202)
 });

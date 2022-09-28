@@ -16,7 +16,8 @@ const {
 	waitFor,
 	reload,
 	below,
-	highlight
+	highlight,
+	link
 } = require('taiko');
 
 var date = require("../bahmni-e2e-common-flows/tests/util/date");
@@ -34,21 +35,9 @@ step("Click new consent request", async function () {
 	await click("NEW CONSENT REQUEST", { waitForNavigation: true })
 });
 
-step("Find the patient <healthID> for initiating the consent request", async function (healthID) {
+step("Find the patient for initiating the consent request", async function () {
+	healthID = gauge.dataStore.scenarioStore.get("healthID").split("@")[0]
 	await write(healthID, into(textBox(toRightOf("Patient Identifier"))))
-	// patientResponse = {"patient":{"id":healthID+"@sbx","name":"cancer patient"}}
-
-	// await intercept(process.env.bahmniHost+ "/hiu-api/v1/patients/"+healthID+"@sbx", (request) => {
-	//     request.respond({
-	//         method: 'GET',
-	//         hostname: process.env.bahmniHost,
-	//         body: patientResponse,
-	//         headers: {
-	//             'Content-Type': 'application/json',
-	//             'content-length': patientResponse.length,
-	//         }
-	//     })
-	// })
 
 	await press("Enter", { waitForNavigation: true })
 });
@@ -88,21 +77,22 @@ step("Raise the consent request", async function () {
 });
 
 step("Logout of HIU", async function () {
-	await click(button("LOGOUT"))
+	await click(button("LOGOUT"), { waitForNavigation: true })
 });
 
 step("reload the consent request page", async function () {
 	await reload({ waitForNavigation: true })
 });
 
-step("Open the consent request for <abhaAddress>", async function (abhaAddress) {
+step("Open the consent request for ABHA address", async function () {
 	var maxRetry = 6
+	var ABHAID = gauge.dataStore.scenarioStore.get("healthID");
 	while (maxRetry > 0) {
 		await reload({ waitForNavigation: true });
-		await waitFor(async () => (await text(abhaAddress).exists()))
+		await waitFor(async () => (await text(ABHAID).exists()))
 		try {
-			await $("//*[text()='Consent granted on']/ancestor::TABLE//TR[1]/TD[text()='Consent Granted']").exists();
-			await click($("//*[text()='Consent granted on']/ancestor::TABLE//TR[1]/TD/A"), { waitForNavigation: true })
+			await $("(//*[text()='Consent granted on']/ancestor::TABLE//TR//TD[text()='" + ABHAID + "'])[1]/../TD[3][text()='Consent Granted']").exists();
+			await click($("(//*[text()='Consent granted on']/ancestor::TABLE//TR//TD[text()='" + ABHAID + "'])[1]/..//A"), { waitForNavigation: true })
 			maxRetry = 0
 		} catch (e) {
 			maxRetry = maxRetry - 1;
@@ -127,25 +117,63 @@ step("Verify Patient data is fetched.", async function () {
 	}
 });
 
-step("Validate Chief Complaint and notes in HIU", async function () {
-	//To be added later
+step("Validate History & Examination in HIU", async function () {
+	var historyAndExaminationDetails = gauge.dataStore.scenarioStore.get("historyAndExaminationDetails")
+	for (var chiefComplaint of historyAndExaminationDetails.Chief_Complaints) {
+		assert.ok(text(chiefComplaint.Chief_Complaint, toRightOf("Chief Complaint")).exists())
+		assert.ok(text(chiefComplaint.Sign_symptom_duration, toRightOf("Sign/symptom duration")).exists())
+		assert.ok(text(chiefComplaint.Units, toRightOf("Chief Complaint Duration")).exists())
+	}
+	assert.ok(text("Image", below("Observation")).exists())
 });
-step("Validate Diagnosis in HIU", async function () {
-	assert.ok(await text("Cardiac arrest", below("Condition")).exists())
-});
-step("Validate Condition in HIU", async function () {
-	assert.ok(await text("Diabetes II, uncomplicated", below("Condition", toLeftOf("active"))).exists())
+
+async function validateVitalsFromFile(configurations) {
+	try {
+		for (var configuration of configurations) {
+			switch (configuration.type) {
+				case 'Group':
+					await validateVitalsFromFile(configuration.value)
+					break;
+				default:
+					assert.ok(text(configuration.value, toRightOf(configuration.label)).exists())
+			}
+		}
+	}
+	catch (e) {
+		console.log(e.message)
+	}
+}
+
+step("Validate Vitals in HIU", async function () {
+	var vitalFormValues = gauge.dataStore.scenarioStore.get("vitalFormValues")
+	validateVitalsFromFile(vitalFormValues.ObservationFormDetails);
 
 });
+
+step("Validate Diagnosis in HIU", async function () {
+	var medicalDiagnosis = gauge.dataStore.scenarioStore.get("medicalDiagnosis")
+	assert.ok(await text(medicalDiagnosis.diagnosis.diagnosisName, below("Condition")).exists())
+});
+step("Validate Condition in HIU", async function () {
+	var medicalDiagnosis = gauge.dataStore.scenarioStore.get("medicalDiagnosis")
+	for (var i = 0; i < medicalDiagnosis.condition.length; i++) {
+		if (medicalDiagnosis.condition[i].status === "Active") {
+			assert.ok(await text(medicalDiagnosis.condition[i].conditionName, below("Condition", toLeftOf("active"))).exists())
+		}
+	}
+});
 step("Validate Consultation Notes in HIU", async function () {
-	await highlight(text(gauge.dataStore.scenarioStore.get("consultationNotes"), below("Value"),toRightOf(text("Consultation Note", below("Observation")))))
-	assert.ok(await text(gauge.dataStore.scenarioStore.get("consultationNotes"), below("Value"),toRightOf(text("Consultation Note", below("Observation")))).exists());
+	await highlight(text(gauge.dataStore.scenarioStore.get("consultationNotes"), below("Value"), toRightOf(text("Consultation Note", below("Observation")))))
+	assert.ok(await text(gauge.dataStore.scenarioStore.get("consultationNotes"), below("Value"), toRightOf(text("Consultation Note", below("Observation")))).exists());
 });
 step("Validate Lab Orders in HIU", async function () {
-	//To be added later
+	var labTest = gauge.dataStore.scenarioStore.get("LabTest")
+	var labReportFile = gauge.dataStore.scenarioStore.get("labReportFile")
+	assert.ok(await link(`LAB REPORT : ${labTest}`, below(`DIAGNOSTIC REPORT : ${labTest}`)).exists())
 });
 step("Validate Medications in HIU", async function () {
-	//To be added later
+	var medicalPrescriptions = JSON.parse(fileExtension.parseContent(gauge.dataStore.scenarioStore.get("prescriptions")))
+	assert.ok(await text(medicalPrescriptions.drug_name, below("Medication"), toLeftOf(medicalPrescriptions.frequency)).exists())
 });
 step("Validate Patient Documents in HIU", async function () {
 	//To be added later

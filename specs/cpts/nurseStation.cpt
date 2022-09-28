@@ -10,14 +10,13 @@
 * Enter Observation Form "HIVTreatmentAndCareIntake"
 
 # Doctor enters basic clinical details
-* Click History and Examination
 * Enter History and examination details "consultation/observations/historyAndExaminationDetails"
 * Save consultation data
 * Enter vitals "consultation/observations/Vitals"
 
 # Doctor initiates clinical checkup with healthID
 * Doctor opens clinical tab with healthID
-Doctor enters basic clinical details
+* Doctor enters basic clinical details
 
 # Admit a patient to general ward bed <wardNumber>
 * Open "Bed Management" module

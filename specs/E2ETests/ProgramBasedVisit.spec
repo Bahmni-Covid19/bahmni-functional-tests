@@ -1,12 +1,11 @@
 # Program Based Visit E2E Tests
 ## Should be able to enter program level details for a patient
-Tags: prescriptions, diagnostics
+
+tags: prescriptions, diagnostics
+
 * Login to Bahmni location "OPD-1" as a receptionist
-* Put first name "Automation" middleName "OPD" last name "prescription" gender "M" mobileNumber "9845348122" with yearof birth "2001"
-* Put "GAN205238" as patient identifier
-* Put healthID "automationopdprescription@sbx"
 * Open "Registration" module
-* Open newly created patient details by healthID
+* Create a new patient with random name, health ID and mobileNumber "+919876543210"
 * Start an Special OPD Visit
 * Doctor opens Patient "HIV Program" dashboard
 * Doctor clicks consultation
@@ -22,15 +21,19 @@ Tags: prescriptions, diagnostics
 * Goto Clinical application
 * visit is closed at the front desk
 * Login to the consent request management system
-* Create a consent request for the healthID "automationopdprescription"
-|Health Info Types|
-|Prescription|
-|Diagnostic Reports|
+* Create a consent request for the healthID
+
+   |Health Info Types |
+   |------------------|
+   |Prescription      |
+   |Diagnostic Reports|
 * Login to PHR app
-* approve the consent request of "automationopdprescription@sbx" and password "P@ssw0rd"
-|Health Info Types|
-|Prescription|
-|Discharge Summary|
+* approve the consent request
+
+   |Health Info Types|
+   |-----------------|
+   |Prescription     |
+   |Discharge Summary|
 
 
 

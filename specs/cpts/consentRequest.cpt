@@ -1,6 +1,6 @@
-# Create a consent request for the healthID <healthID> <healthInfoTypes>
+# Create a consent request for the healthID <healthInfoTypes>
 * Click new consent request
-* Find the patient <healthID> for initiating the consent request
+* Find the patient for initiating the consent request
 * Enter consent from date
 * Enter consent to date
 * Enter health info types <healthInfoTypes>
@@ -8,10 +8,11 @@ Enter consent expiry
 * Raise the consent request
 * reload the consent request page
 
-# Validate the consent Request on HIU for health id <healthID>
-* Open the consent request for <healthID>
+# Validate the consent Request on HIU for health id
+* Open the consent request for ABHA address
 * Verify Patient data is fetched.
-* Validate Chief Complaint and notes in HIU
+* Validate History & Examination in HIU
+* Validate Vitals in HIU
 * Validate Diagnosis in HIU
 * Validate Condition in HIU
 * Validate Consultation Notes in HIU
