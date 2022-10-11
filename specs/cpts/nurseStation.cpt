@@ -10,6 +10,7 @@
 * Enter Observation Form "HIVTreatmentAndCareIntake"
 
 # Doctor enters basic clinical details
+* Click History and Examination
 * Enter History and examination details "consultation/observations/historyAndExaminationDetails"
 * Save consultation data
 * Enter vitals "consultation/observations/Vitals"
