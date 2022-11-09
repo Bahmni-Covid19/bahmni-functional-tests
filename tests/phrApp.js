@@ -77,6 +77,7 @@ step("Approve the consent request for Health info types <healthInfoTypes>", asyn
 		.replace('<hip_id>', process.env.hipID)
 		.replace('<hiTypes>', hiTypes);
 	var maxRetry = 2
+	var flagError = false;
 	await waitFor(3000);
 	while (maxRetry > 0) {
 		try {
@@ -93,13 +94,17 @@ step("Approve the consent request for Health info types <healthInfoTypes>", asyn
 			gauge.dataStore.scenarioStore.put("ApprovalArtifacts", approveResponse.data.consents)
 			assert.equal(approveResponse.data.consents[0].status, "GRANTED", "Consent Request is not granted in PHR")
 			maxRetry = 0;
+			flagError = false;
 		}
 		catch (e) {
-			console.log(e.message)
+			flagError = true;
 			maxRetry = maxRetry - 1;
 			console.log(e.message + " Waiting for 5 seconds and try approving the consent. Remaining attempts " + maxRetry)
 			await waitFor(5000);
 		}
+	}
+	if (flagError) {
+		assert.fail("Consent request is not approved.")
 	}
 });
 
@@ -207,6 +212,7 @@ step("Get the temporary token for deny", async function () {
 
 step("Link the care context with user", async function () {
 	var maxRetry = 2;
+	var flagError = false;
 	while (maxRetry > 0) {
 		try {
 			var discoverResponse = await axios({
@@ -259,6 +265,7 @@ step("Link the care context with user", async function () {
 					'X-AUTH-TOKEN': gauge.dataStore.scenarioStore.get('X-AUTH-TOKEN')
 				}
 			});
+
 			var patientLinks = await axios.get(process.env.consentManagement + "/patients/links", {
 				headers: {
 					'accept': `application/json`,
@@ -267,12 +274,73 @@ step("Link the care context with user", async function () {
 				}
 			});
 			assert.ok(JSON.stringify(patientLinks.data).includes(linkConfirm.data.patient.careContexts[0].referenceNumber), "Care context is not linked successfuly")
-			maxRetry = 0;
+			var maxRetry = 0;
+			flagError = false;
 		}
 		catch (e) {
+			flagError = true;
 			console.log(e.message + " Waiting for 5 seconds and try Linking the Care Context. Remaining attempts " + maxRetry)
 			maxRetry = maxRetry - 1
 			await waitFor(5000);
 		}
 	}
+	if (flagError) {
+		assert.fail("Care context is not linked successfuly.")
+	}
 });
+
+step("Patients scans the facility QR and receives the token number", async function () {
+	var profileShare = await axios({
+		url: process.env.consentManagement + process.env.profileShare,
+		method: 'post',
+		data: {
+			"requestId": uuid.v4(),
+			"hipDetails": {
+				"hipId": process.env.hipID,
+				"code": "12345"
+			}
+		},
+		headers: {
+			'accept': `application/json`,
+			'Content-Type': `application/json`,
+			'X-AUTH-TOKEN': gauge.dataStore.scenarioStore.get('X-AUTH-TOKEN')
+		}
+	});
+	var patientTokenNumber = profileShare.data.tokenNumber
+	// assert.ok(typeof profileShare.data.tokenNumber === 'number', "Token Number is not generated successfully.")
+	gauge.dataStore.scenarioStore.put("patientTokenNumber", patientTokenNumber)
+});
+
+step("getvalues from drug concepts", async function () {
+	var drugsUri = "https://dev.lite.mybahmni.in/openmrs/ws/rest/v1/drug";
+	var flag = true;
+	while (flag) {
+		allDrugs = await axios.get(drugsUri, {
+			headers: {
+				'accept': `application/json`,
+				'Authorization': 'Basic c3VwZXJtYW46QWRtaW4xMjM=',
+			}
+		});
+		if(allDrugs.data.links[0].rel == "next")
+		{
+			drugsUri = allDrugs.data.links[0].uri
+		}
+		else{
+			flag = false;
+		}
+		for (var drug of allDrugs.data.results) {
+			drugDetails = await axios.get(drug.links[0].uri, {
+				headers: {
+					'accept': `application/json`,
+					'Authorization': 'Basic c3VwZXJtYW46QWRtaW4xMjM=',
+				}
+			});
+			if (drugDetails.data.dosageForm === null) {
+				console.log(`${drugDetails.data.name} | ${drugDetails.data.dosageForm} | ${drugDetails.data.strength}`)
+			} else {
+				console.log(`${drugDetails.data.name} | ${drugDetails.data.dosageForm.display} | ${drugDetails.data.strength}`)
+			}
+		};
+	}
+});
+

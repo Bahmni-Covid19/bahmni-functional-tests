@@ -24,6 +24,8 @@ var date = require("../bahmni-e2e-common-flows/tests/util/date");
 var users = require("../bahmni-e2e-common-flows/tests/util/users")
 var assert = require("assert");
 const console = require('console');
+var fileExtension = require("../bahmni-e2e-common-flows/tests/util/fileExtension");
+
 step("Login to the consent request management system", async function () {
 	await goto(process.env.bahmniHost + process.env.hiuURL, { waitForNavigation: true });
 	await write(users.getUserNameFromEncoding(process.env.hiuUser))
@@ -86,6 +88,7 @@ step("reload the consent request page", async function () {
 
 step("Open the consent request for ABHA address", async function () {
 	var maxRetry = 6
+	var flagError =false;
 	var ABHAID = gauge.dataStore.scenarioStore.get("healthID");
 	while (maxRetry > 0) {
 		await reload({ waitForNavigation: true });
@@ -94,11 +97,16 @@ step("Open the consent request for ABHA address", async function () {
 			await $("(//*[text()='Consent granted on']/ancestor::TABLE//TR//TD[text()='" + ABHAID + "'])[1]/../TD[3][text()='Consent Granted']").exists();
 			await click($("(//*[text()='Consent granted on']/ancestor::TABLE//TR//TD[text()='" + ABHAID + "'])[1]/..//A"), { waitForNavigation: true })
 			maxRetry = 0
+			flagError =false;
 		} catch (e) {
+			flagError =true;
 			maxRetry = maxRetry - 1;
 			console.log(e.message + " Waiting for 5 seconds and reload the Consent Request Lists page. Remaining attempts " + maxRetry)
 			await waitFor(5000)
 		}
+	}
+	if(flagError){
+		assert.fail("Consent aoproved in PHR is not displayed in HIU.")
 	}
 });
 
@@ -115,16 +123,18 @@ step("Verify Patient data is fetched.", async function () {
 			await waitFor(4000)
 		}
 	}
+	assert.ok(await text("Encounter").exists(), "Patient data is not fetched")
 });
 
 step("Validate History & Examination in HIU", async function () {
 	var historyAndExaminationDetails = gauge.dataStore.scenarioStore.get("historyAndExaminationDetails")
 	for (var chiefComplaint of historyAndExaminationDetails.Chief_Complaints) {
-		assert.ok(text(chiefComplaint.Chief_Complaint, toRightOf("Chief Complaint")).exists())
-		assert.ok(text(chiefComplaint.Sign_symptom_duration, toRightOf("Sign/symptom duration")).exists())
-		assert.ok(text(chiefComplaint.Units, toRightOf("Chief Complaint Duration")).exists())
+		assert.ok(await text(chiefComplaint.Chief_Complaint, toRightOf("Chief Complaint")).exists())
+		assert.ok(await text(chiefComplaint.Sign_symptom_duration, toRightOf("Sign/symptom duration")).exists())
+		assert.ok(await text(chiefComplaint.Units, toRightOf("Chief Complaint Duration")).exists())
 	}
-	assert.ok(text("Image", below("Observation")).exists())
+	assert.ok(await link("Consultation: Image", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
+	assert.ok(await link("Consultation: Patient Video", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
 });
 
 async function validateVitalsFromFile(configurations) {
@@ -135,7 +145,7 @@ async function validateVitalsFromFile(configurations) {
 					await validateVitalsFromFile(configuration.value)
 					break;
 				default:
-					assert.ok(text(configuration.value, toRightOf(configuration.label)).exists())
+					assert.ok(await text(configuration.value, toRightOf(configuration.label)).exists())
 			}
 		}
 	}
@@ -176,5 +186,5 @@ step("Validate Medications in HIU", async function () {
 	assert.ok(await text(medicalPrescriptions.drug_name, below("Medication"), toLeftOf(medicalPrescriptions.frequency)).exists())
 });
 step("Validate Patient Documents in HIU", async function () {
-	//To be added later
+	assert.ok(await link("Patient Document: Prescription", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
 });

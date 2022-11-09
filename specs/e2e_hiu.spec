@@ -26,6 +26,11 @@ tags: clinic, abdm, hiu, phr, regression
 * Open a patient in lablite
 * Upload and verify report in lablite
 * Click Home button on lab-lite
+* Open "Patient Documents" module
+* Choose newly created patient
+* Add a report "labReport1" to "Patient Documents"
+* Save the report
+* Click back button
 * Logout and Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * visit is closed at the front desk
 * Click back button

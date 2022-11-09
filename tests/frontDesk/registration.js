@@ -274,3 +274,19 @@ step("Should not allow to associate HeatlhID if already linked1", async function
     await click(text("Verify", within($(".verify-health-id"))));
     await text("Matching record with Health ID found").exists();
 });
+
+step("Click patient queue button", async function() {
+	await click("Patient Queue", { waitForNavigation: true, navigationTimeout: process.env.actionTimeout });
+});
+
+step("Verify the token number and patient details are displayed", async function() {
+	var tokenNumber = gauge.dataStore.scenarioStore.get("patientTokenNumber")
+    var abhaID = users.getUserNameFromEncoding(process.env.PHR_user)
+    assert.ok(await text("ABHA Address: "+abhaID,toRightOf(tokenNumber)).exists())
+});
+
+step("Click Register button", async function() {
+    var tokenNumber = gauge.dataStore.scenarioStore.get("patientTokenNumber")
+    var abhaID = users.getUserNameFromEncoding(process.env.PHR_user)
+	await click(button("Register"),toRightOf(text("ABHA Address: "+abhaID,toRightOf(tokenNumber))));
+});

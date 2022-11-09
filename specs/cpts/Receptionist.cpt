@@ -55,3 +55,13 @@ Enter village "Village"
 * Select the Existing Patient
 * Click on Confirm Selection
 * Save the patient data
+
+# Register the patient using patient queue
+* Open "Registration" module
+* Click create new patient
+* Click patient queue button
+* Verify the token number and patient details are displayed
+* Click Register button
+* Create new record
+* Enter village "Village"
+* Save the patient data

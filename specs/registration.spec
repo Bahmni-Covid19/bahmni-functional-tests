@@ -2,8 +2,8 @@
 
 tags: clinic, abdm
 
-   |mobileNumber  |
-   |--------------|
+   |mobileNumber |
+   |-------------|
    |+919876543210|
 
 ## Should be able to register a new patient with ABHA address and proceed with logging clinical details
@@ -41,3 +41,24 @@ tags: clinic, abdm, registration, regression
 * Click back button
 * Logout and Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * visit is closed at the front desk
+
+## Receptionist should be able to register the patient from patient queue.
+
+tags: clinic, abdm, registration, regression
+
+* Delete ABHA Address in Bahmni
+* Login to PHR app
+* Patients scans the facility QR and receives the token number
+* Login to Bahmni location "Bahmni Clinic" as a receptionist
+* Register the patient using patient queue
+* Click on home page and goto registration module
+* Open newly created patient details by healthID
+* Verify correct patient form is open
+* Start a "OPD" Visit
+* Logout and Login to Bahmni location "Bahmni Clinic" as a "doctor"
+* Doctor initiates clinical checkup with healthID
+* Click back button
+* Click back button
+* Logout and Login to Bahmni location "Bahmni Clinic" as a "receptionist"
+* visit is closed at the front desk
+* Delete ABHA Address in Bahmni
