@@ -88,7 +88,7 @@ step("reload the consent request page", async function () {
 
 step("Open the consent request for ABHA address", async function () {
 	var maxRetry = 6
-	var flagError =false;
+	var flagError = false;
 	var ABHAID = gauge.dataStore.scenarioStore.get("healthID");
 	while (maxRetry > 0) {
 		await reload({ waitForNavigation: true });
@@ -97,15 +97,15 @@ step("Open the consent request for ABHA address", async function () {
 			await $("(//*[text()='Consent granted on']/ancestor::TABLE//TR//TD[text()='" + ABHAID + "'])[1]/../TD[3][text()='Consent Granted']").exists();
 			await click($("(//*[text()='Consent granted on']/ancestor::TABLE//TR//TD[text()='" + ABHAID + "'])[1]/..//A"), { waitForNavigation: true })
 			maxRetry = 0
-			flagError =false;
+			flagError = false;
 		} catch (e) {
-			flagError =true;
+			flagError = true;
 			maxRetry = maxRetry - 1;
 			console.log(e.message + " Waiting for 5 seconds and reload the Consent Request Lists page. Remaining attempts " + maxRetry)
 			await waitFor(5000)
 		}
 	}
-	if(flagError){
+	if (flagError) {
 		assert.fail("Consent aoproved in PHR is not displayed in HIU.")
 	}
 });
@@ -129,9 +129,7 @@ step("Verify Patient data is fetched.", async function () {
 step("Validate History & Examination in HIU", async function () {
 	var historyAndExaminationDetails = gauge.dataStore.scenarioStore.get("historyAndExaminationDetails")
 	for (var chiefComplaint of historyAndExaminationDetails.Chief_Complaints) {
-		assert.ok(await text(chiefComplaint.Chief_Complaint, toRightOf("Chief Complaint")).exists())
-		assert.ok(await text(chiefComplaint.Sign_symptom_duration, toRightOf("Sign/symptom duration")).exists())
-		assert.ok(await text(chiefComplaint.Units, toRightOf("Chief Complaint Duration")).exists())
+		assert.ok(await text(`${chiefComplaint.Chief_Complaint} since ${chiefComplaint.Sign_symptom_duration} ${chiefComplaint.Units}`, toRightOf("Chief Complaint Data")).exists())
 	}
 	assert.ok(await link("Consultation: Image", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
 	assert.ok(await link("Consultation: Patient Video", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
@@ -145,12 +143,12 @@ async function validateVitalsFromFile(configurations) {
 					await validateVitalsFromFile(configuration.value)
 					break;
 				default:
-					assert.ok(await text(configuration.value, toRightOf(configuration.label)).exists())
+					assert.ok(await text(configuration.value, toRightOf(configuration.label)).exists(),configuration.value+" To Right of "+configuration.label+" is not exist.")
 			}
 		}
 	}
 	catch (e) {
-		console.log(e.message)
+		console.log("validateVitalsFromFile - " + e.message)
 	}
 }
 
