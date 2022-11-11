@@ -8,7 +8,7 @@
 tags: prescriptions, diagnostics
 
 * Login to Bahmni location "General Ward" as a receptionist
-* Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
+* Receptionist creates the patient and starts an OPD
 * Doctor initiates clinical checkup
 * Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"
 * lab technician uploads patient document and radiology reports
@@ -20,7 +20,7 @@ tags: prescriptions, diagnostics
 tags: OPConsultation
 
 * Login to Bahmni location "General Ward" as a receptionist
-* Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
+* Receptionist creates the patient and starts an OPD
 * Doctor opens clinical tab
 * Doctor captures BP, sugar checkup
 * Doctor captures the consultation notes "consultationNotes" for newly created patient
@@ -34,7 +34,7 @@ tags: OPConsultation
 tags: prescriptions, diagnostics
 
 * Login to Bahmni location "General Ward" as a receptionist
-* Receptionist creates the patient with mobile number <mobileNumber> and starts an OPD
+* Receptionist creates the patient and starts an OPD
 * Doctor initiates clinical checkup
 * Doctor captures the consultation notes "consultationNotes" for newly created patient
 * Doctor advises medicines "opd/prescriptionFlow/prescriptions" and tests "opd/prescriptionFlow/labTests"

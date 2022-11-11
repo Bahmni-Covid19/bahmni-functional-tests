@@ -2,28 +2,36 @@
 * Goto Clinical application
 * Login as a receptionist with admin credentials location <location>
 
-# Create a new patient with random name and healthID mobileNumber <mobileNumber>
+# Create a new patient with random details and random ABHA ID
 * Click create new patient
-* To Associate a healthID, verify it
-* Enter random healthID details
-* Verify if healthId entered already exists
+* Generate random patient data
+* Click Verify ABHA button
+* Enter random ABHA ID details
+* Click Verify button
 * Select Mobile OTP
 * Authenticate with Mobile
-* Enter OTP for health care validation "0000" for with new healthID, patient details and mobileNumber <mobileNumber>
+* Enter OTP for ABHA validation
 * Create new record
-Enter village "Village"
+* Enter random House number/Flat number
+* Enter random Locality/Sector
+* Enter random village
+* Upload patient image
 * Save the patient data
 
-# Create a new patient with random name, health ID and mobileNumber <mobileNumber>
+# Create a new patient with random details and valid ABHA ID
 * Click create new patient
-* To Associate a healthID, verify it
-* Enter healthID for random patient name
-* Verify if healthId entered already exists
+* Generate random patient data
+* Click Verify ABHA button
+* Enter valid ABHA ID
+* Click Verify button
 * Select Mobile OTP
 * Authenticate with Mobile
-* Enter OTP for health care validation "0000" for with new healthID, patient details and mobileNumber <mobileNumber>
+* Enter OTP for ABHA validation
 * Create new record
-* Enter village "Village"
+* Enter random House number/Flat number
+* Enter random Locality/Sector
+* Enter random village
+* Upload patient image
 * Save the patient data
 
 # Doctor opens clinical tab
@@ -37,18 +45,19 @@ Enter village "Village"
 * Doctor clicks consultation
 
 # Should fetch record with firstName <firstName> middleName <middleName> lastName <lastName> gender <gender> age <age> and mobileNumber <mobileNumber>
-* To Associate a healthID, verify it
+* Click Verify ABHA button
 * Enter healthID "soumyag@sbx"
-* Verify if healthId entered already exists
+* Click Verify button
 * Select Mobile OTP
 * Authenticate with Mobile
 * Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>
 
 # Map the health ID with the Existing patient
 * Click create new patient
-* To Associate a healthID, verify it
+* Generate random patient data
+* Click Verify ABHA button
 * Enter random healthID for existing patient details
-* Verify if healthId entered already exists
+* Click Verify button
 * Select Mobile OTP
 * Authenticate with Mobile
 * Enter OTP for health care validation "0000" and fetch the existing patient details
@@ -63,5 +72,7 @@ Enter village "Village"
 * Verify the token number and patient details are displayed
 * Click Register button
 * Create new record
-* Enter village "Village"
+* Enter random Locality/Sector
+* Enter random village
+* Upload patient image
 * Save the patient data

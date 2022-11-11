@@ -5,8 +5,7 @@
 Tags: prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
-* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
-* Start an IPD Visit
+* Receptionist creates a patient and starts an IPD visit
 * Doctor issues an Admit disposition
 * Goto Clinical application
 * Admit a patient to general ward bed "304-d"

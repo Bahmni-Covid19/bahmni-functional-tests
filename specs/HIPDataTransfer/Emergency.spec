@@ -6,7 +6,7 @@
 Tags:prescriptions, diagnostics
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
-* Create a new patient with gender "Female" with random name, aged "29" with mobile number <mobileNumber>
+* Create a new patient with random patient details
 * Add this newly created patient as merge patient1
 * Start an OPD Visit
 * Doctor opens clinical tab
@@ -14,7 +14,7 @@ Tags:prescriptions, diagnostics
 * visit is closed at the front desk
 * Goto Clinical application
 * Open "Registration" module
-* Create a new patient with gender "Female" with random name, aged "27" with mobile number <mobileNumber>
+* Create a new patient with random patient details
 * Add this newly created patient as merge patient2
 * Start an IPD Visit
 * Doctor issues an Admit disposition

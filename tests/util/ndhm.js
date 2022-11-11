@@ -6,6 +6,7 @@ const {
 const axios = require('axios')
 var fileExtension = require("../../bahmni-e2e-common-flows/tests/util/fileExtension");
 const uuid = require('uuid')
+const { faker } = require('@faker-js/faker/locale/en_IND');
 
 async function interceptFetchModes(token) {
     //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/
@@ -87,19 +88,16 @@ async function redirectExistingPatients(token, firstName, lastName, yearOfBirth,
 }
 
 async function interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
-    var monthOfBirth = 1;
-    var dayOfBirth = 1;
     var confirm = fileExtension.parseContent("./data/confirm/simple.txt")
         .replace('<healthID>', healthID)
         .replace('<fullName>', firstName + " " + lastName)
         .replace('<gender>', gender)
         .replace('<yearOfBirth>', yearOfBirth)
-        .replace('<monthOfBirth>', monthOfBirth)
-        .replace('<dayOfBirth>', dayOfBirth)
-        .replace('<district>', "NORTH AND MIDDLE ANDAMAN")
-        .replace('<state>', "ANDAMAN AND NICOBAR ISLANDS")
-        .replace('<mobileNumber>', patientMobileNumber)
-        .replace('<healthNumber>', "00-0000-0000-0000");
+        .replace('<monthOfBirth>', faker.datatype.number({ min: 1,max: 12}))
+        .replace('<dayOfBirth>', faker.datatype.number({ min: 1,max: 28}))
+        .replace('<district>', faker.address.city())
+        .replace('<state>', faker.address.state())
+        .replace('<mobileNumber>', patientMobileNumber);
     var response = {
         method: 'POST',
         port: '9052',

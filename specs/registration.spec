@@ -1,18 +1,13 @@
 # Register patient using ABHA
 
 tags: clinic, abdm
-
-   |mobileNumber |
-   |-------------|
-   |+919876543210|
-
 ## Should be able to register a new patient with ABHA address and proceed with logging clinical details
 
 tags: clinic, abdm, registration, regression
 
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * Open "Registration" module
-* Create a new patient with random name and healthID mobileNumber <mobileNumber>
+* Create a new patient with random details and random ABHA ID
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
 * Verify correct patient form is open
@@ -29,7 +24,7 @@ tags: clinic, abdm, registration, regression
 tags: clinic, abdm, registration, regression
 
 * Login to Bahmni location "Bahmni Clinic" as a receptionist
-* Receptionist creates the patient with mobile number <mobileNumber> without village
+* Receptionist creates the patient
 * Map the health ID with the Existing patient
 * Click on home page and goto registration module
 * Open newly created patient details by healthID

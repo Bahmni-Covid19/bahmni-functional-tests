@@ -2,10 +2,6 @@
 
 tags: clinic, abdm
 
-   |mobileNumber |
-   |-------------|
-   |+919876543210|
-
 ## User should be able to register patient with ABHA address, log clinical details, create consent request, approve consent request and view details in HIU.
 
 tags: clinic, abdm, hiu, phr, regression
@@ -13,7 +9,7 @@ tags: clinic, abdm, hiu, phr, regression
 * Delete ABHA Address in Bahmni
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * Open "Registration" module
-* Create a new patient with random name, health ID and mobileNumber <mobileNumber>
+* Create a new patient with random details and valid ABHA ID
 * Start a "OPD" Visit
 * Logout and Login to Bahmni location "Bahmni Clinic" as a "doctor"
 * Doctor initiates clinical checkup with healthID

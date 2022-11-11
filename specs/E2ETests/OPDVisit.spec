@@ -9,7 +9,7 @@ tags: prescriptions, diagnostics
 
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
-* Create a new patient with random name, health ID and mobileNumber <mobileNumber>
+* Create a new patient with random details and valid ABHA ID
 * Start an OPD Visit
 * Doctor initiates clinical checkup
 * Doctor captures BP, sugar checkup

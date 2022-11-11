@@ -4,7 +4,7 @@
 ## Should be able to enter program level details for a patient
 Tags: prescriptions, diagnostics
 * Login to Bahmni location "OPD-1" as a receptionist
-* Receptionist creates the patient with mobile number <mobileNumber> and starts an Special OPD
+* Receptionist creates the patient and starts an Special OPD
 * Doctor enrolls Patient onto "HIV Program" stage "programStage" starting "5" years ago with treatment start "2" years ago, id "1234", dr incharge "doctor" and treatment stage "Initial Stage"
 * Doctor clicks consultation
 * Doctor enters basic clinical details
@@ -16,7 +16,7 @@ Tags: prescriptions, diagnostics
 ## Should be able to get OPConsultation notes of a patient
 Tags: OPConsultation
 * Login to Bahmni location "OPD-1" as a receptionist
-* Receptionist creates the patient with mobile number <mobileNumber> and starts an Special OPD
+* Receptionist creates the patient and starts an Special OPD
 * Doctor enrolls Patient onto "HIV Program" stage "programStage" starting "5" years ago with treatment start "2" years ago, id "1234", dr incharge "doctor" and treatment stage "Initial Stage"
 * Doctor clicks consultation
 * Doctor enters HIV details

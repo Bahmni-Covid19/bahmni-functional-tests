@@ -11,7 +11,8 @@
     "csvtojson": "latest",
     "json2csv": "latest",
     "pdf-parse": "latest",
-    "uuid": "latest"
+    "uuid": "latest",
+    "@faker-js/faker": "^7.6.0"
   },
   "devDependencies": {
     "taiko-video": "^0.2.1"

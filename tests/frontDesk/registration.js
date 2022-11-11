@@ -29,82 +29,76 @@ var users = require("../../bahmni-e2e-common-flows/tests/util/users");
 var ndhm = require("../util/ndhm");
 var date = require("../../bahmni-e2e-common-flows/tests/util/date");
 var taikoHelper = require("../../bahmni-e2e-common-flows/tests/util/taikoHelper");
-
+const { faker } = require('@faker-js/faker/locale/en_IND');
 var assert = require("assert");
 
-step("To Associate a healthID, verify it", async function () {
+step("Click Verify ABHA button", async function () {
     await click("Verify ABHA", { waitForNavigation: true, navigationTimeout: process.env.actionTimeout });
 });
+step("Generate random patient data", async function () {
+    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+    var patientGender = users.getRandomPatientGender();
+    if (!firstName) {
+        firstName = faker.name.firstName(patientGender);
+        gauge.dataStore.scenarioStore.put("patientFirstName", firstName)
+    }
+    console.log("FirstName - " + firstName)
+    gauge.message("FirstName - " + firstName);
+    var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
+    if (!middleName) {
+        middleName = faker.name.middleName(patientGender);
+        gauge.dataStore.scenarioStore.put("patientMiddleName", middleName)
+    }
+    console.log("middleName - " + middleName)
+    gauge.message("middleName - " + middleName);
+    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
+    if (!lastName) {
+        lastName = faker.name.lastName(patientGender);
+        gauge.dataStore.scenarioStore.put("patientLastName", lastName)
+    }
+    console.log("LastName - " + lastName)
+    gauge.message("LastName - " + lastName);
+    var healthID = `${firstName}${lastName}@sbx`;
+    gauge.dataStore.scenarioStore.put("healthID", healthID)
+    gauge.message("ABHA ID - " + healthID);
+    var yearOfBirth = faker.datatype.number({ min: new Date().getFullYear() - 100, max: new Date().getFullYear() });
+    gauge.dataStore.scenarioStore.put("yearOfBirth", yearOfBirth)
+    gauge.message("yearOfBirth - " + yearOfBirth);
+    var patientMobileNumber = faker.phone.number('+919#########');
+    gauge.dataStore.scenarioStore.put("patientMobileNumber", patientMobileNumber)
+    gauge.message("patientMobileNumber - " + patientMobileNumber);
+});
 
-step("Enter random healthID details", async function () {
+step("Enter random ABHA ID details", async function () {
     await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
-    var firstName = users.randomName(10)
-    gauge.dataStore.scenarioStore.put("patientFirstName", firstName)
-    console.log("FirstName" + firstName)
-    gauge.message("FirstName" + firstName);
-
-    var lastName = users.randomName(10)
-    gauge.dataStore.scenarioStore.put("patientLastName", lastName)
-    console.log("LastName" + lastName)
-    gauge.message("LastName" + lastName);
-
-    gauge.dataStore.scenarioStore.put("patientMiddleName", "")
-
-    var patientHealthID = firstName + lastName + "@sbx";
-    gauge.dataStore.scenarioStore.put("healthID", patientHealthID)
-    console.log("healthID" + patientHealthID);
-    gauge.message("healthID" + patientHealthID);
-
+    var patientHealthID = gauge.dataStore.scenarioStore.get("healthID")
+    console.log("ABHA ID - " + patientHealthID);
+    gauge.message("ABHA ID - " + patientHealthID);
     await write(patientHealthID);
 });
 
-step("Enter healthID for random patient name", async function () {
+step("Enter valid ABHA ID", async function () {
     await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
-    var firstName = users.randomName(10)
-    gauge.dataStore.scenarioStore.put("patientFirstName", firstName)
-    console.log("FirstName" + firstName)
-    gauge.message("FirstName" + firstName);
-
-    var lastName = users.randomName(10)
-    gauge.dataStore.scenarioStore.put("patientLastName", lastName)
-    console.log("LastName" + lastName)
-    gauge.message("LastName" + lastName);
-
-    gauge.dataStore.scenarioStore.put("patientMiddleName", "")
-
     var patientHealthID = users.getUserNameFromEncoding(process.env.PHR_user);
     gauge.dataStore.scenarioStore.put("healthID", patientHealthID)
-    console.log("healthID" + patientHealthID);
-    gauge.message("healthID" + patientHealthID);
-
+    console.log("ABHA ID - " + patientHealthID);
+    gauge.message("ABHA ID - " + patientHealthID);
     await write(patientHealthID);
 });
 
 step("Enter random healthID for existing patient details", async function () {
     await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
-    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
-    console.log("FirstName" + firstName)
-    gauge.message("FirstName" + firstName);
-
-    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
-    console.log("LastName" + lastName)
-    gauge.message("LastName" + lastName);
-
-    gauge.dataStore.scenarioStore.put("patientMiddleName", "")
-
-    var patientHealthID = firstName + lastName + "@sbx";
-    gauge.dataStore.scenarioStore.put("healthID", patientHealthID)
-    console.log("healthID" + patientHealthID);
-    gauge.message("healthID" + patientHealthID);
-
+    var patientHealthID = gauge.dataStore.scenarioStore.get("healthID")
+    console.log("ABHA ID - " + patientHealthID);
+    gauge.message("ABHA ID - " + patientHealthID);
     await write(patientHealthID);
 });
 
 step("Enter healthID <healthID>", async function (patientHealthID) {
     await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
     gauge.dataStore.scenarioStore.put("healthID", patientHealthID)
-    console.log("healthID" + patientHealthID);
-    gauge.message("healthID" + patientHealthID);
+    console.log("ABHA ID - " + patientHealthID);
+    gauge.message("ABHA ID - " + patientHealthID);
     await write(patientHealthID);
 });
 
@@ -140,22 +134,23 @@ step("Go back to home page", async function () {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
-step("Verify if healthId entered already exists", async function () {
+step("Click Verify button", async function () {
     await ndhm.interceptFetchModes(process.env.receptionist)
     await ndhm.interceptExistingPatients(process.env.receptionist, gauge.dataStore.scenarioStore.get("healthID"))
     await click(text("Verify", within($(".verify-health-id"))));
 });
 
-step("Enter OTP for health care validation <otp> for with new healthID, patient details and mobileNumber <patientMobileNumber>",
-    async function (otp, patientMobileNumber) {
+step("Enter OTP for ABHA validation",
+    async function () {
         await waitFor('Enter OTP')
-        await write(otp, into(textBox(above("Fetch ABDM Data"))));
-        var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
-        var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
+        await write("0000", into(textBox(above("Fetch ABDM Data"))));
+        var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+        var lastName = `${gauge.dataStore.scenarioStore.get("patientMiddleName")} ${gauge.dataStore.scenarioStore.get("patientLastName")}`
         var healthID = gauge.dataStore.scenarioStore.get("healthID");
-        var yearOfBirth = "2000";
-        var gender = "F";
+        var yearOfBirth = gauge.dataStore.scenarioStore.get("yearOfBirth");
+        var gender = users.getRandomPatientGender().charAt(0);
         const token = process.env.receptionist
+        var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
         await ndhm.interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
         await ndhm.interceptExistingPatientsWithParams(token, firstName, lastName, yearOfBirth, gender);
         await click(button("Fetch ABDM Data"))
@@ -166,16 +161,14 @@ step("Enter OTP for health care validation <otp> and fetch the existing patient 
         await waitFor('Enter OTP')
         await write(otp, into(textBox(above("Fetch ABDM Data"))));
         var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
-        var lastName = gauge.dataStore.scenarioStore.get("patientLastName");
+        var lastName = `${gauge.dataStore.scenarioStore.get("patientMiddleName")} ${gauge.dataStore.scenarioStore.get("patientLastName")}`
         var healthID = gauge.dataStore.scenarioStore.get("healthID");
         var yearOfBirth = gauge.dataStore.scenarioStore.get("patientBirthYear");
-        var gender = gauge.dataStore.scenarioStore.get("patientGender");
-        (gender == "Female") ? gender = "F" : gender = "M";
-        var patientMobileNumber = "+919876543210";
+        var gender = users.getRandomPatientGender().charAt(0);
+        var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
         const token = process.env.receptionist
         await ndhm.interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
         // await ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
-
         await click(button("Fetch ABDM Data"))
     });
 
@@ -275,18 +268,18 @@ step("Should not allow to associate HeatlhID if already linked1", async function
     await text("Matching record with Health ID found").exists();
 });
 
-step("Click patient queue button", async function() {
-	await click("Patient Queue", { waitForNavigation: true, navigationTimeout: process.env.actionTimeout });
+step("Click patient queue button", async function () {
+    await click("Patient Queue", { waitForNavigation: true, navigationTimeout: process.env.actionTimeout });
 });
 
-step("Verify the token number and patient details are displayed", async function() {
-	var tokenNumber = gauge.dataStore.scenarioStore.get("patientTokenNumber")
-    var abhaID = users.getUserNameFromEncoding(process.env.PHR_user)
-    assert.ok(await text("ABHA Address: "+abhaID,toRightOf(tokenNumber)).exists())
-});
-
-step("Click Register button", async function() {
+step("Verify the token number and patient details are displayed", async function () {
     var tokenNumber = gauge.dataStore.scenarioStore.get("patientTokenNumber")
     var abhaID = users.getUserNameFromEncoding(process.env.PHR_user)
-	await click(button("Register"),toRightOf(text("ABHA Address: "+abhaID,toRightOf(tokenNumber))));
+    assert.ok(await text("ABHA Address: " + abhaID, toRightOf(tokenNumber)).exists())
+});
+
+step("Click Register button", async function () {
+    var tokenNumber = gauge.dataStore.scenarioStore.get("patientTokenNumber")
+    var abhaID = users.getUserNameFromEncoding(process.env.PHR_user)
+    await click(button("Register"), toRightOf(text("ABHA Address: " + abhaID, toRightOf(tokenNumber))));
 });

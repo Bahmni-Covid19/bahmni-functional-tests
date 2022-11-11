@@ -309,6 +309,8 @@ step("Patients scans the facility QR and receives the token number", async funct
 	var patientTokenNumber = profileShare.data.tokenNumber
 	// assert.ok(typeof profileShare.data.tokenNumber === 'number', "Token Number is not generated successfully.")
 	gauge.dataStore.scenarioStore.put("patientTokenNumber", patientTokenNumber)
+	console.log("patientTokenNumber - " + patientTokenNumber)
+    gauge.message("patientTokenNumber - " + patientTokenNumber);
 });
 
 step("getvalues from drug concepts", async function () {
