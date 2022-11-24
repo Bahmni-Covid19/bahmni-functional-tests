@@ -150,6 +150,7 @@ step("Enter OTP for ABHA validation",
         var yearOfBirth = gauge.dataStore.scenarioStore.get("yearOfBirth");
         var gender = users.getRandomPatientGender().charAt(0);
         const token = process.env.receptionist
+        gauge.dataStore.scenarioStore.put("patientMobileNumber","+919876543210");
         var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
         await ndhm.interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
         await ndhm.interceptExistingPatientsWithParams(token, firstName, lastName, yearOfBirth, gender);
