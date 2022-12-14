@@ -15,7 +15,7 @@ tags: clinic, abdm, hiu, phr, regression
 * Doctor initiates clinical checkup with healthID
 * Doctor notes the diagnosis and condition "consultation/diagnosis/diagnosis_condition"
 * Doctor captures the consultation notes "Consultation Notes" for newly created patient
-* Doctor advises medicines "consultation/medications/paracetamol" and tests "consultation/orders/Haemogram"
+* Doctor advises medicines "consultation/medications/paracetamol" and tests "consultation/orders/WBC"
 * Click back button
 * Click back button
 * Open "Lab entry" module
