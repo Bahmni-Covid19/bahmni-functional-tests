@@ -43,17 +43,17 @@ jobs:
         run: |
           echo "TARGET_ENV - ${{env.TARGET_ENV}} TEST_CONTEXT - ${{env.TEST_CONTEXT}}"
       - run: echo "Current Concurrency Group - ${{ github.workflow }}-${{ github.event.inputs.TEST_CONTEXT || 'clinic & regression' }}-${{ github.event.inputs.TARGET_ENV || 'dev.lite' }}-${{github.event.schedule}}"
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: recursive
       - name: Wait for environment to be up
         shell: bash
         run: bash .github/waitForEnv.sh $TARGET_ENV
-      - uses: actions/setup-node@v2
+      - uses: actions/setup-node@v3
         with:
           node-version: "16"
           cache: "npm"
-      - uses: zcong1993/setup-timezone@v1.1.2
+      - uses: zcong1993/setup-timezone@v2.0.0
         with:
           timezone: "Asia/Kolkata"
       - name: Install dependencies
@@ -78,19 +78,19 @@ jobs:
         run: xvfb-run npm run ci -- --env $TARGET_ENV --tags "${{env.TEST_CONTEXT}}"
       - name: Upload HTML reports
         if: ${{(success() || failure()) && env.ENV_FLAG}}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: HTML_Reports_${{ GITHUB.RUN_NUMBER }}
           path: ./reports/html-report
       - name: Upload Logs
         if: ${{(success() || failure()) && env.ENV_FLAG}}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Logs_${{ GITHUB.RUN_NUMBER }}
           path: ./logs/gauge.log
       - name: Upload Video
         if: ${{(success() || failure()) && env.ENV_FLAG}}
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Videos_${{ GITHUB.RUN_NUMBER }}
           path: ./reports/video
