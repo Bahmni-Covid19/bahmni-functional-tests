@@ -39,21 +39,21 @@ step("Generate random patient data", async function () {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var patientGender = users.getRandomPatientGender();
     if (!firstName) {
-        firstName = faker.name.firstName(patientGender);
+        firstName = faker.name.firstName(patientGender).replace(" ","");
         gauge.dataStore.scenarioStore.put("patientFirstName", firstName)
     }
     console.log("FirstName - " + firstName)
     gauge.message("FirstName - " + firstName);
     var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
     if (!middleName) {
-        middleName = faker.name.middleName(patientGender);
+        middleName = faker.name.middleName(patientGender).replace(" ","");
         gauge.dataStore.scenarioStore.put("patientMiddleName", middleName)
     }
     console.log("middleName - " + middleName)
     gauge.message("middleName - " + middleName);
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
     if (!lastName) {
-        lastName = faker.name.lastName(patientGender);
+        lastName = faker.name.lastName(patientGender).replace(" ","");
         gauge.dataStore.scenarioStore.put("patientLastName", lastName)
     }
     console.log("LastName - " + lastName)
