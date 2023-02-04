@@ -180,8 +180,12 @@ step("Validate Lab Orders in HIU", async function () {
 	assert.ok(await link(`LAB REPORT : ${labTest}`, below(`DIAGNOSTIC REPORT : ${labTest}`)).exists())
 });
 step("Validate Medications in HIU", async function () {
-	var medicalPrescriptions = JSON.parse(fileExtension.parseContent(gauge.dataStore.scenarioStore.get("prescriptions")))
-	assert.ok(await text(medicalPrescriptions.drug_name, below("Medication"), toLeftOf(medicalPrescriptions.frequency)).exists())
+	var prescriptionCount = gauge.dataStore.scenarioStore.get("prescriptionsCount")
+    for (var i = 0; i < prescriptionCount; i++) {
+        var prescriptionFile = gauge.dataStore.scenarioStore.get("prescriptions"+i)
+		var medicalPrescriptions = JSON.parse(fileExtension.parseContent(prescriptionFile))
+		assert.ok(await text(medicalPrescriptions.drug_name, below("Medication"), toLeftOf(medicalPrescriptions.frequency)).exists())
+	}
 });
 step("Validate Patient Documents in HIU", async function () {
 	assert.ok(await link("Patient Document: Prescription", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
