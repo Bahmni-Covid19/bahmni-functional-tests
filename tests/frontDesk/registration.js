@@ -39,21 +39,21 @@ step("Generate random patient data", async function () {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var patientGender = users.getRandomPatientGender();
     if (!firstName) {
-        firstName = faker.name.firstName(patientGender).replace(" ","");
+        firstName = faker.name.firstName(patientGender).replace(" ", "");
         gauge.dataStore.scenarioStore.put("patientFirstName", firstName)
     }
     console.log("FirstName - " + firstName)
     gauge.message("FirstName - " + firstName);
     var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
     if (!middleName) {
-        middleName = faker.name.middleName(patientGender).replace(" ","");
+        middleName = faker.name.middleName(patientGender).replace(" ", "");
         gauge.dataStore.scenarioStore.put("patientMiddleName", middleName)
     }
     console.log("middleName - " + middleName)
     gauge.message("middleName - " + middleName);
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
     if (!lastName) {
-        lastName = faker.name.lastName(patientGender).replace(" ","");
+        lastName = faker.name.lastName(patientGender).replace(" ", "");
         gauge.dataStore.scenarioStore.put("patientLastName", lastName)
     }
     console.log("LastName - " + lastName)
@@ -150,7 +150,7 @@ step("Enter OTP for ABHA validation",
         var yearOfBirth = gauge.dataStore.scenarioStore.get("yearOfBirth");
         var gender = users.getRandomPatientGender().charAt(0);
         const token = process.env.receptionist
-        gauge.dataStore.scenarioStore.put("patientMobileNumber","+919876543210");
+        gauge.dataStore.scenarioStore.put("patientMobileNumber", "+919876543210");
         var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
         await ndhm.interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
         await ndhm.interceptExistingPatientsWithParams(token, firstName, lastName, yearOfBirth, gender);
@@ -260,7 +260,7 @@ step("Select the Existing Patient", async function () {
 
 step("Create new record", async function () {
     await waitFor(button("Create New Record"))
-    await evaluate($(`//button[contains(text(),'Create New Record')]`), (el) => el.click())
+    await evaluate($(`//button[normalize-space()='Create New Record']`), (el) => el.click())
 });
 
 
