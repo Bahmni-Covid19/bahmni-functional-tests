@@ -76,3 +76,31 @@
 * Enter random village
 * Upload patient image
 * Save the patient data
+
+# Create Abha No for a Patient
+* Click create new patient
+* Generate random patient data
+* Click Create ABHA button
+* Enter Aadhaar number "000000000001" 
+* Click verify button for aadhaar verification
+* Enter OTP "000000" for Aadhaar verification
+* Click on Confirm to verify Aadhaar otp
+* Click on Proceed
+* Enter mobile no
+* Click on Verify
+* Enter OTP "000000" for Mobile verification
+* Click on Confirm to verify  Mobile otp
+* Click on Proceed
+* Verify abha number created successfully
+* Click on Proceed
+
+
+# Create Abha address for a patient
+* Click on Create Abha adddress
+* Enter abha address
+* Click on create
+
+
+# Verify patient details on registration page
+* Click on Create New Record button
+* Verify details on Registration page

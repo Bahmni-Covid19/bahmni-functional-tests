@@ -1,0 +1,15 @@
+{
+  "txnId": "<txnId>",
+  "photo": "<profilePhoto>",
+  "name": "<fullName>",
+  "gender": "<gender>",
+  "birthdate": "<dateOfBirth>",
+  "careOf": "<fatherName>",
+  "house": "<houseNo>",
+  "street": "<streetNo>",
+  "locality": "<locality>",
+  "villageTownCity": "<city>",
+  "district": "<district>",
+  "state": "<state>",
+  "pincode": "<pincode>"
+}
