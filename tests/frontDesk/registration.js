@@ -24,10 +24,12 @@ const {
     scrollTo,
     radioButton,
     timeField,
-    evaluate
+    evaluate,
+    to
 } = require('taiko');
 var users = require("../../bahmni-e2e-common-flows/tests/util/users");
 var ndhm = require("../util/ndhm");
+var fileExtension = require("../../bahmni-e2e-common-flows/tests/util/fileExtension");
 var date = require("../../bahmni-e2e-common-flows/tests/util/date");
 var taikoHelper = require("../../bahmni-e2e-common-flows/tests/util/taikoHelper");
 const { faker } = require('@faker-js/faker/locale/en_IND');
@@ -71,7 +73,7 @@ step("Generate random patient data", async function () {
     var dayOfBirth = faker.datatype.number({ min: 1, max: 28 })
     gauge.dataStore.scenarioStore.put("dayOfBirth", dayOfBirth)
     var buildingNumber = faker.address.buildingNumber()
-    var patientAge = date.getAgeByYears(yearOfBirth)
+    var patientAge = date.calculate_age(new Date(yearOfBirth, monthOfBirth, dayOfBirth))
     gauge.dataStore.scenarioStore.put("patientAge", patientAge )
     gauge.dataStore.scenarioStore.put("buildingNumber", buildingNumber)
     var street = faker.address.street()
@@ -406,21 +408,26 @@ step("Verify details on Registration page", async function () {
 });
 
 step("Verify ABDM record displayed", async function () {
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName")).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("buildingNumber")).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("street")).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("locality")).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("city")).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("state")).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("pincode")).exists())
-    var m=gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3)
-    console.log(m)
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3)).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("healthID")).exists())
-    assert.ok(await text (gauge.dataStore.scenarioStore.get("abhaNumber")).exists())
+    var expectedAbdmRecord = fileExtension.parseContent("./data/confirm/abdmRecord.txt")
+              .replace('<fullName>',gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"))
+              .replace('<age>',gauge.dataStore.scenarioStore.get("patientAge"))
+              .replace('<gender>',gauge.dataStore.scenarioStore.get("patientGender").toLowerCase()) 
+              .replace('<address>',gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality")+ ", " + gauge.dataStore.scenarioStore.get("city")+", " +gauge.dataStore.scenarioStore.get("city")+ ", " +  gauge.dataStore.scenarioStore.get("state")+ ", " + gauge.dataStore.scenarioStore.get("pincode"))  
+              .replace('<mobile>',gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3)) 
+              .replace('<abhaAddress>',gauge.dataStore.scenarioStore.get("healthID"))
+              .replace('<abhaNumber>',gauge.dataStore.scenarioStore.get("abhaNumber"))
+    var actualAbdmRecord=await $("//B[normalize-space()='ABDM Record:']//following-sibling::P").text()
+    assert.equal(actualAbdmRecord,expectedAbdmRecord)
 });
 
 step("Verify abha number created successfully", async function() {
 	assert.ok(await text("ABHA Created Successfully").exists())
     assert.ok(await text(gauge.dataStore.scenarioStore.get("abhaNumber")).exists())
+});
+
+step("Verify Aadhaar details", async function() {
+	assert.ok(await text (gauge.dataStore.scenarioStore.get("patientFirstName") +" "+ gauge.dataStore.scenarioStore.get("patientMiddleName") +" "+ gauge.dataStore.scenarioStore.get("patientLastName")).exists(),toRightOf("Full Name:"))
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientGender").charAt(0)).exists(),toRightOf("Gender:"))
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("dayOfBirth")+ "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth")).exists(),toRightOf("DOB:"))
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality")+ ", " + gauge.dataStore.scenarioStore.get("city")+ ", " + gauge.dataStore.scenarioStore.get("state")+ ", " + gauge.dataStore.scenarioStore.get("pincode")).exists(),toRightOf("Address:"))
 });
