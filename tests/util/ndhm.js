@@ -338,6 +338,15 @@ module.exports = {
     interceptAuthConfirm: interceptAuthConfirm,
     redirectExistingPatients: redirectExistingPatients,
     interceptExistingPatientsWithParams: interceptExistingPatientsWithParams,
-    deleteAbhaAddress: deleteAbhaAddress
+    deleteAbhaAddress: deleteAbhaAddress,
+    interceptAadhaarGenerateOtp: interceptAadhaarGenerateOtp,
+    interceptAadhaarVerifyOtp: interceptAadhaarVerifyOtp,
+    interceptAadhaarGenerateMobileOtp: interceptAadhaarGenerateMobileOtp,
+    interceptAadhaarVerifyMobileOtp: interceptAadhaarVerifyMobileOtp,
+    interceptCreateHealthIdByAadhaar: interceptCreateHealthIdByAadhaar,
+    interceptPhrAddressExist: interceptPhrAddressExist,
+    interceptPhrLinked: interceptPhrLinked,
+    interceptExistingPatientForAbhaAddress: interceptExistingPatientForAbhaAddress,
+    interceptNdhmDemographics: interceptNdhmDemographics
 }
 
