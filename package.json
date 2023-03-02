@@ -5,14 +5,16 @@
     "ci": "gauge run specs -v "
   },
   "dependencies": {
-    "@faker-js/faker": "^7.6.0",
+    "taiko": "1.3.2",
     "axios": "latest",
     "buffer": "latest",
     "csvtojson": "latest",
     "json2csv": "latest",
     "pdf-parse": "latest",
-    "taiko": "^1.3.8",
-    "uuid": "latest"
+    "uuid": "latest",
+    "@faker-js/faker": "^7.6.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "taiko-video": "^0.2.1"
+  }
 }

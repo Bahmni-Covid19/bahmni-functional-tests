@@ -93,8 +93,8 @@ async function interceptAuthConfirm(token, healthID, firstName, lastName, yearOf
         .replace('<fullName>', firstName + " " + lastName)
         .replace('<gender>', gender)
         .replace('<yearOfBirth>', yearOfBirth)
-        .replace('<monthOfBirth>', faker.datatype.number({ min: 1, max: 12 }))
-        .replace('<dayOfBirth>', faker.datatype.number({ min: 1, max: 28 }))
+        .replace('<monthOfBirth>', faker.datatype.number({ min: 1,max: 12}))
+        .replace('<dayOfBirth>', faker.datatype.number({ min: 1,max: 28}))
         .replace('<district>', faker.address.city())
         .replace('<state>', faker.address.state())
         .replace('<mobileNumber>', patientMobileNumber);
@@ -338,15 +338,6 @@ module.exports = {
     interceptAuthConfirm: interceptAuthConfirm,
     redirectExistingPatients: redirectExistingPatients,
     interceptExistingPatientsWithParams: interceptExistingPatientsWithParams,
-    deleteAbhaAddress: deleteAbhaAddress,
-    interceptAadhaarGenerateOtp: interceptAadhaarGenerateOtp,
-    interceptAadhaarVerifyOtp: interceptAadhaarVerifyOtp,
-    interceptAadhaarGenerateMobileOtp: interceptAadhaarGenerateMobileOtp,
-    interceptAadhaarVerifyMobileOtp: interceptAadhaarVerifyMobileOtp,
-    interceptCreateHealthIdByAadhaar: interceptCreateHealthIdByAadhaar,
-    interceptPhrAddressExist: interceptPhrAddressExist,
-    interceptPhrLinked: interceptPhrLinked,
-    interceptExistingPatientForAbhaAddress: interceptExistingPatientForAbhaAddress,
-    interceptNdhmDemographics: interceptNdhmDemographics
+    deleteAbhaAddress: deleteAbhaAddress
 }
 
