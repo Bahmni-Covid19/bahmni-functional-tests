@@ -82,7 +82,8 @@
 * Generate random patient data
 * Click Create ABHA button
 * Enter Aadhaar number "000000000001" 
-* Click verify button for aadhaar verification
+* Accept all the consent checkboxes in ABHA screen
+* Click Accept & Proceed button for aadhaar verification
 * Enter OTP "000000" for Aadhaar verification
 * Click on Confirm to verify Aadhaar otp
 * Verify Aadhaar details

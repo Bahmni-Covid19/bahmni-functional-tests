@@ -42,25 +42,26 @@ step("Generate random patient data", async function () {
     var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
     var patientGender = users.getRandomPatientGender();
     if (!firstName) {
-        firstName = faker.name.firstName(patientGender).replace(" ","");
+        firstName = faker.name.firstName(patientGender).replace(" ", "");
         gauge.dataStore.scenarioStore.put("patientFirstName", firstName)
     }
     console.log("FirstName - " + firstName)
     gauge.message("FirstName - " + firstName);
     var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
     if (!middleName) {
-        middleName = faker.name.middleName(patientGender).replace(" ","");
+        middleName = faker.name.middleName(patientGender).replace(" ", "");
         gauge.dataStore.scenarioStore.put("patientMiddleName", middleName)
     }
     console.log("middleName - " + middleName)
     gauge.message("middleName - " + middleName);
     var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
     if (!lastName) {
-        lastName = faker.name.lastName(patientGender).replace(" ","");
+        lastName = faker.name.lastName(patientGender).replace(" ", "");
         gauge.dataStore.scenarioStore.put("patientLastName", lastName)
     }
     console.log("LastName - " + lastName)
     gauge.message("LastName - " + lastName);
+    gauge.dataStore.scenarioStore.put("patientFullName", `${firstName} ${middleName} ${lastName}`)
     var healthID = `${firstName}${lastName}@sbx`;
     gauge.dataStore.scenarioStore.put("healthID", healthID)
     gauge.message("ABHA ID - " + healthID);
@@ -73,7 +74,7 @@ step("Generate random patient data", async function () {
     gauge.dataStore.scenarioStore.put("dayOfBirth", dayOfBirth)
     var buildingNumber = faker.address.buildingNumber()
     var patientAge = date.calculate_age(new Date(yearOfBirth, monthOfBirth, dayOfBirth))
-    gauge.dataStore.scenarioStore.put("patientAge", patientAge )
+    gauge.dataStore.scenarioStore.put("patientAge", patientAge)
     gauge.dataStore.scenarioStore.put("buildingNumber", buildingNumber)
     var street = faker.address.street()
     gauge.dataStore.scenarioStore.put("street", street)
@@ -91,6 +92,7 @@ step("Generate random patient data", async function () {
     var patientMobileNumber = faker.phone.number('+919#########');
     gauge.dataStore.scenarioStore.put("patientMobileNumber", patientMobileNumber)
     gauge.message("patientMobileNumber - " + patientMobileNumber);
+    gauge.dataStore.scenarioStore.put("profilePhotoB64", await users.downloadAndReturnBase64Image())
 });
 
 step("Enter random ABHA ID details", async function () {
@@ -174,7 +176,7 @@ step("Enter OTP for ABHA validation",
         var yearOfBirth = gauge.dataStore.scenarioStore.get("yearOfBirth");
         var gender = users.getRandomPatientGender().charAt(0);
         const token = process.env.receptionist
-        gauge.dataStore.scenarioStore.put("patientMobileNumber","+919876543210");
+        gauge.dataStore.scenarioStore.put("patientMobileNumber", "+919876543210");
         var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
         await ndhm.interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
         await ndhm.interceptExistingPatientsWithParams(token, firstName, lastName, yearOfBirth, gender);
@@ -337,9 +339,9 @@ step("Click on Verify", async function () {
     await click(button({ name: 'verify-btn' }, toRightOf("Enter Mobile Number")), { waitForNavigation: true, navigationTimeout: process.env.actionTimeout });
 });
 
-step("Click verify button for aadhaar verification", async function () {
+step("Click Accept & Proceed button for aadhaar verification", async function () {
     await ndhm.interceptAadhaarGenerateOtp()
-    await click(button("Verify"));
+    await click(button("Accept & Proceed"));
 });
 
 step("Click on Confirm to verify Aadhaar otp", async function () {
@@ -407,25 +409,31 @@ step("Verify details on Registration page", async function () {
 
 step("Verify ABDM record displayed", async function () {
     var expectedAbdmRecord = fileExtension.parseContent("./data/confirm/abdmRecord.txt")
-              .replace('<fullName>',gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"))
-              .replace('<age>',gauge.dataStore.scenarioStore.get("patientAge"))
-              .replace('<gender>',gauge.dataStore.scenarioStore.get("patientGender").toLowerCase()) 
-              .replace('<address>',gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality")+ ", " + gauge.dataStore.scenarioStore.get("city")+", " +gauge.dataStore.scenarioStore.get("city")+ ", " +  gauge.dataStore.scenarioStore.get("state")+ ", " + gauge.dataStore.scenarioStore.get("pincode"))  
-              .replace('<mobile>',gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3)) 
-              .replace('<abhaAddress>',gauge.dataStore.scenarioStore.get("healthID"))
-              .replace('<abhaNumber>',gauge.dataStore.scenarioStore.get("abhaNumber"))
-    var actualAbdmRecord=await $("//B[normalize-space()='ABDM Record:']//following-sibling::P").text()
-    assert.equal(actualAbdmRecord,expectedAbdmRecord)
+        .replace('<fullName>', gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"))
+        .replace('<age>', gauge.dataStore.scenarioStore.get("patientAge"))
+        .replace('<gender>', gauge.dataStore.scenarioStore.get("patientGender").toLowerCase())
+        .replace('<address>', gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality") + ", " + gauge.dataStore.scenarioStore.get("city") + ", " + gauge.dataStore.scenarioStore.get("city") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"))
+        .replace('<mobile>', gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3))
+        .replace('<abhaAddress>', gauge.dataStore.scenarioStore.get("healthID"))
+        .replace('<abhaNumber>', gauge.dataStore.scenarioStore.get("abhaNumber"))
+    var actualAbdmRecord = await $("//B[normalize-space()='ABDM Record:']//following-sibling::P").text()
+    assert.equal(actualAbdmRecord, expectedAbdmRecord)
 });
 
-step("Verify abha number created successfully", async function() {
-	assert.ok(await text("ABHA Created Successfully").exists())
+step("Verify abha number created successfully", async function () {
+    assert.ok(await text("ABHA Created Successfully").exists())
     assert.ok(await text(gauge.dataStore.scenarioStore.get("abhaNumber")).exists())
 });
 
-step("Verify Aadhaar details", async function() {
-	assert.ok(await text (gauge.dataStore.scenarioStore.get("patientFirstName") +" "+ gauge.dataStore.scenarioStore.get("patientMiddleName") +" "+ gauge.dataStore.scenarioStore.get("patientLastName")).exists(),toRightOf("Full Name:"))
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientGender").charAt(0)).exists(),toRightOf("Gender:"))
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("dayOfBirth")+ "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth")).exists(),toRightOf("DOB:"))
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality")+ ", " + gauge.dataStore.scenarioStore.get("city")+ ", " + gauge.dataStore.scenarioStore.get("state")+ ", " + gauge.dataStore.scenarioStore.get("pincode")).exists(),toRightOf("Address:"))
+step("Verify Aadhaar details", async function () {
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName")).exists(), toRightOf("Full Name:"))
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientGender").charAt(0)).exists(), toRightOf("Gender:"))
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("dayOfBirth") + "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth")).exists(), toRightOf("DOB:"))
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality") + ", " + gauge.dataStore.scenarioStore.get("city") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode")).exists(), toRightOf("Address:"))
+});
+
+step("Accept all the consent checkboxes in ABHA screen", async function () {
+    await checkBox(toLeftOf("confirm that I have duly informed and explained")).check();
+    await checkBox(toLeftOf("have been explained about the consent")).check();
+    await write(gauge.dataStore.scenarioStore.get("patientFullName"), into(textBox({ placeholder: 'Beneficiary name' })))
 });
