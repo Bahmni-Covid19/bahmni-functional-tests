@@ -1,0 +1,5 @@
+<fullName> (Age: <age> , Gender: <gender>)
+<address>
+Mobile: <mobile>
+ABHA Address: <abhaAddress>
+ABHA Number: <abhaNumber>

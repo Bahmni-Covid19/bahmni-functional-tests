@@ -183,6 +183,154 @@ async function deleteAbhaAddress(abhaAddress) {
     return data;
 }
 
+async function interceptAadhaarGenerateOtp() {
+    var generateOtpBody = {
+        "mobileNumber": "******3210"
+    };
+    var strGenerateOtpBody = JSON.stringify(generateOtpBody);
+    var response = {
+        method: 'POST',
+        body: generateOtpBody,
+        headers: {
+            'Content-Type': 'application/json',
+            'content-length': strGenerateOtpBody.length
+
+        }
+    }
+
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/generateOtp", response, 1)
+}
+
+async function interceptAadhaarVerifyOtp() {
+    var verifyOtp = fileExtension.parseContent("./data/confirm/aadhaar.txt")
+        .replace('<txnId>', uuid.v4())
+        .replace('<profilePhoto>', gauge.dataStore.scenarioStore.get("profilePhotoB64"))
+        .replace('<fullName>', gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"))
+        .replace('<gender>', gauge.dataStore.scenarioStore.get("patientGender").charAt(0))
+        .replace('<dateOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth") + "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth"))
+        .replace('<fatherName>', gauge.dataStore.scenarioStore.get("fatherName"))
+        .replace('<houseNo>', gauge.dataStore.scenarioStore.get("buildingNumber"))
+        .replace('<streetNo>', gauge.dataStore.scenarioStore.get("street"))
+        .replace('<locality>', gauge.dataStore.scenarioStore.get("locality"))
+        .replace('<city>', gauge.dataStore.scenarioStore.get("city"))
+        .replace('<district>', gauge.dataStore.scenarioStore.get("city"))
+        .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
+        .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"));
+    var response = {
+        method: 'POST',
+        body: verifyOtp,
+        headers: {
+            'Content-Type': 'application/json'
+            //'content-length': confirm.length
+        }
+    }
+
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
+}
+
+async function interceptAadhaarGenerateMobileOtp() {
+    var generateMobileOtpBody = {
+        "mobileLinked": "false"
+    };
+    var strGenerateMobileOtpBody = JSON.stringify(generateMobileOtpBody);
+    var response = {
+        method: 'POST',
+        body: generateMobileOtpBody,
+        headers: {
+            'Content-Type': 'application/json',
+            'content-length': strGenerateMobileOtpBody.length
+
+        }
+    }
+
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/checkAndGenerateMobileOTP", response, 1)
+}
+
+async function interceptAadhaarVerifyMobileOtp() {
+    var response = {
+        method: 'POST',
+        headers: {
+            'content-length': '0'
+        }
+    }
+
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyMobileOTP", response, 1)
+}
+
+async function interceptCreateHealthIdByAadhaar() {
+    var createHealthIdBody = {
+        "healthIdNumber": gauge.dataStore.scenarioStore.get("abhaNumber"),
+        "mobile": gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3),
+        "token": "automation_test_token",
+        "refreshToken": "automation_test_refresh_token"
+    }
+    var strCreateHealthId = JSON.stringify(createHealthIdBody);
+    var response = {
+        method: 'POST',
+        body: createHealthIdBody,
+        headers: {
+            'Content-Type': 'application/json',
+            'content-length': strCreateHealthId.length
+
+        }
+    }
+
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/createHealthIdByAdhaar", response, 1)
+}
+
+async function interceptPhrAddressExist() {
+    var response = {
+        method: 'GET',
+        body: "false",
+        headers: {
+            'Content-Type': 'text/plain'
+        }
+    }
+    var phrAdd = gauge.dataStore.scenarioStore.get("healthID").split("@")[0]
+    await intercept(process.env.bahmniHost + "/hiprovider/v1/phr/search/isExist?phrAddress=" + phrAdd, response, 1)
+}
+async function interceptPhrLinked() {
+    var response = {
+        method: 'POST',
+        status: 202
+    }
+
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/account/phr-linked", response, 1)
+}
+async function interceptExistingPatientForAbhaAddress() {
+    var existingPatientBody = {
+        "error": { "code": "PATIENT_ID_NOT_FOUND", "message": "No patient found" }
+    };
+    var strExistingPatientBody = JSON.stringify(existingPatientBody);
+    var response = {
+        method: 'GET',
+        body: existingPatientBody,
+        headers: {
+            'Content-Type': 'application/json',
+            'content-length': strExistingPatientBody.length
+        }
+    }
+    var patientFirstName = gauge.dataStore.scenarioStore.get("patientFirstName")
+    var patientMiddleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
+    var patientLastName = gauge.dataStore.scenarioStore.get("patientLastName")
+    var patientYearOfBirth = gauge.dataStore.scenarioStore.get("yearOfBirth")
+    var patientGender = gauge.dataStore.scenarioStore.get("patientGender").slice(0, 1)
+    var mobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3)
+    await intercept(process.env.bahmniHost + "/openmrs/ws/rest/v1/hip/existingPatients?patientName=" + patientFirstName + "+" + patientMiddleName + "+" + patientLastName + "&patientYearOfBirth=" + patientYearOfBirth + "&patientGender=" + patientGender + "&phoneNumber=" + mobileNumber, response, 1)
+}
+async function interceptNdhmDemographics() {
+    var response = {
+        method: 'POST',
+        headers: {
+            'content-length': '0'
+        }
+    }
+
+    await intercept(process.env.bahmniHost + "hiprovider/v0.5/hip/ndhm-demographics", response, 1)
+}
+
+
 module.exports = {
     interceptFetchModes: interceptFetchModes,
     interceptAuthInit: interceptAuthInit,
@@ -190,6 +338,15 @@ module.exports = {
     interceptAuthConfirm: interceptAuthConfirm,
     redirectExistingPatients: redirectExistingPatients,
     interceptExistingPatientsWithParams: interceptExistingPatientsWithParams,
-    deleteAbhaAddress: deleteAbhaAddress
+    deleteAbhaAddress: deleteAbhaAddress,
+    interceptAadhaarGenerateOtp: interceptAadhaarGenerateOtp,
+    interceptAadhaarVerifyOtp: interceptAadhaarVerifyOtp,
+    interceptAadhaarGenerateMobileOtp: interceptAadhaarGenerateMobileOtp,
+    interceptAadhaarVerifyMobileOtp: interceptAadhaarVerifyMobileOtp,
+    interceptCreateHealthIdByAadhaar: interceptCreateHealthIdByAadhaar,
+    interceptPhrAddressExist: interceptPhrAddressExist,
+    interceptPhrLinked: interceptPhrLinked,
+    interceptExistingPatientForAbhaAddress: interceptExistingPatientForAbhaAddress,
+    interceptNdhmDemographics: interceptNdhmDemographics
 }
 
