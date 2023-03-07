@@ -286,7 +286,7 @@ step("Select the Existing Patient", async function () {
 
 step("Create new record", async function () {
     await waitFor(button("Create New Record"))
-    await evaluate($(`//button[contains(text(),'Create New Record')]`), (el) => el.click())
+    await evaluate($(`//button[normalize-space()='Create New Record']`), (el) => el.click())
 });
 
 
