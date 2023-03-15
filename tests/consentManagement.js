@@ -153,7 +153,7 @@ async function validateVitalsFromFile(configurations) {
 }
 
 step("Validate Vitals in HIU", async function () {
-	var vitalFormValues = gauge.dataStore.scenarioStore.get("vitalFormValues")
+	var vitalFormValues = gauge.dataStore.scenarioStore.get("Vitals")
 	validateVitalsFromFile(vitalFormValues.ObservationFormDetails);
 
 });
