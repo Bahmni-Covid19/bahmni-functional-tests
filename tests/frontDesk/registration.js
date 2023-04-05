@@ -86,7 +86,7 @@ step("Generate random patient data", async function () {
     gauge.dataStore.scenarioStore.put("state", state)
     var pincode = faker.address.zipCode('######')
     gauge.dataStore.scenarioStore.put("pincode", pincode)
-    gauge.dataStore.scenarioStore.put("abhaNumber", faker.phone.number('91-####-####-####'))
+    gauge.dataStore.scenarioStore.put("abhaNumber", faker.phone.number('##-####-####-####'))
     gauge.dataStore.scenarioStore.put("districtCode", faker.datatype.number(500))
     gauge.dataStore.scenarioStore.put("stateCode", faker.datatype.number(100))
     var patientMobileNumber = faker.phone.number('+919#########');
@@ -318,11 +318,12 @@ step("Enter Aadhaar number <000000000000>", async function (aadharNumber) {
 
 
 step("Enter OTP <00000> for Aadhaar verification", async function (otp) {
-    await write(otp, into(textBox(toRightOf("Enter OTP"))))
+    await write(otp, into(textBox(toRightOf("Enter OTP"), within($(".abha-creation")))))
 });
 
 step("Click on Proceed", async function () {
     await click(button("Proceed"), { waitForNavigation: true, navigationTimeout: process.env.actionTimeout });
+    await waitFor(2000)
 });
 
 step("Click Create ABHA button", async function () {
@@ -358,6 +359,7 @@ step("Enter abha address", async function () {
     var patientHealthID = gauge.dataStore.scenarioStore.get("healthID").split("@")[0]
     await write(patientHealthID, into(textBox(toRightOf("Enter new ABHA ADDRESS "))))
 });
+
 
 step("Click on create", async function () {
     await ndhm.interceptPhrLinked()
@@ -425,15 +427,110 @@ step("Verify abha number created successfully", async function () {
     assert.ok(await text(gauge.dataStore.scenarioStore.get("abhaNumber")).exists())
 });
 
+async function verifyAadhaarDetails() {
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"), toRightOf("Full Name:")).exists())
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientGender").charAt(0), toRightOf("Gender:")).exists())
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("dayOfBirth") + "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth"), toRightOf("DOB:")).exists())
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality") + ", " + gauge.dataStore.scenarioStore.get("city") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"), toRightOf("Address:")).exists())
+}
+
 step("Verify Aadhaar details", async function () {
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName")).exists(), toRightOf("Full Name:"))
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("patientGender").charAt(0)).exists(), toRightOf("Gender:"))
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("dayOfBirth") + "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth")).exists(), toRightOf("DOB:"))
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality") + ", " + gauge.dataStore.scenarioStore.get("city") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode")).exists(), toRightOf("Address:"))
+    await verifyAadhaarDetails();
 });
 
 step("Accept all the consent checkboxes in ABHA screen", async function () {
     await checkBox(toLeftOf("confirm that I have duly informed and explained")).check();
     await checkBox(toLeftOf("have been explained about the consent")).check();
     await write(gauge.dataStore.scenarioStore.get("patientFullName"), into(textBox({ placeholder: 'Beneficiary name' })))
+});
+
+step("Click on Confirm to verify Aadhaar otp for existing Abha Number", async function () {
+    await ndhm.interceptAadhaarVerifyOtpExistingABHANo()
+    await click(button("Confirm"));
+});
+
+step("Verify Aadhaar details with ABHA Number", async function () {
+    await verifyAadhaarDetails();
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("abhaNumber"), toRightOf("ABHA Number:")).exists())
+});
+
+step("Click on Link Abha Address button", async function () {
+    await click(button("Link ABHA Address"));
+});
+
+step("Enter Mobile Number/Email", async function () {
+    await write(gauge.dataStore.scenarioStore.get("patientMobileNumber"), into(textBox(toRightOf("Enter Mobile Number / Email"))))
+});
+
+step("Click on Verify to link Abha Address", async function () {
+    await ndhm.interceptEmailPhoneInit();
+    await click(text("Verify", within($(".abha-creation"))));
+});
+
+
+step("Click on Confirm to verify Mobile otp to link Abha Address", async function () {
+    var strBody = {
+        "mobileEmail": gauge.dataStore.scenarioStore.get("patientMobileNumber"),
+        "mappedPhrAddress": [
+            gauge.dataStore.scenarioStore.get("healthID")
+        ]
+    }
+    await ndhm.interceptPreVerification(strBody);
+    await click(button("Confirm"));
+});
+
+step("Choose Abha Address to link", async function () {
+    await click(button(gauge.dataStore.scenarioStore.get("healthID")));
+});
+
+step("Click on Verify button to verify abha number", async function () {
+    await ndhm.interceptAuthMethods();
+    await click(text("Verify", within($(".abha-creation"))));
+});
+
+step("Click on Authenticate", async function () {
+    await ndhm.interceptInitTransaction()
+    await click(button("Authenticate"));
+});
+
+step("Click on Confirm to authenticate aadhaar otp", async function () {
+    var strBody = { "mappedPhrAddress": [] }
+    await ndhm.interceptPreVerification(strBody);
+    await ndhm.interceptHID();
+    await click(button("Confirm"));
+});
+
+step("Intercept get token for ABHA ID", async function () {
+    await ndhm.interceptGetUserToken();
+});
+
+step("Click on Confirm to verify Aadhaar otp for matching record found", async function () {
+    await ndhm.interceptAadhaarVerifyOtpMatchingRecord()
+    await click(button("Confirm"));
+});
+
+step("Verify Aadhaar details with ABHA Number and ABHA Address", async function () {
+    await verifyAadhaarDetails();
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("abhaNumber"), toRightOf("ABHA Number:")).exists())
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("healthID"), toRightOf("ABHA Address:")).exists())
+});
+
+step("Click on matching record found link", async function () {
+    await scrollTo(text("Matching record with " + gauge.dataStore.scenarioStore.get("healthID") + " found"));
+    await click(text("Matching record with " + gauge.dataStore.scenarioStore.get("healthID") + " found"));
+});
+
+step("Verify matching record found with the selected Abha Address", async function () {
+    assert.ok(await text("Matching record with " + gauge.dataStore.scenarioStore.get("healthID") + " found. Please proceed to update the record", above("Proceed")).exists())
+});
+
+step("Verify Aadhaar details with ABHA Number and ABHA Adress", async function() {
+    await verifyAadhaarDetails();
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("abhaNumber"), toRightOf("ABHA Number:")).exists())
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("healthID"), toRightOf("ABHA Address:")).exists())
+});
+
+step("Click on Confirm to verify Aadhaar otp for existing Abha Number and Abha Address", async function() {
+    await ndhm.interceptAadhaarVerifyOtpExistingABHANoABHAAddress()
+    await click(button("Confirm"));
 });
