@@ -93,8 +93,8 @@ async function interceptAuthConfirm(token, healthID, firstName, lastName, yearOf
         .replace('<fullName>', firstName + " " + lastName)
         .replace('<gender>', gender)
         .replace('<yearOfBirth>', yearOfBirth)
-        .replace('<monthOfBirth>', faker.datatype.number({ min: 1,max: 12}))
-        .replace('<dayOfBirth>', faker.datatype.number({ min: 1,max: 28}))
+        .replace('<monthOfBirth>', faker.datatype.number({ min: 1, max: 12 }))
+        .replace('<dayOfBirth>', faker.datatype.number({ min: 1, max: 28 }))
         .replace('<district>', faker.address.city())
         .replace('<state>', faker.address.state())
         .replace('<mobileNumber>', patientMobileNumber);
@@ -200,10 +200,8 @@ async function interceptAadhaarGenerateOtp() {
 
     await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/generateOtp", response, 1)
 }
-
-async function interceptAadhaarVerifyOtp() {
-    var verifyOtp = fileExtension.parseContent("./data/confirm/aadhaar.txt")
-        .replace('<txnId>', uuid.v4())
+async function replacePopulateAadharDetails(strBody) {
+    return strBody.replace('<txnId>', uuid.v4())
         .replace('<profilePhoto>', gauge.dataStore.scenarioStore.get("profilePhotoB64"))
         .replace('<fullName>', gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"))
         .replace('<gender>', gauge.dataStore.scenarioStore.get("patientGender").charAt(0))
@@ -215,16 +213,36 @@ async function interceptAadhaarVerifyOtp() {
         .replace('<city>', gauge.dataStore.scenarioStore.get("city"))
         .replace('<district>', gauge.dataStore.scenarioStore.get("city"))
         .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
-        .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"));
+        .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"))
+        .replace("<healthIdNumber>", gauge.dataStore.scenarioStore.get("abhaNumber"))
+        .replace("<healthId>", gauge.dataStore.scenarioStore.get("healthID"))
+        .replace("<phrAddress>", gauge.dataStore.scenarioStore.get("healthID"))
+        .replace("<phone>", gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3));
+}
+
+async function interceptAadhaarVerifyOtp() {
+    var verifyOtp = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaar.txt"));
     var response = {
         method: 'POST',
         body: verifyOtp,
         headers: {
             'Content-Type': 'application/json'
-            //'content-length': confirm.length
         }
     }
 
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
+}
+
+async function interceptAadhaarVerifyOtpExistingABHANo() {
+    var verifyOtp = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingAbhaNo.txt"));
+    var response = {
+        method: 'POST',
+        body: verifyOtp,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
     await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
     gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
 }
@@ -329,7 +347,92 @@ async function interceptNdhmDemographics() {
 
     await intercept(process.env.bahmniHost + "hiprovider/v0.5/hip/ndhm-demographics", response, 1)
 }
+async function interceptEmailPhoneInit() {
+    var response = {
+        method: 'POST',
+        status: 202
+    }
 
+    await intercept(process.env.bahmniHost + "/hiprovider/v1/phr/login/mobileEmail/init", response, 1)
+}
+async function interceptPreVerification(strBody) {
+    var response = {
+        method: 'POST',
+        body: strBody,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v1/phr/login/mobileEmail/preVerification", response, 1)
+}
+
+async function interceptAuthMethods() {
+    var strAuthBody = { "healthIdNumber": gauge.dataStore.scenarioStore.get("abhaNumber"), "authMethods": ["AADHAAR_OTP", "MOBILE_OTP"], "status": "ACTIVE", "blockedAuthMethods": [] }
+    var strAuthMethodBody = JSON.stringify(strAuthBody);
+    var response = {
+        method: 'POST',
+        status: 202,
+        body: strAuthBody,
+        headers: {
+            'Content-Type': 'application/json',
+            'content-length': strAuthMethodBody.length
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v1/phr/registration/hid/search/auth-methods", response, 1)
+}
+
+async function interceptInitTransaction() {
+    var response = {
+        method: 'POST',
+        status: 202
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v1/phr/login/init/transaction?authMode=AADHAAR_OTP", response, 1)
+}
+
+async function interceptGetUserToken() {
+    var response = {
+        method: 'POST',
+        status: 202,
+        body: {},
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v1/phr/login/mobileEmail/getUserToken", response, 1)
+}
+
+async function interceptHID() {
+    var response = {
+        method: 'POST',
+        status: 202,
+        body: { "success": "true" },
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v1/phr/profile/link/hid", response, 1)
+}
+
+async function interceptAadhaarVerifyOtpMatchingRecord() {
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForMatchingRecord.txt"));
+    await interceptAadhaarVerifyOtp(strBody)
+}
+
+async function interceptAadhaarVerifyOtpExistingABHANoABHAAddress() {
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingAbhaNoAbhaAddress.txt"));
+    await interceptAadhaarVerifyOtp(strBody)
+}
+async function interceptAadhaarVerifyOtp(strBody) {
+    var response = {
+        method: 'POST',
+        body: strBody,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
+}
 
 module.exports = {
     interceptFetchModes: interceptFetchModes,
@@ -347,6 +450,16 @@ module.exports = {
     interceptPhrAddressExist: interceptPhrAddressExist,
     interceptPhrLinked: interceptPhrLinked,
     interceptExistingPatientForAbhaAddress: interceptExistingPatientForAbhaAddress,
-    interceptNdhmDemographics: interceptNdhmDemographics
+    interceptNdhmDemographics: interceptNdhmDemographics,
+    interceptEmailPhoneInit: interceptEmailPhoneInit,
+    interceptPreVerification: interceptPreVerification,
+    interceptAuthMethods: interceptAuthMethods,
+    interceptInitTransaction: interceptInitTransaction,
+    interceptGetUserToken: interceptGetUserToken,
+    interceptHID: interceptHID,
+    interceptAadhaarVerifyOtpExistingABHANo: interceptAadhaarVerifyOtpExistingABHANo,
+    interceptAadhaarVerifyOtpMatchingRecord: interceptAadhaarVerifyOtpMatchingRecord,
+    interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress
+
 }
 

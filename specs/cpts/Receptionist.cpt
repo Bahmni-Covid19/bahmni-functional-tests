@@ -78,16 +78,6 @@
 * Save the patient data
 
 # Create Abha No for a Patient
-* Click create new patient
-* Generate random patient data
-* Click Create ABHA button
-* Enter Aadhaar number "000000000001" 
-* Accept all the consent checkboxes in ABHA screen
-* Click Accept & Proceed button for aadhaar verification
-* Enter OTP "000000" for Aadhaar verification
-* Click on Confirm to verify Aadhaar otp
-* Verify Aadhaar details
-* Click on Proceed
 * Enter mobile no
 * Click on Verify
 * Enter OTP "000000" for Mobile verification
@@ -96,13 +86,55 @@
 * Verify abha number created successfully
 * Click on Proceed
 
-
 # Create Abha address for a patient
 * Click on Create Abha adddress
 * Enter abha address
 * Click on create
 
+# Link abha address for a patient
+* Click on Link Abha Address button
+* Enter Mobile Number/Email
+* Click on Verify to link Abha Address
+* Enter OTP "000000" for Mobile verification
+* Click on Confirm to verify Mobile otp to link Abha Address
+* Choose Abha Address to link
+* Intercept get token for ABHA ID
+* Click on Proceed
+* Click on Verify button to verify abha number
+* Click on Authenticate
+* Enter OTP "000000" for Aadhaar verification
+* Click on Confirm to authenticate aadhaar otp
+* Click on Proceed
 
-# Verify patient details on registration page
+# Link abha address for a patient with matching record found 
+* Click on Link Abha Address button
+* Enter Mobile Number/Email
+* Click on Verify to link Abha Address
+* Enter OTP "000000" for Mobile verification
+* Click on Confirm to verify Mobile otp to link Abha Address
+* Choose Abha Address to link
+* Verify matching record found with the selected Abha Address
+* Intercept get token for ABHA ID
+* Click on Proceed
+* Click on Verify button to verify abha number
+* Click on Authenticate
+* Enter OTP "000000" for Aadhaar verification
+* Click on Confirm to authenticate aadhaar otp
+* Click on Proceed
+
+# Choose the bahmni record which needs to be updated
+* Select the Existing Patient
+* Click on Confirm Selection
+
+# Choose from existing abha address linked to abha number
+* Choose Abha Address to link
+* Click on Proceed
 * Click on Create New Record button
-* Verify details on Registration page
+
+# Fetch aadhaar details
+* Click Create ABHA button
+* Enter Aadhaar number "000000000001" 
+* Accept all the consent checkboxes in ABHA screen
+* Click Accept & Proceed button for aadhaar verification
+* Enter OTP "000000" for Aadhaar verification
+

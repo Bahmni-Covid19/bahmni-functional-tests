@@ -1,0 +1,20 @@
+{
+  "txnId": "<txnId>",
+  "photo": "<profilePhoto>",
+  "name": "<fullName>",
+  "gender": "<gender>",
+  "birthdate": "<dateOfBirth>",
+  "careOf": "<fatherName>",
+  "house": "<houseNo>",
+  "landmark": "<streetNo>",
+  "locality": "<locality>",
+  "villageTownCity": "<city>",
+  "district": "<district>",
+  "state": "<state>",
+  "pincode": "<pincode>",
+  "phone": "<phone>" ,
+  "healthIdNumber":"<healthIdNumber>",
+   "jwtResponse": {
+    "token": "automation_test_token_for_abha_address"
+    }
+}
