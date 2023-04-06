@@ -346,7 +346,7 @@ step("Click Accept & Proceed button for aadhaar verification", async function ()
 });
 
 step("Click on Confirm to verify Aadhaar otp", async function () {
-    await ndhm.interceptAadhaarVerifyOtp()
+    await ndhm.interceptAadhaarVerifyOtpNoNoAndAddress()
     await click(button("Confirm"));
 });
 

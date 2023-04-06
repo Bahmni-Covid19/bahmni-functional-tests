@@ -220,31 +220,14 @@ async function replacePopulateAadharDetails(strBody) {
         .replace("<phone>", gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3));
 }
 
-async function interceptAadhaarVerifyOtp() {
-    var verifyOtp = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaar.txt"));
-    var response = {
-        method: 'POST',
-        body: verifyOtp,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-
-    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
-    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
+async function interceptAadhaarVerifyOtpNoNoAndAddress() {
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaar.txt"));
+    await interceptAadhaarVerifyOtp(strBody)
 }
 
 async function interceptAadhaarVerifyOtpExistingABHANo() {
-    var verifyOtp = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingAbhaNo.txt"));
-    var response = {
-        method: 'POST',
-        body: verifyOtp,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
-    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingAbhaNo.txt"));
+    await interceptAadhaarVerifyOtp(strBody)
 }
 
 async function interceptAadhaarGenerateMobileOtp() {
@@ -459,7 +442,8 @@ module.exports = {
     interceptHID: interceptHID,
     interceptAadhaarVerifyOtpExistingABHANo: interceptAadhaarVerifyOtpExistingABHANo,
     interceptAadhaarVerifyOtpMatchingRecord: interceptAadhaarVerifyOtpMatchingRecord,
-    interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress
+    interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress,
+    interceptAadhaarVerifyOtpNoNoAndAddress: interceptAadhaarVerifyOtpNoNoAndAddress
 
 }
 
