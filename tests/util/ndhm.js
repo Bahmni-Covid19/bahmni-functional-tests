@@ -217,7 +217,7 @@ async function replacePopulateAadharDetails(strBody) {
         .replace("<healthIdNumber>", gauge.dataStore.scenarioStore.get("abhaNumber"))
         .replace("<healthId>", gauge.dataStore.scenarioStore.get("healthID"))
         .replace("<phrAddress>", gauge.dataStore.scenarioStore.get("healthID"))
-        .replace("<phone>",gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3));
+        .replace("<phone>", gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3));
 }
 
 async function interceptAadhaarVerifyOtp() {
@@ -414,24 +414,18 @@ async function interceptHID() {
 }
 
 async function interceptAadhaarVerifyOtpMatchingRecord() {
-    var verifyOtp = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForMatchingRecord.txt"));
-    var response = {
-        method: 'POST',
-        body: verifyOtp,
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }
-    await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
-    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForMatchingRecord.txt"));
+    await interceptAadhaarVerifyOtp(strBody)
 }
 
-async function interceptAadhaarVerifyOtpExistingABHANoABHAAddress(){
-    var verifyOtp = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingAbhaNoAbhaAddress.txt"));
-    console.log(verifyOtp)
+async function interceptAadhaarVerifyOtpExistingABHANoABHAAddress() {
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingAbhaNoAbhaAddress.txt"));
+    await interceptAadhaarVerifyOtp(strBody)
+}
+async function interceptAadhaarVerifyOtp(strBody) {
     var response = {
         method: 'POST',
-        body: verifyOtp,
+        body: strBody,
         headers: {
             'Content-Type': 'application/json'
         }
@@ -464,8 +458,8 @@ module.exports = {
     interceptGetUserToken: interceptGetUserToken,
     interceptHID: interceptHID,
     interceptAadhaarVerifyOtpExistingABHANo: interceptAadhaarVerifyOtpExistingABHANo,
-    interceptAadhaarVerifyOtpMatchingRecord:interceptAadhaarVerifyOtpMatchingRecord,
-    interceptAadhaarVerifyOtpExistingABHANoABHAAddress:interceptAadhaarVerifyOtpExistingABHANoABHAAddress
+    interceptAadhaarVerifyOtpMatchingRecord: interceptAadhaarVerifyOtpMatchingRecord,
+    interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress
 
 }
 
