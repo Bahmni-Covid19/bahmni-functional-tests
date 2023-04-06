@@ -402,7 +402,7 @@ async function interceptAadhaarVerifyOtpMatchingRecord() {
 }
 
 async function interceptAadhaarVerifyOtpExistingABHANoABHAAddress() {
-    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingAbhaNoAbhaAddress.txt"));
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingABHANoAbhaAddress.txt"));
     await interceptAadhaarVerifyOtp(strBody)
 }
 async function interceptAadhaarVerifyOtp(strBody) {
