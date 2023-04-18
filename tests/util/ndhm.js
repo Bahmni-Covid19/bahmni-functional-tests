@@ -87,16 +87,46 @@ async function redirectExistingPatients(token, firstName, lastName, yearOfBirth,
     await intercept(properExistingPatientUrl, response, 1);
 }
 
-async function interceptAuthConfirm(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
+async function interceptAuthConfirmForNewPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
     var confirm = fileExtension.parseContent("./data/confirm/simple.txt")
         .replace('<healthID>', healthID)
         .replace('<fullName>', firstName + " " + lastName)
         .replace('<gender>', gender)
         .replace('<yearOfBirth>', yearOfBirth)
-        .replace('<monthOfBirth>', faker.datatype.number({ min: 1, max: 12 }))
-        .replace('<dayOfBirth>', faker.datatype.number({ min: 1, max: 28 }))
-        .replace('<district>', faker.address.city())
-        .replace('<state>', faker.address.state())
+        .replace('<monthOfBirth>', gauge.dataStore.scenarioStore.get("monthOfBirth"))
+        .replace('<dayOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth"))
+        .replace('<district>', gauge.dataStore.scenarioStore.get("district"))
+        .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
+        .replace('<mobileNumber>', patientMobileNumber);
+    var response = {
+        method: 'POST',
+        port: '9052',
+        hostname: process.env.bahmniHost,
+        path: '/v0.5/users/auth/on-init',
+        body: confirm,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': token,
+            'content-length': confirm.length,
+            'X-HIP-ID': '10000005'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm", response, 1);
+    await intercept(process.env.bahmniHost + "/ndhm/null/v0.5/hip/auth/confirm", response, 1);
+    gauge.message("intercepted" + process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm")
+}
+
+async function interceptAuthConfirmforExistingPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
+    var confirm = fileExtension.parseContent("./data/confirm/mapHealthIdWithExistingpatient.txt")
+        .replace('<healthID>', healthID)
+        .replace('<fullName>', firstName + " " + lastName)
+        .replace('<gender>', gender)
+        .replace('<yearOfBirth>', yearOfBirth)
+        .replace('<monthOfBirth>', gauge.dataStore.scenarioStore.get("monthOfBirth"))
+        .replace('<dayOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth"))
+        .replace('<district>', gauge.dataStore.scenarioStore.get("district"))
+        .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
+        .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"))
         .replace('<mobileNumber>', patientMobileNumber);
     var response = {
         method: 'POST',
@@ -211,7 +241,7 @@ async function replacePopulateAadharDetails(strBody) {
         .replace('<streetNo>', gauge.dataStore.scenarioStore.get("street"))
         .replace('<locality>', gauge.dataStore.scenarioStore.get("locality"))
         .replace('<city>', gauge.dataStore.scenarioStore.get("city"))
-        .replace('<district>', gauge.dataStore.scenarioStore.get("city"))
+        .replace('<district>', gauge.dataStore.scenarioStore.get("district"))
         .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
         .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"))
         .replace("<healthIdNumber>", gauge.dataStore.scenarioStore.get("abhaNumber"))
@@ -421,7 +451,7 @@ module.exports = {
     interceptFetchModes: interceptFetchModes,
     interceptAuthInit: interceptAuthInit,
     interceptExistingPatients: interceptExistingPatients,
-    interceptAuthConfirm: interceptAuthConfirm,
+    interceptAuthConfirmForNewPatient: interceptAuthConfirmForNewPatient,
     redirectExistingPatients: redirectExistingPatients,
     interceptExistingPatientsWithParams: interceptExistingPatientsWithParams,
     deleteAbhaAddress: deleteAbhaAddress,
@@ -443,7 +473,8 @@ module.exports = {
     interceptAadhaarVerifyOtpExistingABHANo: interceptAadhaarVerifyOtpExistingABHANo,
     interceptAadhaarVerifyOtpMatchingRecord: interceptAadhaarVerifyOtpMatchingRecord,
     interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress,
-    interceptAadhaarVerifyOtpNoNoAndAddress: interceptAadhaarVerifyOtpNoNoAndAddress
+    interceptAadhaarVerifyOtpNoNoAndAddress: interceptAadhaarVerifyOtpNoNoAndAddress,
+    interceptAuthConfirmforExistingPatient: interceptAuthConfirmforExistingPatient
 
 }
 

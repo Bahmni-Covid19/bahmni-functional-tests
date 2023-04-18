@@ -129,7 +129,7 @@ step("Verify Patient data is fetched.", async function () {
 step("Validate History & Examination in HIU", async function () {
 	var historyAndExaminationDetails = gauge.dataStore.scenarioStore.get("historyAndExaminationDetails")
 	for (var chiefComplaint of historyAndExaminationDetails.Chief_Complaints) {
-		assert.ok(await text(`${chiefComplaint.Chief_Complaint} since ${chiefComplaint.Sign_symptom_duration} ${chiefComplaint.Units}`, toRightOf("Chief Complaint Data")).exists())
+		assert.ok(await text(`${chiefComplaint.Chief_Complaint} since ${chiefComplaint.Sign_symptom_duration} ${chiefComplaint.Units}`, below("Condition")).exists())
 	}
 	assert.ok(await link("Consultation: Image", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
 	assert.ok(await link("Consultation: Patient Video", below("ENCLOSED CLINICAL DOCUMENT :")).exists())
@@ -143,7 +143,7 @@ async function validateVitalsFromFile(configurations) {
 					await validateVitalsFromFile(configuration.value)
 					break;
 				default:
-					assert.ok(await text(configuration.value, toRightOf(configuration.label)).exists(),configuration.value+" To Right of "+configuration.label+" is not exist.")
+					assert.ok(await text(configuration.value, toRightOf(configuration.label)).exists(), configuration.value + " To Right of " + configuration.label + " is not exist.")
 			}
 		}
 	}
@@ -181,8 +181,8 @@ step("Validate Lab Orders in HIU", async function () {
 });
 step("Validate Medications in HIU", async function () {
 	var prescriptionCount = gauge.dataStore.scenarioStore.get("prescriptionsCount")
-    for (var i = 0; i < prescriptionCount; i++) {
-        var prescriptionFile = gauge.dataStore.scenarioStore.get("prescriptions"+i)
+	for (var i = 0; i < prescriptionCount; i++) {
+		var prescriptionFile = gauge.dataStore.scenarioStore.get("prescriptions" + i)
 		var medicalPrescriptions = JSON.parse(fileExtension.parseContent(prescriptionFile))
 		assert.ok(await text(medicalPrescriptions.drug_name, below("Medication"), toLeftOf(medicalPrescriptions.frequency)).exists())
 	}

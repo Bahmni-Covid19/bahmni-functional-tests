@@ -14,9 +14,9 @@ tags: clinic, abdm, registration, regression
 * Click on Proceed
 * Create Abha No for a Patient
 * Create Abha address for a patient
-* Verify ABDM record displayed
+* Verify ABDM record displayed on create abha flow
 * Click on Create New Record button
-* Verify details on Registration page
+* Verify details on Registration page for verify abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -42,9 +42,9 @@ tags: clinic, abdm, registration, regression
 * Verify Aadhaar details with ABHA Number
 * Click on Proceed
 * Link abha address for a patient
-* Verify ABDM record displayed
+* Verify ABDM record displayed on create abha flow
 * Click on Create New Record button
-* Verify details on Registration page
+* Verify details on Registration page for verify abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -70,7 +70,7 @@ tags: clinic, abdm, registration, regression
 * Click on Proceed
 * Link abha address for a patient with matching record found
 * Choose the bahmni record which needs to be updated
-* Verify details on Registration page
+* Verify details on Registration page for verify abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -96,9 +96,9 @@ tags: clinic, abdm, registration, regression
 * Verify Aadhaar details with ABHA Number
 * Click on Proceed
 * Create Abha address for a patient
-* Verify ABDM record displayed
+* Verify ABDM record displayed on create abha flow
 * Click on Create New Record button
-* Verify details on Registration page
+* Verify details on Registration page for verify abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -124,7 +124,9 @@ tags: clinic, abdm, registration, regression
 * Verify Aadhaar details with ABHA Number and ABHA Adress
 * Click on Proceed
 * Choose from existing abha address linked to abha number
-* Verify details on Registration page
+* Verify ABDM record displayed on create abha flow
+* Click on Create New Record button
+* Verify details on Registration page for verify abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID

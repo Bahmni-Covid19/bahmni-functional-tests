@@ -11,11 +11,14 @@
 * Select Mobile OTP
 * Authenticate with Mobile
 * Enter OTP for ABHA validation
+* Verify ABDM record displayed on verify abha flow
 * Create new record
 * Enter random House number/Flat number
 * Enter random Locality/Sector
 * Enter random village
+* Enter random pinCode
 * Upload patient image
+* Verify details on Registration page for verify abha flow
 * Save the patient data
 
 # Create a new patient with random details and valid ABHA ID
@@ -27,11 +30,14 @@
 * Select Mobile OTP
 * Authenticate with Mobile
 * Enter OTP for ABHA validation
+* Verify ABDM record displayed on verify abha flow
 * Create new record
 * Enter random House number/Flat number
 * Enter random Locality/Sector
 * Enter random village
+* Enter random pinCode
 * Upload patient image
+* Verify details on Registration page for verify abha flow
 * Save the patient data
 
 # Doctor opens clinical tab
@@ -61,9 +67,11 @@
 * Select Mobile OTP
 * Authenticate with Mobile
 * Enter OTP for health care validation "0000" and fetch the existing patient details
+* Verify ABDM record displayed on verify abha flow for existing patient
 * Select the Existing Patient
 * Click on Confirm Selection
 * Save the patient data
+* Verify details on Registration page for verify abha flow
 
 # Register the patient using patient queue
 * Open "Registration" module
@@ -129,7 +137,6 @@
 # Choose from existing abha address linked to abha number
 * Choose Abha Address to link
 * Click on Proceed
-* Click on Create New Record button
 
 # Fetch aadhaar details
 * Click Create ABHA button
