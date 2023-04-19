@@ -87,9 +87,8 @@ async function redirectExistingPatients(token, firstName, lastName, yearOfBirth,
     await intercept(properExistingPatientUrl, response, 1);
 }
 
-async function interceptAuthConfirmForNewPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
-    var confirm = fileExtension.parseContent("./data/confirm/simple.txt")
-        .replace('<healthID>', healthID)
+async function interceptAuthConfirm(strResponse, token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
+    strResponse = strResponse.replace('<healthID>', healthID)
         .replace('<fullName>', firstName + " " + lastName)
         .replace('<gender>', gender)
         .replace('<yearOfBirth>', yearOfBirth)
@@ -103,11 +102,10 @@ async function interceptAuthConfirmForNewPatient(token, healthID, firstName, las
         port: '9052',
         hostname: process.env.bahmniHost,
         path: '/v0.5/users/auth/on-init',
-        body: confirm,
+        body: strResponse,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token,
-            'content-length': confirm.length,
             'X-HIP-ID': '10000005'
         }
     }
@@ -115,35 +113,12 @@ async function interceptAuthConfirmForNewPatient(token, healthID, firstName, las
     await intercept(process.env.bahmniHost + "/ndhm/null/v0.5/hip/auth/confirm", response, 1);
     gauge.message("intercepted" + process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm")
 }
+async function interceptAuthConfirmForNewPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
+    await interceptAuthConfirm(fileExtension.parseContent("./data/confirm/healthIdForNewpatient.txt"), token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber)
+}
 
 async function interceptAuthConfirmforExistingPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
-    var confirm = fileExtension.parseContent("./data/confirm/mapHealthIdWithExistingpatient.txt")
-        .replace('<healthID>', healthID)
-        .replace('<fullName>', firstName + " " + lastName)
-        .replace('<gender>', gender)
-        .replace('<yearOfBirth>', yearOfBirth)
-        .replace('<monthOfBirth>', gauge.dataStore.scenarioStore.get("monthOfBirth"))
-        .replace('<dayOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth"))
-        .replace('<district>', gauge.dataStore.scenarioStore.get("district"))
-        .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
-        .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"))
-        .replace('<mobileNumber>', patientMobileNumber);
-    var response = {
-        method: 'POST',
-        port: '9052',
-        hostname: process.env.bahmniHost,
-        path: '/v0.5/users/auth/on-init',
-        body: confirm,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token,
-            'content-length': confirm.length,
-            'X-HIP-ID': '10000005'
-        }
-    }
-    await intercept(process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm", response, 1);
-    await intercept(process.env.bahmniHost + "/ndhm/null/v0.5/hip/auth/confirm", response, 1);
-    gauge.message("intercepted" + process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm")
+    await interceptAuthConfirm(fileExtension.parseContent("./data/confirm/mapHealthIdWithExistingpatient.txt"), token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber)
 }
 
 async function interceptExistingPatients(token, healthID) {
@@ -474,7 +449,8 @@ module.exports = {
     interceptAadhaarVerifyOtpMatchingRecord: interceptAadhaarVerifyOtpMatchingRecord,
     interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress,
     interceptAadhaarVerifyOtpNoNoAndAddress: interceptAadhaarVerifyOtpNoNoAndAddress,
-    interceptAuthConfirmforExistingPatient: interceptAuthConfirmforExistingPatient
+    interceptAuthConfirmforExistingPatient: interceptAuthConfirmforExistingPatient,
+    interceptAuthConfirm: interceptAuthConfirm
 
 }
 

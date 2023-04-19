@@ -2,7 +2,7 @@
 
 ## Should be able to create Abha Number and Abha Address
 
-tags: clinic, abdm, registration, regression
+tags: clinic, abdm, registration, regression, ui
 
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
@@ -16,7 +16,7 @@ tags: clinic, abdm, registration, regression
 * Create Abha address for a patient
 * Verify ABDM record displayed on create abha flow
 * Click on Create New Record button
-* Verify details on Registration page for verify abha flow
+* Verify details on Registration page for create abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -31,7 +31,7 @@ tags: clinic, abdm, registration, regression
 
 ## Should be able to link Abha Address for newly created Abha Number
 
-tags: clinic, abdm, registration, regression
+tags: clinic, abdm, registration, regression, ui
 
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
@@ -44,7 +44,7 @@ tags: clinic, abdm, registration, regression
 * Link abha address for a patient
 * Verify ABDM record displayed on create abha flow
 * Click on Create New Record button
-* Verify details on Registration page for verify abha flow
+* Verify details on Registration page for create abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -59,7 +59,7 @@ tags: clinic, abdm, registration, regression
 
 ## Should be able to link Abha Address for newly created Abha Number with Matching record Found
 
-tags: clinic, abdm, registration, regression
+tags: clinic, abdm, registration, regression, ui
 
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
@@ -70,7 +70,7 @@ tags: clinic, abdm, registration, regression
 * Click on Proceed
 * Link abha address for a patient with matching record found
 * Choose the bahmni record which needs to be updated
-* Verify details on Registration page for verify abha flow
+* Verify details on Registration page for create abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -85,7 +85,7 @@ tags: clinic, abdm, registration, regression
 
 ## Should be able to create Abha Address for existing Abha Number not registered in Bahmni
 
-tags: clinic, abdm, registration, regression
+tags: clinic, abdm, registration, regression, ui
 
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
@@ -98,7 +98,7 @@ tags: clinic, abdm, registration, regression
 * Create Abha address for a patient
 * Verify ABDM record displayed on create abha flow
 * Click on Create New Record button
-* Verify details on Registration page for verify abha flow
+* Verify details on Registration page for create abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
@@ -113,7 +113,7 @@ tags: clinic, abdm, registration, regression
 
 ## Should be able to proceed with the existing abha address linked to abha number
 
-tags: clinic, abdm, registration, regression
+tags: clinic, abdm, registration, regression, ui
 
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
@@ -126,7 +126,7 @@ tags: clinic, abdm, registration, regression
 * Choose from existing abha address linked to abha number
 * Verify ABDM record displayed on create abha flow
 * Click on Create New Record button
-* Verify details on Registration page for verify abha flow
+* Verify details on Registration page for create abha flow
 * Save the patient data
 * Click on home page and goto registration module
 * Open newly created patient details by healthID

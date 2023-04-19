@@ -1,6 +1,7 @@
 # Register patient using ABHA
 
-tags: clinic, abdm
+tags: clinic, abdm, ui
+
 ## Should be able to register a new patient with ABHA address and proceed with logging clinical details
 
 tags: clinic, abdm, registration, regression

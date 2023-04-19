@@ -82,7 +82,8 @@ step("Generate random patient data", async function () {
     gauge.dataStore.scenarioStore.put("locality", locality)
     var city = faker.address.cityName()
     gauge.dataStore.scenarioStore.put("city", city)
-    gauge.dataStore.scenarioStore.put("fatherName", "Rahul")
+    var fatherName = faker.name.firstName()
+    gauge.dataStore.scenarioStore.put("fatherName", fatherName)
     var state = faker.address.state()
     gauge.dataStore.scenarioStore.put("state", state)
     await users.randomZipCodeStateAndDistrict();

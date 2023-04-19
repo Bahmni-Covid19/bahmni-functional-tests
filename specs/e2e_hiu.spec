@@ -1,6 +1,6 @@
 # End to End test for HIU Flow
 
-tags: clinic, abdm
+tags: clinic, abdm, ui
 
 ## User should be able to register patient with ABHA address, log clinical details, create consent request, approve consent request and view details in HIU.
 
