@@ -29,6 +29,7 @@ env:
   TEST_CONTEXT: ${{ github.event.inputs.TEST_CONTEXT || 'clinic & regression' }}
   TARGET_ENV: ${{ github.event.inputs.TARGET_ENV || 'dev.lite' }}
   ENV_FLAG: false
+  LANGUAGE: en-IN
 jobs:
   build-and-run:
     name: Build and Run E2E tests
