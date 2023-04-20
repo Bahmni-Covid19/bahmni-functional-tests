@@ -96,6 +96,7 @@ async function interceptAuthConfirm(strResponse, token, healthID, firstName, las
         .replace('<dayOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth"))
         .replace('<district>', gauge.dataStore.scenarioStore.get("district"))
         .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
+        .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"))
         .replace('<mobileNumber>', patientMobileNumber);
     var response = {
         method: 'POST',

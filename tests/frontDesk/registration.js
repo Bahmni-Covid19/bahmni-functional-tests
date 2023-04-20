@@ -68,12 +68,13 @@ step("Generate random patient data", async function () {
     var yearOfBirth = faker.datatype.number({ min: new Date().getFullYear() - 100, max: new Date().getFullYear() });
     gauge.dataStore.scenarioStore.put("yearOfBirth", yearOfBirth)
     gauge.message("yearOfBirth - " + yearOfBirth);
-    var monthOfBirth = faker.datatype.number({ min: 1, max: 12 })
+    var monthOfBirth = faker.datatype.number({ min: 1, max: 12 }).toString().padStart(2, "0")
     gauge.dataStore.scenarioStore.put("monthOfBirth", monthOfBirth)
-    var dayOfBirth = faker.datatype.number({ min: 1, max: 28 })
+    var dayOfBirth = faker.datatype.number({ min: 1, max: 28 }).toString().padStart(2, "0")
     gauge.dataStore.scenarioStore.put("dayOfBirth", dayOfBirth)
     var buildingNumber = faker.address.buildingNumber()
-    var patientAge = date.calculate_age(new Date(yearOfBirth, monthOfBirth, dayOfBirth))
+    console.log(`${yearOfBirth}-${monthOfBirth}-${dayOfBirth}`)
+    var patientAge = date.calculate_age(new Date(`${yearOfBirth}-${monthOfBirth}-${dayOfBirth}`))
     gauge.dataStore.scenarioStore.put("patientAge", patientAge)
     gauge.dataStore.scenarioStore.put("buildingNumber", buildingNumber)
     var street = faker.address.street()

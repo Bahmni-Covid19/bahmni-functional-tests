@@ -14,7 +14,5 @@
     "uuid": "latest",
     "@faker-js/faker": "^7.6.0"
   },
-  "devDependencies": {
-    "taiko-video": "^0.2.1"
-  }
+  "devDependencies": {}
 }
