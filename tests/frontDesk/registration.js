@@ -319,7 +319,7 @@ step("Enter Aadhaar number <000000000000>", async function (aadharNumber) {
 
 
 step("Enter OTP <00000> for Aadhaar verification", async function (otp) {
-    await write(otp, into(textBox(toRightOf("Enter OTP"), within($(".abha-creation")))))
+    await write(otp, into(textBox(toLeftOf("Confirm"), within($(".abha-creation")))))
 });
 
 step("Click on Proceed", async function () {
