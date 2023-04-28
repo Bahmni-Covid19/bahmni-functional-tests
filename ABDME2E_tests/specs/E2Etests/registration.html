@@ -1,0 +1,57 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>Register patient using ABHA</h1>
+<p>tags: clinic, abdm, ui</p>
+<h2>Should be able to register a new patient with ABHA address and proceed with logging clinical details</h2>
+<p>tags: clinic, abdm, registration, regression</p>
+<ul>
+<li>Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>Open &quot;Registration&quot; module</li>
+<li>Create a new patient with random details and random ABHA ID</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start a &quot;OPD&quot; Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+</ul>
+<h2>Should be able to map the existing patient with ABHA address and proceed with logging clinical details</h2>
+<p>tags: clinic, abdm, registration, regression</p>
+<ul>
+<li>Login to Bahmni location &quot;Bahmni Clinic&quot; as a receptionist</li>
+<li>Receptionist creates the patient</li>
+<li>Map the health ID with the Existing patient</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start a &quot;OPD&quot; Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+</ul>
+<h2>Receptionist should be able to register the patient from patient queue.</h2>
+<p>tags: clinic, abdm, registration, regression</p>
+<ul>
+<li>Delete ABHA Address in Bahmni</li>
+<li>Login to PHR app</li>
+<li>Patients scans the facility QR and receives the token number</li>
+<li>Login to Bahmni location &quot;Bahmni Clinic&quot; as a receptionist</li>
+<li>Register the patient using patient queue</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start a &quot;OPD&quot; Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+<li>Delete ABHA Address in Bahmni</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="./e2e_hiu.html"><</a></li><li class="nav"><a href="../../index.html">=</a></li></center></article>

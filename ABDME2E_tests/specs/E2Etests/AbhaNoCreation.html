@@ -1,0 +1,136 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>ABHA No &amp; ABHA Address creation E2E Tests</h1>
+<h2>Should be able to create Abha Number and Abha Address</h2>
+<p>tags: clinic, abdm, registration, regression, ui</p>
+<ul>
+<li>Login to Bahmni location &quot;General Ward&quot; as a receptionist</li>
+<li>Open &quot;Registration&quot; module</li>
+<li>Click create new patient</li>
+<li>Generate random patient data</li>
+<li>Fetch aadhaar details</li>
+<li>Click on Confirm to verify Aadhaar otp</li>
+<li>Verify Aadhaar details</li>
+<li>Click on Proceed</li>
+<li>Create Abha No for a Patient</li>
+<li>Create Abha address for a patient</li>
+<li>Verify ABDM record displayed on create abha flow</li>
+<li>Click on Create New Record button</li>
+<li>Verify details on Registration page for create abha flow</li>
+<li>Save the patient data</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start an OPD Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+</ul>
+<h2>Should be able to link Abha Address for newly created Abha Number</h2>
+<p>tags: clinic, abdm, registration, regression, ui</p>
+<ul>
+<li>Login to Bahmni location &quot;General Ward&quot; as a receptionist</li>
+<li>Open &quot;Registration&quot; module</li>
+<li>Click create new patient</li>
+<li>Generate random patient data</li>
+<li>Fetch aadhaar details</li>
+<li>Click on Confirm to verify Aadhaar otp for existing Abha Number</li>
+<li>Verify Aadhaar details with ABHA Number</li>
+<li>Click on Proceed</li>
+<li>Link abha address for a patient</li>
+<li>Verify ABDM record displayed on create abha flow</li>
+<li>Click on Create New Record button</li>
+<li>Verify details on Registration page for create abha flow</li>
+<li>Save the patient data</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start an OPD Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+</ul>
+<h2>Should be able to link Abha Address for newly created Abha Number with Matching record Found</h2>
+<p>tags: clinic, abdm, registration, regression, ui</p>
+<ul>
+<li>Login to Bahmni location &quot;General Ward&quot; as a receptionist</li>
+<li>Open &quot;Registration&quot; module</li>
+<li>Create a new patient with random details and random ABHA ID</li>
+<li>Fetch aadhaar details</li>
+<li>Click on Confirm to verify Aadhaar otp for existing Abha Number</li>
+<li>Verify Aadhaar details with ABHA Number</li>
+<li>Click on Proceed</li>
+<li>Link abha address for a patient with matching record found</li>
+<li>Choose the bahmni record which needs to be updated</li>
+<li>Verify details on Registration page for create abha flow</li>
+<li>Save the patient data</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start an OPD Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+</ul>
+<h2>Should be able to create Abha Address for existing Abha Number not registered in Bahmni</h2>
+<p>tags: clinic, abdm, registration, regression, ui</p>
+<ul>
+<li>Login to Bahmni location &quot;General Ward&quot; as a receptionist</li>
+<li>Open &quot;Registration&quot; module</li>
+<li>Click create new patient</li>
+<li>Generate random patient data</li>
+<li>Fetch aadhaar details</li>
+<li>Click on Confirm to verify Aadhaar otp for existing Abha Number</li>
+<li>Verify Aadhaar details with ABHA Number</li>
+<li>Click on Proceed</li>
+<li>Create Abha address for a patient</li>
+<li>Verify ABDM record displayed on create abha flow</li>
+<li>Click on Create New Record button</li>
+<li>Verify details on Registration page for create abha flow</li>
+<li>Save the patient data</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start an OPD Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+</ul>
+<h2>Should be able to proceed with the existing abha address linked to abha number</h2>
+<p>tags: clinic, abdm, registration, regression, ui</p>
+<ul>
+<li>Login to Bahmni location &quot;General Ward&quot; as a receptionist</li>
+<li>Open &quot;Registration&quot; module</li>
+<li>Click create new patient</li>
+<li>Generate random patient data</li>
+<li>Fetch aadhaar details</li>
+<li>Click on Confirm to verify Aadhaar otp for existing Abha Number and Abha Address</li>
+<li>Verify Aadhaar details with ABHA Number and ABHA Adress</li>
+<li>Click on Proceed</li>
+<li>Choose from existing abha address linked to abha number</li>
+<li>Verify ABDM record displayed on create abha flow</li>
+<li>Click on Create New Record button</li>
+<li>Verify details on Registration page for create abha flow</li>
+<li>Save the patient data</li>
+<li>Click on home page and goto registration module</li>
+<li>Open newly created patient details by healthID</li>
+<li>Verify correct patient form is open</li>
+<li>Start an OPD Visit</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</li>
+<li>Doctor initiates clinical checkup with healthID</li>
+<li>Click back button</li>
+<li>Click back button</li>
+<li>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</li>
+<li>visit is closed at the front desk</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="../../index.html">=</a></li><li class="nav"><a href="./e2e_hiu.html">></a></li></center></article>

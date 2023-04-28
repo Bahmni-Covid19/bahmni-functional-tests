@@ -1,0 +1,166 @@
+<article class='markdown-body'><meta charset="utf-8"><link rel="stylesheet" type="text/css" href="../../style.css"><h1>End to End test for HIU Flow</h1>
+<p>tags: clinic, abdm, ui</p>
+<h2>User should be able to register patient with ABHA address, log clinical details, create consent request, approve consent request and view details in HIU.</h2>
+<p>tags: clinic, abdm, hiu, phr, regression</p>
+<ul>
+<li>
+<p>Delete ABHA Address in Bahmni</p>
+</li>
+<li>
+<p>Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</p>
+</li>
+<li>
+<p>Open &quot;Registration&quot; module</p>
+</li>
+<li>
+<p>Create a new patient with random details and valid ABHA ID</p>
+</li>
+<li>
+<p>Start a &quot;OPD&quot; Visit</p>
+</li>
+<li>
+<p>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;doctor&quot;</p>
+</li>
+<li>
+<p>Doctor initiates clinical checkup with healthID</p>
+</li>
+<li>
+<p>Doctor notes the diagnosis and condition &quot;consultation/diagnosis/diagnosis_condition&quot;</p>
+</li>
+<li>
+<p>Doctor captures the consultation notes &quot;Consultation Notes&quot; for newly created patient</p>
+</li>
+<li>
+<p>Doctor advises medicines &quot;consultation/medications/paracetamol&quot; and tests &quot;consultation/orders/Platelets&quot;</p>
+</li>
+<li>
+<p>Click back button</p>
+</li>
+<li>
+<p>Click back button</p>
+</li>
+<li>
+<p>Open &quot;Lab entry&quot; module</p>
+</li>
+<li>
+<p>Open a patient in lablite</p>
+</li>
+<li>
+<p>Upload and verify report in lablite</p>
+</li>
+<li>
+<p>Click Home button on lab-lite</p>
+</li>
+<li>
+<p>Open &quot;Patient Documents&quot; module</p>
+</li>
+<li>
+<p>Choose newly created patient</p>
+</li>
+<li>
+<p>Add a report &quot;labReport1&quot; to &quot;Patient Documents&quot;</p>
+</li>
+<li>
+<p>Save the report</p>
+</li>
+<li>
+<p>Click back button</p>
+</li>
+<li>
+<p>Logout and Login to Bahmni location &quot;Bahmni Clinic&quot; as a &quot;receptionist&quot;</p>
+</li>
+<li>
+<p>visit is closed at the front desk</p>
+</li>
+<li>
+<p>Click back button</p>
+</li>
+<li>
+<p>Login to the consent request management system</p>
+</li>
+<li>
+<p>Create a consent request for the healthID</p>
+<table>
+<thead>
+<tr>
+<th>Health Info Types</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OP Consultation</td>
+</tr>
+<tr>
+<td>Diagnostic Report</td>
+</tr>
+<tr>
+<td>Prescription</td>
+</tr>
+<tr>
+<td>Immunization Record</td>
+</tr>
+<tr>
+<td>Discharge Summary</td>
+</tr>
+<tr>
+<td>Health Document Record</td>
+</tr>
+<tr>
+<td>Wellness Record</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>Login to PHR app</p>
+</li>
+<li>
+<p>Link the care context with user</p>
+</li>
+<li>
+<p>approve the consent request</p>
+<table>
+<thead>
+<tr>
+<th>Health Info Types</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OPConsultation</td>
+</tr>
+<tr>
+<td>DiagnosticReport</td>
+</tr>
+<tr>
+<td>Prescription</td>
+</tr>
+<tr>
+<td>ImmunizationRecord</td>
+</tr>
+<tr>
+<td>DischargeSummary</td>
+</tr>
+<tr>
+<td>HealthDocumentRecord</td>
+</tr>
+<tr>
+<td>WellnessRecord</td>
+</tr>
+</tbody>
+</table>
+</li>
+<li>
+<p>wait for &quot;5000&quot;</p>
+</li>
+<li>
+<p>Validate the consent Request on HIU for health id</p>
+</li>
+<li>
+<p>Logout of HIU</p>
+</li>
+<li>
+<p>Delete ABHA Address in Bahmni</p>
+</li>
+</ul>
+<ul id="navigation"><center><li class="nav"><a href="./AbhaNoCreation.html"><</a></li><li class="nav"><a href="../../index.html">=</a></li><li class="nav"><a href="./registration.html">></a></li></center></article>
