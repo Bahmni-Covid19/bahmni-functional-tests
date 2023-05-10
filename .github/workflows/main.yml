@@ -4,7 +4,7 @@ on:
     branches:
       - master
   schedule:
-    - cron: "0 5 * * *" # Schedule fpr QA.lite Env Runs at 10.30AM IST - 5.00AM UTC
+    - cron: "0 1 * * *" # Schedule for DEV.lite Env Runs at 06.30AM IST - 1.00AM UTC
   workflow_dispatch:
     inputs:
       TEST_CONTEXT:
@@ -35,10 +35,10 @@ jobs:
     name: Build and Run E2E tests
     runs-on: ubuntu-latest
     steps:
-      - name: Set environment variables for QA.lite Regression Schedule
-        if: github.event.schedule=='0 5 * * *'
+      - name: Set environment variables for dev.lite Regression Schedule
+        if: github.event.schedule=='0 1 * * *'
         run: |
-          echo "TARGET_ENV=qa.lite" >> $GITHUB_ENV
+          echo "TARGET_ENV=dev.lite" >> $GITHUB_ENV
           echo "TEST_CONTEXT=clinic & regression" >> $GITHUB_ENV
       - name: Show current Env variables
         run: |
