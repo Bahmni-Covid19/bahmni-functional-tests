@@ -1,4 +1,7 @@
 # Program Based Visit E2E Tests
+
+tags: ui
+
 ## Should be able to enter program level details for a patient
 
 tags: prescriptions, diagnostics

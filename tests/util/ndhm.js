@@ -13,7 +13,9 @@ async function interceptFetchModes(token) {
     var body1 = {
         "authModes": [
             "MOBILE_OTP",
-            "AADHAAR_OTP"
+            "DEMOGRAPHICS",
+            "PASSWORD",
+            "DIRECT"
         ]
     };
     var reqBodyOnFetchModes = JSON.stringify(body1);
