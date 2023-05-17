@@ -134,12 +134,6 @@ step("Select Mobile OTP", async function () {
     await dropDown("Preferred mode of Authentication").select("MOBILE_OTP");
 });
 
-step("Authenticate with Mobile", async function () {
-    await ndhm.interceptAuthInit(process.env.receptionist);
-    await click(button("Authenticate"))
-    await taikoHelper.repeatUntilNotFound($("#overlay"))
-});
-
 step("Login as a receptionist with admin credentials location <location>", async function (location) {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
     if (await await button({ "class": "btn-user-info" }).exists()) {
@@ -166,12 +160,6 @@ step("Click Verify button", async function () {
     await ndhm.interceptExistingPatients(process.env.receptionist, gauge.dataStore.scenarioStore.get("healthID"))
     await click(text("Verify", within($(".verify-health-id"))));
 });
-
-step("Enter OTP for ABHA validation",
-    async function () {
-        await waitFor('Enter OTP')
-        await write("0000", into(textBox(above("Fetch ABDM Data"))));
-    });
 
 step("Enter OTP for health care validation <otp> and fetch the existing patient details",
     async function (otp) {
@@ -503,7 +491,6 @@ step("Click on Verify button to verify abha number", async function () {
 
 step("Click on Authenticate", async function () {
     await ndhm.interceptAuthInit(process.env.receptionist);
-    // await ndhm.interceptInitTransaction()
     await click(button("Authenticate"));
 });
 
@@ -548,17 +535,22 @@ step("Click on Confirm to verify Aadhaar otp for existing Abha Number and Abha A
     await ndhm.interceptAadhaarVerifyOtpExistingABHANoABHAAddress()
     await click(button("Confirm"));
 });
-
-step("Select DEMOGRAPHICS", async function () {
+step("Select <AuthType> Authentication Type", async function (AuthType) {
     await waitFor("Preferred mode of Authentication")
-    await dropDown("Preferred mode of Authentication").select("DEMOGRAPHICS");
+    await dropDown("Preferred mode of Authentication").select(AuthType);
 });
 
-step("Enter Demographics details", async function () {
-    await write(`${gauge.dataStore.scenarioStore.get("patientFirstName")} ${gauge.dataStore.scenarioStore.get("patientMiddleName")} ${gauge.dataStore.scenarioStore.get("patientLastName")}`, into(textBox({ placeholder: "Name" })));
-    await dropDown(toRightOf('Choose Gender: ')).select(gauge.dataStore.scenarioStore.get("patientGender"))
-    await write(`${gauge.dataStore.scenarioStore.get("dayOfBirth")}${gauge.dataStore.scenarioStore.get("monthOfBirth")}${gauge.dataStore.scenarioStore.get("yearOfBirth")}`, into(timeField(toRightOf("Enter Date of Birth: "))))
-    await write(gauge.dataStore.scenarioStore.get("patientMobileNumber"), into(textBox(toRightOf("Enter Mobile Number: "))))
+step("Enter Demographics/OTP details for Authentication Type <AuthType>", async function (AuthType) {
+    if (AuthType === "MOBILE_OTP") {
+        await waitFor('Enter OTP')
+        await write("0000", into(textBox(above("Fetch ABDM Data"))));
+    } else {
+        await waitFor(textBox({ placeholder: "Name" }))
+        await write(`${gauge.dataStore.scenarioStore.get("patientFirstName")} ${gauge.dataStore.scenarioStore.get("patientMiddleName")} ${gauge.dataStore.scenarioStore.get("patientLastName")}`, into(textBox({ placeholder: "Name" })));
+        await dropDown(toRightOf('Choose Gender: ')).select(gauge.dataStore.scenarioStore.get("patientGender"))
+        await write(`${gauge.dataStore.scenarioStore.get("dayOfBirth")}${gauge.dataStore.scenarioStore.get("monthOfBirth")}${gauge.dataStore.scenarioStore.get("yearOfBirth")}`, into(timeField(toRightOf("Enter Date of Birth: "))))
+        await write(gauge.dataStore.scenarioStore.get("patientMobileNumber"), into(textBox(toRightOf("Enter Mobile Number: "))))
+    }
 });
 
 step("Click on Fetch ABDM data", async function () {

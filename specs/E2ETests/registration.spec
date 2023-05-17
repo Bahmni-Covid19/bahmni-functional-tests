@@ -8,7 +8,7 @@ tags: clinic, abdm, registration, regression
 
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * Open "Registration" module
-* Create a new patient with random details and random ABHA ID
+* Create a new patient with random details and random ABHA ID with authentication type as "MOBILE_OTP"
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
 * Verify correct patient form is open
@@ -65,7 +65,7 @@ tags: clinic, abdm, registration, regression
 
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * Open "Registration" module
-* Create a new patient with random details and random ABHA ID with authentication type as Demographics
+* Create a new patient with random details and random ABHA ID with authentication type as "DEMOGRAPHICS"
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
 * Verify correct patient form is open
