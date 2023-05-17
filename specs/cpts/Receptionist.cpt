@@ -141,23 +141,6 @@
 * Click Accept & Proceed button for aadhaar verification
 * Enter OTP "000000" for Aadhaar verification
 
-# Create a new patient with random details and random ABHA ID with authentication type as Demographics
-* Click create new patient
-* Generate random patient data
-* Click Verify ABHA button
-* Enter random ABHA ID details
-* Click Verify button
-* Select authentication mode as Demographics to fetch ABDM record
-* Verify ABDM record displayed on verify abha flow
-* Create new record
-* Enter random House number/Flat number
-* Enter random Locality/Sector
-* Enter random village
-* Enter random pinCode
-* Upload patient image
-* Verify details on Registration page for verify abha flow
-* Save the patient data
-
 # Create a new patient with random details and random ABHA ID with authentication type as <AuthType>
 * Click create new patient
 * Generate random patient data
