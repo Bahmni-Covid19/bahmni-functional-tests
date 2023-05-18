@@ -8,9 +8,7 @@
 * Click Verify ABHA button
 * Enter random ABHA ID details
 * Click Verify button
-* Select Mobile OTP
-* Authenticate with Mobile
-* Enter OTP for ABHA validation
+* Select authentication mode as "MOBILE_OTP" to fetch ABDM record
 * Verify ABDM record displayed on verify abha flow
 * Create new record
 * Enter random House number/Flat number
@@ -27,9 +25,7 @@
 * Click Verify ABHA button
 * Enter valid ABHA ID
 * Click Verify button
-* Select Mobile OTP
-* Authenticate with Mobile
-* Enter OTP for ABHA validation
+* Select authentication mode as "MOBILE_OTP" to fetch ABDM record
 * Verify ABDM record displayed on verify abha flow
 * Create new record
 * Enter random House number/Flat number
@@ -55,7 +51,7 @@
 * Enter healthID "soumyag@sbx"
 * Click Verify button
 * Select Mobile OTP
-* Authenticate with Mobile
+* Click on Authenticate
 * Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>
 
 # Map the health ID with the Existing patient
@@ -65,7 +61,7 @@
 * Enter random healthID for existing patient details
 * Click Verify button
 * Select Mobile OTP
-* Authenticate with Mobile
+* Click on Authenticate
 * Enter OTP for health care validation "0000" and fetch the existing patient details
 * Verify ABDM record displayed on verify abha flow for existing patient
 * Select the Existing Patient
@@ -144,4 +140,30 @@
 * Accept all the consent checkboxes in ABHA screen
 * Click Accept & Proceed button for aadhaar verification
 * Enter OTP "000000" for Aadhaar verification
+
+# Create a new patient with random details and random ABHA ID with authentication type as <AuthType>
+* Click create new patient
+* Generate random patient data
+* Click Verify ABHA button
+* Enter random ABHA ID details
+* Click Verify button
+* Select authentication mode as <AuthType> to fetch ABDM record
+* Verify ABDM record displayed on verify abha flow
+* Create new record
+* Enter random House number/Flat number
+* Enter random Locality/Sector
+* Enter random village
+* Enter random pinCode
+* Upload patient image
+* Verify details on Registration page for verify abha flow
+* Save the patient data
+
+# Select authentication mode as <AuthType> to fetch ABDM record
+* Select <AuthType> Authentication Type
+* Click on Authenticate
+* Enter Demographics/OTP details for Authentication Type <AuthType>
+* Click on Fetch ABDM data
+
+
+
 

@@ -1,4 +1,7 @@
 # OPD E2E Tests
+
+tags: ui
+
    |mobileNumber |
    |-------------|
    |+919876543210|
