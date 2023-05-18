@@ -548,7 +548,7 @@ step("Enter Demographics/OTP details for Authentication Type <AuthType>", async 
         await waitFor(textBox({ placeholder: "Name" }))
         await write(`${gauge.dataStore.scenarioStore.get("patientFirstName")} ${gauge.dataStore.scenarioStore.get("patientMiddleName")} ${gauge.dataStore.scenarioStore.get("patientLastName")}`, into(textBox({ placeholder: "Name" })));
         await dropDown(toRightOf('Choose Gender: ')).select(gauge.dataStore.scenarioStore.get("patientGender"))
-        await write(`${gauge.dataStore.scenarioStore.get("dayOfBirth")}${gauge.dataStore.scenarioStore.get("monthOfBirth")}${gauge.dataStore.scenarioStore.get("yearOfBirth")}`, into(timeField(toRightOf("Enter Date of Birth: "))))
+        await write(`${gauge.dataStore.scenarioStore.get("dayOfBirth").toString().padStart(2, "0")}${gauge.dataStore.scenarioStore.get("monthOfBirth").toString().padStart(2, "0")}${gauge.dataStore.scenarioStore.get("yearOfBirth")}`, into(timeField(toRightOf("Enter Date of Birth: "))))
         await write(gauge.dataStore.scenarioStore.get("patientMobileNumber"), into(textBox(toRightOf("Enter Mobile Number: "))))
     }
 });
