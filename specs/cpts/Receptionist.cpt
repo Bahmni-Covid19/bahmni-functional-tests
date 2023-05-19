@@ -51,7 +51,7 @@
 * Enter healthID "soumyag@sbx"
 * Click Verify button
 * Select Mobile OTP
-* Click on Authenticate
+* Click on Authenticate to enter otp/demographic details
 * Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>
 
 # Map the health ID with the Existing patient
@@ -61,7 +61,7 @@
 * Enter random healthID for existing patient details
 * Click Verify button
 * Select Mobile OTP
-* Click on Authenticate
+* Click on Authenticate to enter otp/demographic details
 * Enter OTP for health care validation "0000" and fetch the existing patient details
 * Verify ABDM record displayed on verify abha flow for existing patient
 * Select the Existing Patient
@@ -105,7 +105,7 @@
 * Intercept get token for ABHA ID
 * Click on Proceed
 * Click on Verify button to verify abha number
-* Click on Authenticate
+* Click on Authenticate to enter aadhaar otp
 * Enter OTP "000000" for Aadhaar verification
 * Click on Confirm to authenticate aadhaar otp
 * Click on Proceed
@@ -121,7 +121,7 @@
 * Intercept get token for ABHA ID
 * Click on Proceed
 * Click on Verify button to verify abha number
-* Click on Authenticate
+* Click on Authenticate to enter aadhaar otp
 * Enter OTP "000000" for Aadhaar verification
 * Click on Confirm to authenticate aadhaar otp
 * Click on Proceed
@@ -160,7 +160,7 @@
 
 # Select authentication mode as <AuthType> to fetch ABDM record
 * Select <AuthType> Authentication Type
-* Click on Authenticate
+* Click on Authenticate to enter otp/demographic details
 * Enter Demographics/OTP details for Authentication Type <AuthType>
 * Click on Fetch ABDM data
 
