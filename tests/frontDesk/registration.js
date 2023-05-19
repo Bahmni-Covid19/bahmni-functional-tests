@@ -489,8 +489,8 @@ step("Click on Verify button to verify abha number", async function () {
     await click(text("Verify", within($(".abha-creation"))));
 });
 
-step("Click on Authenticate", async function () {
-    await ndhm.interceptAuthInit(process.env.receptionist);
+step("Click on Authenticate to enter aadhaar otp", async function () {
+    await ndhm.interceptInitTransaction()
     await click(button("Authenticate"));
 });
 
@@ -565,4 +565,9 @@ step("Click on Fetch ABDM data", async function () {
     await ndhm.interceptAuthConfirmForNewPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
     await ndhm.interceptExistingPatientsWithParams(token, firstName, lastName, yearOfBirth, gender);
     await click(button("Fetch ABDM Data"));
+});
+
+step("Click on Authenticate to enter otp/demographic details", async function () {
+	await ndhm.interceptAuthInit(process.env.receptionist);
+    await click(button("Authenticate"));
 });
