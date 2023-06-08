@@ -8,6 +8,7 @@
 * Click Verify ABHA button
 * Enter random ABHA ID details
 * Click Verify button
+* Click on Proceed
 * Select authentication mode as "MOBILE_OTP" to fetch ABDM record
 * Verify ABDM record displayed on verify abha flow
 * Create new record
@@ -25,6 +26,7 @@
 * Click Verify ABHA button
 * Enter valid ABHA ID
 * Click Verify button
+* Click on Proceed
 * Select authentication mode as "MOBILE_OTP" to fetch ABDM record
 * Verify ABDM record displayed on verify abha flow
 * Create new record
@@ -50,6 +52,7 @@
 * Click Verify ABHA button
 * Enter healthID "soumyag@sbx"
 * Click Verify button
+* Click on Proceed
 * Select Mobile OTP
 * Click on Authenticate to enter otp/demographic details
 * Find match for NDHM record with firstName <firstName> middleName <middleName> lastName <lastName> age <age> gender <gender> mobileNumber <mobileNumber>
@@ -60,6 +63,7 @@
 * Click Verify ABHA button
 * Enter random healthID for existing patient details
 * Click Verify button
+* Click on Proceed
 * Select Mobile OTP
 * Click on Authenticate to enter otp/demographic details
 * Enter OTP for health care validation "0000" and fetch the existing patient details
@@ -147,6 +151,7 @@
 * Click Verify ABHA button
 * Enter random ABHA ID details
 * Click Verify button
+* Click on Proceed
 * Select authentication mode as <AuthType> to fetch ABDM record
 * Verify ABDM record displayed on verify abha flow
 * Create new record

@@ -425,6 +425,31 @@ async function interceptAadhaarVerifyOtp(strBody) {
     gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
 }
 
+async function searchHealthIdToLoginForAbhaAddress() {
+    var healthIdToLoginBody = {
+        "code": "HIS-422",
+        "message": "Unable to process the current request due to incorrect data entered.",
+        "details": [
+            {
+                "message": "Invalid credentials. ",
+                "code": "HIS-1008",
+                "attribute": "null"
+            }
+        ]
+    };
+    var strhealthIdToLoginBody = JSON.stringify(healthIdToLoginBody);
+    var response = {
+        method: 'POST',
+        status: 422,
+        body: strhealthIdToLoginBody,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    console.log("body")
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/search/searchHealthIdToLogin", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/search/searchHealthIdToLogin")
+}
 module.exports = {
     interceptFetchModes: interceptFetchModes,
     interceptAuthInit: interceptAuthInit,
@@ -453,7 +478,8 @@ module.exports = {
     interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress,
     interceptAadhaarVerifyOtpNoNoAndAddress: interceptAadhaarVerifyOtpNoNoAndAddress,
     interceptAuthConfirmforExistingPatient: interceptAuthConfirmforExistingPatient,
-    interceptAuthConfirm: interceptAuthConfirm
+    interceptAuthConfirm: interceptAuthConfirm,
+    searchHealthIdToLoginForAbhaAddress: searchHealthIdToLoginForAbhaAddress
 
 }
 

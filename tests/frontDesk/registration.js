@@ -97,7 +97,7 @@ step("Generate random patient data", async function () {
 });
 
 step("Enter random ABHA ID details", async function () {
-    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
+    await click(textBox(toRightOf("Enter ABHA Number/ABHA Address: ")));
     var patientHealthID = gauge.dataStore.scenarioStore.get("healthID")
     console.log("ABHA ID - " + patientHealthID);
     gauge.message("ABHA ID - " + patientHealthID);
@@ -105,7 +105,7 @@ step("Enter random ABHA ID details", async function () {
 });
 
 step("Enter valid ABHA ID", async function () {
-    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
+    await click(textBox(toRightOf("Enter ABHA Number/ABHA Address: ")));
     var patientHealthID = users.getUserNameFromEncoding(process.env.PHR_user);
     gauge.dataStore.scenarioStore.put("healthID", patientHealthID)
     console.log("ABHA ID - " + patientHealthID);
@@ -114,7 +114,7 @@ step("Enter valid ABHA ID", async function () {
 });
 
 step("Enter random healthID for existing patient details", async function () {
-    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
+    await click(textBox(toRightOf("Enter ABHA Number/ABHA Address: ")));
     var patientHealthID = gauge.dataStore.scenarioStore.get("healthID")
     console.log("ABHA ID - " + patientHealthID);
     gauge.message("ABHA ID - " + patientHealthID);
@@ -122,7 +122,7 @@ step("Enter random healthID for existing patient details", async function () {
 });
 
 step("Enter healthID <healthID>", async function (patientHealthID) {
-    await click(textBox(toRightOf("Enter ABHA/ABHA Address")));
+    await click(textBox(toRightOf("Enter ABHA Number/ABHA Address: ")));
     gauge.dataStore.scenarioStore.put("healthID", patientHealthID)
     console.log("ABHA ID - " + patientHealthID);
     gauge.message("ABHA ID - " + patientHealthID);
@@ -156,9 +156,9 @@ step("Go back to home page", async function () {
 });
 
 step("Click Verify button", async function () {
-    await ndhm.interceptFetchModes(process.env.receptionist)
-    await ndhm.interceptExistingPatients(process.env.receptionist, gauge.dataStore.scenarioStore.get("healthID"))
+    await ndhm.searchHealthIdToLoginForAbhaAddress()
     await click(text("Verify", within($(".verify-health-id"))));
+    await ndhm.interceptFetchModes(process.env.receptionist)
 });
 
 step("Enter OTP for health care validation <otp> and fetch the existing patient details",
@@ -568,6 +568,6 @@ step("Click on Fetch ABDM data", async function () {
 });
 
 step("Click on Authenticate to enter otp/demographic details", async function () {
-	await ndhm.interceptAuthInit(process.env.receptionist);
+    await ndhm.interceptAuthInit(process.env.receptionist);
     await click(button("Authenticate"));
 });
