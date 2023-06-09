@@ -156,7 +156,6 @@ step("Go back to home page", async function () {
 });
 
 step("Click Verify button", async function () {
-    await ndhm.searchHealthIdToLoginForAbhaAddress()
     await click(text("Verify", within($(".verify-health-id"))));
     await ndhm.interceptFetchModes(process.env.receptionist)
 });
