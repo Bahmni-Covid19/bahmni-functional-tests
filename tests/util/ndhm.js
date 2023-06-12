@@ -424,6 +424,22 @@ async function interceptAadhaarVerifyOtp(strBody) {
     await intercept(process.env.bahmniHost + "/hiprovider/v2/registration/aadhaar/verifyOTP", response, 1)
     gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/registration/aadhaar/verifyOTP")
 }
+async function searchHealthIdToLoginForAbhaAddress() {
+    var healthIdToLoginBody = {
+        "authMethods": ["MOBILE_OTP", "AADHAAR_OTP", "AADHAAR_BIO", "DEMOGRAPHICS"], "status": "ACTIVE"
+    };
+    var strhealthIdToLoginBody = JSON.stringify(healthIdToLoginBody);
+    var response = {
+        method: 'POST',
+        status: 202,
+        body: strhealthIdToLoginBody,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/search/searchHealthIdToLogin", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/search/searchHealthIdToLogin")
+}
 
 module.exports = {
     interceptFetchModes: interceptFetchModes,
@@ -453,7 +469,8 @@ module.exports = {
     interceptAadhaarVerifyOtpExistingABHANoABHAAddress: interceptAadhaarVerifyOtpExistingABHANoABHAAddress,
     interceptAadhaarVerifyOtpNoNoAndAddress: interceptAadhaarVerifyOtpNoNoAndAddress,
     interceptAuthConfirmforExistingPatient: interceptAuthConfirmforExistingPatient,
-    interceptAuthConfirm: interceptAuthConfirm
+    interceptAuthConfirm: interceptAuthConfirm,
+    searchHealthIdToLoginForAbhaAddress: searchHealthIdToLoginForAbhaAddress
 
 }
 
