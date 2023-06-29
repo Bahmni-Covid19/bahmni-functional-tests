@@ -63,7 +63,8 @@ tags: clinic, abdm, registration, regression, ui
 
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
-* Create a new patient with random details and random ABHA ID
+* Create a new patient with random details and random ABHA ID with authentication type "MOBILE_OTP"
+* Click create new patient
 * Fetch aadhaar details
 * Click on Confirm to verify Aadhaar otp for existing Abha Number
 * Verify Aadhaar details with ABHA Number

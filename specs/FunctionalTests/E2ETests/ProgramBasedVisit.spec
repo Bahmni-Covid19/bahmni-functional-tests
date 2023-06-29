@@ -8,7 +8,7 @@ tags: prescriptions, diagnostics
 
 * Login to Bahmni location "OPD-1" as a receptionist
 * Open "Registration" module
-* Create a new patient with random details and valid ABHA ID
+* Create a new patient with random details and valid ABHA ID with authentication type as "MOBILE_OTP"
 * Start an Special OPD Visit
 * Doctor opens Patient "HIV Program" dashboard
 * Doctor clicks consultation

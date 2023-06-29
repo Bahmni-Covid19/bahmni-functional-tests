@@ -1,0 +1,15 @@
+{
+   "patient": {
+      "name": "<fullName>",
+      "gender": "<gender>",
+      "yearOfBirth": "<yearOfBirth>",
+      "monthOfBirth": "<monthOfBirth>",
+      "dayOfBirth": "<dayOfBirth>",
+      "identifiers": [
+         {
+            "type": "MOBILE",
+            "value": "<mobileNumber>"
+         }
+      ]
+   }
+}

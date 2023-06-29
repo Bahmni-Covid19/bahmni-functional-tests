@@ -1,24 +1,33 @@
+
 {
-    "patient": {
-        "id": "<healthID>",
-        "name": "<fullName>",
-        "gender": "<gender>",
-        "yearOfBirth": <yearOfBirth>,
-        "monthOfBirth": <monthOfBirth>,
-        "dayOfBirth": <dayOfBirth>,
-        "address": {
-            "district": "<district>",
-            "state": "<state>",
-            "pincode": "<pincode>"
-        },
-        "identifiers": [
-            {
-                "type": "MOBILE",
-                "value": "<mobileNumber>"
-            },
-            {
-                "type": "HEALTH_NUMBER"
-            }
-        ]
-    }
+  "healthIdNumber": "<healthIdNumber>",
+  "healthId": "<healthID>",
+  "new": false,
+  "profilePhoto": "<profilePhoto>",
+  "name": "<fullName>",
+  "firstName": "<firstName>",
+  "middleName": "<MiddleName>",
+  "lastName": "<LastName>",
+  "gender": "<gender>",
+  "dayOfBirth": "<dayOfBirth>",
+  "monthOfBirth": "<monthOfBirth>",
+  "yearOfBirth": "<yearOfBirth>",
+  "address": "<address>",
+  "districtCode": "<districtCode>",
+  "districtName": "<district>",
+  "stateCode": "<stateCode>",
+  "stateName": "<state>",
+  "townName": "<town>",
+  "pincode": "<pincode>",
+  "mobile": "<mobileNumber>",
+  "authMethods": [
+    "AADHAAR_OTP",
+    "MOBILE_OTP",
+    "DEMOGRAPHICS",
+    "AADHAAR_BIO"
+  ],
+  "tags": {},
+  "phrAddress": [
+    "<phrAddress>"
+  ]
 }

@@ -8,35 +8,6 @@ var fileExtension = require("../../bahmni-e2e-common-flows/tests/util/fileExtens
 const uuid = require('uuid')
 const { faker } = require('@faker-js/faker/locale/en_IND');
 
-async function interceptFetchModes(token) {
-    //https://mixedanalytics.com/knowledge-base/api-connector-encode-credentials-to-base-64/
-    var body1 = {
-        "authModes": [
-            "MOBILE_OTP",
-            "DEMOGRAPHICS",
-            "PASSWORD",
-            "DIRECT"
-        ]
-    };
-    var reqBodyOnFetchModes = JSON.stringify(body1);
-    var response = {
-        method: 'POST',
-        port: '9052',
-        hostname: process.env.bahmniHost,
-        path: '/v0.5/users/auth/on-fetch-modes',
-        body: body1,
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': token,
-            'content-length': reqBodyOnFetchModes.length,
-            'X-HIP-ID': '10000005'
-        }
-    }
-
-    await intercept(process.env.bahmniHost + "/ndhm/null/v0.5/hip/fetch-modes", response, 1)
-    await intercept(process.env.bahmniHost + "/hiprovider/v0.5/hip/fetch-modes", response, 1)
-    gauge.message("intercepted" + process.env.bahmniHost + "/hiprovider/v0.5/hip/fetch-modes")
-}
 
 async function interceptAuthInit(token) {
     var reqBodyOnFetchModes = JSON.stringify("");
@@ -89,39 +60,49 @@ async function redirectExistingPatients(token, firstName, lastName, yearOfBirth,
     await intercept(properExistingPatientUrl, response, 1);
 }
 
-async function interceptAuthConfirm(strResponse, token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
+async function interceptAuthConfirm(strResponse, healthID, firstName, middleName, lastName, yearOfBirth, gender, patientMobileNumber) {
     strResponse = strResponse.replace('<healthID>', healthID)
-        .replace('<fullName>', firstName + " " + lastName)
+        .replace('<fullName>', firstName + " " + middleName + " " + lastName)
+        .replace("<healthIdNumber>", gauge.dataStore.scenarioStore.get("abhaNumber"))
+        .replace('<profilePhoto>', gauge.dataStore.scenarioStore.get("profilePhotoB64"))
+        .replace('<firstName>', firstName)
+        .replace('<MiddleName>', middleName)
+        .replace('<LastName>', lastName)
         .replace('<gender>', gender)
         .replace('<yearOfBirth>', yearOfBirth)
         .replace('<monthOfBirth>', gauge.dataStore.scenarioStore.get("monthOfBirth"))
         .replace('<dayOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth"))
+        .replace('<address>', "C/O D/O:" + " " + gauge.dataStore.scenarioStore.get("fatherName") + " " + gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality").replace(/\./g, '') + ", " + gauge.dataStore.scenarioStore.get("district"))
         .replace('<district>', gauge.dataStore.scenarioStore.get("district"))
+        .replace('<districtCode>', gauge.dataStore.scenarioStore.get("districtCode"))
         .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
+        .replace('<stateCode>', gauge.dataStore.scenarioStore.get("stateCode"))
+        .replace('<town>', gauge.dataStore.scenarioStore.get("district"))
         .replace('<pincode>', gauge.dataStore.scenarioStore.get("pincode"))
+        .replace('<phrAddress>', healthID)
         .replace('<mobileNumber>', patientMobileNumber);
     var response = {
         method: 'POST',
-        port: '9052',
-        hostname: process.env.bahmniHost,
-        path: '/v0.5/users/auth/on-init',
         body: strResponse,
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': token,
-            'X-HIP-ID': '10000005'
         }
     }
-    await intercept(process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm", response, 1);
-    await intercept(process.env.bahmniHost + "/ndhm/null/v0.5/hip/auth/confirm", response, 1);
-    gauge.message("intercepted" + process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm")
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/hip/confirmOTP", response, 1);
+    gauge.message("intercepted" + process.env.bahmniHost + "/hiprovider/v2/hip/confirmOTP")
 }
+
 async function interceptAuthConfirmForNewPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
     await interceptAuthConfirm(fileExtension.parseContent("./data/confirm/healthIdForNewpatient.txt"), token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber)
 }
 
-async function interceptAuthConfirmforExistingPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber) {
-    await interceptAuthConfirm(fileExtension.parseContent("./data/confirm/mapHealthIdWithExistingpatient.txt"), token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber)
+async function interceptAuthConfirmforExistingPatient(healthID, firstName, middleName, lastName, yearOfBirth, gender, patientMobileNumber) {
+    await interceptAuthConfirm(fileExtension.parseContent("./data/confirm/mapHealthIdWithExistingpatient.txt"), healthID, firstName, middleName, lastName, yearOfBirth, gender, patientMobileNumber)
+}
+async function interceptAuthConfirmForDemographicModeOfAuth() {
+    var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/abdmRecordForDemographicMode.txt"));
+    await interceptDemographic(strBody)
+    //await interceptAuthConfirm(fileExtension.parseContent("./data/confirm/abdmRecordForDemographicMode.txt"), fullName, gender, yearOfBirth, patientMobileNumber)
 }
 
 async function interceptExistingPatients(token, healthID) {
@@ -215,9 +196,12 @@ async function replacePopulateAadharDetails(strBody) {
         .replace('<gender>', gauge.dataStore.scenarioStore.get("patientGender").charAt(0))
         .replace('<dateOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth") + "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth"))
         .replace('<fatherName>', gauge.dataStore.scenarioStore.get("fatherName"))
+        .replace('<yearOfBirth>', gauge.dataStore.scenarioStore.get("yearOfBirth"))
+        .replace('<monthOfBirth>', gauge.dataStore.scenarioStore.get("monthOfBirth"))
+        .replace('<dayOfBirth>', gauge.dataStore.scenarioStore.get("dayOfBirth"))
         .replace('<houseNo>', gauge.dataStore.scenarioStore.get("buildingNumber"))
         .replace('<streetNo>', gauge.dataStore.scenarioStore.get("street"))
-        .replace('<locality>', gauge.dataStore.scenarioStore.get("locality"))
+        .replace('<locality>', gauge.dataStore.scenarioStore.get("locality").replace(/\./g, ''))
         .replace('<city>', gauge.dataStore.scenarioStore.get("city"))
         .replace('<district>', gauge.dataStore.scenarioStore.get("district"))
         .replace('<state>', gauge.dataStore.scenarioStore.get("state"))
@@ -225,7 +209,8 @@ async function replacePopulateAadharDetails(strBody) {
         .replace("<healthIdNumber>", gauge.dataStore.scenarioStore.get("abhaNumber"))
         .replace("<healthId>", gauge.dataStore.scenarioStore.get("healthID"))
         .replace("<phrAddress>", gauge.dataStore.scenarioStore.get("healthID"))
-        .replace("<phone>", gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3));
+        .replace("<phone>", gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3))
+        .replace("<mobileNumber>", gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3));
 }
 
 async function interceptAadhaarVerifyOtpNoNoAndAddress() {
@@ -413,6 +398,7 @@ async function interceptAadhaarVerifyOtpExistingABHANoABHAAddress() {
     var strBody = await replacePopulateAadharDetails(fileExtension.parseContent("./data/confirm/aadhaarDetailsForExistingABHANoAbhaAddress.txt"));
     await interceptAadhaarVerifyOtp(strBody)
 }
+
 async function interceptAadhaarVerifyOtp(strBody) {
     var response = {
         method: 'POST',
@@ -426,7 +412,7 @@ async function interceptAadhaarVerifyOtp(strBody) {
 }
 async function searchHealthIdToLoginForAbhaAddress() {
     var healthIdToLoginBody = {
-        "authMethods": ["MOBILE_OTP", "AADHAAR_OTP", "AADHAAR_BIO", "DEMOGRAPHICS"], "status": "ACTIVE"
+        "authMethods": ["AADHAAR_OTP", "MOBILE_OTP", "DEMOGRAPHICS", "AADHAAR_BIO",], "status": "ACTIVE"
     };
     var strhealthIdToLoginBody = JSON.stringify(healthIdToLoginBody);
     var response = {
@@ -440,9 +426,50 @@ async function searchHealthIdToLoginForAbhaAddress() {
     await intercept(process.env.bahmniHost + "/hiprovider/v2/search/searchHealthIdToLogin", response, 1)
     gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/search/searchHealthIdToLogin")
 }
+async function interceptInit() {
+    var response = {
+        method: 'POST',
+        status: 202,
+        headers: {
+            'content-length': '0'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v2/auth/init", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v2/auth/init")
+}
+
+async function fetchModes() {
+    var fetchModesBody = {
+        "authModes": ["PASSWORD", "MOBILE_OTP", "DEMOGRAPHICS", "DIRECT"]
+    };
+    var strFetchModeBody = JSON.stringify(fetchModesBody);
+    var response = {
+        method: 'POST',
+        status: 202,
+        body: strFetchModeBody,
+        headers: {
+            'Content-Type': 'application/json'
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v0.5/hip/fetch-modes", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v0.5/hip/fetch-modes")
+}
+
+async function interceptDemographic(strBody) {
+    var response = {
+        method: 'POST',
+        body: strBody,
+        headers: {
+            'Content-Type': 'application/json',
+        }
+    }
+    await intercept(process.env.bahmniHost + "/hiprovider/v0.5/hip/auth/confirm", response, 1)
+    gauge.message("intercepted" + process.env.bahmniHost + "hiprovider/v0.5/hip/auth/confirm")
+}
+
+
 
 module.exports = {
-    interceptFetchModes: interceptFetchModes,
     interceptAuthInit: interceptAuthInit,
     interceptExistingPatients: interceptExistingPatients,
     interceptAuthConfirmForNewPatient: interceptAuthConfirmForNewPatient,
@@ -470,7 +497,11 @@ module.exports = {
     interceptAadhaarVerifyOtpNoNoAndAddress: interceptAadhaarVerifyOtpNoNoAndAddress,
     interceptAuthConfirmforExistingPatient: interceptAuthConfirmforExistingPatient,
     interceptAuthConfirm: interceptAuthConfirm,
-    searchHealthIdToLoginForAbhaAddress: searchHealthIdToLoginForAbhaAddress
+    searchHealthIdToLoginForAbhaAddress: searchHealthIdToLoginForAbhaAddress,
+    interceptInit: interceptInit,
+    fetchModes: fetchModes,
+    interceptAuthConfirmForDemographicModeOfAuth: interceptAuthConfirmForDemographicModeOfAuth,
+    interceptDemographic, interceptDemographic
 
 }
 

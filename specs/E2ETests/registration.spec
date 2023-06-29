@@ -26,7 +26,7 @@ tags: clinic, abdm, registration, regression
 
 * Login to Bahmni location "Bahmni Clinic" as a receptionist
 * Receptionist creates the patient
-* Map the health ID with the Existing patient
+* Map the health ID with the Existing patient with authentication type as "MOBILE_OTP"
 * Click on home page and goto registration module
 * Open newly created patient details by healthID
 * Verify correct patient form is open

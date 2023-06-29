@@ -9,7 +9,7 @@ tags: clinic, abdm, hiu, phr, regression
 * Delete ABHA Address in Bahmni
 * Login to Bahmni location "Bahmni Clinic" as a "receptionist"
 * Open "Registration" module
-* Create a new patient with random details and valid ABHA ID
+* Create a new patient with random details and valid ABHA ID with authentication type as "MOBILE_OTP"
 * Start a "OPD" Visit
 * Logout and Login to Bahmni location "Bahmni Clinic" as a "doctor"
 * Doctor initiates clinical checkup with healthID

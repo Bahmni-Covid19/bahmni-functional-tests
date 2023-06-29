@@ -155,10 +155,17 @@ step("Go back to home page", async function () {
     await taikoHelper.repeatUntilNotFound($("#overlay"))
 });
 
-step("Click Verify button", async function () {
-    await ndhm.searchHealthIdToLoginForAbhaAddress()
-    await click(text("Verify", within($(".verify-health-id"))));
-    await ndhm.interceptFetchModes(process.env.receptionist)
+step("Click Verify button for Auth mode as <MOBILE_OTP>", async function (AuthType) {
+    if (AuthType === "MOBILE_OTP") {
+        await ndhm.searchHealthIdToLoginForAbhaAddress()
+        await click(text("Verify", within($(".verify-health-id"))));
+    }
+    else {
+        await click(text("Verify", within($(".verify-health-id"))));
+        await ndhm.fetchModes()
+        await click(button("Proceed"))
+    }
+
 });
 
 step("Enter OTP for health care validation <otp> and fetch the existing patient details",
@@ -166,13 +173,15 @@ step("Enter OTP for health care validation <otp> and fetch the existing patient 
         await waitFor('Enter OTP')
         await write(otp, into(textBox(above("Fetch ABDM Data"))));
         var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
-        var lastName = `${gauge.dataStore.scenarioStore.get("patientMiddleName")} ${gauge.dataStore.scenarioStore.get("patientLastName")}`
+        var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
+        var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
         var healthID = gauge.dataStore.scenarioStore.get("healthID");
         var yearOfBirth = gauge.dataStore.scenarioStore.get("yearOfBirth");
         var gender = users.getRandomPatientGender().charAt(0);
         var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
         const token = process.env.receptionist
-        await ndhm.interceptAuthConfirmforExistingPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
+        await ndhm.interceptAuthConfirmforExistingPatient(token, healthID, firstName, middleName, lastName, yearOfBirth, gender, patientMobileNumber);
+        //await ndhm.getPngCard()
         // await ndhm.interceptExistingPatientsWithParams(token,firstName,lastName,yearOfBirth,gender);
         await click(button("Fetch ABDM Data"))
     });
@@ -198,7 +207,7 @@ step("Should not allow to associate HeatlhID if already linked1", async function
 });
 
 step("Select the newly created patient with healthID", async function () {
-    var healthID = gauge.dataStore.scenarioStore.get("healthID")
+    var healthID = gauge.dataStore.scenarioStore.get("patientIdentifier")//temporarily made this fix to search by Patient ID instead of ABHA ID
     await write(healthID)
     await press('Enter', { waitForNavigation: true });
     await taikoHelper.repeatUntilNotFound($("#overlay"))
@@ -399,8 +408,8 @@ async function VerifyABDMRecordDisplayed(strBody) {
     return strBody.replace('<fullName>', gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"))
         .replace('<age>', gauge.dataStore.scenarioStore.get("patientAge"))
         .replace('<gender>', gauge.dataStore.scenarioStore.get("patientGender").toLowerCase())
-        .replace('<address>', gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality") + ", " + gauge.dataStore.scenarioStore.get("city") + ", " + gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"))
-        .replace('<addressVerifyFlow>', gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("state"))
+        .replace('<address>', gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality").replace(/\./g, '') + ", " + gauge.dataStore.scenarioStore.get("city") + ", " + gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"))
+        .replace('<addressVerifyFlow>', "C/O D/O:" + " " + gauge.dataStore.scenarioStore.get("fatherName") + " " + gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality").replace(/\./g, '') + ", " + gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"))
         .replace('<addressVerifyFlowForExistingPatient>', gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"))
         .replace('<mobile>', gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3))
         .replace('<mobileNumber>', gauge.dataStore.scenarioStore.get("patientMobileNumber"))
@@ -412,14 +421,19 @@ step("Verify ABDM record displayed on create abha flow", async function () {
     var actualAbdmRecord = await $("//B[normalize-space()='ABDM Record:']//following-sibling::P").text()
     assert.equal(actualAbdmRecord, expectedAbdmRecord)
 });
-step("Verify ABDM record displayed on verify abha flow", async function () {
-    var expectedAbdmRecord = await VerifyABDMRecordDisplayed(fileExtension.parseContent("./data/confirm/abdmRecordForVerifyAbhaFlow.txt"))
+step("Verify ABDM record displayed on verify abha flow for <AuthType>", async function (AuthType) {
+    if (AuthType === "MOBILE_OTP") {
+        var expectedAbdmRecord = await VerifyABDMRecordDisplayed(fileExtension.parseContent("./data/confirm/abdmRecordForVerifyAbhaFlow.txt"))
+    }
+    else {
+        var expectedAbdmRecord = await VerifyABDMRecordDisplayed(fileExtension.parseContent("./data/confirm/abdmRecordForVerifyAbhaFlowForDemographicMode.txt"))
+    }
     var actualAbdmRecord = await $("//B[normalize-space()='ABDM Record:']//following-sibling::P").text()
     assert.equal(actualAbdmRecord, expectedAbdmRecord)
 });
 
 step("Verify ABDM record displayed on verify abha flow for existing patient", async function () {
-    var expectedAbdmRecord = await VerifyABDMRecordDisplayed(fileExtension.parseContent("./data/confirm/abdmRecordForVerifyAbhaFlowForExistingpatient.txt"))
+    var expectedAbdmRecord = await VerifyABDMRecordDisplayed(fileExtension.parseContent("./data/confirm/abdmRecordForVerifyAbhaFlow.txt"))
     var actualAbdmRecord = await $("//B[normalize-space()='ABDM Record:']//following-sibling::P").text()
     assert.equal(actualAbdmRecord, expectedAbdmRecord)
 });
@@ -432,7 +446,7 @@ async function verifyAadhaarDetails() {
     assert.ok(await text(gauge.dataStore.scenarioStore.get("patientFirstName") + " " + gauge.dataStore.scenarioStore.get("patientMiddleName") + " " + gauge.dataStore.scenarioStore.get("patientLastName"), toRightOf("Full Name:")).exists())
     assert.ok(await text(gauge.dataStore.scenarioStore.get("patientGender").charAt(0), toRightOf("Gender:")).exists())
     assert.ok(await text(gauge.dataStore.scenarioStore.get("dayOfBirth") + "-" + gauge.dataStore.scenarioStore.get("monthOfBirth") + "-" + gauge.dataStore.scenarioStore.get("yearOfBirth"), toRightOf("DOB:")).exists())
-    assert.ok(await text(gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality") + ", " + gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"), toRightOf("Address:")).exists())
+    assert.ok(await text(gauge.dataStore.scenarioStore.get("buildingNumber") + " " + gauge.dataStore.scenarioStore.get("street") + ", " + gauge.dataStore.scenarioStore.get("locality").replace(/\./g, '') + ", " + gauge.dataStore.scenarioStore.get("district") + ", " + gauge.dataStore.scenarioStore.get("state") + ", " + gauge.dataStore.scenarioStore.get("pincode"), toRightOf("Address:")).exists())
 }
 
 step("Verify Aadhaar details", async function () {
@@ -553,21 +567,34 @@ step("Enter Demographics/OTP details for Authentication Type <AuthType>", async 
     }
 });
 
-step("Click on Fetch ABDM data", async function () {
-    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName")
-    var lastName = `${gauge.dataStore.scenarioStore.get("patientMiddleName")} ${gauge.dataStore.scenarioStore.get("patientLastName")}`
+step("Click on Fetch ABDM data for Authentication Type <AuthType>", async function (AuthType) {
+    var firstName = gauge.dataStore.scenarioStore.get("patientFirstName");
+    var middleName = gauge.dataStore.scenarioStore.get("patientMiddleName")
+    var lastName = gauge.dataStore.scenarioStore.get("patientLastName")
     var healthID = gauge.dataStore.scenarioStore.get("healthID");
     var yearOfBirth = gauge.dataStore.scenarioStore.get("yearOfBirth");
     var gender = users.getRandomPatientGender().charAt(0);
-    const token = process.env.receptionist
-    gauge.dataStore.scenarioStore.put("patientMobileNumber", "+919876543210");
-    var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber");
-    await ndhm.interceptAuthConfirmForNewPatient(token, healthID, firstName, lastName, yearOfBirth, gender, patientMobileNumber);
-    await ndhm.interceptExistingPatientsWithParams(token, firstName, lastName, yearOfBirth, gender);
+    var patientMobileNumber = gauge.dataStore.scenarioStore.get("patientMobileNumber").slice(3);
+    if (AuthType === "MOBILE_OTP") {
+        await ndhm.interceptAuthConfirmforExistingPatient(healthID, firstName, middleName, lastName, yearOfBirth, gender, patientMobileNumber);
+    }
+    else {
+        await ndhm.interceptAuthConfirmForDemographicModeOfAuth();
+    }
     await click(button("Fetch ABDM Data"));
 });
 
-step("Click on Authenticate to enter otp/demographic details", async function () {
-    await ndhm.interceptAuthInit(process.env.receptionist);
+step("Click on Authenticate to enter <AuthType> details", async function (AuthType) {
+    if (AuthType === "MOBILE_OTP") {
+        await ndhm.interceptInit()
+    }
+    else {
+        await ndhm.interceptAuthInit()
+    }
     await click(button("Authenticate"));
 });
+
+step("Click on create Abha number", async function () {
+    await click(button("Create ABHA Number"));
+});
+

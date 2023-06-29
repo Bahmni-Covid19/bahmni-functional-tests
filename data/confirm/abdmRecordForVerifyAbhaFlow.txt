@@ -1,4 +1,5 @@
 <fullName> (Age: <age> , Gender: <gender>)
 <addressVerifyFlow>
-Mobile: <mobileNumber>
+Mobile: <mobile>
 ABHA Address: <abhaAddress>
+ABHA Number: <abhaNumber>

@@ -12,7 +12,7 @@ tags: prescriptions, diagnostics
 * Delete ABHA Address in Bahmni
 * Login to Bahmni location "General Ward" as a receptionist
 * Open "Registration" module
-* Create a new patient with random details and valid ABHA ID
+* Create a new patient with random details and valid ABHA ID with authentication type as "MOBILE_OTP"
 * Start an IPD Visit
 * Doctor issues an Admit disposition
 * Goto Clinical application
